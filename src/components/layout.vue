@@ -19,6 +19,5 @@
 
 .layout .content {
   flex: 1;
-  background-color: aqua;
 }
 </style>
