@@ -3,8 +3,13 @@
     <template v-slot:side>
       <div class="side">
         <div class="title">Binbin-admin</div>
-        <n-config-provider :theme="darkTheme">
-          <n-menu :options="menuOptions" />
+        <n-config-provider :theme-overrides="customTheme">
+          <n-menu
+            :options="menuOptions"
+            key-field="whateverKey"
+            label-field="whateverLabel"
+            children-field="whateverChildren"
+          />
         </n-config-provider>
       </div>
     </template>
@@ -15,7 +20,14 @@
 <script setup lang="ts">
 import layout from "./components/layout.vue";
 import type { MenuOption } from "naive-ui";
-import { darkTheme } from "naive-ui";
+import { GlobalThemeOverrides } from "naive-ui";
+
+const customTheme: GlobalThemeOverrides = {
+  Menu: {
+    itemColorHoverInverted: "red",
+    itemTextColor: "white",
+  },
+};
 
 const menuOptions: MenuOption[] = [
   {
