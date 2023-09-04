@@ -4,7 +4,6 @@ import AutoImport from "unplugin-auto-import/vite";
 import Conpoments from "unplugin-vue-components/vite";
 import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
 import { loadEnv } from "vite";
-import { fileURLToPath, URL } from "url";
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
@@ -27,9 +26,16 @@ export default defineConfig(({ mode }) => {
         dts: "src/dts/components.d.ts",
       }),
     ],
+    css: {
+      preprocessorOptions: {
+        less: {
+          math: "always",
+        },
+      },
+    },
     resolve: {
       alias: {
-        "@": fileURLToPath(new URL("./src", import.meta.url)),
+        "@": "/src",
       },
     },
     server: {
