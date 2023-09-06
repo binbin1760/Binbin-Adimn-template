@@ -430,3 +430,252 @@ export class BatchStringRequest extends pb_1.Message {
         return BatchStringRequest.deserialize(bytes);
     }
 }
+export class MediaMetaModel extends pb_1.Message {
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        path?: string;
+        type?: dependency_1.MediaMetaType;
+        width?: number;
+        height?: number;
+        len?: number;
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("path" in data && data.path != undefined) {
+                this.path = data.path;
+            }
+            if ("type" in data && data.type != undefined) {
+                this.type = data.type;
+            }
+            if ("width" in data && data.width != undefined) {
+                this.width = data.width;
+            }
+            if ("height" in data && data.height != undefined) {
+                this.height = data.height;
+            }
+            if ("len" in data && data.len != undefined) {
+                this.len = data.len;
+            }
+        }
+    }
+    get path() {
+        return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+    }
+    set path(value: string) {
+        pb_1.Message.setField(this, 1, value);
+    }
+    get type() {
+        return pb_1.Message.getFieldWithDefault(this, 2, dependency_1.MediaMetaType._MediaMetaType_UNSPECIFIED) as dependency_1.MediaMetaType;
+    }
+    set type(value: dependency_1.MediaMetaType) {
+        pb_1.Message.setField(this, 2, value);
+    }
+    get width() {
+        return pb_1.Message.getFieldWithDefault(this, 3, 0) as number;
+    }
+    set width(value: number) {
+        pb_1.Message.setField(this, 3, value);
+    }
+    get height() {
+        return pb_1.Message.getFieldWithDefault(this, 4, 0) as number;
+    }
+    set height(value: number) {
+        pb_1.Message.setField(this, 4, value);
+    }
+    get len() {
+        return pb_1.Message.getFieldWithDefault(this, 5, 0) as number;
+    }
+    set len(value: number) {
+        pb_1.Message.setField(this, 5, value);
+    }
+    static fromObject(data: {
+        path?: string;
+        type?: dependency_1.MediaMetaType;
+        width?: number;
+        height?: number;
+        len?: number;
+    }): MediaMetaModel {
+        const message = new MediaMetaModel({});
+        if (data.path != null) {
+            message.path = data.path;
+        }
+        if (data.type != null) {
+            message.type = data.type;
+        }
+        if (data.width != null) {
+            message.width = data.width;
+        }
+        if (data.height != null) {
+            message.height = data.height;
+        }
+        if (data.len != null) {
+            message.len = data.len;
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            path?: string;
+            type?: dependency_1.MediaMetaType;
+            width?: number;
+            height?: number;
+            len?: number;
+        } = {};
+        if (this.path != null) {
+            data.path = this.path;
+        }
+        if (this.type != null) {
+            data.type = this.type;
+        }
+        if (this.width != null) {
+            data.width = this.width;
+        }
+        if (this.height != null) {
+            data.height = this.height;
+        }
+        if (this.len != null) {
+            data.len = this.len;
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.path.length)
+            writer.writeString(1, this.path);
+        if (this.type != dependency_1.MediaMetaType._MediaMetaType_UNSPECIFIED)
+            writer.writeEnum(2, this.type);
+        if (this.width != 0)
+            writer.writeUint32(3, this.width);
+        if (this.height != 0)
+            writer.writeUint32(4, this.height);
+        if (this.len != 0)
+            writer.writeUint32(5, this.len);
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): MediaMetaModel {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new MediaMetaModel();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    message.path = reader.readString();
+                    break;
+                case 2:
+                    message.type = reader.readEnum();
+                    break;
+                case 3:
+                    message.width = reader.readUint32();
+                    break;
+                case 4:
+                    message.height = reader.readUint32();
+                    break;
+                case 5:
+                    message.len = reader.readUint32();
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): MediaMetaModel {
+        return MediaMetaModel.deserialize(bytes);
+    }
+}
+export class AddressModel extends pb_1.Message {
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        province?: string;
+        city?: string;
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("province" in data && data.province != undefined) {
+                this.province = data.province;
+            }
+            if ("city" in data && data.city != undefined) {
+                this.city = data.city;
+            }
+        }
+    }
+    get province() {
+        return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+    }
+    set province(value: string) {
+        pb_1.Message.setField(this, 1, value);
+    }
+    get city() {
+        return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+    }
+    set city(value: string) {
+        pb_1.Message.setField(this, 2, value);
+    }
+    static fromObject(data: {
+        province?: string;
+        city?: string;
+    }): AddressModel {
+        const message = new AddressModel({});
+        if (data.province != null) {
+            message.province = data.province;
+        }
+        if (data.city != null) {
+            message.city = data.city;
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            province?: string;
+            city?: string;
+        } = {};
+        if (this.province != null) {
+            data.province = this.province;
+        }
+        if (this.city != null) {
+            data.city = this.city;
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.province.length)
+            writer.writeString(1, this.province);
+        if (this.city.length)
+            writer.writeString(2, this.city);
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): AddressModel {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new AddressModel();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    message.province = reader.readString();
+                    break;
+                case 2:
+                    message.city = reader.readString();
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): AddressModel {
+        return AddressModel.deserialize(bytes);
+    }
+}

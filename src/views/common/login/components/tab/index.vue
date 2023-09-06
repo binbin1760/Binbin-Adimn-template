@@ -49,7 +49,14 @@
           </div>
         </n-form>
         <div class="button-class">
-          <n-button color="rgb(64, 158, 255)" block strong> 登录 </n-button>
+          <n-button
+            color="rgb(64, 158, 255)"
+            block
+            strong
+            @click="userRegister"
+          >
+            登录
+          </n-button>
         </div>
       </n-tab-pane>
     </n-tabs>
@@ -65,9 +72,9 @@
 <script setup lang="ts">
 import { GlobalThemeOverrides } from "naive-ui";
 import { useRouter } from "vue-router";
-
+import { smsService, Register } from "@/api";
+import { PassportByMobileRequest, ClientType } from "@/protoJs";
 const emit = defineEmits(["change"]);
-
 const id = ref("");
 const paw = ref("");
 const phone = ref("");
@@ -105,7 +112,16 @@ function login() {
   Router.push("/online/api");
 }
 function getCode() {
-  //TODOO
+  smsService(phone.value);
+}
+async function userRegister() {
+  const req = PassportByMobileRequest.fromObject({
+    mobile: "17608288137",
+    clientType: ClientType.H5,
+    captcha: "5620",
+  });
+  const res = await Register.register(req);
+  console.log(res.toObject());
 }
 function toRegister() {
   emit("change", "register");
