@@ -162,3 +162,70 @@ export class AuthResponse extends pb_1.Message {
         return AuthResponse.deserialize(bytes);
     }
 }
+export class WxOpenAuthorizerInfo extends pb_1.Message {
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        json?: string;
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("json" in data && data.json != undefined) {
+                this.json = data.json;
+            }
+        }
+    }
+    get json() {
+        return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+    }
+    set json(value: string) {
+        pb_1.Message.setField(this, 1, value);
+    }
+    static fromObject(data: {
+        json?: string;
+    }): WxOpenAuthorizerInfo {
+        const message = new WxOpenAuthorizerInfo({});
+        if (data.json != null) {
+            message.json = data.json;
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            json?: string;
+        } = {};
+        if (this.json != null) {
+            data.json = this.json;
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.json.length)
+            writer.writeString(1, this.json);
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): WxOpenAuthorizerInfo {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new WxOpenAuthorizerInfo();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    message.json = reader.readString();
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): WxOpenAuthorizerInfo {
+        return WxOpenAuthorizerInfo.deserialize(bytes);
+    }
+}

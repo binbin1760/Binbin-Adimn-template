@@ -6,127 +6,115 @@
 import * as dependency_1 from "./enums";
 import * as pb_1 from "google-protobuf";
 export class UserViewModel extends pb_1.Message {
-  #one_of_decls: number[][] = [];
-  constructor(
-    data?:
-      | any[]
-      | {
-          id?: string;
-          authorities?: string[];
-          nickname?: string;
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        id?: string;
+        authorities?: string[];
+        nickname?: string;
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [2], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("id" in data && data.id != undefined) {
+                this.id = data.id;
+            }
+            if ("authorities" in data && data.authorities != undefined) {
+                this.authorities = data.authorities;
+            }
+            if ("nickname" in data && data.nickname != undefined) {
+                this.nickname = data.nickname;
+            }
         }
-  ) {
-    super();
-    pb_1.Message.initialize(
-      this,
-      Array.isArray(data) ? data : [],
-      0,
-      -1,
-      [2],
-      this.#one_of_decls
-    );
-    if (!Array.isArray(data) && typeof data == "object") {
-      if ("id" in data && data.id != undefined) {
-        this.id = data.id;
-      }
-      if ("authorities" in data && data.authorities != undefined) {
-        this.authorities = data.authorities;
-      }
-      if ("nickname" in data && data.nickname != undefined) {
-        this.nickname = data.nickname;
-      }
     }
-  }
-  get id() {
-    return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
-  }
-  set id(value: string) {
-    pb_1.Message.setField(this, 1, value);
-  }
-  get authorities() {
-    return pb_1.Message.getFieldWithDefault(this, 2, []) as string[];
-  }
-  set authorities(value: string[]) {
-    pb_1.Message.setField(this, 2, value);
-  }
-  get nickname() {
-    return pb_1.Message.getFieldWithDefault(this, 3, "") as string;
-  }
-  set nickname(value: string) {
-    pb_1.Message.setField(this, 3, value);
-  }
-  static fromObject(data: {
-    id?: string;
-    authorities?: string[];
-    nickname?: string;
-  }): UserViewModel {
-    const message = new UserViewModel({});
-    if (data.id != null) {
-      message.id = data.id;
+    get id() {
+        return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
     }
-    if (data.authorities != null) {
-      message.authorities = data.authorities;
+    set id(value: string) {
+        pb_1.Message.setField(this, 1, value);
     }
-    if (data.nickname != null) {
-      message.nickname = data.nickname;
+    get authorities() {
+        return pb_1.Message.getFieldWithDefault(this, 2, []) as string[];
     }
-    return message;
-  }
-  toObject() {
-    const data: {
-      id?: string;
-      authorities?: string[];
-      nickname?: string;
-    } = {};
-    if (this.id != null) {
-      data.id = this.id;
+    set authorities(value: string[]) {
+        pb_1.Message.setField(this, 2, value);
     }
-    if (this.authorities != null) {
-      data.authorities = this.authorities;
+    get nickname() {
+        return pb_1.Message.getFieldWithDefault(this, 3, "") as string;
     }
-    if (this.nickname != null) {
-      data.nickname = this.nickname;
+    set nickname(value: string) {
+        pb_1.Message.setField(this, 3, value);
     }
-    return data;
-  }
-  serialize(): Uint8Array;
-  serialize(w: pb_1.BinaryWriter): void;
-  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-    const writer = w || new pb_1.BinaryWriter();
-    if (this.id.length) writer.writeString(1, this.id);
-    if (this.authorities.length)
-      writer.writeRepeatedString(2, this.authorities);
-    if (this.nickname.length) writer.writeString(3, this.nickname);
-    if (!w) return writer.getResultBuffer();
-  }
-  static deserialize(bytes: Uint8Array | pb_1.BinaryReader): UserViewModel {
-    const reader =
-        bytes instanceof pb_1.BinaryReader
-          ? bytes
-          : new pb_1.BinaryReader(bytes),
-      message = new UserViewModel();
-    while (reader.nextField()) {
-      if (reader.isEndGroup()) break;
-      switch (reader.getFieldNumber()) {
-        case 1:
-          message.id = reader.readString();
-          break;
-        case 2:
-          pb_1.Message.addToRepeatedField(message, 2, reader.readString());
-          break;
-        case 3:
-          message.nickname = reader.readString();
-          break;
-        default:
-          reader.skipField();
-      }
+    static fromObject(data: {
+        id?: string;
+        authorities?: string[];
+        nickname?: string;
+    }): UserViewModel {
+        const message = new UserViewModel({});
+        if (data.id != null) {
+            message.id = data.id;
+        }
+        if (data.authorities != null) {
+            message.authorities = data.authorities;
+        }
+        if (data.nickname != null) {
+            message.nickname = data.nickname;
+        }
+        return message;
     }
-    return message;
-  }
-  serializeBinary(): Uint8Array {
-    return this.serialize();
-  }
-  static deserializeBinary(bytes: Uint8Array): UserViewModel {
-    return UserViewModel.deserialize(bytes);
-  }
+    toObject() {
+        const data: {
+            id?: string;
+            authorities?: string[];
+            nickname?: string;
+        } = {};
+        if (this.id != null) {
+            data.id = this.id;
+        }
+        if (this.authorities != null) {
+            data.authorities = this.authorities;
+        }
+        if (this.nickname != null) {
+            data.nickname = this.nickname;
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.id.length)
+            writer.writeString(1, this.id);
+        if (this.authorities.length)
+            writer.writeRepeatedString(2, this.authorities);
+        if (this.nickname.length)
+            writer.writeString(3, this.nickname);
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): UserViewModel {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new UserViewModel();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    message.id = reader.readString();
+                    break;
+                case 2:
+                    pb_1.Message.addToRepeatedField(message, 2, reader.readString());
+                    break;
+                case 3:
+                    message.nickname = reader.readString();
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): UserViewModel {
+        return UserViewModel.deserialize(bytes);
+    }
 }

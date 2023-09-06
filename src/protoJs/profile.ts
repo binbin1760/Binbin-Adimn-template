@@ -4,95 +4,63 @@
  * source: profile.proto
  * git: https://github.com/thesayyn/protoc-gen-ts */
 import * as dependency_1 from "./enums";
+import * as dependency_2 from "./payload";
 import * as pb_1 from "google-protobuf";
-export class UserProfileModel extends pb_1.Message {
+export class UserSelfModel extends pb_1.Message {
     #one_of_decls: number[][] = [];
     constructor(data?: any[] | {
-        nickname?: string;
-        bio?: string;
-        gender?: dependency_1.Gender;
-        birthday?: number;
+        id?: string;
+        profile?: ProfileModel;
     }) {
         super();
         pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
         if (!Array.isArray(data) && typeof data == "object") {
-            if ("nickname" in data && data.nickname != undefined) {
-                this.nickname = data.nickname;
+            if ("id" in data && data.id != undefined) {
+                this.id = data.id;
             }
-            if ("bio" in data && data.bio != undefined) {
-                this.bio = data.bio;
-            }
-            if ("gender" in data && data.gender != undefined) {
-                this.gender = data.gender;
-            }
-            if ("birthday" in data && data.birthday != undefined) {
-                this.birthday = data.birthday;
+            if ("profile" in data && data.profile != undefined) {
+                this.profile = data.profile;
             }
         }
     }
-    get nickname() {
+    get id() {
         return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
     }
-    set nickname(value: string) {
+    set id(value: string) {
         pb_1.Message.setField(this, 1, value);
     }
-    get bio() {
-        return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+    get profile() {
+        return pb_1.Message.getWrapperField(this, ProfileModel, 2) as ProfileModel;
     }
-    set bio(value: string) {
-        pb_1.Message.setField(this, 2, value);
+    set profile(value: ProfileModel) {
+        pb_1.Message.setWrapperField(this, 2, value);
     }
-    get gender() {
-        return pb_1.Message.getFieldWithDefault(this, 3, dependency_1.Gender._Gender_UNSPECIFIED) as dependency_1.Gender;
-    }
-    set gender(value: dependency_1.Gender) {
-        pb_1.Message.setField(this, 3, value);
-    }
-    get birthday() {
-        return pb_1.Message.getFieldWithDefault(this, 4, 0) as number;
-    }
-    set birthday(value: number) {
-        pb_1.Message.setField(this, 4, value);
+    get hasProfile() {
+        return pb_1.Message.getField(this, 2) != null;
     }
     static fromObject(data: {
-        nickname?: string;
-        bio?: string;
-        gender?: dependency_1.Gender;
-        birthday?: number;
-    }): UserProfileModel {
-        const message = new UserProfileModel({});
-        if (data.nickname != null) {
-            message.nickname = data.nickname;
+        id?: string;
+        profile?: ReturnType<typeof ProfileModel.prototype.toObject>;
+    }): UserSelfModel {
+        const message = new UserSelfModel({});
+        if (data.id != null) {
+            message.id = data.id;
         }
-        if (data.bio != null) {
-            message.bio = data.bio;
-        }
-        if (data.gender != null) {
-            message.gender = data.gender;
-        }
-        if (data.birthday != null) {
-            message.birthday = data.birthday;
+        if (data.profile != null) {
+            message.profile = ProfileModel.fromObject(data.profile);
         }
         return message;
     }
     toObject() {
         const data: {
-            nickname?: string;
-            bio?: string;
-            gender?: dependency_1.Gender;
-            birthday?: number;
+            id?: string;
+            profile?: ReturnType<typeof ProfileModel.prototype.toObject>;
         } = {};
-        if (this.nickname != null) {
-            data.nickname = this.nickname;
+        if (this.id != null) {
+            data.id = this.id;
         }
-        if (this.bio != null) {
-            data.bio = this.bio;
-        }
-        if (this.gender != null) {
-            data.gender = this.gender;
-        }
-        if (this.birthday != null) {
-            data.birthday = this.birthday;
+        if (this.profile != null) {
+            data.profile = this.profile.toObject();
         }
         return data;
     }
@@ -100,34 +68,24 @@ export class UserProfileModel extends pb_1.Message {
     serialize(w: pb_1.BinaryWriter): void;
     serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
         const writer = w || new pb_1.BinaryWriter();
-        if (this.nickname.length)
-            writer.writeString(1, this.nickname);
-        if (this.bio.length)
-            writer.writeString(2, this.bio);
-        if (this.gender != dependency_1.Gender._Gender_UNSPECIFIED)
-            writer.writeEnum(3, this.gender);
-        if (this.birthday != 0)
-            writer.writeUint64(4, this.birthday);
+        if (this.id.length)
+            writer.writeString(1, this.id);
+        if (this.hasProfile)
+            writer.writeMessage(2, this.profile, () => this.profile.serialize(writer));
         if (!w)
             return writer.getResultBuffer();
     }
-    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): UserProfileModel {
-        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new UserProfileModel();
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): UserSelfModel {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new UserSelfModel();
         while (reader.nextField()) {
             if (reader.isEndGroup())
                 break;
             switch (reader.getFieldNumber()) {
                 case 1:
-                    message.nickname = reader.readString();
+                    message.id = reader.readString();
                     break;
                 case 2:
-                    message.bio = reader.readString();
-                    break;
-                case 3:
-                    message.gender = reader.readEnum();
-                    break;
-                case 4:
-                    message.birthday = reader.readUint64();
+                    reader.readMessage(message.profile, () => message.profile = ProfileModel.deserialize(reader));
                     break;
                 default: reader.skipField();
             }
@@ -137,7 +95,221 @@ export class UserProfileModel extends pb_1.Message {
     serializeBinary(): Uint8Array {
         return this.serialize();
     }
-    static deserializeBinary(bytes: Uint8Array): UserProfileModel {
-        return UserProfileModel.deserialize(bytes);
+    static deserializeBinary(bytes: Uint8Array): UserSelfModel {
+        return UserSelfModel.deserialize(bytes);
+    }
+}
+export class ProfileModel extends pb_1.Message {
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        avatar?: dependency_2.MediaMetaModel;
+        nickname?: string;
+        birthday?: number;
+        address?: dependency_2.AddressModel;
+        bio?: string;
+        gender?: dependency_1.Gender;
+        bg?: dependency_2.MediaMetaModel;
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("avatar" in data && data.avatar != undefined) {
+                this.avatar = data.avatar;
+            }
+            if ("nickname" in data && data.nickname != undefined) {
+                this.nickname = data.nickname;
+            }
+            if ("birthday" in data && data.birthday != undefined) {
+                this.birthday = data.birthday;
+            }
+            if ("address" in data && data.address != undefined) {
+                this.address = data.address;
+            }
+            if ("bio" in data && data.bio != undefined) {
+                this.bio = data.bio;
+            }
+            if ("gender" in data && data.gender != undefined) {
+                this.gender = data.gender;
+            }
+            if ("bg" in data && data.bg != undefined) {
+                this.bg = data.bg;
+            }
+        }
+    }
+    get avatar() {
+        return pb_1.Message.getWrapperField(this, dependency_2.MediaMetaModel, 1) as dependency_2.MediaMetaModel;
+    }
+    set avatar(value: dependency_2.MediaMetaModel) {
+        pb_1.Message.setWrapperField(this, 1, value);
+    }
+    get hasAvatar() {
+        return pb_1.Message.getField(this, 1) != null;
+    }
+    get nickname() {
+        return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+    }
+    set nickname(value: string) {
+        pb_1.Message.setField(this, 2, value);
+    }
+    get birthday() {
+        return pb_1.Message.getFieldWithDefault(this, 3, 0) as number;
+    }
+    set birthday(value: number) {
+        pb_1.Message.setField(this, 3, value);
+    }
+    get address() {
+        return pb_1.Message.getWrapperField(this, dependency_2.AddressModel, 4) as dependency_2.AddressModel;
+    }
+    set address(value: dependency_2.AddressModel) {
+        pb_1.Message.setWrapperField(this, 4, value);
+    }
+    get hasAddress() {
+        return pb_1.Message.getField(this, 4) != null;
+    }
+    get bio() {
+        return pb_1.Message.getFieldWithDefault(this, 5, "") as string;
+    }
+    set bio(value: string) {
+        pb_1.Message.setField(this, 5, value);
+    }
+    get gender() {
+        return pb_1.Message.getFieldWithDefault(this, 6, dependency_1.Gender._Gender_UNSPECIFIED) as dependency_1.Gender;
+    }
+    set gender(value: dependency_1.Gender) {
+        pb_1.Message.setField(this, 6, value);
+    }
+    get bg() {
+        return pb_1.Message.getWrapperField(this, dependency_2.MediaMetaModel, 7) as dependency_2.MediaMetaModel;
+    }
+    set bg(value: dependency_2.MediaMetaModel) {
+        pb_1.Message.setWrapperField(this, 7, value);
+    }
+    get hasBg() {
+        return pb_1.Message.getField(this, 7) != null;
+    }
+    static fromObject(data: {
+        avatar?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>;
+        nickname?: string;
+        birthday?: number;
+        address?: ReturnType<typeof dependency_2.AddressModel.prototype.toObject>;
+        bio?: string;
+        gender?: dependency_1.Gender;
+        bg?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>;
+    }): ProfileModel {
+        const message = new ProfileModel({});
+        if (data.avatar != null) {
+            message.avatar = dependency_2.MediaMetaModel.fromObject(data.avatar);
+        }
+        if (data.nickname != null) {
+            message.nickname = data.nickname;
+        }
+        if (data.birthday != null) {
+            message.birthday = data.birthday;
+        }
+        if (data.address != null) {
+            message.address = dependency_2.AddressModel.fromObject(data.address);
+        }
+        if (data.bio != null) {
+            message.bio = data.bio;
+        }
+        if (data.gender != null) {
+            message.gender = data.gender;
+        }
+        if (data.bg != null) {
+            message.bg = dependency_2.MediaMetaModel.fromObject(data.bg);
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            avatar?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>;
+            nickname?: string;
+            birthday?: number;
+            address?: ReturnType<typeof dependency_2.AddressModel.prototype.toObject>;
+            bio?: string;
+            gender?: dependency_1.Gender;
+            bg?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>;
+        } = {};
+        if (this.avatar != null) {
+            data.avatar = this.avatar.toObject();
+        }
+        if (this.nickname != null) {
+            data.nickname = this.nickname;
+        }
+        if (this.birthday != null) {
+            data.birthday = this.birthday;
+        }
+        if (this.address != null) {
+            data.address = this.address.toObject();
+        }
+        if (this.bio != null) {
+            data.bio = this.bio;
+        }
+        if (this.gender != null) {
+            data.gender = this.gender;
+        }
+        if (this.bg != null) {
+            data.bg = this.bg.toObject();
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.hasAvatar)
+            writer.writeMessage(1, this.avatar, () => this.avatar.serialize(writer));
+        if (this.nickname.length)
+            writer.writeString(2, this.nickname);
+        if (this.birthday != 0)
+            writer.writeUint64(3, this.birthday);
+        if (this.hasAddress)
+            writer.writeMessage(4, this.address, () => this.address.serialize(writer));
+        if (this.bio.length)
+            writer.writeString(5, this.bio);
+        if (this.gender != dependency_1.Gender._Gender_UNSPECIFIED)
+            writer.writeEnum(6, this.gender);
+        if (this.hasBg)
+            writer.writeMessage(7, this.bg, () => this.bg.serialize(writer));
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): ProfileModel {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new ProfileModel();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    reader.readMessage(message.avatar, () => message.avatar = dependency_2.MediaMetaModel.deserialize(reader));
+                    break;
+                case 2:
+                    message.nickname = reader.readString();
+                    break;
+                case 3:
+                    message.birthday = reader.readUint64();
+                    break;
+                case 4:
+                    reader.readMessage(message.address, () => message.address = dependency_2.AddressModel.deserialize(reader));
+                    break;
+                case 5:
+                    message.bio = reader.readString();
+                    break;
+                case 6:
+                    message.gender = reader.readEnum();
+                    break;
+                case 7:
+                    reader.readMessage(message.bg, () => message.bg = dependency_2.MediaMetaModel.deserialize(reader));
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): ProfileModel {
+        return ProfileModel.deserialize(bytes);
     }
 }

@@ -1,18 +1,22 @@
 import axios from "axios";
-import { PBMessageResponse } from "@/protoJs/framework";
+import { PBMessageResponse, PBMessageRequest } from "@/protoJs/framework";
 import protobuf from "protobufjs";
 import { ErrorNo } from "@/protoJs/enums";
+import { getUserInfo } from "@/utils";
+
 const http = axios.create({
-  baseURL: "/api",
+  baseURL: import.meta.env.VITE_BASE_URL,
   timeout: 10000,
   withCredentials: false,
   responseType: "arraybuffer",
 });
 function transformRequest(data: any | null): Blob | null {
-  if (data === null) {
-    return null;
-  }
-  return new Blob([data], { type: "buffer" });
+  const request = PBMessageRequest.fromObject({
+    messageData: data ? data : null,
+    version: "1.0",
+  });
+  const bytes = request.serializeBinary();
+  return new Blob([bytes], { type: "buffer" });
 }
 const transformResponseFactory = (responseType?: any | null) =>
   function (rawResponse: any) {
@@ -29,8 +33,7 @@ const transformResponseFactory = (responseType?: any | null) =>
         encryptedResponse.errorNo === ErrorNo.SUCCESS &&
         responseType
       ) {
-        const bufferT = decrypt(encryptedResponse.messageData);
-        return responseType.deserializeBinary(bufferT);
+        return responseType.deserializeBinary(encryptedResponse.messageData);
       } else {
         return encryptedResponse;
       }
@@ -41,12 +44,15 @@ const transformResponseFactory = (responseType?: any | null) =>
 function isArrayBuffer(obj: any): boolean {
   return obj.toString() === "[object ArrayBuffer]";
 }
+const token = getUserInfo();
 http.interceptors.request.use(
   (config) => {
     config.transformResponse = transformResponseFactory(config.data?.resType);
     config.data = transformRequest(config.data?.request);
     config.headers["Accept"] = "application/x-protobuf";
     config.headers["content-type"] = "application/x-protobuf";
+    config.headers["Authorization"] = `Bearer +${token}`;
+    return config;
   },
   (error) => {
     return Promise.reject(error);
@@ -57,13 +63,6 @@ http.interceptors.response.use(
   (response) => {
     const data = response.data;
     if (data instanceof PBMessageResponse) {
-      // TODO 处理业务异常
-      // const { errorNo, msg } = data
-
-      // if (errorNo === ErrorNo.MESSAGE) {
-      // const $message = window['$message']
-      // $message.error(msg)
-      // }
       return Promise.resolve(data);
     }
     return data;
@@ -72,4 +71,4 @@ http.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-export { http as request };
+export default http;
