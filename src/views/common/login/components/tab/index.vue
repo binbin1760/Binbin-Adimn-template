@@ -24,7 +24,7 @@
           </div>
         </n-form>
         <div class="button-class" @click="">
-          <n-button color="rgb(64, 158, 255)" block strong @click="login()">
+          <n-button color="rgb(64, 158, 255)" block strong @click="tologin()">
             登录
           </n-button>
         </div>
@@ -72,7 +72,8 @@
 <script setup lang="ts">
 import { GlobalThemeOverrides } from "naive-ui";
 import { useRouter } from "vue-router";
-import { smsService, Register } from "@/api";
+import { smsService, login } from "@/api";
+import { setUserInfo } from "@/utils/getUserInfo";
 import { PassportByMobileRequest, ClientType } from "@/protoJs";
 const emit = defineEmits(["change"]);
 const id = ref("");
@@ -108,20 +109,24 @@ const wrapperStyle = {
   color: "red",
 };
 
-function login() {
+function tologin() {
   Router.push("/online/api");
 }
-function getCode() {
-  smsService(phone.value);
+async function getCode() {
+  const result = await smsService(phone.value);
+  console.log(result.toObject());
 }
 async function userRegister() {
   const req = PassportByMobileRequest.fromObject({
-    mobile: "17608288137",
+    mobile: phone.value,
     clientType: ClientType.H5,
-    captcha: "5620",
+    captcha: code.value,
   });
-  const res = await Register.register(req);
-  console.log(res.toObject());
+  const res = await login.register(req);
+  if (res.token) {
+    setUserInfo(`Bearer ${res.toObject().token}`);
+    Router.push("/online/api");
+  }
 }
 function toRegister() {
   emit("change", "register");

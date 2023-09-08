@@ -44,14 +44,15 @@ const transformResponseFactory = (responseType?: any | null) =>
 function isArrayBuffer(obj: any): boolean {
   return obj.toString() === "[object ArrayBuffer]";
 }
-const token = getUserInfo();
+
 http.interceptors.request.use(
   (config) => {
+    const token = getUserInfo();
     config.transformResponse = transformResponseFactory(config.data?.resType);
     config.data = transformRequest(config.data?.request);
     config.headers["Accept"] = "application/x-protobuf";
     config.headers["content-type"] = "application/x-protobuf";
-    config.headers["Authorization"] = `Bearer +${token}`;
+    config.headers["Authorization"] = token;
     return config;
   },
   (error) => {
@@ -68,6 +69,7 @@ http.interceptors.response.use(
     return data;
   },
   (error) => {
+    console.log(error, "13");
     return Promise.reject(error);
   }
 );
