@@ -1,5 +1,5 @@
 export function setUserInfo(token: string) {
-  localStorage.setItem("toke", token);
+  localStorage.setItem("token", token);
 }
 
 export function getUserInfo() {
