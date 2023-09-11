@@ -52,6 +52,25 @@ export const constantRoute: Array<RouteRecordRaw> = [
     ],
   },
   {
+    path: "/system",
+    meta: {
+      name: "系统管理",
+      isRoot: false,
+    },
+    redirect: "/system/user",
+    component: () => import("@/components/layout/index.vue"),
+    children: [
+      {
+        path: "/system/user",
+        meta: {
+          isRoot: true,
+          name: "用户管理",
+        },
+        component: () => import("@/views/system/user/index.vue"),
+      },
+    ],
+  },
+  {
     path: "/online",
     meta: {
       name: "在线开发",

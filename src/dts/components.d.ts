@@ -8,6 +8,8 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     DataTable: typeof import('./../components/data-table/index.vue')['default']
+    DatePickerRange: typeof import('./../components/date-picker-range/index.vue')['default']
+    DatePiclerRange: typeof import('./../components/date-picler-range/index.vue')['default']
     Layout: typeof import('./../components/layout.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
     NCard: typeof import('naive-ui')['NCard']
@@ -28,10 +30,12 @@ declare module 'vue' {
     NMenu: typeof import('naive-ui')['NMenu']
     NModal: typeof import('naive-ui')['NModal']
     NPagination: typeof import('naive-ui')['NPagination']
+    NPopselect: typeof import('naive-ui')['NPopselect']
     NSpace: typeof import('naive-ui')['NSpace']
     NSwitch: typeof import('naive-ui')['NSwitch']
     NTabPane: typeof import('naive-ui')['NTabPane']
     NTabs: typeof import('naive-ui')['NTabs']
+    NTooltip: typeof import('naive-ui')['NTooltip']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SideMenu: typeof import('./../components/side-menu/index.vue')['default']
@@ -39,5 +43,6 @@ declare module 'vue' {
     SinglePageLayout: typeof import('./../components/single-page-layout/index.vue')['default']
     Tab: typeof import('./../components/tab/index.vue')['default']
     TimePicker: typeof import('./../components/time-picker/index.vue')['default']
+    TimePickerRange: typeof import('./../components/time-picker-range/index.vue')['default']
   }
 }
