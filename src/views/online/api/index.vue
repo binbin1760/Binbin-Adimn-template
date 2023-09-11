@@ -8,7 +8,11 @@
           type="text"
           placeholder="输入你要搜索的内容"
         />
-        <TimePicker @updateTime="getTimeRange" />
+        <TimePickerRange
+          height="2.8rem"
+          type="daterange"
+          @updateTime="getTimeRange"
+        />
         <NButton class="n-button" size="small" color="#1FC853">搜索</NButton>
         <NButton class="n-button" size="small" color="#FEAD09">重置</NButton>
       </div>
@@ -65,6 +69,7 @@
 </template>
 <script setup lang="ts">
 import { DataTableColumns, NTag } from "naive-ui";
+import { TimePickerRange } from "@/components";
 import { rowType } from "./types";
 import { log } from "@/api";
 import { SysLogPageRequest, PagerRequest, DeleteBatchRequest } from "@/protoJs";
