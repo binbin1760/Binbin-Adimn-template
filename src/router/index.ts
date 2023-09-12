@@ -24,33 +24,14 @@ export const constantRoute: Array<RouteRecordRaw> = [
     },
     component: () => import("@/views/common/login/index.vue"),
   },
-  {
-    path: "/Errpage",
-    component: () => import("@/views/common/page-err/index.vue"),
-    meta: {
-      name: "错误页面",
-      isRoot: true,
-    },
-  },
-  {
-    path: "/component-list",
-    meta: {
-      name: "组件展示",
-      isRoot: false,
-    },
-    redirect: "/component-list/form",
-    component: () => import("@/components/layout/index.vue"),
-    children: [
-      {
-        path: "/component-list/form",
-        meta: {
-          isRoot: true,
-          name: "表单",
-        },
-        component: () => import("@/views/component-list/form/index.vue"),
-      },
-    ],
-  },
+  // {
+  //   path: "/Errpage",
+  //   component: () => import("@/views/common/page-err/index.vue"),
+  //   meta: {
+  //     name: "错误页面",
+  //     isRoot: true,
+  //   },
+  // },
   {
     path: "/system",
     meta: {
@@ -67,6 +48,22 @@ export const constantRoute: Array<RouteRecordRaw> = [
           name: "用户管理",
         },
         component: () => import("@/views/system/user/index.vue"),
+      },
+      {
+        path: "/system/roles",
+        meta: {
+          isRoot: true,
+          name: "角色管理",
+        },
+        component: () => import("@/views/system/roles/index.vue"),
+      },
+      {
+        path: "/system/menus",
+        meta: {
+          isRoot: true,
+          name: "菜单管理",
+        },
+        component: () => import("@/views/system/menus/index.vue"),
       },
     ],
   },

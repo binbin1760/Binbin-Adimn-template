@@ -10,3 +10,6 @@ export * from "./payload";
 export * from "./profile";
 export * from "./role";
 export * from "./user";
+export * from "./pet";
+export * from "./object";
+export * from "./im";

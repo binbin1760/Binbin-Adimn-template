@@ -7,7 +7,6 @@
         :collapsed="false"
         :options="menuOptions"
         :render-label="renderMenuLabel"
-        :render-icon="renderMenuIcon"
         :expand-icon="expandIcon"
         :on-update:value="toClickPage"
         :value="currentMenuitem"
@@ -20,7 +19,7 @@
 import { h, ref, defineComponent } from "vue";
 import { NIcon } from "naive-ui";
 import type { GlobalThemeOverrides, MenuOption } from "naive-ui";
-import { BookmarkOutline, CaretDownOutline } from "@vicons/ionicons5";
+import { CaretDownOutline } from "@vicons/ionicons5";
 import { NConfigProvider } from "naive-ui";
 import { constantRoute } from "@/router/index";
 import { useRouter, useRoute } from "vue-router";
@@ -71,13 +70,6 @@ export default defineComponent({
       currentMenuitem,
       renderMenuLabel(option: MenuOption) {
         return option.label as string;
-      },
-      renderMenuIcon(option: MenuOption) {
-        // 渲染图标占位符以保持缩进
-        if (option.key === "sheep-man") return true;
-        // 返回 falsy 值，不再渲染图标及占位符
-        if (option.key === "food") return null;
-        return h(NIcon, null, { default: () => h(BookmarkOutline) });
       },
       expandIcon() {
         return h(NIcon, null, { default: () => h(CaretDownOutline) });
