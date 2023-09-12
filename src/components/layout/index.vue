@@ -5,7 +5,7 @@
       content-style="padding: 0.5rem;"
       width="20rem"
     >
-      <div class="company-logo">公司logo</div>
+      <div class="company-logo">宠+</div>
       <sidemenu></sidemenu>
     </n-layout-sider>
     <n-layout-content content-style="padding: 0.5rem;">
@@ -28,6 +28,7 @@ import { sidemenu } from "@/components";
     background: #f5f7f9;
   }
   .company-logo {
+    font-size: 18px;
     text-align: center;
     color: white;
   }

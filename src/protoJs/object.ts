@@ -12,6 +12,9 @@ export class CosResponse extends pb_1.Message {
         expiration?: string;
         startTime?: number;
         expiredTime?: number;
+        bucket?: string;
+        region?: string;
+        folder?: string;
     }) {
         super();
         pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
@@ -30,6 +33,15 @@ export class CosResponse extends pb_1.Message {
             }
             if ("expiredTime" in data && data.expiredTime != undefined) {
                 this.expiredTime = data.expiredTime;
+            }
+            if ("bucket" in data && data.bucket != undefined) {
+                this.bucket = data.bucket;
+            }
+            if ("region" in data && data.region != undefined) {
+                this.region = data.region;
+            }
+            if ("folder" in data && data.folder != undefined) {
+                this.folder = data.folder;
             }
         }
     }
@@ -66,12 +78,33 @@ export class CosResponse extends pb_1.Message {
     set expiredTime(value: number) {
         pb_1.Message.setField(this, 5, value);
     }
+    get bucket() {
+        return pb_1.Message.getFieldWithDefault(this, 6, "") as string;
+    }
+    set bucket(value: string) {
+        pb_1.Message.setField(this, 6, value);
+    }
+    get region() {
+        return pb_1.Message.getFieldWithDefault(this, 7, "") as string;
+    }
+    set region(value: string) {
+        pb_1.Message.setField(this, 7, value);
+    }
+    get folder() {
+        return pb_1.Message.getFieldWithDefault(this, 8, "") as string;
+    }
+    set folder(value: string) {
+        pb_1.Message.setField(this, 8, value);
+    }
     static fromObject(data: {
         credentials?: ReturnType<typeof CosCredentials.prototype.toObject>;
         requestId?: string;
         expiration?: string;
         startTime?: number;
         expiredTime?: number;
+        bucket?: string;
+        region?: string;
+        folder?: string;
     }): CosResponse {
         const message = new CosResponse({});
         if (data.credentials != null) {
@@ -89,6 +122,15 @@ export class CosResponse extends pb_1.Message {
         if (data.expiredTime != null) {
             message.expiredTime = data.expiredTime;
         }
+        if (data.bucket != null) {
+            message.bucket = data.bucket;
+        }
+        if (data.region != null) {
+            message.region = data.region;
+        }
+        if (data.folder != null) {
+            message.folder = data.folder;
+        }
         return message;
     }
     toObject() {
@@ -98,6 +140,9 @@ export class CosResponse extends pb_1.Message {
             expiration?: string;
             startTime?: number;
             expiredTime?: number;
+            bucket?: string;
+            region?: string;
+            folder?: string;
         } = {};
         if (this.credentials != null) {
             data.credentials = this.credentials.toObject();
@@ -113,6 +158,15 @@ export class CosResponse extends pb_1.Message {
         }
         if (this.expiredTime != null) {
             data.expiredTime = this.expiredTime;
+        }
+        if (this.bucket != null) {
+            data.bucket = this.bucket;
+        }
+        if (this.region != null) {
+            data.region = this.region;
+        }
+        if (this.folder != null) {
+            data.folder = this.folder;
         }
         return data;
     }
@@ -130,6 +184,12 @@ export class CosResponse extends pb_1.Message {
             writer.writeUint64(4, this.startTime);
         if (this.expiredTime != 0)
             writer.writeUint64(5, this.expiredTime);
+        if (this.bucket.length)
+            writer.writeString(6, this.bucket);
+        if (this.region.length)
+            writer.writeString(7, this.region);
+        if (this.folder.length)
+            writer.writeString(8, this.folder);
         if (!w)
             return writer.getResultBuffer();
     }
@@ -153,6 +213,15 @@ export class CosResponse extends pb_1.Message {
                     break;
                 case 5:
                     message.expiredTime = reader.readUint64();
+                    break;
+                case 6:
+                    message.bucket = reader.readString();
+                    break;
+                case 7:
+                    message.region = reader.readString();
+                    break;
+                case 8:
+                    message.folder = reader.readString();
                     break;
                 default: reader.skipField();
             }

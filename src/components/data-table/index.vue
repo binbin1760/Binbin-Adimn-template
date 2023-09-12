@@ -29,7 +29,6 @@ function handleCheck(rowKeys: DataTableRowKey[]) {
 <style></style>
 <style scoped lang="less">
 .n-data-table {
-  border-top: 1px solid #efeff5;
   --n-merged-th-color: white;
 }
 </style>

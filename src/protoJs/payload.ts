@@ -589,7 +589,7 @@ export class MediaMetaModel extends pb_1.Message {
         return MediaMetaModel.deserialize(bytes);
     }
 }
-export class AddressModel extends pb_1.Message {
+export class UserAddressModel extends pb_1.Message {
     #one_of_decls: number[][] = [];
     constructor(data?: any[] | {
         province?: string;
@@ -621,8 +621,8 @@ export class AddressModel extends pb_1.Message {
     static fromObject(data: {
         province?: string;
         city?: string;
-    }): AddressModel {
-        const message = new AddressModel({});
+    }): UserAddressModel {
+        const message = new UserAddressModel({});
         if (data.province != null) {
             message.province = data.province;
         }
@@ -655,8 +655,8 @@ export class AddressModel extends pb_1.Message {
         if (!w)
             return writer.getResultBuffer();
     }
-    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): AddressModel {
-        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new AddressModel();
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): UserAddressModel {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new UserAddressModel();
         while (reader.nextField()) {
             if (reader.isEndGroup())
                 break;
@@ -675,7 +675,7 @@ export class AddressModel extends pb_1.Message {
     serializeBinary(): Uint8Array {
         return this.serialize();
     }
-    static deserializeBinary(bytes: Uint8Array): AddressModel {
-        return AddressModel.deserialize(bytes);
+    static deserializeBinary(bytes: Uint8Array): UserAddressModel {
+        return UserAddressModel.deserialize(bytes);
     }
 }
