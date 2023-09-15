@@ -107,6 +107,8 @@ function closeModal() {
 function customRequest({ file }: UploadCustomRequestOptions) {
   imgName.value = file.name;
   fileData.value = file;
+  console.log("准备获取本地Url");
+
   //   const { cosRes, folder } = await uploadOssObj(imgName.value, fileData.value);
   //   const location = cosRes.Location.split("/")[1];
   //   let path = "";
