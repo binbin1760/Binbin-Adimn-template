@@ -55,6 +55,7 @@
               :max="1"
               list-type="image-card"
               :default-upload="false"
+              :custom-request="customRequest"
             >
               <div class="img-box">
                 <n-icon size="60" color="#cccc">
@@ -80,7 +81,7 @@ import { pets } from "@/api";
 // import { PetBreedViewModel, MediaMetaModel, MediaMetaType } from "@/protoJs";
 // import { uploadOssObj } from "@/utils";
 import { AddSharp } from "@vicons/ionicons5";
-import { UploadInst } from "naive-ui";
+import { UploadCustomRequestOptions, UploadInst } from "naive-ui";
 const upload = ref<UploadInst>();
 const rootList = ref<any>();
 pets.classificationPet().then((res) => {
@@ -97,16 +98,15 @@ const modelValue = ref({
   isRecommend: false,
   pid: null,
 });
-// const imgName = ref("");
-// const fileData = ref<any>();
-// const prviewImgUrl = ref<string>("");
+const imgName = ref("");
+const fileData = ref<any>();
 const emit = defineEmits(["close"]);
 function closeModal() {
   emit("close");
 }
-async function addBreeddata() {
-  console.log(upload.value);
-
+function customRequest({ file }: UploadCustomRequestOptions) {
+  imgName.value = file.name;
+  fileData.value = file;
   //   const { cosRes, folder } = await uploadOssObj(imgName.value, fileData.value);
   //   const location = cosRes.Location.split("/")[1];
   //   let path = "";
@@ -128,6 +128,9 @@ async function addBreeddata() {
   //   if (result.toObject().value) {
   //     emit("close");
   //   }
+}
+async function addBreeddata() {
+  upload.value?.submit();
 }
 </script>
 <style scoped lang="less">
