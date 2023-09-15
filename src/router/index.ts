@@ -24,14 +24,34 @@ export const constantRoute: Array<RouteRecordRaw> = [
     },
     component: () => import("@/views/common/login/index.vue"),
   },
-  // {
-  //   path: "/Errpage",
-  //   component: () => import("@/views/common/page-err/index.vue"),
-  //   meta: {
-  //     name: "错误页面",
-  //     isRoot: true,
-  //   },
-  // },
+  {
+    path: "/pet-service",
+    meta: {
+      name: "宠物服务",
+      isRoot: false,
+    },
+    redirect: "/pet-service/petbreed",
+    component: () => import("@/components/layout/index.vue"),
+    children: [
+      {
+        path: "/pet-service/petbreed",
+        meta: {
+          isRoot: true,
+          name: "品种管理",
+        },
+        component: () => import("@/views/pet-service/petbreed/index.vue"),
+      },
+      {
+        path: "/pet-service/petbreed/detail",
+        meta: {
+          isRoot: true,
+          name: "品种详情",
+        },
+        component: () =>
+          import("@/views/pet-service/petbreed/pet-detail/index.vue"),
+      },
+    ],
+  },
   {
     path: "/system",
     meta: {

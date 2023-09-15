@@ -36,7 +36,8 @@ export enum ErrorNo {
     REQUIRE_OPEN_SERVICE = 6000,
     NETWORK_ERROR = 10000,
     SSL_ERROR = 10001,
-    TIMEOUT_ERROR = 10002
+    TIMEOUT_ERROR = 10002,
+    BE_PHONE_ALREADY_BANDED = 20000
 }
 export enum LogErrorType {
     _LogErrorType_UNSPECIFIED = 0,

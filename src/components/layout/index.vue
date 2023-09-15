@@ -2,7 +2,7 @@
   <n-layout has-sider class="layout">
     <n-layout-sider
       class="n-layout-sider-scroll-container"
-      content-style="padding: 0.5rem;"
+      content-style="padding: 0.5rem 0;"
       width="20rem"
     >
       <div class="company-logo">宠+</div>
@@ -33,7 +33,7 @@ import { sidemenu } from "@/components";
     color: white;
   }
   .n-layout-sider-scroll-container {
-    background-color: #000014;
+    background-color: #001428 !important;
   }
 }
 
