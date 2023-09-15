@@ -1,13 +1,13 @@
 import fetch from "@/utils/request";
 import {
-  AddPetBreedRequest,
+  PetBreedViewModel,
   CRUDResult,
-  PetBreedPageResponse,
-  PagerRequest,
+  PetCategoryAllResponse,
+  PetCategoryDetailsResponse,
 } from "@/protoJs";
 
 export class pets {
-  static addPet(request: AddPetBreedRequest): Promise<CRUDResult> {
+  static addPetbreed(request: PetBreedViewModel): Promise<CRUDResult> {
     return fetch({
       url: "/pet/admin/breed",
       method: "post",
@@ -17,15 +17,32 @@ export class pets {
       },
     });
   }
-  static classificationPet(
-    request: PagerRequest
-  ): Promise<PetBreedPageResponse> {
+  static classificationPet(): Promise<PetCategoryAllResponse> {
     return fetch({
-      url: "/pet/breed/all",
-      method: "post",
+      url: "/pet/breed/category",
+      method: "GET",
       data: {
-        request: request.serializeBinary(),
-        resType: PetBreedPageResponse,
+        resType: PetCategoryAllResponse,
+      },
+    });
+  }
+  static getChildBreed(
+    categoryId: string
+  ): Promise<PetCategoryDetailsResponse> {
+    return fetch({
+      url: `/pet/breed/${categoryId}`,
+      method: "get",
+      data: {
+        resType: PetCategoryDetailsResponse,
+      },
+    });
+  }
+  static delpet(id: string): Promise<CRUDResult> {
+    return fetch({
+      url: `/pet/admin/breed/${id}`,
+      method: "delete",
+      data: {
+        resType: CRUDResult,
       },
     });
   }

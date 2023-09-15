@@ -41,12 +41,18 @@ function getMenuItems(router: Array<any>) {
 const menuOptions: MenuOption[] = getMenuItems(constantRoute);
 const themeOverrides: GlobalThemeOverrides = {
   Menu: {
-    itemTextColor: "#ffffff",
-    itemIconColor: "#ffffff",
-    itemTextColorActive: "red",
-    itemIconColorActive: "red",
-    itemTextColorHover: "green",
-    itemIconColorHover: "green",
+    itemTextColor: "#BBBBBB",
+    itemTextColorActive: "#ffffff",
+    itemTextColorActiveHover: "#ffffff",
+    itemTextColorHover: "#ffffff",
+    itemColorHover: "#288CF0 ",
+    itemColorActive: "#288CF0 ",
+    itemColorActiveHover: "#288CF0",
+    itemTextColorChildActive: "#BBBBBB",
+    itemTextColorChildActiveHover: "#BBBBBB",
+    arrowColorChildActive: "#BBBBBB",
+    arrowColorChildActiveHover: "#BBBBBB",
+    arrowColor: "#BBBBBB",
     fontSize: "14px",
   },
 };

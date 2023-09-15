@@ -75,9 +75,11 @@ import { log } from "@/api";
 import { SysLogPageRequest, PagerRequest, DeleteBatchRequest } from "@/protoJs";
 import { format } from "date-fns";
 async function getLogData() {
-  const pageRequest = new PagerRequest({ pageNumber: 1, pageSize: 10 });
+  const pageRequest = new PagerRequest({ pageNumber: 0, pageSize: 10 });
   const req = new SysLogPageRequest({ page: pageRequest });
   const result = await log.log(req);
+  console.log(result.toObject());
+
   total.value = result.toObject().page?.total;
   data.value = result.toObject().raws?.map((item, index) => {
     return {

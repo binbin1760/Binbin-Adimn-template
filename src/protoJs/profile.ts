@@ -1137,3 +1137,93 @@ export class AddressViewModel extends pb_1.Message {
         return AddressViewModel.deserialize(bytes);
     }
 }
+export class ChangePhoneNumberRequest extends pb_1.Message {
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        phone?: string;
+        captcha?: string;
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("phone" in data && data.phone != undefined) {
+                this.phone = data.phone;
+            }
+            if ("captcha" in data && data.captcha != undefined) {
+                this.captcha = data.captcha;
+            }
+        }
+    }
+    get phone() {
+        return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+    }
+    set phone(value: string) {
+        pb_1.Message.setField(this, 1, value);
+    }
+    get captcha() {
+        return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+    }
+    set captcha(value: string) {
+        pb_1.Message.setField(this, 2, value);
+    }
+    static fromObject(data: {
+        phone?: string;
+        captcha?: string;
+    }): ChangePhoneNumberRequest {
+        const message = new ChangePhoneNumberRequest({});
+        if (data.phone != null) {
+            message.phone = data.phone;
+        }
+        if (data.captcha != null) {
+            message.captcha = data.captcha;
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            phone?: string;
+            captcha?: string;
+        } = {};
+        if (this.phone != null) {
+            data.phone = this.phone;
+        }
+        if (this.captcha != null) {
+            data.captcha = this.captcha;
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.phone.length)
+            writer.writeString(1, this.phone);
+        if (this.captcha.length)
+            writer.writeString(2, this.captcha);
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): ChangePhoneNumberRequest {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new ChangePhoneNumberRequest();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    message.phone = reader.readString();
+                    break;
+                case 2:
+                    message.captcha = reader.readString();
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): ChangePhoneNumberRequest {
+        return ChangePhoneNumberRequest.deserialize(bytes);
+    }
+}

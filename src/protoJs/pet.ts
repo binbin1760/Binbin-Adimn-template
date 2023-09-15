@@ -15,6 +15,8 @@ export class PetBreedViewModel extends pb_1.Message {
         theme?: dependency_1.MediaMetaModel;
         sort?: number;
         isRecommend?: boolean;
+        isRoot?: boolean;
+        pid?: string;
     }) {
         super();
         pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
@@ -33,6 +35,12 @@ export class PetBreedViewModel extends pb_1.Message {
             }
             if ("isRecommend" in data && data.isRecommend != undefined) {
                 this.isRecommend = data.isRecommend;
+            }
+            if ("isRoot" in data && data.isRoot != undefined) {
+                this.isRoot = data.isRoot;
+            }
+            if ("pid" in data && data.pid != undefined) {
+                this.pid = data.pid;
             }
         }
     }
@@ -69,12 +77,26 @@ export class PetBreedViewModel extends pb_1.Message {
     set isRecommend(value: boolean) {
         pb_1.Message.setField(this, 5, value);
     }
+    get isRoot() {
+        return pb_1.Message.getFieldWithDefault(this, 6, false) as boolean;
+    }
+    set isRoot(value: boolean) {
+        pb_1.Message.setField(this, 6, value);
+    }
+    get pid() {
+        return pb_1.Message.getFieldWithDefault(this, 7, "") as string;
+    }
+    set pid(value: string) {
+        pb_1.Message.setField(this, 7, value);
+    }
     static fromObject(data: {
         id?: string;
         title?: string;
         theme?: ReturnType<typeof dependency_1.MediaMetaModel.prototype.toObject>;
         sort?: number;
         isRecommend?: boolean;
+        isRoot?: boolean;
+        pid?: string;
     }): PetBreedViewModel {
         const message = new PetBreedViewModel({});
         if (data.id != null) {
@@ -92,6 +114,12 @@ export class PetBreedViewModel extends pb_1.Message {
         if (data.isRecommend != null) {
             message.isRecommend = data.isRecommend;
         }
+        if (data.isRoot != null) {
+            message.isRoot = data.isRoot;
+        }
+        if (data.pid != null) {
+            message.pid = data.pid;
+        }
         return message;
     }
     toObject() {
@@ -101,6 +129,8 @@ export class PetBreedViewModel extends pb_1.Message {
             theme?: ReturnType<typeof dependency_1.MediaMetaModel.prototype.toObject>;
             sort?: number;
             isRecommend?: boolean;
+            isRoot?: boolean;
+            pid?: string;
         } = {};
         if (this.id != null) {
             data.id = this.id;
@@ -116,6 +146,12 @@ export class PetBreedViewModel extends pb_1.Message {
         }
         if (this.isRecommend != null) {
             data.isRecommend = this.isRecommend;
+        }
+        if (this.isRoot != null) {
+            data.isRoot = this.isRoot;
+        }
+        if (this.pid != null) {
+            data.pid = this.pid;
         }
         return data;
     }
@@ -133,6 +169,10 @@ export class PetBreedViewModel extends pb_1.Message {
             writer.writeUint32(4, this.sort);
         if (this.isRecommend != false)
             writer.writeBool(5, this.isRecommend);
+        if (this.isRoot != false)
+            writer.writeBool(6, this.isRoot);
+        if (this.pid.length)
+            writer.writeString(7, this.pid);
         if (!w)
             return writer.getResultBuffer();
     }
@@ -157,6 +197,12 @@ export class PetBreedViewModel extends pb_1.Message {
                 case 5:
                     message.isRecommend = reader.readBool();
                     break;
+                case 6:
+                    message.isRoot = reader.readBool();
+                    break;
+                case 7:
+                    message.pid = reader.readString();
+                    break;
                 default: reader.skipField();
             }
         }
@@ -169,13 +215,13 @@ export class PetBreedViewModel extends pb_1.Message {
         return PetBreedViewModel.deserialize(bytes);
     }
 }
-export class PetBreedAllResponse extends pb_1.Message {
+export class PetCategoryAllResponse extends pb_1.Message {
     #one_of_decls: number[][] = [];
     constructor(data?: any[] | {
         raws?: PetBreedViewModel[];
     }) {
         super();
-        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [2], this.#one_of_decls);
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [1], this.#one_of_decls);
         if (!Array.isArray(data) && typeof data == "object") {
             if ("raws" in data && data.raws != undefined) {
                 this.raws = data.raws;
@@ -183,15 +229,15 @@ export class PetBreedAllResponse extends pb_1.Message {
         }
     }
     get raws() {
-        return pb_1.Message.getRepeatedWrapperField(this, PetBreedViewModel, 2) as PetBreedViewModel[];
+        return pb_1.Message.getRepeatedWrapperField(this, PetBreedViewModel, 1) as PetBreedViewModel[];
     }
     set raws(value: PetBreedViewModel[]) {
-        pb_1.Message.setRepeatedWrapperField(this, 2, value);
+        pb_1.Message.setRepeatedWrapperField(this, 1, value);
     }
     static fromObject(data: {
         raws?: ReturnType<typeof PetBreedViewModel.prototype.toObject>[];
-    }): PetBreedAllResponse {
-        const message = new PetBreedAllResponse({});
+    }): PetCategoryAllResponse {
+        const message = new PetCategoryAllResponse({});
         if (data.raws != null) {
             message.raws = data.raws.map(item => PetBreedViewModel.fromObject(item));
         }
@@ -211,16 +257,106 @@ export class PetBreedAllResponse extends pb_1.Message {
     serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
         const writer = w || new pb_1.BinaryWriter();
         if (this.raws.length)
-            writer.writeRepeatedMessage(2, this.raws, (item: PetBreedViewModel) => item.serialize(writer));
+            writer.writeRepeatedMessage(1, this.raws, (item: PetBreedViewModel) => item.serialize(writer));
         if (!w)
             return writer.getResultBuffer();
     }
-    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): PetBreedAllResponse {
-        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new PetBreedAllResponse();
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): PetCategoryAllResponse {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new PetCategoryAllResponse();
         while (reader.nextField()) {
             if (reader.isEndGroup())
                 break;
             switch (reader.getFieldNumber()) {
+                case 1:
+                    reader.readMessage(message.raws, () => pb_1.Message.addToRepeatedWrapperField(message, 1, PetBreedViewModel.deserialize(reader), PetBreedViewModel));
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): PetCategoryAllResponse {
+        return PetCategoryAllResponse.deserialize(bytes);
+    }
+}
+export class PetCategoryDetailsResponse extends pb_1.Message {
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        suggest?: PetBreedViewModel[];
+        raws?: PetBreedViewModel[];
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [1, 2], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("suggest" in data && data.suggest != undefined) {
+                this.suggest = data.suggest;
+            }
+            if ("raws" in data && data.raws != undefined) {
+                this.raws = data.raws;
+            }
+        }
+    }
+    get suggest() {
+        return pb_1.Message.getRepeatedWrapperField(this, PetBreedViewModel, 1) as PetBreedViewModel[];
+    }
+    set suggest(value: PetBreedViewModel[]) {
+        pb_1.Message.setRepeatedWrapperField(this, 1, value);
+    }
+    get raws() {
+        return pb_1.Message.getRepeatedWrapperField(this, PetBreedViewModel, 2) as PetBreedViewModel[];
+    }
+    set raws(value: PetBreedViewModel[]) {
+        pb_1.Message.setRepeatedWrapperField(this, 2, value);
+    }
+    static fromObject(data: {
+        suggest?: ReturnType<typeof PetBreedViewModel.prototype.toObject>[];
+        raws?: ReturnType<typeof PetBreedViewModel.prototype.toObject>[];
+    }): PetCategoryDetailsResponse {
+        const message = new PetCategoryDetailsResponse({});
+        if (data.suggest != null) {
+            message.suggest = data.suggest.map(item => PetBreedViewModel.fromObject(item));
+        }
+        if (data.raws != null) {
+            message.raws = data.raws.map(item => PetBreedViewModel.fromObject(item));
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            suggest?: ReturnType<typeof PetBreedViewModel.prototype.toObject>[];
+            raws?: ReturnType<typeof PetBreedViewModel.prototype.toObject>[];
+        } = {};
+        if (this.suggest != null) {
+            data.suggest = this.suggest.map((item: PetBreedViewModel) => item.toObject());
+        }
+        if (this.raws != null) {
+            data.raws = this.raws.map((item: PetBreedViewModel) => item.toObject());
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.suggest.length)
+            writer.writeRepeatedMessage(1, this.suggest, (item: PetBreedViewModel) => item.serialize(writer));
+        if (this.raws.length)
+            writer.writeRepeatedMessage(2, this.raws, (item: PetBreedViewModel) => item.serialize(writer));
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): PetCategoryDetailsResponse {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new PetCategoryDetailsResponse();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    reader.readMessage(message.suggest, () => pb_1.Message.addToRepeatedWrapperField(message, 1, PetBreedViewModel.deserialize(reader), PetBreedViewModel));
+                    break;
                 case 2:
                     reader.readMessage(message.raws, () => pb_1.Message.addToRepeatedWrapperField(message, 2, PetBreedViewModel.deserialize(reader), PetBreedViewModel));
                     break;
@@ -232,8 +368,8 @@ export class PetBreedAllResponse extends pb_1.Message {
     serializeBinary(): Uint8Array {
         return this.serialize();
     }
-    static deserializeBinary(bytes: Uint8Array): PetBreedAllResponse {
-        return PetBreedAllResponse.deserialize(bytes);
+    static deserializeBinary(bytes: Uint8Array): PetCategoryDetailsResponse {
+        return PetCategoryDetailsResponse.deserialize(bytes);
     }
 }
 export class PetViewModel extends pb_1.Message {
