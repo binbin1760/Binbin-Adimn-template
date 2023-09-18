@@ -46,4 +46,14 @@ export class pets {
       },
     });
   }
+  static fixBreed(request: PetBreedViewModel): Promise<CRUDResult> {
+    return fetch({
+      url: "/pet/admin/breed",
+      method: "put",
+      data: {
+        request: request.serializeBinary(),
+        resType: CRUDResult,
+      },
+    });
+  }
 }

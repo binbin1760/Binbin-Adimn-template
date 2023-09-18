@@ -8,7 +8,7 @@
       <div class="company-logo">宠+</div>
       <sidemenu></sidemenu>
     </n-layout-sider>
-    <n-layout-content content-style="padding: 0.5rem;">
+    <n-layout-content content-style="padding: 0 3rem; background:#F4F9FD;">
       <router-view></router-view>
     </n-layout-content>
   </n-layout>

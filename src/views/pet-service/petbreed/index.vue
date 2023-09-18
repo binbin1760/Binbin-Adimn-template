@@ -18,9 +18,11 @@
               :options="breedOptions"
               placeholder="类目赛选"
               @update:value="filterData"
-            />
+            >
+            </n-select>
           </div>
           <n-button color="#ff9b52" @click="reSet()">重置</n-button>
+          <n-button color="#F56D6D" @click="delserchBreed">删除品类</n-button>
         </div>
       </div>
       <div class="breed-table">
@@ -50,7 +52,10 @@ const Router = useRouter();
 async function getBreedData() {
   const breedList = (await pets.classificationPet()).toObject().raws;
   const temp = breedList?.map((item) => {
-    return { label: item.title, value: item.id };
+    return {
+      label: item.title,
+      value: item.id,
+    };
   });
   breedOptions.value = temp;
 
@@ -81,6 +86,16 @@ const add2Modal = ref<boolean>(false);
 // select options
 const breedOptions = ref();
 const serchBreed = ref<string | null>(null);
+async function delserchBreed() {
+  const result = await pets.delpet(serchBreed.value as string);
+  if (result) {
+    const index = breedOptions.value.findIndex(
+      (item: Record<string, string>) => item.value === serchBreed.value
+    );
+    breedOptions.value.splice(index, 1);
+    reSet();
+  }
+}
 //  data-table 配置
 const columnsCreate = (): DataTableColumns<petBreedType> => [
   { title: "所属类目", key: "breed", align: "center", width: 100 },
@@ -123,7 +138,7 @@ const columnsCreate = (): DataTableColumns<petBreedType> => [
         h(
           "span",
           {
-            onClick: () => toDetailpage(row.id),
+            onClick: () => toDetailpage(row, false),
             style: { color: "#165DFF", cursor: "pointer", marginRight: "1rem" },
           },
           { default: () => "编辑" }
@@ -131,6 +146,7 @@ const columnsCreate = (): DataTableColumns<petBreedType> => [
         h(
           "span",
           {
+            onClick: () => toDetailpage(row, true),
             style: { color: "#165DFF", cursor: "pointer", marginRight: "1rem" },
           },
           { default: () => "查看详情" }
@@ -167,21 +183,28 @@ function reSet() {
   serchBreed.value = null;
   dataTemp.value = data.value;
 }
-function toDetailpage(id: string) {
-  console.log(Router.options);
+function toDetailpage(pet: any, edit: boolean) {
+  const petInfo = JSON.stringify({
+    title: pet.title,
+    pid: pet.pid,
+    isRecommend: pet.isRecommend,
+    path: pet.theme.path,
+    id: pet.id,
+    edit,
+  });
   Router.push({
     path: "/pet-service/petbreed/detail",
-    query: {
-      id,
-    },
+    query: { petInfo },
   });
 }
 // 模态框
 function closeModal() {
   addModal.value = false;
+  getBreedData();
 }
 function closeModal2() {
   add2Modal.value = false;
+  getBreedData();
 }
 //宠物品类操作
 function addBreedClass() {

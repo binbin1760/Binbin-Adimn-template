@@ -25,12 +25,14 @@
             />
           </n-form-item>
 
-          <n-form-item label="是否添加图片:" path="inputValue">
+          <n-form-item label="添加品种图片:" path="inputValue">
             <div>
               <n-upload
                 :max="1"
-                @update-file-list="handlePreview"
                 list-type="image-card"
+                ref="upload"
+                :default-upload="false"
+                :custom-request="customRequest"
               >
                 <div>
                   <n-icon size="50" color="#cccc">
@@ -38,14 +40,6 @@
                   </n-icon>
                   <div>图片上传</div>
                 </div>
-                <n-modal
-                  v-model:show="showImgPrview"
-                  preset="card"
-                  style="width: 600px"
-                  title="一张很酷的图片"
-                >
-                  <img :src="prviewImgUrl" style="width: 100%" />
-                </n-modal>
               </n-upload>
             </div>
           </n-form-item>
@@ -87,7 +81,7 @@
 </template>
 <script setup lang="ts">
 import { AddSharp } from "@vicons/ionicons5";
-import { UploadFileInfo } from "naive-ui";
+import { UploadCustomRequestOptions, UploadInst } from "naive-ui";
 import { uploadOssObj } from "@/utils";
 import { MediaMetaModel, MediaMetaType, PetBreedViewModel } from "@/protoJs";
 import { pets } from "@/api";
@@ -107,43 +101,52 @@ const modelValue = ref({
   isRecommend: false,
   pid: "",
 });
-const imgName = ref("");
+const imgName = ref();
 const fileData = ref<any>();
-const prviewImgUrl = ref<string>("");
-const showImgPrview = ref<boolean>(false);
-function handlePreview(fileObj: UploadFileInfo[]) {
-  const { url, name, file } = fileObj[0];
-  imgName.value = name;
-  fileData.value = file;
-  prviewImgUrl.value = url as string;
-  showImgPrview.value = true;
+const upload = ref<UploadInst>();
+async function customRequest({ file }: UploadCustomRequestOptions) {
+  imgName.value = file.name;
+  fileData.value = file.file;
 }
-
 async function upLoadpetBreed() {
-  console.log(modelValue.value);
-  const { cosRes, folder } = await uploadOssObj(imgName.value, fileData.value);
-  const location = cosRes.Location.split("/")[1];
-  let path = "";
-  if (folder) {
-    path = folder + location;
-  } else {
-    path = "/" + location;
-  }
-  const theme = new MediaMetaModel({
-    path: path,
-    type: MediaMetaType.MediaMetaType_PIC,
-  });
-  const req = new PetBreedViewModel({
-    title: modelValue.value.breedName,
-    theme,
-    isRecommend: modelValue.value.isRecommend,
-    pid: modelValue.value.pid,
-  });
-  pets.addPetbreed(req).then((res) => {
-    if (res.toObject().value) {
+  upload.value?.submit();
+  if (imgName.value !== undefined) {
+    const { cosRes, folder } = await uploadOssObj(
+      imgName.value,
+      fileData.value
+    );
+    const location = cosRes.Location.split("/")[1];
+    let path = "";
+    if (folder) {
+      path = folder + location;
+    } else {
+      path = "/" + location;
+    }
+    const theme = new MediaMetaModel({
+      path: path,
+      type: MediaMetaType.MediaMetaType_PIC,
+    });
+    const req = new PetBreedViewModel({
+      title: modelValue.value.breedName,
+      theme,
+      isRecommend: modelValue.value.isRecommend,
+      pid: modelValue.value.pid,
+    });
+    const result = await pets.addPetbreed(req);
+    if (result.toObject().value) {
       emit("close");
     }
-  });
+  } else {
+    const req = new PetBreedViewModel({
+      title: modelValue.value.breedName,
+      isRecommend: modelValue.value.isRecommend,
+      pid: modelValue.value.pid,
+    });
+    const result = await pets.addPetbreed(req);
+    if (result.toObject().value) {
+      emit("close");
+    }
+  }
 }
 
 function closeModal() {
