@@ -25,6 +25,25 @@ export const constantRoute: Array<RouteRecordRaw> = [
     component: () => import("@/views/common/login/index.vue"),
   },
   {
+    path: "/merchant-service",
+    meta: {
+      name: "商家管理",
+      isRoot: false,
+    },
+    redirect: "/merchant-service/examine",
+    component: () => import("@/components/layout/index.vue"),
+    children: [
+      {
+        path: "/merchant-service/examine",
+        meta: {
+          isRoot: true,
+          name: "入驻审核",
+        },
+        component: () => import("@/views/merchant/index.vue"),
+      },
+    ],
+  },
+  {
     path: "/pet-service",
     meta: {
       name: "宠物服务",
@@ -43,6 +62,7 @@ export const constantRoute: Array<RouteRecordRaw> = [
       },
       {
         path: "/pet-service/petbreed/detail",
+        name: "pet_detial",
         meta: {
           isRoot: true,
           name: "品种详情",

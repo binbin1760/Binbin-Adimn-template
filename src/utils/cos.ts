@@ -43,7 +43,7 @@ export async function uploadOssObj(name: string, obj: File) {
   const Region = voucher.region;
   const credentials = voucher.credentials;
   const folder = voucher.folder;
-  var cos = new COS({
+  let cos = new COS({
     getAuthorization: function (options: any, callback: any) {
       callback({
         TmpSecretId: credentials?.tmpSecretId,
@@ -87,4 +87,51 @@ export async function uploadOssObj(name: string, obj: File) {
   }
   cosRes = await getCosValue();
   return { imgType, cosRes, folder };
+}
+
+export async function downloadCosObj(name: string) {
+  const voucher = (await objectService.getDownLoadVoucher()).toObject();
+  const Bucket = voucher.bucket;
+  const Region = voucher.region;
+  const credentials = voucher.credentials;
+  let cos = new COS({
+    getAuthorization: function (options: any, callback: any) {
+      callback({
+        TmpSecretId: credentials?.tmpSecretId,
+        TmpSecretKey: credentials?.tmpSecretKey,
+        SecurityToken: credentials?.sessionToken,
+        StartTime: voucher.startTime,
+        ExpiredTime: voucher.expiredTime,
+      });
+    },
+  });
+  function downLoadCos() {
+    return new Promise((resolve, reject) => {
+      cos.getObjectUrl(
+        {
+          Bucket,
+          Region,
+          Key: name,
+        },
+        function (err: any, data: any) {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(data);
+          }
+        }
+      );
+    });
+  }
+
+  async function getCosValue() {
+    try {
+      const cosRes = await downLoadCos();
+      return cosRes;
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  const cosRes: any = await getCosValue();
+  return cosRes.Url;
 }
