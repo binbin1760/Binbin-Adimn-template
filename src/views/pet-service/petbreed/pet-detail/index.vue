@@ -49,7 +49,7 @@
           />
         </n-form-item>
         <n-form-item
-          v-if="!modelValue.isRecommend"
+          v-if="modelValue.isRecommend"
           label="添加品种图片:"
           path="inputValue"
         >

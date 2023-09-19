@@ -280,7 +280,7 @@ const treeData = [
       flex-direction: column;
       justify-content: space-between;
       border-radius: 5px;
-      padding: 0 1.6rem;
+      border-radius: 24px 24px 0 0;
       border: 1px solid rgb(233, 233, 233);
       height: 38rem;
       .pageination {

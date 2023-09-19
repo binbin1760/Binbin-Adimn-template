@@ -31,6 +31,7 @@ function getMenuItems(router: Array<any>) {
       label: MenuItem.meta.name,
       key: MenuItem.path,
       meta: MenuItem.meta,
+      show: MenuItem.meta?.hidden,
     };
     if (!MenuItem.meta.isRoot && MenuItem.children) {
       item.children = getMenuItems(MenuItem.children);
