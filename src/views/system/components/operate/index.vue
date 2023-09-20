@@ -10,7 +10,6 @@
       preset="card"
       :style="{ width: '600px' }"
       transform-origin="center"
-      title="测试"
     >
       <template #default>
         <div>

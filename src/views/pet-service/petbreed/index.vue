@@ -225,7 +225,6 @@ async function delpet(id: string, key: number) {
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
-  height: 100%;
   .crud {
     display: flex;
     align-items: center;
@@ -264,19 +263,6 @@ async function delpet(id: string, key: number) {
     }
     .breed-table {
       border-top: 1px solid #efeff5;
-    }
-  }
-  .pageination {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin-top: 2rem;
-    color: #999999;
-    .page-total {
-      padding-right: 4.5rem;
-      .total-number {
-        margin: 0 5px;
-      }
     }
   }
 }

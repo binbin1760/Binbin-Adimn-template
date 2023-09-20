@@ -1,11 +1,6 @@
 <template>
-  <div class="merchant">
-    <MerchantHeader
-      :options="statusOptions"
-      @update:name="getName"
-      @update:status="getStatus"
-      @update:phone="getPhone"
-    ></MerchantHeader>
+  <div class="info">
+    <MerchantHeader :options="statusOptions"></MerchantHeader>
     <div class="data-table-box">
       <div class="data-table">
         <DataTable :columns="column" :data="data"></DataTable>
@@ -24,10 +19,10 @@
 </template>
 <script setup lang="ts">
 import { DataTableColumns } from "naive-ui";
-import { Merchant } from "./types";
-import { MerchantHeader } from "./components";
+import { MerchantHeader } from "../components";
+import { MerchantInfo } from "./types";
 const Router = useRouter();
-//  select
+// select
 const statusOptions = [
   {
     label: "待审核",
@@ -43,21 +38,30 @@ const statusOptions = [
   },
 ];
 // 表格
-const columnsCreate = (): DataTableColumns<Merchant> => [
+const columnsCreate = (): DataTableColumns<MerchantInfo> => [
   {
     title: "商家名称",
     key: "name",
     align: "center",
   },
   {
-    title: "商家地址",
-    key: "address",
+    title: "修改类型",
+    key: "fixType",
     align: "center",
-  },
-  {
-    title: "联系电话",
-    key: "call",
-    align: "center",
+    render(row) {
+      const list = row.fixType.map((item) => {
+        return h(
+          "span",
+          { bordered: false, color: { color: "white" } },
+          { default: () => item }
+        );
+      });
+      return h(
+        "span",
+        { style: { display: "flex", gap: "27px", justifyContent: "center" } },
+        { default: () => list }
+      );
+    },
   },
   {
     title: "状态",
@@ -122,32 +126,29 @@ const columnsCreate = (): DataTableColumns<Merchant> => [
     },
   },
 ];
-const data = ref<Array<Partial<Merchant>>>([
+const column = columnsCreate();
+const data = [
   {
     key: 0,
-    name: "廖顺彬的猫猫店",
-    address: "西部智谷A区",
-    call: "1234567890",
+    name: "彬彬",
+    fixType: ["名称", "主图", "相册", "电话"],
     status: "1",
   },
   {
     key: 1,
-    name: "廖顺彬的猫猫店",
-    address: "西部智谷A区",
-    call: "1234567890",
+    name: "彬彬",
+    fixType: ["名称", "主图", "相册", "电话"],
     status: "2",
   },
   {
     key: 2,
-    name: "廖顺彬的猫猫店",
-    address: "西部智谷A区",
-    call: "1234567890",
+    name: "彬彬",
+    fixType: ["名称", "主图", "相册", "电话"],
     status: "3",
   },
-]);
-const column = columnsCreate();
+];
 function toDetailPage() {
-  Router.push("/merchant-service/merchant-info-detail");
+  Router.push("/merchant-service/merchant-fixinfo-detial");
 }
 // 分页
 const pages = ref<number>(1);
@@ -156,19 +157,9 @@ const total = ref<number>(3);
 function getCurrentPage(page: number) {
   pages.value = page;
 }
-//数据处理
-function getName(e: string) {
-  console.log(e);
-}
-function getStatus(e: string) {
-  console.log(e);
-}
-function getPhone(e: string) {
-  console.log(e);
-}
 </script>
 <style scoped lang="less">
-.merchant {
+.info {
   height: 100%;
   background: #ffffff;
   border-radius: 2.4rem 2.4rem 0 2.4rem;

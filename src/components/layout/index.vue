@@ -1,6 +1,10 @@
 <template>
   <n-layout has-sider class="layout">
-    <n-layout-sider class="n-layout-sider-scroll-container" content-style="padding: 0.5rem 0;" width="20rem">
+    <n-layout-sider
+      class="n-layout-sider-scroll-container"
+      content-style="padding: 0.5rem 0;"
+      width="20rem"
+    >
       <div class="company-logo">宠+</div>
       <sidemenu></sidemenu>
     </n-layout-sider>
@@ -18,7 +22,11 @@
             </div>
           </n-icon>
           <n-breadcrumb>
-            <n-breadcrumb-item v-for="(item, index) in breadList" :key="index">{{ item.key }}</n-breadcrumb-item>
+            <n-breadcrumb-item
+              v-for="(item, index) in breadList"
+              :key="index"
+              >{{ item.key }}</n-breadcrumb-item
+            >
           </n-breadcrumb>
           <div class="ohter">
             <n-avatar round size="large">
@@ -29,7 +37,6 @@
           </div>
         </div>
         <div class="views">
-          <div class="TabsView">123</div>
           <div class="mainViews">
             <router-view />
           </div>
@@ -42,18 +49,17 @@
 <script setup lang="ts">
 import { sidemenu } from "@/components";
 import { useRoute } from "vue-router";
-import { List, Refresh, PersonSharp } from '@vicons/ionicons5'
-const Route = useRoute()
+import { List, Refresh, PersonSharp } from "@vicons/ionicons5";
+const Route = useRoute();
 function getBreadCrumb() {
-  const data = Route.matched.map(item => {
-    return { key: item.meta.name, value: item.path }
-  })
-  return data
+  const data = Route.matched.map((item) => {
+    return { key: item.meta.name, value: item.path };
+  });
+  return data;
 }
 const breadList = computed(() => {
-  return getBreadCrumb()
-})
-
+  return getBreadCrumb();
+});
 </script>
 
 <style scoped lang="less">
@@ -107,12 +113,12 @@ const breadList = computed(() => {
     }
 
     .views {
-      padding: 0 3rem;
       flex: 1;
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
-
+      overflow-y: scroll;
+      padding: 0 3rem;
       .mainViews {
         flex: 1;
       }
