@@ -21,6 +21,7 @@
 import { DataTableColumns } from "naive-ui";
 import { MerchantHeader } from "../components";
 import { MerchantInfo } from "./types";
+const Router = useRouter();
 // select
 const statusOptions = [
   {
@@ -114,7 +115,10 @@ const columnsCreate = (): DataTableColumns<MerchantInfo> => [
         ),
         h(
           "span",
-          { style: { color: "#266FE8", cursor: "pointer" } },
+          {
+            onClick: () => toDetailPage(),
+            style: { color: "#266FE8", cursor: "pointer" },
+          },
           { default: () => "查看详情" }
         ),
       ];
@@ -143,6 +147,9 @@ const data = [
     status: "3",
   },
 ];
+function toDetailPage() {
+  Router.push("/merchant-service/merchant-fixinfo-detial");
+}
 // 分页
 const pages = ref<number>(1);
 const pageCount = ref<number>();

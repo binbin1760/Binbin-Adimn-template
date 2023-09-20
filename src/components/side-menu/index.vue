@@ -21,7 +21,7 @@ import { NIcon } from "naive-ui";
 import type { GlobalThemeOverrides, MenuOption } from "naive-ui";
 import { CaretDownOutline } from "@vicons/ionicons5";
 import { NConfigProvider } from "naive-ui";
-import { constantRoute } from "@/router/index";
+import { asyncRoutes } from "@/router/index";
 import { useRouter, useRoute } from "vue-router";
 
 // 计算侧栏菜单
@@ -39,7 +39,7 @@ function getMenuItems(router: Array<any>) {
     return item;
   });
 }
-const menuOptions: MenuOption[] = getMenuItems(constantRoute);
+const menuOptions: MenuOption[] = getMenuItems(asyncRoutes);
 const themeOverrides: GlobalThemeOverrides = {
   Menu: {
     itemTextColor: "#BBBBBB",

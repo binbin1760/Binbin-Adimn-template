@@ -69,6 +69,7 @@
 import { h, ref } from "vue";
 import { DataTableColumns } from "naive-ui";
 import type { PackageType } from "./types";
+const Router = useRouter();
 // select
 const statusOptions = [
   {
@@ -162,7 +163,10 @@ const columnsCreate = (): DataTableColumns<PackageType> => [
         ),
         h(
           "span",
-          { style: { color: "#266FE8", cursor: "pointer" } },
+          {
+            onClick: () => todetailPage(),
+            style: { color: "#266FE8", cursor: "pointer" },
+          },
           { default: () => "查看详情" }
         ),
       ];
@@ -194,6 +198,9 @@ const data = ref<Array<Partial<PackageType>>>([
     status: "3",
   },
 ]);
+function todetailPage() {
+  Router.push("/merchant-service/package-detial");
+}
 // 分页
 const pages = ref<number>(1);
 const pageCount = ref<number>();

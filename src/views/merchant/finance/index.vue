@@ -69,6 +69,7 @@
 import { h, ref } from "vue";
 import { DataTableColumns } from "naive-ui";
 import type { FinanceType } from "./types";
+const Router = useRouter();
 // select
 const statusOptions = [
   {
@@ -166,7 +167,10 @@ const columnsCreate = (): DataTableColumns<FinanceType> => [
         ),
         h(
           "span",
-          { style: { color: "#266FE8", cursor: "pointer" } },
+          {
+            onClick: () => toDetailPage(),
+            style: { color: "#266FE8", cursor: "pointer" },
+          },
           { default: () => "查看详情" }
         ),
       ];
@@ -201,6 +205,9 @@ const data = ref<Array<Partial<FinanceType>>>([
     applyTime: "2023-09-19 09:12:12",
   },
 ]);
+function toDetailPage() {
+  Router.push("/merchant-service/finance-detial");
+}
 // 分页
 const pages = ref<number>(1);
 const pageCount = ref<number>();

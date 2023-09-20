@@ -26,7 +26,7 @@
 import { DataTableColumns } from "naive-ui";
 import { Merchant } from "./types";
 import { MerchantHeader } from "./components";
-
+const Router = useRouter();
 //  select
 const statusOptions = [
   {
@@ -111,7 +111,10 @@ const columnsCreate = (): DataTableColumns<Merchant> => [
         ),
         h(
           "span",
-          { style: { color: "#266FE8", cursor: "pointer" } },
+          {
+            onClick: () => toDetailPage(),
+            style: { color: "#266FE8", cursor: "pointer" },
+          },
           { default: () => "查看详情" }
         ),
       ];
@@ -143,6 +146,9 @@ const data = ref<Array<Partial<Merchant>>>([
   },
 ]);
 const column = columnsCreate();
+function toDetailPage() {
+  Router.push("/merchant-service/merchant-info-detail");
+}
 // 分页
 const pages = ref<number>(1);
 const pageCount = ref<number>();

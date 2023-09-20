@@ -21,7 +21,9 @@
       <n-button size="large" color="#FF9B52">重置</n-button>
     </div>
     <div class="operate-list">
-      <n-button size="large" color="#409EFF">新增</n-button>
+      <n-button size="large" color="#409EFF" @click="addNewMenu()"
+        >新增</n-button
+      >
       <n-button size="large" color="#F56D6D">删除</n-button>
     </div>
     <div class="data-able">
@@ -42,12 +44,27 @@
         <template #goto>跳至</template>
       </n-pagination>
     </div>
+
+    <n-modal
+      v-model:show="showModal"
+      class="custom-card"
+      preset="card"
+      :style="{ width: '600px' }"
+      transform-origin="center"
+    >
+      <template #default>
+        <div>
+          <menuForm></menuForm>
+        </div>
+      </template>
+    </n-modal>
   </div>
 </template>
 <script setup lang="ts">
 import { DataTableColumns } from "naive-ui";
-import { Operate } from "../components";
+import { menuForm } from "../components";
 import { MenusType } from "./types";
+const showModal = ref<boolean>(false);
 // 表单
 function getFiled(value: boolean) {
   if (value) {
@@ -107,7 +124,19 @@ const columnsCreate = (): DataTableColumns<MenusType> => [
     key: "operate",
     align: "center",
     render() {
-      return h(Operate, {});
+      const list = [
+        h(
+          NButton,
+          { size: "small", color: "#1990FF", style: { marginRight: "0.8rem" } },
+          { default: () => "新增" }
+        ),
+        h(
+          NButton,
+          { size: "small", color: "#FF4A4A" },
+          { default: () => "删除" }
+        ),
+      ];
+      return list;
     },
   },
 ];
@@ -171,6 +200,10 @@ const pageSizes = [
 ];
 function getCurrentPage(page: number) {
   pages.value = page;
+}
+// 数据处理
+function addNewMenu() {
+  showModal.value = true;
 }
 </script>
 <style scoped lang="less">
