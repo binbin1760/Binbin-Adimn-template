@@ -47,14 +47,24 @@
 
     <n-modal
       v-model:show="showModal"
+      title="新增"
       class="custom-card"
       preset="card"
       :style="{ width: '600px' }"
       transform-origin="center"
     >
       <template #default>
-        <div>
-          <menuForm></menuForm>
+        <div class="modal-form">
+          <div class="menu-select">
+            <span>菜单类型</span>
+            <n-radio-group v-model:value="formType" name="left-size">
+              <n-radio-button value="directory"> 目录 </n-radio-button>
+              <n-radio-button value="menu"> 菜单 </n-radio-button>
+              <n-radio-button value="button"> 按钮 </n-radio-button>
+            </n-radio-group>
+          </div>
+          <menuForm v-if="formType === 'menu'"></menuForm>
+          <directoryForm v-if="formType === 'directory'"></directoryForm>
         </div>
       </template>
     </n-modal>
@@ -62,10 +72,13 @@
 </template>
 <script setup lang="ts">
 import { DataTableColumns } from "naive-ui";
-import { menuForm } from "../components";
+import { menuForm, directoryForm } from "../components";
 import { MenusType } from "./types";
+import { Menu } from "@/api";
+import { MenuPageRequest, PagerRequest } from "@/protoJs";
 const showModal = ref<boolean>(false);
 // 表单
+const formType = ref<string>("directory");
 function getFiled(value: boolean) {
   if (value) {
     const color = {
@@ -87,35 +100,54 @@ const columnsCreate = (): DataTableColumns<MenusType> => [
   {
     type: "selection",
   },
-  { title: "菜单标题", key: "menuTitle", align: "center" },
-  { title: "菜单图标", key: "icon", align: "center" },
-  { title: "排序", key: "order", align: "center" },
-  { title: "权限表示", key: "mark", align: "center" },
-  { title: "组件路径", key: "url", align: "center" },
   {
-    title: "外链",
-    key: "outSide",
+    title: "类型",
+    key: "type",
     align: "center",
     render(row) {
-      const tag = getFiled(row.outSide);
+      let result: string | undefined;
+      if (row.type === 1) {
+        result = "目录";
+      }
+
+      if (row.type === 2) {
+        result = "菜单";
+      }
+      if (row.type === 3) {
+        result = "按钮";
+      }
+      return h("div", {}, { default: () => result });
+    },
+  },
+  { title: "菜单标题", key: "title", align: "center" },
+  { title: "菜单图标", key: "icon", align: "center" },
+  { title: "排序", key: "sort", align: "center" },
+  { title: "权限表示", key: "identity", align: "center" },
+  { title: "组件", key: "componentName", align: "center" },
+  {
+    title: "外链",
+    key: "isFrame",
+    align: "center",
+    render(row) {
+      const tag = getFiled(row.isFrame);
       return h("span", {}, { default: () => tag?.value });
     },
   },
   {
     title: "缓存",
-    key: "isbuffer",
+    key: "noCache",
     align: "center",
     render(row) {
-      const tag = getFiled(row.isbuffer);
+      const tag = getFiled(row.noCache);
       return h(NTag, { color: tag?.color }, { default: () => tag?.value });
     },
   },
   {
     title: "可见",
-    key: "isshow",
+    key: "hidden",
     align: "center",
     render(row) {
-      const tag = getFiled(row.isshow);
+      const tag = getFiled(row.hidden);
       return h(NTag, { color: tag?.color }, { default: () => tag?.value });
     },
   },
@@ -128,7 +160,7 @@ const columnsCreate = (): DataTableColumns<MenusType> => [
         h(
           NButton,
           { size: "small", color: "#1990FF", style: { marginRight: "0.8rem" } },
-          { default: () => "新增" }
+          { default: () => "编辑" }
         ),
         h(
           NButton,
@@ -144,36 +176,15 @@ const columns = columnsCreate();
 const data = ref<Array<Partial<MenusType>>>([
   {
     key: 0,
-    menuTitle: "系统管理",
+    title: "系统管理",
+    type: 1,
     icon: "管理",
-    order: 1,
-    mark: "01020",
-    url: "/xxx/xxx/xx",
-    outSide: false,
-    isbuffer: true,
-    isshow: false,
-  },
-  {
-    key: 1,
-    menuTitle: "系统工具",
-    icon: "工具",
-    order: 2,
-    mark: "01020",
-    url: "/xxx/xxx/xx",
-    outSide: false,
-    isbuffer: true,
-    isshow: false,
-  },
-  {
-    key: 2,
-    menuTitle: "系统监控",
-    icon: "健康",
-    order: 3,
-    mark: "01020",
-    url: "/xxx/xxx/xx",
-    outSide: false,
-    isbuffer: true,
-    isshow: false,
+    componentName: "layout",
+    sort: 1,
+    identity: "01020",
+    isFrame: false,
+    noCache: true,
+    hidden: false,
   },
 ]);
 // 分页
@@ -205,6 +216,13 @@ function getCurrentPage(page: number) {
 function addNewMenu() {
   showModal.value = true;
 }
+async function getData() {
+  const page = new PagerRequest({ pageNumber: 1, pageSize: 5 });
+  const req = new MenuPageRequest({ page: page });
+  const result = (await Menu.allMenu(req)).toObject();
+  console.log(result);
+}
+getData();
 </script>
 <style scoped lang="less">
 .menus {
@@ -245,6 +263,17 @@ function addNewMenu() {
         margin: 0 5px;
       }
     }
+  }
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  .menu-select {
+    display: flex;
+    gap: 1.1rem;
+    margin-left: 2.5rem;
   }
 }
 </style>

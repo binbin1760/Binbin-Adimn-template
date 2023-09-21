@@ -68,7 +68,7 @@ const columnsCreate = (): DataTableColumns<MerchantInfo> => [
     key: "status",
     align: "center",
     render(row) {
-      let textColor = null;
+      let textColor: string | null = null;
       let text: string | null = null;
       if (row.status === "1") {
         textColor = "#ED7B2F";

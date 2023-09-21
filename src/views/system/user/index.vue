@@ -58,7 +58,6 @@
 <script setup lang="ts">
 import { userTable } from "@/views/system/user/types";
 import { DataTableColumns, NSwitch } from "naive-ui";
-import { Operate } from "@/views/system/components";
 
 const columnsCreate = (): DataTableColumns<userTable> => [
   {
@@ -122,9 +121,6 @@ const columnsCreate = (): DataTableColumns<userTable> => [
     title: "操作",
     key: "operate",
     align: "center",
-    render() {
-      return h(Operate, {});
-    },
   },
 ];
 const columns = columnsCreate();

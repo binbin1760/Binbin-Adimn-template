@@ -2,7 +2,7 @@
   <div class="date-picker-range">
     <n-config-provider :locale="zhCN" :date-locale="dateZhCN">
       <n-date-picker
-        :actions="['null']"
+        :actions="['now']"
         type="daterange"
         :close-on-select="true"
         :value="dateValue"

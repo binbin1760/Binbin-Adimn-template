@@ -1,11 +1,11 @@
 import fetch from "@/utils/request";
 import {
   CRUDResult,
-  RoutePageResponse,
   MenuPageRequest,
   MenuViewModel,
   DeleteBatchRequest,
   ButtonWithIdentities,
+  MenuPageResponse,
 } from "@/protoJs";
 export class Menu {
   static ownMenu(): Promise<CRUDResult> {
@@ -17,13 +17,13 @@ export class Menu {
       },
     });
   }
-  static allMenu(request: MenuPageRequest): Promise<CRUDResult> {
+  static allMenu(request: MenuPageRequest): Promise<MenuPageResponse> {
     return fetch({
       url: "/admin/menu/all",
       method: "post",
       data: {
         request: request.serializeBinary(),
-        resType: RoutePageResponse,
+        resType: MenuPageResponse,
       },
     });
   }

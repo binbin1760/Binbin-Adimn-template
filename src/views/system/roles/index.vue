@@ -145,7 +145,6 @@
 </template>
 <script setup lang="ts">
 import { DataTableColumns } from "naive-ui";
-import { Operate } from "../components";
 import { RoleType } from "./types";
 
 const columnsCreate = (): DataTableColumns<RoleType> => [
@@ -160,9 +159,6 @@ const columnsCreate = (): DataTableColumns<RoleType> => [
     title: "操作",
     key: "operate",
     align: "center",
-    render() {
-      return h(Operate, {});
-    },
   },
 ];
 const columns = columnsCreate();

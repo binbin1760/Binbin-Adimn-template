@@ -3,6 +3,7 @@
  * compiler version: 3.20.3
  * source: server/log.proto
  * git: https://github.com/thesayyn/protoc-gen-ts */
+// @ts-nocheck
 import * as dependency_1 from "./enums";
 import * as dependency_2 from "./page";
 import * as dependency_3 from "./payload";

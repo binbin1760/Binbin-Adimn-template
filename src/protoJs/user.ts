@@ -3,4 +3,3 @@
  * compiler version: 3.20.3
  * source: user.proto
  * git: https://github.com/thesayyn/protoc-gen-ts */
-import * as dependency_1 from "./enums";

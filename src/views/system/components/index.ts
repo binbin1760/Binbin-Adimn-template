@@ -1,5 +1,5 @@
-import Operate from "./operate/index.vue";
-import menuForm from "./form-list/menuForm.vue";
+import menuForm from "./form-list/menu-form.vue";
+import directoryForm from "./form-list/directory-form.vue";
 
-export { Operate, menuForm };
+export { menuForm, directoryForm };
 export * from "../components";
