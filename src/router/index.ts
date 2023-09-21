@@ -47,6 +47,7 @@ export const constantRoute: Array<RouteRecordRaw> = [
   },
   {
     path: "/merchant-service",
+    name: "merchant",
     meta: {
       name: "商家管理",
       isRoot: false,

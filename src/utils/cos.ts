@@ -1,6 +1,8 @@
+// @ts-nocheck
 import { objectService } from "@/api";
 import COS from "cos-js-sdk-v5";
 import { v4 as uuidv4 } from "uuid";
+
 interface VoucherType {
   credentials: Record<string, string>;
   requestId: string;

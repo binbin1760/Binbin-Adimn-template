@@ -3,208 +3,245 @@
  * compiler version: 3.20.3
  * source: framework.proto
  * git: https://github.com/thesayyn/protoc-gen-ts */
+// @ts-nocheck
 import * as dependency_1 from "./enums";
 import * as pb_1 from "google-protobuf";
 export class PBMessageRequest extends pb_1.Message {
-    #one_of_decls: number[][] = [];
-    constructor(data?: any[] | {
-        messageData?: Uint8Array;
-        version?: string;
-    }) {
-        super();
-        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
-        if (!Array.isArray(data) && typeof data == "object") {
-            if ("messageData" in data && data.messageData != undefined) {
-                this.messageData = data.messageData;
-            }
-            if ("version" in data && data.version != undefined) {
-                this.version = data.version;
-            }
+  #one_of_decls: number[][] = [];
+  constructor(
+    data?:
+      | any[]
+      | {
+          messageData?: Uint8Array;
+          version?: string;
         }
+  ) {
+    super();
+    pb_1.Message.initialize(
+      this,
+      Array.isArray(data) ? data : [],
+      0,
+      -1,
+      [],
+      this.#one_of_decls
+    );
+    if (!Array.isArray(data) && typeof data == "object") {
+      if ("messageData" in data && data.messageData != undefined) {
+        this.messageData = data.messageData;
+      }
+      if ("version" in data && data.version != undefined) {
+        this.version = data.version;
+      }
     }
-    get messageData() {
-        return pb_1.Message.getFieldWithDefault(this, 1, new Uint8Array()) as Uint8Array;
+  }
+  get messageData() {
+    return pb_1.Message.getFieldWithDefault(
+      this,
+      1,
+      new Uint8Array()
+    ) as Uint8Array;
+  }
+  set messageData(value: Uint8Array) {
+    pb_1.Message.setField(this, 1, value);
+  }
+  get version() {
+    return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+  }
+  set version(value: string) {
+    pb_1.Message.setField(this, 2, value);
+  }
+  static fromObject(data: {
+    messageData?: Uint8Array;
+    version?: string;
+  }): PBMessageRequest {
+    const message = new PBMessageRequest({});
+    if (data.messageData != null) {
+      message.messageData = data.messageData;
     }
-    set messageData(value: Uint8Array) {
-        pb_1.Message.setField(this, 1, value);
+    if (data.version != null) {
+      message.version = data.version;
     }
-    get version() {
-        return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+    return message;
+  }
+  toObject() {
+    const data: {
+      messageData?: Uint8Array;
+      version?: string;
+    } = {};
+    if (this.messageData != null) {
+      data.messageData = this.messageData;
     }
-    set version(value: string) {
-        pb_1.Message.setField(this, 2, value);
+    if (this.version != null) {
+      data.version = this.version;
     }
-    static fromObject(data: {
-        messageData?: Uint8Array;
-        version?: string;
-    }): PBMessageRequest {
-        const message = new PBMessageRequest({});
-        if (data.messageData != null) {
-            message.messageData = data.messageData;
-        }
-        if (data.version != null) {
-            message.version = data.version;
-        }
-        return message;
+    return data;
+  }
+  serialize(): Uint8Array;
+  serialize(w: pb_1.BinaryWriter): void;
+  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+    const writer = w || new pb_1.BinaryWriter();
+    if (this.messageData.length) writer.writeBytes(1, this.messageData);
+    if (this.version.length) writer.writeString(2, this.version);
+    if (!w) return writer.getResultBuffer();
+  }
+  static deserialize(bytes: Uint8Array | pb_1.BinaryReader): PBMessageRequest {
+    const reader =
+        bytes instanceof pb_1.BinaryReader
+          ? bytes
+          : new pb_1.BinaryReader(bytes),
+      message = new PBMessageRequest();
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) break;
+      switch (reader.getFieldNumber()) {
+        case 1:
+          message.messageData = reader.readBytes();
+          break;
+        case 2:
+          message.version = reader.readString();
+          break;
+        default:
+          reader.skipField();
+      }
     }
-    toObject() {
-        const data: {
-            messageData?: Uint8Array;
-            version?: string;
-        } = {};
-        if (this.messageData != null) {
-            data.messageData = this.messageData;
-        }
-        if (this.version != null) {
-            data.version = this.version;
-        }
-        return data;
-    }
-    serialize(): Uint8Array;
-    serialize(w: pb_1.BinaryWriter): void;
-    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-        const writer = w || new pb_1.BinaryWriter();
-        if (this.messageData.length)
-            writer.writeBytes(1, this.messageData);
-        if (this.version.length)
-            writer.writeString(2, this.version);
-        if (!w)
-            return writer.getResultBuffer();
-    }
-    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): PBMessageRequest {
-        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new PBMessageRequest();
-        while (reader.nextField()) {
-            if (reader.isEndGroup())
-                break;
-            switch (reader.getFieldNumber()) {
-                case 1:
-                    message.messageData = reader.readBytes();
-                    break;
-                case 2:
-                    message.version = reader.readString();
-                    break;
-                default: reader.skipField();
-            }
-        }
-        return message;
-    }
-    serializeBinary(): Uint8Array {
-        return this.serialize();
-    }
-    static deserializeBinary(bytes: Uint8Array): PBMessageRequest {
-        return PBMessageRequest.deserialize(bytes);
-    }
+    return message;
+  }
+  serializeBinary(): Uint8Array {
+    return this.serialize();
+  }
+  static deserializeBinary(bytes: Uint8Array): PBMessageRequest {
+    return PBMessageRequest.deserialize(bytes);
+  }
 }
 export class PBMessageResponse extends pb_1.Message {
-    #one_of_decls: number[][] = [];
-    constructor(data?: any[] | {
-        errorNo?: dependency_1.ErrorNo;
-        msg?: string;
-        messageData?: Uint8Array;
-    }) {
-        super();
-        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
-        if (!Array.isArray(data) && typeof data == "object") {
-            if ("errorNo" in data && data.errorNo != undefined) {
-                this.errorNo = data.errorNo;
-            }
-            if ("msg" in data && data.msg != undefined) {
-                this.msg = data.msg;
-            }
-            if ("messageData" in data && data.messageData != undefined) {
-                this.messageData = data.messageData;
-            }
+  #one_of_decls: number[][] = [];
+  constructor(
+    data?:
+      | any[]
+      | {
+          errorNo?: dependency_1.ErrorNo;
+          msg?: string;
+          messageData?: Uint8Array;
         }
+  ) {
+    super();
+    pb_1.Message.initialize(
+      this,
+      Array.isArray(data) ? data : [],
+      0,
+      -1,
+      [],
+      this.#one_of_decls
+    );
+    if (!Array.isArray(data) && typeof data == "object") {
+      if ("errorNo" in data && data.errorNo != undefined) {
+        this.errorNo = data.errorNo;
+      }
+      if ("msg" in data && data.msg != undefined) {
+        this.msg = data.msg;
+      }
+      if ("messageData" in data && data.messageData != undefined) {
+        this.messageData = data.messageData;
+      }
     }
-    get errorNo() {
-        return pb_1.Message.getFieldWithDefault(this, 1, dependency_1.ErrorNo._ErrorNo_UNSPECIFIED) as dependency_1.ErrorNo;
+  }
+  get errorNo() {
+    return pb_1.Message.getFieldWithDefault(
+      this,
+      1,
+      dependency_1.ErrorNo._ErrorNo_UNSPECIFIED
+    ) as dependency_1.ErrorNo;
+  }
+  set errorNo(value: dependency_1.ErrorNo) {
+    pb_1.Message.setField(this, 1, value);
+  }
+  get msg() {
+    return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+  }
+  set msg(value: string) {
+    pb_1.Message.setField(this, 2, value);
+  }
+  get messageData() {
+    return pb_1.Message.getFieldWithDefault(
+      this,
+      3,
+      new Uint8Array()
+    ) as Uint8Array;
+  }
+  set messageData(value: Uint8Array) {
+    pb_1.Message.setField(this, 3, value);
+  }
+  static fromObject(data: {
+    errorNo?: dependency_1.ErrorNo;
+    msg?: string;
+    messageData?: Uint8Array;
+  }): PBMessageResponse {
+    const message = new PBMessageResponse({});
+    if (data.errorNo != null) {
+      message.errorNo = data.errorNo;
     }
-    set errorNo(value: dependency_1.ErrorNo) {
-        pb_1.Message.setField(this, 1, value);
+    if (data.msg != null) {
+      message.msg = data.msg;
     }
-    get msg() {
-        return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+    if (data.messageData != null) {
+      message.messageData = data.messageData;
     }
-    set msg(value: string) {
-        pb_1.Message.setField(this, 2, value);
+    return message;
+  }
+  toObject() {
+    const data: {
+      errorNo?: dependency_1.ErrorNo;
+      msg?: string;
+      messageData?: Uint8Array;
+    } = {};
+    if (this.errorNo != null) {
+      data.errorNo = this.errorNo;
     }
-    get messageData() {
-        return pb_1.Message.getFieldWithDefault(this, 3, new Uint8Array()) as Uint8Array;
+    if (this.msg != null) {
+      data.msg = this.msg;
     }
-    set messageData(value: Uint8Array) {
-        pb_1.Message.setField(this, 3, value);
+    if (this.messageData != null) {
+      data.messageData = this.messageData;
     }
-    static fromObject(data: {
-        errorNo?: dependency_1.ErrorNo;
-        msg?: string;
-        messageData?: Uint8Array;
-    }): PBMessageResponse {
-        const message = new PBMessageResponse({});
-        if (data.errorNo != null) {
-            message.errorNo = data.errorNo;
-        }
-        if (data.msg != null) {
-            message.msg = data.msg;
-        }
-        if (data.messageData != null) {
-            message.messageData = data.messageData;
-        }
-        return message;
+    return data;
+  }
+  serialize(): Uint8Array;
+  serialize(w: pb_1.BinaryWriter): void;
+  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+    const writer = w || new pb_1.BinaryWriter();
+    if (this.errorNo != dependency_1.ErrorNo._ErrorNo_UNSPECIFIED)
+      writer.writeEnum(1, this.errorNo);
+    if (this.msg.length) writer.writeString(2, this.msg);
+    if (this.messageData.length) writer.writeBytes(3, this.messageData);
+    if (!w) return writer.getResultBuffer();
+  }
+  static deserialize(bytes: Uint8Array | pb_1.BinaryReader): PBMessageResponse {
+    const reader =
+        bytes instanceof pb_1.BinaryReader
+          ? bytes
+          : new pb_1.BinaryReader(bytes),
+      message = new PBMessageResponse();
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) break;
+      switch (reader.getFieldNumber()) {
+        case 1:
+          message.errorNo = reader.readEnum();
+          break;
+        case 2:
+          message.msg = reader.readString();
+          break;
+        case 3:
+          message.messageData = reader.readBytes();
+          break;
+        default:
+          reader.skipField();
+      }
     }
-    toObject() {
-        const data: {
-            errorNo?: dependency_1.ErrorNo;
-            msg?: string;
-            messageData?: Uint8Array;
-        } = {};
-        if (this.errorNo != null) {
-            data.errorNo = this.errorNo;
-        }
-        if (this.msg != null) {
-            data.msg = this.msg;
-        }
-        if (this.messageData != null) {
-            data.messageData = this.messageData;
-        }
-        return data;
-    }
-    serialize(): Uint8Array;
-    serialize(w: pb_1.BinaryWriter): void;
-    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-        const writer = w || new pb_1.BinaryWriter();
-        if (this.errorNo != dependency_1.ErrorNo._ErrorNo_UNSPECIFIED)
-            writer.writeEnum(1, this.errorNo);
-        if (this.msg.length)
-            writer.writeString(2, this.msg);
-        if (this.messageData.length)
-            writer.writeBytes(3, this.messageData);
-        if (!w)
-            return writer.getResultBuffer();
-    }
-    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): PBMessageResponse {
-        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new PBMessageResponse();
-        while (reader.nextField()) {
-            if (reader.isEndGroup())
-                break;
-            switch (reader.getFieldNumber()) {
-                case 1:
-                    message.errorNo = reader.readEnum();
-                    break;
-                case 2:
-                    message.msg = reader.readString();
-                    break;
-                case 3:
-                    message.messageData = reader.readBytes();
-                    break;
-                default: reader.skipField();
-            }
-        }
-        return message;
-    }
-    serializeBinary(): Uint8Array {
-        return this.serialize();
-    }
-    static deserializeBinary(bytes: Uint8Array): PBMessageResponse {
-        return PBMessageResponse.deserialize(bytes);
-    }
+    return message;
+  }
+  serializeBinary(): Uint8Array {
+    return this.serialize();
+  }
+  static deserializeBinary(bytes: Uint8Array): PBMessageResponse {
+    return PBMessageResponse.deserialize(bytes);
+  }
 }

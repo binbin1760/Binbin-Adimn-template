@@ -3,1227 +3,1480 @@
  * compiler version: 3.20.3
  * source: profile.proto
  * git: https://github.com/thesayyn/protoc-gen-ts */
+// @ts-nocheck
 import * as dependency_1 from "./enums";
 import * as dependency_2 from "./payload";
 import * as dependency_3 from "./page";
 import * as dependency_4 from "./pet";
 import * as pb_1 from "google-protobuf";
 export class UserSelfModel extends pb_1.Message {
-    #one_of_decls: number[][] = [];
-    constructor(data?: any[] | {
-        id?: string;
-        profile?: ProfileModel;
-        pets?: dependency_4.PetViewModel[];
-    }) {
-        super();
-        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [3], this.#one_of_decls);
-        if (!Array.isArray(data) && typeof data == "object") {
-            if ("id" in data && data.id != undefined) {
-                this.id = data.id;
-            }
-            if ("profile" in data && data.profile != undefined) {
-                this.profile = data.profile;
-            }
-            if ("pets" in data && data.pets != undefined) {
-                this.pets = data.pets;
-            }
+  #one_of_decls: number[][] = [];
+  constructor(
+    data?:
+      | any[]
+      | {
+          id?: string;
+          profile?: ProfileModel;
+          pets?: dependency_4.PetViewModel[];
         }
+  ) {
+    super();
+    pb_1.Message.initialize(
+      this,
+      Array.isArray(data) ? data : [],
+      0,
+      -1,
+      [3],
+      this.#one_of_decls
+    );
+    if (!Array.isArray(data) && typeof data == "object") {
+      if ("id" in data && data.id != undefined) {
+        this.id = data.id;
+      }
+      if ("profile" in data && data.profile != undefined) {
+        this.profile = data.profile;
+      }
+      if ("pets" in data && data.pets != undefined) {
+        this.pets = data.pets;
+      }
     }
-    get id() {
-        return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+  }
+  get id() {
+    return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+  }
+  set id(value: string) {
+    pb_1.Message.setField(this, 1, value);
+  }
+  get profile() {
+    return pb_1.Message.getWrapperField(this, ProfileModel, 2) as ProfileModel;
+  }
+  set profile(value: ProfileModel) {
+    pb_1.Message.setWrapperField(this, 2, value);
+  }
+  get hasProfile() {
+    return pb_1.Message.getField(this, 2) != null;
+  }
+  get pets() {
+    return pb_1.Message.getRepeatedWrapperField(
+      this,
+      dependency_4.PetViewModel,
+      3
+    ) as dependency_4.PetViewModel[];
+  }
+  set pets(value: dependency_4.PetViewModel[]) {
+    pb_1.Message.setRepeatedWrapperField(this, 3, value);
+  }
+  static fromObject(data: {
+    id?: string;
+    profile?: ReturnType<typeof ProfileModel.prototype.toObject>;
+    pets?: ReturnType<typeof dependency_4.PetViewModel.prototype.toObject>[];
+  }): UserSelfModel {
+    const message = new UserSelfModel({});
+    if (data.id != null) {
+      message.id = data.id;
     }
-    set id(value: string) {
-        pb_1.Message.setField(this, 1, value);
+    if (data.profile != null) {
+      message.profile = ProfileModel.fromObject(data.profile);
     }
-    get profile() {
-        return pb_1.Message.getWrapperField(this, ProfileModel, 2) as ProfileModel;
+    if (data.pets != null) {
+      message.pets = data.pets.map((item) =>
+        dependency_4.PetViewModel.fromObject(item)
+      );
     }
-    set profile(value: ProfileModel) {
-        pb_1.Message.setWrapperField(this, 2, value);
+    return message;
+  }
+  toObject() {
+    const data: {
+      id?: string;
+      profile?: ReturnType<typeof ProfileModel.prototype.toObject>;
+      pets?: ReturnType<typeof dependency_4.PetViewModel.prototype.toObject>[];
+    } = {};
+    if (this.id != null) {
+      data.id = this.id;
     }
-    get hasProfile() {
-        return pb_1.Message.getField(this, 2) != null;
+    if (this.profile != null) {
+      data.profile = this.profile.toObject();
     }
-    get pets() {
-        return pb_1.Message.getRepeatedWrapperField(this, dependency_4.PetViewModel, 3) as dependency_4.PetViewModel[];
+    if (this.pets != null) {
+      data.pets = this.pets.map((item: dependency_4.PetViewModel) =>
+        item.toObject()
+      );
     }
-    set pets(value: dependency_4.PetViewModel[]) {
-        pb_1.Message.setRepeatedWrapperField(this, 3, value);
+    return data;
+  }
+  serialize(): Uint8Array;
+  serialize(w: pb_1.BinaryWriter): void;
+  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+    const writer = w || new pb_1.BinaryWriter();
+    if (this.id.length) writer.writeString(1, this.id);
+    if (this.hasProfile)
+      writer.writeMessage(2, this.profile, () =>
+        this.profile.serialize(writer)
+      );
+    if (this.pets.length)
+      writer.writeRepeatedMessage(
+        3,
+        this.pets,
+        (item: dependency_4.PetViewModel) => item.serialize(writer)
+      );
+    if (!w) return writer.getResultBuffer();
+  }
+  static deserialize(bytes: Uint8Array | pb_1.BinaryReader): UserSelfModel {
+    const reader =
+        bytes instanceof pb_1.BinaryReader
+          ? bytes
+          : new pb_1.BinaryReader(bytes),
+      message = new UserSelfModel();
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) break;
+      switch (reader.getFieldNumber()) {
+        case 1:
+          message.id = reader.readString();
+          break;
+        case 2:
+          reader.readMessage(
+            message.profile,
+            () => (message.profile = ProfileModel.deserialize(reader))
+          );
+          break;
+        case 3:
+          reader.readMessage(message.pets, () =>
+            pb_1.Message.addToRepeatedWrapperField(
+              message,
+              3,
+              dependency_4.PetViewModel.deserialize(reader),
+              dependency_4.PetViewModel
+            )
+          );
+          break;
+        default:
+          reader.skipField();
+      }
     }
-    static fromObject(data: {
-        id?: string;
-        profile?: ReturnType<typeof ProfileModel.prototype.toObject>;
-        pets?: ReturnType<typeof dependency_4.PetViewModel.prototype.toObject>[];
-    }): UserSelfModel {
-        const message = new UserSelfModel({});
-        if (data.id != null) {
-            message.id = data.id;
-        }
-        if (data.profile != null) {
-            message.profile = ProfileModel.fromObject(data.profile);
-        }
-        if (data.pets != null) {
-            message.pets = data.pets.map(item => dependency_4.PetViewModel.fromObject(item));
-        }
-        return message;
-    }
-    toObject() {
-        const data: {
-            id?: string;
-            profile?: ReturnType<typeof ProfileModel.prototype.toObject>;
-            pets?: ReturnType<typeof dependency_4.PetViewModel.prototype.toObject>[];
-        } = {};
-        if (this.id != null) {
-            data.id = this.id;
-        }
-        if (this.profile != null) {
-            data.profile = this.profile.toObject();
-        }
-        if (this.pets != null) {
-            data.pets = this.pets.map((item: dependency_4.PetViewModel) => item.toObject());
-        }
-        return data;
-    }
-    serialize(): Uint8Array;
-    serialize(w: pb_1.BinaryWriter): void;
-    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-        const writer = w || new pb_1.BinaryWriter();
-        if (this.id.length)
-            writer.writeString(1, this.id);
-        if (this.hasProfile)
-            writer.writeMessage(2, this.profile, () => this.profile.serialize(writer));
-        if (this.pets.length)
-            writer.writeRepeatedMessage(3, this.pets, (item: dependency_4.PetViewModel) => item.serialize(writer));
-        if (!w)
-            return writer.getResultBuffer();
-    }
-    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): UserSelfModel {
-        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new UserSelfModel();
-        while (reader.nextField()) {
-            if (reader.isEndGroup())
-                break;
-            switch (reader.getFieldNumber()) {
-                case 1:
-                    message.id = reader.readString();
-                    break;
-                case 2:
-                    reader.readMessage(message.profile, () => message.profile = ProfileModel.deserialize(reader));
-                    break;
-                case 3:
-                    reader.readMessage(message.pets, () => pb_1.Message.addToRepeatedWrapperField(message, 3, dependency_4.PetViewModel.deserialize(reader), dependency_4.PetViewModel));
-                    break;
-                default: reader.skipField();
-            }
-        }
-        return message;
-    }
-    serializeBinary(): Uint8Array {
-        return this.serialize();
-    }
-    static deserializeBinary(bytes: Uint8Array): UserSelfModel {
-        return UserSelfModel.deserialize(bytes);
-    }
+    return message;
+  }
+  serializeBinary(): Uint8Array {
+    return this.serialize();
+  }
+  static deserializeBinary(bytes: Uint8Array): UserSelfModel {
+    return UserSelfModel.deserialize(bytes);
+  }
 }
 export class ProfileModel extends pb_1.Message {
-    #one_of_decls: number[][] = [];
-    constructor(data?: any[] | {
-        avatar?: dependency_2.MediaMetaModel;
-        nickname?: string;
-        birthday?: number;
-        address?: dependency_2.UserAddressModel;
-        bio?: string;
-        gender?: dependency_1.Gender;
-        bg?: dependency_2.MediaMetaModel;
-    }) {
-        super();
-        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
-        if (!Array.isArray(data) && typeof data == "object") {
-            if ("avatar" in data && data.avatar != undefined) {
-                this.avatar = data.avatar;
-            }
-            if ("nickname" in data && data.nickname != undefined) {
-                this.nickname = data.nickname;
-            }
-            if ("birthday" in data && data.birthday != undefined) {
-                this.birthday = data.birthday;
-            }
-            if ("address" in data && data.address != undefined) {
-                this.address = data.address;
-            }
-            if ("bio" in data && data.bio != undefined) {
-                this.bio = data.bio;
-            }
-            if ("gender" in data && data.gender != undefined) {
-                this.gender = data.gender;
-            }
-            if ("bg" in data && data.bg != undefined) {
-                this.bg = data.bg;
-            }
+  #one_of_decls: number[][] = [];
+  constructor(
+    data?:
+      | any[]
+      | {
+          avatar?: dependency_2.MediaMetaModel;
+          nickname?: string;
+          birthday?: number;
+          address?: dependency_2.UserAddressModel;
+          bio?: string;
+          gender?: dependency_1.Gender;
+          bg?: dependency_2.MediaMetaModel;
         }
+  ) {
+    super();
+    pb_1.Message.initialize(
+      this,
+      Array.isArray(data) ? data : [],
+      0,
+      -1,
+      [],
+      this.#one_of_decls
+    );
+    if (!Array.isArray(data) && typeof data == "object") {
+      if ("avatar" in data && data.avatar != undefined) {
+        this.avatar = data.avatar;
+      }
+      if ("nickname" in data && data.nickname != undefined) {
+        this.nickname = data.nickname;
+      }
+      if ("birthday" in data && data.birthday != undefined) {
+        this.birthday = data.birthday;
+      }
+      if ("address" in data && data.address != undefined) {
+        this.address = data.address;
+      }
+      if ("bio" in data && data.bio != undefined) {
+        this.bio = data.bio;
+      }
+      if ("gender" in data && data.gender != undefined) {
+        this.gender = data.gender;
+      }
+      if ("bg" in data && data.bg != undefined) {
+        this.bg = data.bg;
+      }
     }
-    get avatar() {
-        return pb_1.Message.getWrapperField(this, dependency_2.MediaMetaModel, 1) as dependency_2.MediaMetaModel;
+  }
+  get avatar() {
+    return pb_1.Message.getWrapperField(
+      this,
+      dependency_2.MediaMetaModel,
+      1
+    ) as dependency_2.MediaMetaModel;
+  }
+  set avatar(value: dependency_2.MediaMetaModel) {
+    pb_1.Message.setWrapperField(this, 1, value);
+  }
+  get hasAvatar() {
+    return pb_1.Message.getField(this, 1) != null;
+  }
+  get nickname() {
+    return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+  }
+  set nickname(value: string) {
+    pb_1.Message.setField(this, 2, value);
+  }
+  get birthday() {
+    return pb_1.Message.getFieldWithDefault(this, 3, 0) as number;
+  }
+  set birthday(value: number) {
+    pb_1.Message.setField(this, 3, value);
+  }
+  get address() {
+    return pb_1.Message.getWrapperField(
+      this,
+      dependency_2.UserAddressModel,
+      4
+    ) as dependency_2.UserAddressModel;
+  }
+  set address(value: dependency_2.UserAddressModel) {
+    pb_1.Message.setWrapperField(this, 4, value);
+  }
+  get hasAddress() {
+    return pb_1.Message.getField(this, 4) != null;
+  }
+  get bio() {
+    return pb_1.Message.getFieldWithDefault(this, 5, "") as string;
+  }
+  set bio(value: string) {
+    pb_1.Message.setField(this, 5, value);
+  }
+  get gender() {
+    return pb_1.Message.getFieldWithDefault(
+      this,
+      6,
+      dependency_1.Gender._Gender_UNSPECIFIED
+    ) as dependency_1.Gender;
+  }
+  set gender(value: dependency_1.Gender) {
+    pb_1.Message.setField(this, 6, value);
+  }
+  get bg() {
+    return pb_1.Message.getWrapperField(
+      this,
+      dependency_2.MediaMetaModel,
+      7
+    ) as dependency_2.MediaMetaModel;
+  }
+  set bg(value: dependency_2.MediaMetaModel) {
+    pb_1.Message.setWrapperField(this, 7, value);
+  }
+  get hasBg() {
+    return pb_1.Message.getField(this, 7) != null;
+  }
+  static fromObject(data: {
+    avatar?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>;
+    nickname?: string;
+    birthday?: number;
+    address?: ReturnType<
+      typeof dependency_2.UserAddressModel.prototype.toObject
+    >;
+    bio?: string;
+    gender?: dependency_1.Gender;
+    bg?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>;
+  }): ProfileModel {
+    const message = new ProfileModel({});
+    if (data.avatar != null) {
+      message.avatar = dependency_2.MediaMetaModel.fromObject(data.avatar);
     }
-    set avatar(value: dependency_2.MediaMetaModel) {
-        pb_1.Message.setWrapperField(this, 1, value);
+    if (data.nickname != null) {
+      message.nickname = data.nickname;
     }
-    get hasAvatar() {
-        return pb_1.Message.getField(this, 1) != null;
+    if (data.birthday != null) {
+      message.birthday = data.birthday;
     }
-    get nickname() {
-        return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+    if (data.address != null) {
+      message.address = dependency_2.UserAddressModel.fromObject(data.address);
     }
-    set nickname(value: string) {
-        pb_1.Message.setField(this, 2, value);
+    if (data.bio != null) {
+      message.bio = data.bio;
     }
-    get birthday() {
-        return pb_1.Message.getFieldWithDefault(this, 3, 0) as number;
+    if (data.gender != null) {
+      message.gender = data.gender;
     }
-    set birthday(value: number) {
-        pb_1.Message.setField(this, 3, value);
+    if (data.bg != null) {
+      message.bg = dependency_2.MediaMetaModel.fromObject(data.bg);
     }
-    get address() {
-        return pb_1.Message.getWrapperField(this, dependency_2.UserAddressModel, 4) as dependency_2.UserAddressModel;
+    return message;
+  }
+  toObject() {
+    const data: {
+      avatar?: ReturnType<
+        typeof dependency_2.MediaMetaModel.prototype.toObject
+      >;
+      nickname?: string;
+      birthday?: number;
+      address?: ReturnType<
+        typeof dependency_2.UserAddressModel.prototype.toObject
+      >;
+      bio?: string;
+      gender?: dependency_1.Gender;
+      bg?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>;
+    } = {};
+    if (this.avatar != null) {
+      data.avatar = this.avatar.toObject();
     }
-    set address(value: dependency_2.UserAddressModel) {
-        pb_1.Message.setWrapperField(this, 4, value);
+    if (this.nickname != null) {
+      data.nickname = this.nickname;
     }
-    get hasAddress() {
-        return pb_1.Message.getField(this, 4) != null;
+    if (this.birthday != null) {
+      data.birthday = this.birthday;
     }
-    get bio() {
-        return pb_1.Message.getFieldWithDefault(this, 5, "") as string;
+    if (this.address != null) {
+      data.address = this.address.toObject();
     }
-    set bio(value: string) {
-        pb_1.Message.setField(this, 5, value);
+    if (this.bio != null) {
+      data.bio = this.bio;
     }
-    get gender() {
-        return pb_1.Message.getFieldWithDefault(this, 6, dependency_1.Gender._Gender_UNSPECIFIED) as dependency_1.Gender;
+    if (this.gender != null) {
+      data.gender = this.gender;
     }
-    set gender(value: dependency_1.Gender) {
-        pb_1.Message.setField(this, 6, value);
+    if (this.bg != null) {
+      data.bg = this.bg.toObject();
     }
-    get bg() {
-        return pb_1.Message.getWrapperField(this, dependency_2.MediaMetaModel, 7) as dependency_2.MediaMetaModel;
+    return data;
+  }
+  serialize(): Uint8Array;
+  serialize(w: pb_1.BinaryWriter): void;
+  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+    const writer = w || new pb_1.BinaryWriter();
+    if (this.hasAvatar)
+      writer.writeMessage(1, this.avatar, () => this.avatar.serialize(writer));
+    if (this.nickname.length) writer.writeString(2, this.nickname);
+    if (this.birthday != 0) writer.writeUint64(3, this.birthday);
+    if (this.hasAddress)
+      writer.writeMessage(4, this.address, () =>
+        this.address.serialize(writer)
+      );
+    if (this.bio.length) writer.writeString(5, this.bio);
+    if (this.gender != dependency_1.Gender._Gender_UNSPECIFIED)
+      writer.writeEnum(6, this.gender);
+    if (this.hasBg)
+      writer.writeMessage(7, this.bg, () => this.bg.serialize(writer));
+    if (!w) return writer.getResultBuffer();
+  }
+  static deserialize(bytes: Uint8Array | pb_1.BinaryReader): ProfileModel {
+    const reader =
+        bytes instanceof pb_1.BinaryReader
+          ? bytes
+          : new pb_1.BinaryReader(bytes),
+      message = new ProfileModel();
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) break;
+      switch (reader.getFieldNumber()) {
+        case 1:
+          reader.readMessage(
+            message.avatar,
+            () =>
+              (message.avatar = dependency_2.MediaMetaModel.deserialize(reader))
+          );
+          break;
+        case 2:
+          message.nickname = reader.readString();
+          break;
+        case 3:
+          message.birthday = reader.readUint64();
+          break;
+        case 4:
+          reader.readMessage(
+            message.address,
+            () =>
+              (message.address =
+                dependency_2.UserAddressModel.deserialize(reader))
+          );
+          break;
+        case 5:
+          message.bio = reader.readString();
+          break;
+        case 6:
+          message.gender = reader.readEnum();
+          break;
+        case 7:
+          reader.readMessage(
+            message.bg,
+            () => (message.bg = dependency_2.MediaMetaModel.deserialize(reader))
+          );
+          break;
+        default:
+          reader.skipField();
+      }
     }
-    set bg(value: dependency_2.MediaMetaModel) {
-        pb_1.Message.setWrapperField(this, 7, value);
-    }
-    get hasBg() {
-        return pb_1.Message.getField(this, 7) != null;
-    }
-    static fromObject(data: {
-        avatar?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>;
-        nickname?: string;
-        birthday?: number;
-        address?: ReturnType<typeof dependency_2.UserAddressModel.prototype.toObject>;
-        bio?: string;
-        gender?: dependency_1.Gender;
-        bg?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>;
-    }): ProfileModel {
-        const message = new ProfileModel({});
-        if (data.avatar != null) {
-            message.avatar = dependency_2.MediaMetaModel.fromObject(data.avatar);
-        }
-        if (data.nickname != null) {
-            message.nickname = data.nickname;
-        }
-        if (data.birthday != null) {
-            message.birthday = data.birthday;
-        }
-        if (data.address != null) {
-            message.address = dependency_2.UserAddressModel.fromObject(data.address);
-        }
-        if (data.bio != null) {
-            message.bio = data.bio;
-        }
-        if (data.gender != null) {
-            message.gender = data.gender;
-        }
-        if (data.bg != null) {
-            message.bg = dependency_2.MediaMetaModel.fromObject(data.bg);
-        }
-        return message;
-    }
-    toObject() {
-        const data: {
-            avatar?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>;
-            nickname?: string;
-            birthday?: number;
-            address?: ReturnType<typeof dependency_2.UserAddressModel.prototype.toObject>;
-            bio?: string;
-            gender?: dependency_1.Gender;
-            bg?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>;
-        } = {};
-        if (this.avatar != null) {
-            data.avatar = this.avatar.toObject();
-        }
-        if (this.nickname != null) {
-            data.nickname = this.nickname;
-        }
-        if (this.birthday != null) {
-            data.birthday = this.birthday;
-        }
-        if (this.address != null) {
-            data.address = this.address.toObject();
-        }
-        if (this.bio != null) {
-            data.bio = this.bio;
-        }
-        if (this.gender != null) {
-            data.gender = this.gender;
-        }
-        if (this.bg != null) {
-            data.bg = this.bg.toObject();
-        }
-        return data;
-    }
-    serialize(): Uint8Array;
-    serialize(w: pb_1.BinaryWriter): void;
-    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-        const writer = w || new pb_1.BinaryWriter();
-        if (this.hasAvatar)
-            writer.writeMessage(1, this.avatar, () => this.avatar.serialize(writer));
-        if (this.nickname.length)
-            writer.writeString(2, this.nickname);
-        if (this.birthday != 0)
-            writer.writeUint64(3, this.birthday);
-        if (this.hasAddress)
-            writer.writeMessage(4, this.address, () => this.address.serialize(writer));
-        if (this.bio.length)
-            writer.writeString(5, this.bio);
-        if (this.gender != dependency_1.Gender._Gender_UNSPECIFIED)
-            writer.writeEnum(6, this.gender);
-        if (this.hasBg)
-            writer.writeMessage(7, this.bg, () => this.bg.serialize(writer));
-        if (!w)
-            return writer.getResultBuffer();
-    }
-    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): ProfileModel {
-        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new ProfileModel();
-        while (reader.nextField()) {
-            if (reader.isEndGroup())
-                break;
-            switch (reader.getFieldNumber()) {
-                case 1:
-                    reader.readMessage(message.avatar, () => message.avatar = dependency_2.MediaMetaModel.deserialize(reader));
-                    break;
-                case 2:
-                    message.nickname = reader.readString();
-                    break;
-                case 3:
-                    message.birthday = reader.readUint64();
-                    break;
-                case 4:
-                    reader.readMessage(message.address, () => message.address = dependency_2.UserAddressModel.deserialize(reader));
-                    break;
-                case 5:
-                    message.bio = reader.readString();
-                    break;
-                case 6:
-                    message.gender = reader.readEnum();
-                    break;
-                case 7:
-                    reader.readMessage(message.bg, () => message.bg = dependency_2.MediaMetaModel.deserialize(reader));
-                    break;
-                default: reader.skipField();
-            }
-        }
-        return message;
-    }
-    serializeBinary(): Uint8Array {
-        return this.serialize();
-    }
-    static deserializeBinary(bytes: Uint8Array): ProfileModel {
-        return ProfileModel.deserialize(bytes);
-    }
+    return message;
+  }
+  serializeBinary(): Uint8Array {
+    return this.serialize();
+  }
+  static deserializeBinary(bytes: Uint8Array): ProfileModel {
+    return ProfileModel.deserialize(bytes);
+  }
 }
 export class PostFeedBackRequest extends pb_1.Message {
-    #one_of_decls: number[][] = [];
-    constructor(data?: any[] | {
-        feedbackType?: dependency_1.FeedbackType;
-        scene?: string;
-        detail?: string;
-        screenshots?: dependency_2.MediaMetaModel[];
-        contact?: string;
-    }) {
-        super();
-        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [4], this.#one_of_decls);
-        if (!Array.isArray(data) && typeof data == "object") {
-            if ("feedbackType" in data && data.feedbackType != undefined) {
-                this.feedbackType = data.feedbackType;
-            }
-            if ("scene" in data && data.scene != undefined) {
-                this.scene = data.scene;
-            }
-            if ("detail" in data && data.detail != undefined) {
-                this.detail = data.detail;
-            }
-            if ("screenshots" in data && data.screenshots != undefined) {
-                this.screenshots = data.screenshots;
-            }
-            if ("contact" in data && data.contact != undefined) {
-                this.contact = data.contact;
-            }
+  #one_of_decls: number[][] = [];
+  constructor(
+    data?:
+      | any[]
+      | {
+          feedbackType?: dependency_1.FeedbackType;
+          scene?: string;
+          detail?: string;
+          screenshots?: dependency_2.MediaMetaModel[];
+          contact?: string;
         }
+  ) {
+    super();
+    pb_1.Message.initialize(
+      this,
+      Array.isArray(data) ? data : [],
+      0,
+      -1,
+      [4],
+      this.#one_of_decls
+    );
+    if (!Array.isArray(data) && typeof data == "object") {
+      if ("feedbackType" in data && data.feedbackType != undefined) {
+        this.feedbackType = data.feedbackType;
+      }
+      if ("scene" in data && data.scene != undefined) {
+        this.scene = data.scene;
+      }
+      if ("detail" in data && data.detail != undefined) {
+        this.detail = data.detail;
+      }
+      if ("screenshots" in data && data.screenshots != undefined) {
+        this.screenshots = data.screenshots;
+      }
+      if ("contact" in data && data.contact != undefined) {
+        this.contact = data.contact;
+      }
     }
-    get feedbackType() {
-        return pb_1.Message.getFieldWithDefault(this, 1, dependency_1.FeedbackType._FeedbackType_UNSPECIFIED) as dependency_1.FeedbackType;
+  }
+  get feedbackType() {
+    return pb_1.Message.getFieldWithDefault(
+      this,
+      1,
+      dependency_1.FeedbackType._FeedbackType_UNSPECIFIED
+    ) as dependency_1.FeedbackType;
+  }
+  set feedbackType(value: dependency_1.FeedbackType) {
+    pb_1.Message.setField(this, 1, value);
+  }
+  get scene() {
+    return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+  }
+  set scene(value: string) {
+    pb_1.Message.setField(this, 2, value);
+  }
+  get detail() {
+    return pb_1.Message.getFieldWithDefault(this, 3, "") as string;
+  }
+  set detail(value: string) {
+    pb_1.Message.setField(this, 3, value);
+  }
+  get screenshots() {
+    return pb_1.Message.getRepeatedWrapperField(
+      this,
+      dependency_2.MediaMetaModel,
+      4
+    ) as dependency_2.MediaMetaModel[];
+  }
+  set screenshots(value: dependency_2.MediaMetaModel[]) {
+    pb_1.Message.setRepeatedWrapperField(this, 4, value);
+  }
+  get contact() {
+    return pb_1.Message.getFieldWithDefault(this, 5, "") as string;
+  }
+  set contact(value: string) {
+    pb_1.Message.setField(this, 5, value);
+  }
+  static fromObject(data: {
+    feedbackType?: dependency_1.FeedbackType;
+    scene?: string;
+    detail?: string;
+    screenshots?: ReturnType<
+      typeof dependency_2.MediaMetaModel.prototype.toObject
+    >[];
+    contact?: string;
+  }): PostFeedBackRequest {
+    const message = new PostFeedBackRequest({});
+    if (data.feedbackType != null) {
+      message.feedbackType = data.feedbackType;
     }
-    set feedbackType(value: dependency_1.FeedbackType) {
-        pb_1.Message.setField(this, 1, value);
+    if (data.scene != null) {
+      message.scene = data.scene;
     }
-    get scene() {
-        return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+    if (data.detail != null) {
+      message.detail = data.detail;
     }
-    set scene(value: string) {
-        pb_1.Message.setField(this, 2, value);
+    if (data.screenshots != null) {
+      message.screenshots = data.screenshots.map((item) =>
+        dependency_2.MediaMetaModel.fromObject(item)
+      );
     }
-    get detail() {
-        return pb_1.Message.getFieldWithDefault(this, 3, "") as string;
+    if (data.contact != null) {
+      message.contact = data.contact;
     }
-    set detail(value: string) {
-        pb_1.Message.setField(this, 3, value);
+    return message;
+  }
+  toObject() {
+    const data: {
+      feedbackType?: dependency_1.FeedbackType;
+      scene?: string;
+      detail?: string;
+      screenshots?: ReturnType<
+        typeof dependency_2.MediaMetaModel.prototype.toObject
+      >[];
+      contact?: string;
+    } = {};
+    if (this.feedbackType != null) {
+      data.feedbackType = this.feedbackType;
     }
-    get screenshots() {
-        return pb_1.Message.getRepeatedWrapperField(this, dependency_2.MediaMetaModel, 4) as dependency_2.MediaMetaModel[];
+    if (this.scene != null) {
+      data.scene = this.scene;
     }
-    set screenshots(value: dependency_2.MediaMetaModel[]) {
-        pb_1.Message.setRepeatedWrapperField(this, 4, value);
+    if (this.detail != null) {
+      data.detail = this.detail;
     }
-    get contact() {
-        return pb_1.Message.getFieldWithDefault(this, 5, "") as string;
+    if (this.screenshots != null) {
+      data.screenshots = this.screenshots.map(
+        (item: dependency_2.MediaMetaModel) => item.toObject()
+      );
     }
-    set contact(value: string) {
-        pb_1.Message.setField(this, 5, value);
+    if (this.contact != null) {
+      data.contact = this.contact;
     }
-    static fromObject(data: {
-        feedbackType?: dependency_1.FeedbackType;
-        scene?: string;
-        detail?: string;
-        screenshots?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>[];
-        contact?: string;
-    }): PostFeedBackRequest {
-        const message = new PostFeedBackRequest({});
-        if (data.feedbackType != null) {
-            message.feedbackType = data.feedbackType;
-        }
-        if (data.scene != null) {
-            message.scene = data.scene;
-        }
-        if (data.detail != null) {
-            message.detail = data.detail;
-        }
-        if (data.screenshots != null) {
-            message.screenshots = data.screenshots.map(item => dependency_2.MediaMetaModel.fromObject(item));
-        }
-        if (data.contact != null) {
-            message.contact = data.contact;
-        }
-        return message;
+    return data;
+  }
+  serialize(): Uint8Array;
+  serialize(w: pb_1.BinaryWriter): void;
+  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+    const writer = w || new pb_1.BinaryWriter();
+    if (
+      this.feedbackType != dependency_1.FeedbackType._FeedbackType_UNSPECIFIED
+    )
+      writer.writeEnum(1, this.feedbackType);
+    if (this.scene.length) writer.writeString(2, this.scene);
+    if (this.detail.length) writer.writeString(3, this.detail);
+    if (this.screenshots.length)
+      writer.writeRepeatedMessage(
+        4,
+        this.screenshots,
+        (item: dependency_2.MediaMetaModel) => item.serialize(writer)
+      );
+    if (this.contact.length) writer.writeString(5, this.contact);
+    if (!w) return writer.getResultBuffer();
+  }
+  static deserialize(
+    bytes: Uint8Array | pb_1.BinaryReader
+  ): PostFeedBackRequest {
+    const reader =
+        bytes instanceof pb_1.BinaryReader
+          ? bytes
+          : new pb_1.BinaryReader(bytes),
+      message = new PostFeedBackRequest();
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) break;
+      switch (reader.getFieldNumber()) {
+        case 1:
+          message.feedbackType = reader.readEnum();
+          break;
+        case 2:
+          message.scene = reader.readString();
+          break;
+        case 3:
+          message.detail = reader.readString();
+          break;
+        case 4:
+          reader.readMessage(message.screenshots, () =>
+            pb_1.Message.addToRepeatedWrapperField(
+              message,
+              4,
+              dependency_2.MediaMetaModel.deserialize(reader),
+              dependency_2.MediaMetaModel
+            )
+          );
+          break;
+        case 5:
+          message.contact = reader.readString();
+          break;
+        default:
+          reader.skipField();
+      }
     }
-    toObject() {
-        const data: {
-            feedbackType?: dependency_1.FeedbackType;
-            scene?: string;
-            detail?: string;
-            screenshots?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>[];
-            contact?: string;
-        } = {};
-        if (this.feedbackType != null) {
-            data.feedbackType = this.feedbackType;
-        }
-        if (this.scene != null) {
-            data.scene = this.scene;
-        }
-        if (this.detail != null) {
-            data.detail = this.detail;
-        }
-        if (this.screenshots != null) {
-            data.screenshots = this.screenshots.map((item: dependency_2.MediaMetaModel) => item.toObject());
-        }
-        if (this.contact != null) {
-            data.contact = this.contact;
-        }
-        return data;
-    }
-    serialize(): Uint8Array;
-    serialize(w: pb_1.BinaryWriter): void;
-    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-        const writer = w || new pb_1.BinaryWriter();
-        if (this.feedbackType != dependency_1.FeedbackType._FeedbackType_UNSPECIFIED)
-            writer.writeEnum(1, this.feedbackType);
-        if (this.scene.length)
-            writer.writeString(2, this.scene);
-        if (this.detail.length)
-            writer.writeString(3, this.detail);
-        if (this.screenshots.length)
-            writer.writeRepeatedMessage(4, this.screenshots, (item: dependency_2.MediaMetaModel) => item.serialize(writer));
-        if (this.contact.length)
-            writer.writeString(5, this.contact);
-        if (!w)
-            return writer.getResultBuffer();
-    }
-    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): PostFeedBackRequest {
-        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new PostFeedBackRequest();
-        while (reader.nextField()) {
-            if (reader.isEndGroup())
-                break;
-            switch (reader.getFieldNumber()) {
-                case 1:
-                    message.feedbackType = reader.readEnum();
-                    break;
-                case 2:
-                    message.scene = reader.readString();
-                    break;
-                case 3:
-                    message.detail = reader.readString();
-                    break;
-                case 4:
-                    reader.readMessage(message.screenshots, () => pb_1.Message.addToRepeatedWrapperField(message, 4, dependency_2.MediaMetaModel.deserialize(reader), dependency_2.MediaMetaModel));
-                    break;
-                case 5:
-                    message.contact = reader.readString();
-                    break;
-                default: reader.skipField();
-            }
-        }
-        return message;
-    }
-    serializeBinary(): Uint8Array {
-        return this.serialize();
-    }
-    static deserializeBinary(bytes: Uint8Array): PostFeedBackRequest {
-        return PostFeedBackRequest.deserialize(bytes);
-    }
+    return message;
+  }
+  serializeBinary(): Uint8Array {
+    return this.serialize();
+  }
+  static deserializeBinary(bytes: Uint8Array): PostFeedBackRequest {
+    return PostFeedBackRequest.deserialize(bytes);
+  }
 }
 export class AuthorityResponse extends pb_1.Message {
-    #one_of_decls: number[][] = [];
-    constructor(data?: any[] | {
-        authorities?: string[];
-    }) {
-        super();
-        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [1], this.#one_of_decls);
-        if (!Array.isArray(data) && typeof data == "object") {
-            if ("authorities" in data && data.authorities != undefined) {
-                this.authorities = data.authorities;
-            }
+  #one_of_decls: number[][] = [];
+  constructor(
+    data?:
+      | any[]
+      | {
+          authorities?: string[];
         }
+  ) {
+    super();
+    pb_1.Message.initialize(
+      this,
+      Array.isArray(data) ? data : [],
+      0,
+      -1,
+      [1],
+      this.#one_of_decls
+    );
+    if (!Array.isArray(data) && typeof data == "object") {
+      if ("authorities" in data && data.authorities != undefined) {
+        this.authorities = data.authorities;
+      }
     }
-    get authorities() {
-        return pb_1.Message.getFieldWithDefault(this, 1, []) as string[];
+  }
+  get authorities() {
+    return pb_1.Message.getFieldWithDefault(this, 1, []) as string[];
+  }
+  set authorities(value: string[]) {
+    pb_1.Message.setField(this, 1, value);
+  }
+  static fromObject(data: { authorities?: string[] }): AuthorityResponse {
+    const message = new AuthorityResponse({});
+    if (data.authorities != null) {
+      message.authorities = data.authorities;
     }
-    set authorities(value: string[]) {
-        pb_1.Message.setField(this, 1, value);
+    return message;
+  }
+  toObject() {
+    const data: {
+      authorities?: string[];
+    } = {};
+    if (this.authorities != null) {
+      data.authorities = this.authorities;
     }
-    static fromObject(data: {
-        authorities?: string[];
-    }): AuthorityResponse {
-        const message = new AuthorityResponse({});
-        if (data.authorities != null) {
-            message.authorities = data.authorities;
-        }
-        return message;
+    return data;
+  }
+  serialize(): Uint8Array;
+  serialize(w: pb_1.BinaryWriter): void;
+  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+    const writer = w || new pb_1.BinaryWriter();
+    if (this.authorities.length)
+      writer.writeRepeatedString(1, this.authorities);
+    if (!w) return writer.getResultBuffer();
+  }
+  static deserialize(bytes: Uint8Array | pb_1.BinaryReader): AuthorityResponse {
+    const reader =
+        bytes instanceof pb_1.BinaryReader
+          ? bytes
+          : new pb_1.BinaryReader(bytes),
+      message = new AuthorityResponse();
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) break;
+      switch (reader.getFieldNumber()) {
+        case 1:
+          pb_1.Message.addToRepeatedField(message, 1, reader.readString());
+          break;
+        default:
+          reader.skipField();
+      }
     }
-    toObject() {
-        const data: {
-            authorities?: string[];
-        } = {};
-        if (this.authorities != null) {
-            data.authorities = this.authorities;
-        }
-        return data;
-    }
-    serialize(): Uint8Array;
-    serialize(w: pb_1.BinaryWriter): void;
-    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-        const writer = w || new pb_1.BinaryWriter();
-        if (this.authorities.length)
-            writer.writeRepeatedString(1, this.authorities);
-        if (!w)
-            return writer.getResultBuffer();
-    }
-    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): AuthorityResponse {
-        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new AuthorityResponse();
-        while (reader.nextField()) {
-            if (reader.isEndGroup())
-                break;
-            switch (reader.getFieldNumber()) {
-                case 1:
-                    pb_1.Message.addToRepeatedField(message, 1, reader.readString());
-                    break;
-                default: reader.skipField();
-            }
-        }
-        return message;
-    }
-    serializeBinary(): Uint8Array {
-        return this.serialize();
-    }
-    static deserializeBinary(bytes: Uint8Array): AuthorityResponse {
-        return AuthorityResponse.deserialize(bytes);
-    }
+    return message;
+  }
+  serializeBinary(): Uint8Array {
+    return this.serialize();
+  }
+  static deserializeBinary(bytes: Uint8Array): AuthorityResponse {
+    return AuthorityResponse.deserialize(bytes);
+  }
 }
 export class FollowPageResponse extends pb_1.Message {
-    #one_of_decls: number[][] = [];
-    constructor(data?: any[] | {
-        page?: dependency_3.PagerResponse;
-        raws?: FollowItem[];
-    }) {
-        super();
-        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [2], this.#one_of_decls);
-        if (!Array.isArray(data) && typeof data == "object") {
-            if ("page" in data && data.page != undefined) {
-                this.page = data.page;
-            }
-            if ("raws" in data && data.raws != undefined) {
-                this.raws = data.raws;
-            }
+  #one_of_decls: number[][] = [];
+  constructor(
+    data?:
+      | any[]
+      | {
+          page?: dependency_3.PagerResponse;
+          raws?: FollowItem[];
         }
+  ) {
+    super();
+    pb_1.Message.initialize(
+      this,
+      Array.isArray(data) ? data : [],
+      0,
+      -1,
+      [2],
+      this.#one_of_decls
+    );
+    if (!Array.isArray(data) && typeof data == "object") {
+      if ("page" in data && data.page != undefined) {
+        this.page = data.page;
+      }
+      if ("raws" in data && data.raws != undefined) {
+        this.raws = data.raws;
+      }
     }
-    get page() {
-        return pb_1.Message.getWrapperField(this, dependency_3.PagerResponse, 1) as dependency_3.PagerResponse;
+  }
+  get page() {
+    return pb_1.Message.getWrapperField(
+      this,
+      dependency_3.PagerResponse,
+      1
+    ) as dependency_3.PagerResponse;
+  }
+  set page(value: dependency_3.PagerResponse) {
+    pb_1.Message.setWrapperField(this, 1, value);
+  }
+  get hasPage() {
+    return pb_1.Message.getField(this, 1) != null;
+  }
+  get raws() {
+    return pb_1.Message.getRepeatedWrapperField(
+      this,
+      FollowItem,
+      2
+    ) as FollowItem[];
+  }
+  set raws(value: FollowItem[]) {
+    pb_1.Message.setRepeatedWrapperField(this, 2, value);
+  }
+  static fromObject(data: {
+    page?: ReturnType<typeof dependency_3.PagerResponse.prototype.toObject>;
+    raws?: ReturnType<typeof FollowItem.prototype.toObject>[];
+  }): FollowPageResponse {
+    const message = new FollowPageResponse({});
+    if (data.page != null) {
+      message.page = dependency_3.PagerResponse.fromObject(data.page);
     }
-    set page(value: dependency_3.PagerResponse) {
-        pb_1.Message.setWrapperField(this, 1, value);
+    if (data.raws != null) {
+      message.raws = data.raws.map((item) => FollowItem.fromObject(item));
     }
-    get hasPage() {
-        return pb_1.Message.getField(this, 1) != null;
+    return message;
+  }
+  toObject() {
+    const data: {
+      page?: ReturnType<typeof dependency_3.PagerResponse.prototype.toObject>;
+      raws?: ReturnType<typeof FollowItem.prototype.toObject>[];
+    } = {};
+    if (this.page != null) {
+      data.page = this.page.toObject();
     }
-    get raws() {
-        return pb_1.Message.getRepeatedWrapperField(this, FollowItem, 2) as FollowItem[];
+    if (this.raws != null) {
+      data.raws = this.raws.map((item: FollowItem) => item.toObject());
     }
-    set raws(value: FollowItem[]) {
-        pb_1.Message.setRepeatedWrapperField(this, 2, value);
+    return data;
+  }
+  serialize(): Uint8Array;
+  serialize(w: pb_1.BinaryWriter): void;
+  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+    const writer = w || new pb_1.BinaryWriter();
+    if (this.hasPage)
+      writer.writeMessage(1, this.page, () => this.page.serialize(writer));
+    if (this.raws.length)
+      writer.writeRepeatedMessage(2, this.raws, (item: FollowItem) =>
+        item.serialize(writer)
+      );
+    if (!w) return writer.getResultBuffer();
+  }
+  static deserialize(
+    bytes: Uint8Array | pb_1.BinaryReader
+  ): FollowPageResponse {
+    const reader =
+        bytes instanceof pb_1.BinaryReader
+          ? bytes
+          : new pb_1.BinaryReader(bytes),
+      message = new FollowPageResponse();
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) break;
+      switch (reader.getFieldNumber()) {
+        case 1:
+          reader.readMessage(
+            message.page,
+            () =>
+              (message.page = dependency_3.PagerResponse.deserialize(reader))
+          );
+          break;
+        case 2:
+          reader.readMessage(message.raws, () =>
+            pb_1.Message.addToRepeatedWrapperField(
+              message,
+              2,
+              FollowItem.deserialize(reader),
+              FollowItem
+            )
+          );
+          break;
+        default:
+          reader.skipField();
+      }
     }
-    static fromObject(data: {
-        page?: ReturnType<typeof dependency_3.PagerResponse.prototype.toObject>;
-        raws?: ReturnType<typeof FollowItem.prototype.toObject>[];
-    }): FollowPageResponse {
-        const message = new FollowPageResponse({});
-        if (data.page != null) {
-            message.page = dependency_3.PagerResponse.fromObject(data.page);
-        }
-        if (data.raws != null) {
-            message.raws = data.raws.map(item => FollowItem.fromObject(item));
-        }
-        return message;
-    }
-    toObject() {
-        const data: {
-            page?: ReturnType<typeof dependency_3.PagerResponse.prototype.toObject>;
-            raws?: ReturnType<typeof FollowItem.prototype.toObject>[];
-        } = {};
-        if (this.page != null) {
-            data.page = this.page.toObject();
-        }
-        if (this.raws != null) {
-            data.raws = this.raws.map((item: FollowItem) => item.toObject());
-        }
-        return data;
-    }
-    serialize(): Uint8Array;
-    serialize(w: pb_1.BinaryWriter): void;
-    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-        const writer = w || new pb_1.BinaryWriter();
-        if (this.hasPage)
-            writer.writeMessage(1, this.page, () => this.page.serialize(writer));
-        if (this.raws.length)
-            writer.writeRepeatedMessage(2, this.raws, (item: FollowItem) => item.serialize(writer));
-        if (!w)
-            return writer.getResultBuffer();
-    }
-    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): FollowPageResponse {
-        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new FollowPageResponse();
-        while (reader.nextField()) {
-            if (reader.isEndGroup())
-                break;
-            switch (reader.getFieldNumber()) {
-                case 1:
-                    reader.readMessage(message.page, () => message.page = dependency_3.PagerResponse.deserialize(reader));
-                    break;
-                case 2:
-                    reader.readMessage(message.raws, () => pb_1.Message.addToRepeatedWrapperField(message, 2, FollowItem.deserialize(reader), FollowItem));
-                    break;
-                default: reader.skipField();
-            }
-        }
-        return message;
-    }
-    serializeBinary(): Uint8Array {
-        return this.serialize();
-    }
-    static deserializeBinary(bytes: Uint8Array): FollowPageResponse {
-        return FollowPageResponse.deserialize(bytes);
-    }
+    return message;
+  }
+  serializeBinary(): Uint8Array {
+    return this.serialize();
+  }
+  static deserializeBinary(bytes: Uint8Array): FollowPageResponse {
+    return FollowPageResponse.deserialize(bytes);
+  }
 }
 export class FollowItem extends pb_1.Message {
-    #one_of_decls: number[][] = [];
-    constructor(data?: any[] | {
-        uid?: string;
-        avatar?: dependency_2.MediaMetaModel;
-        nickname?: string;
-        areMutuallyFollowing?: boolean;
-    }) {
-        super();
-        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
-        if (!Array.isArray(data) && typeof data == "object") {
-            if ("uid" in data && data.uid != undefined) {
-                this.uid = data.uid;
-            }
-            if ("avatar" in data && data.avatar != undefined) {
-                this.avatar = data.avatar;
-            }
-            if ("nickname" in data && data.nickname != undefined) {
-                this.nickname = data.nickname;
-            }
-            if ("areMutuallyFollowing" in data && data.areMutuallyFollowing != undefined) {
-                this.areMutuallyFollowing = data.areMutuallyFollowing;
-            }
+  #one_of_decls: number[][] = [];
+  constructor(
+    data?:
+      | any[]
+      | {
+          uid?: string;
+          avatar?: dependency_2.MediaMetaModel;
+          nickname?: string;
+          areMutuallyFollowing?: boolean;
         }
+  ) {
+    super();
+    pb_1.Message.initialize(
+      this,
+      Array.isArray(data) ? data : [],
+      0,
+      -1,
+      [],
+      this.#one_of_decls
+    );
+    if (!Array.isArray(data) && typeof data == "object") {
+      if ("uid" in data && data.uid != undefined) {
+        this.uid = data.uid;
+      }
+      if ("avatar" in data && data.avatar != undefined) {
+        this.avatar = data.avatar;
+      }
+      if ("nickname" in data && data.nickname != undefined) {
+        this.nickname = data.nickname;
+      }
+      if (
+        "areMutuallyFollowing" in data &&
+        data.areMutuallyFollowing != undefined
+      ) {
+        this.areMutuallyFollowing = data.areMutuallyFollowing;
+      }
     }
-    get uid() {
-        return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+  }
+  get uid() {
+    return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+  }
+  set uid(value: string) {
+    pb_1.Message.setField(this, 1, value);
+  }
+  get avatar() {
+    return pb_1.Message.getWrapperField(
+      this,
+      dependency_2.MediaMetaModel,
+      2
+    ) as dependency_2.MediaMetaModel;
+  }
+  set avatar(value: dependency_2.MediaMetaModel) {
+    pb_1.Message.setWrapperField(this, 2, value);
+  }
+  get hasAvatar() {
+    return pb_1.Message.getField(this, 2) != null;
+  }
+  get nickname() {
+    return pb_1.Message.getFieldWithDefault(this, 3, "") as string;
+  }
+  set nickname(value: string) {
+    pb_1.Message.setField(this, 3, value);
+  }
+  get areMutuallyFollowing() {
+    return pb_1.Message.getFieldWithDefault(this, 4, false) as boolean;
+  }
+  set areMutuallyFollowing(value: boolean) {
+    pb_1.Message.setField(this, 4, value);
+  }
+  static fromObject(data: {
+    uid?: string;
+    avatar?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>;
+    nickname?: string;
+    areMutuallyFollowing?: boolean;
+  }): FollowItem {
+    const message = new FollowItem({});
+    if (data.uid != null) {
+      message.uid = data.uid;
     }
-    set uid(value: string) {
-        pb_1.Message.setField(this, 1, value);
+    if (data.avatar != null) {
+      message.avatar = dependency_2.MediaMetaModel.fromObject(data.avatar);
     }
-    get avatar() {
-        return pb_1.Message.getWrapperField(this, dependency_2.MediaMetaModel, 2) as dependency_2.MediaMetaModel;
+    if (data.nickname != null) {
+      message.nickname = data.nickname;
     }
-    set avatar(value: dependency_2.MediaMetaModel) {
-        pb_1.Message.setWrapperField(this, 2, value);
+    if (data.areMutuallyFollowing != null) {
+      message.areMutuallyFollowing = data.areMutuallyFollowing;
     }
-    get hasAvatar() {
-        return pb_1.Message.getField(this, 2) != null;
+    return message;
+  }
+  toObject() {
+    const data: {
+      uid?: string;
+      avatar?: ReturnType<
+        typeof dependency_2.MediaMetaModel.prototype.toObject
+      >;
+      nickname?: string;
+      areMutuallyFollowing?: boolean;
+    } = {};
+    if (this.uid != null) {
+      data.uid = this.uid;
     }
-    get nickname() {
-        return pb_1.Message.getFieldWithDefault(this, 3, "") as string;
+    if (this.avatar != null) {
+      data.avatar = this.avatar.toObject();
     }
-    set nickname(value: string) {
-        pb_1.Message.setField(this, 3, value);
+    if (this.nickname != null) {
+      data.nickname = this.nickname;
     }
-    get areMutuallyFollowing() {
-        return pb_1.Message.getFieldWithDefault(this, 4, false) as boolean;
+    if (this.areMutuallyFollowing != null) {
+      data.areMutuallyFollowing = this.areMutuallyFollowing;
     }
-    set areMutuallyFollowing(value: boolean) {
-        pb_1.Message.setField(this, 4, value);
+    return data;
+  }
+  serialize(): Uint8Array;
+  serialize(w: pb_1.BinaryWriter): void;
+  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+    const writer = w || new pb_1.BinaryWriter();
+    if (this.uid.length) writer.writeString(1, this.uid);
+    if (this.hasAvatar)
+      writer.writeMessage(2, this.avatar, () => this.avatar.serialize(writer));
+    if (this.nickname.length) writer.writeString(3, this.nickname);
+    if (this.areMutuallyFollowing != false)
+      writer.writeBool(4, this.areMutuallyFollowing);
+    if (!w) return writer.getResultBuffer();
+  }
+  static deserialize(bytes: Uint8Array | pb_1.BinaryReader): FollowItem {
+    const reader =
+        bytes instanceof pb_1.BinaryReader
+          ? bytes
+          : new pb_1.BinaryReader(bytes),
+      message = new FollowItem();
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) break;
+      switch (reader.getFieldNumber()) {
+        case 1:
+          message.uid = reader.readString();
+          break;
+        case 2:
+          reader.readMessage(
+            message.avatar,
+            () =>
+              (message.avatar = dependency_2.MediaMetaModel.deserialize(reader))
+          );
+          break;
+        case 3:
+          message.nickname = reader.readString();
+          break;
+        case 4:
+          message.areMutuallyFollowing = reader.readBool();
+          break;
+        default:
+          reader.skipField();
+      }
     }
-    static fromObject(data: {
-        uid?: string;
-        avatar?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>;
-        nickname?: string;
-        areMutuallyFollowing?: boolean;
-    }): FollowItem {
-        const message = new FollowItem({});
-        if (data.uid != null) {
-            message.uid = data.uid;
-        }
-        if (data.avatar != null) {
-            message.avatar = dependency_2.MediaMetaModel.fromObject(data.avatar);
-        }
-        if (data.nickname != null) {
-            message.nickname = data.nickname;
-        }
-        if (data.areMutuallyFollowing != null) {
-            message.areMutuallyFollowing = data.areMutuallyFollowing;
-        }
-        return message;
-    }
-    toObject() {
-        const data: {
-            uid?: string;
-            avatar?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>;
-            nickname?: string;
-            areMutuallyFollowing?: boolean;
-        } = {};
-        if (this.uid != null) {
-            data.uid = this.uid;
-        }
-        if (this.avatar != null) {
-            data.avatar = this.avatar.toObject();
-        }
-        if (this.nickname != null) {
-            data.nickname = this.nickname;
-        }
-        if (this.areMutuallyFollowing != null) {
-            data.areMutuallyFollowing = this.areMutuallyFollowing;
-        }
-        return data;
-    }
-    serialize(): Uint8Array;
-    serialize(w: pb_1.BinaryWriter): void;
-    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-        const writer = w || new pb_1.BinaryWriter();
-        if (this.uid.length)
-            writer.writeString(1, this.uid);
-        if (this.hasAvatar)
-            writer.writeMessage(2, this.avatar, () => this.avatar.serialize(writer));
-        if (this.nickname.length)
-            writer.writeString(3, this.nickname);
-        if (this.areMutuallyFollowing != false)
-            writer.writeBool(4, this.areMutuallyFollowing);
-        if (!w)
-            return writer.getResultBuffer();
-    }
-    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): FollowItem {
-        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new FollowItem();
-        while (reader.nextField()) {
-            if (reader.isEndGroup())
-                break;
-            switch (reader.getFieldNumber()) {
-                case 1:
-                    message.uid = reader.readString();
-                    break;
-                case 2:
-                    reader.readMessage(message.avatar, () => message.avatar = dependency_2.MediaMetaModel.deserialize(reader));
-                    break;
-                case 3:
-                    message.nickname = reader.readString();
-                    break;
-                case 4:
-                    message.areMutuallyFollowing = reader.readBool();
-                    break;
-                default: reader.skipField();
-            }
-        }
-        return message;
-    }
-    serializeBinary(): Uint8Array {
-        return this.serialize();
-    }
-    static deserializeBinary(bytes: Uint8Array): FollowItem {
-        return FollowItem.deserialize(bytes);
-    }
+    return message;
+  }
+  serializeBinary(): Uint8Array {
+    return this.serialize();
+  }
+  static deserializeBinary(bytes: Uint8Array): FollowItem {
+    return FollowItem.deserialize(bytes);
+  }
 }
 export class AddressAllResponse extends pb_1.Message {
-    #one_of_decls: number[][] = [];
-    constructor(data?: any[] | {
-        raws?: AddressViewModel[];
-    }) {
-        super();
-        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [1], this.#one_of_decls);
-        if (!Array.isArray(data) && typeof data == "object") {
-            if ("raws" in data && data.raws != undefined) {
-                this.raws = data.raws;
-            }
+  #one_of_decls: number[][] = [];
+  constructor(
+    data?:
+      | any[]
+      | {
+          raws?: AddressViewModel[];
         }
+  ) {
+    super();
+    pb_1.Message.initialize(
+      this,
+      Array.isArray(data) ? data : [],
+      0,
+      -1,
+      [1],
+      this.#one_of_decls
+    );
+    if (!Array.isArray(data) && typeof data == "object") {
+      if ("raws" in data && data.raws != undefined) {
+        this.raws = data.raws;
+      }
     }
-    get raws() {
-        return pb_1.Message.getRepeatedWrapperField(this, AddressViewModel, 1) as AddressViewModel[];
+  }
+  get raws() {
+    return pb_1.Message.getRepeatedWrapperField(
+      this,
+      AddressViewModel,
+      1
+    ) as AddressViewModel[];
+  }
+  set raws(value: AddressViewModel[]) {
+    pb_1.Message.setRepeatedWrapperField(this, 1, value);
+  }
+  static fromObject(data: {
+    raws?: ReturnType<typeof AddressViewModel.prototype.toObject>[];
+  }): AddressAllResponse {
+    const message = new AddressAllResponse({});
+    if (data.raws != null) {
+      message.raws = data.raws.map((item) => AddressViewModel.fromObject(item));
     }
-    set raws(value: AddressViewModel[]) {
-        pb_1.Message.setRepeatedWrapperField(this, 1, value);
+    return message;
+  }
+  toObject() {
+    const data: {
+      raws?: ReturnType<typeof AddressViewModel.prototype.toObject>[];
+    } = {};
+    if (this.raws != null) {
+      data.raws = this.raws.map((item: AddressViewModel) => item.toObject());
     }
-    static fromObject(data: {
-        raws?: ReturnType<typeof AddressViewModel.prototype.toObject>[];
-    }): AddressAllResponse {
-        const message = new AddressAllResponse({});
-        if (data.raws != null) {
-            message.raws = data.raws.map(item => AddressViewModel.fromObject(item));
-        }
-        return message;
+    return data;
+  }
+  serialize(): Uint8Array;
+  serialize(w: pb_1.BinaryWriter): void;
+  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+    const writer = w || new pb_1.BinaryWriter();
+    if (this.raws.length)
+      writer.writeRepeatedMessage(1, this.raws, (item: AddressViewModel) =>
+        item.serialize(writer)
+      );
+    if (!w) return writer.getResultBuffer();
+  }
+  static deserialize(
+    bytes: Uint8Array | pb_1.BinaryReader
+  ): AddressAllResponse {
+    const reader =
+        bytes instanceof pb_1.BinaryReader
+          ? bytes
+          : new pb_1.BinaryReader(bytes),
+      message = new AddressAllResponse();
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) break;
+      switch (reader.getFieldNumber()) {
+        case 1:
+          reader.readMessage(message.raws, () =>
+            pb_1.Message.addToRepeatedWrapperField(
+              message,
+              1,
+              AddressViewModel.deserialize(reader),
+              AddressViewModel
+            )
+          );
+          break;
+        default:
+          reader.skipField();
+      }
     }
-    toObject() {
-        const data: {
-            raws?: ReturnType<typeof AddressViewModel.prototype.toObject>[];
-        } = {};
-        if (this.raws != null) {
-            data.raws = this.raws.map((item: AddressViewModel) => item.toObject());
-        }
-        return data;
-    }
-    serialize(): Uint8Array;
-    serialize(w: pb_1.BinaryWriter): void;
-    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-        const writer = w || new pb_1.BinaryWriter();
-        if (this.raws.length)
-            writer.writeRepeatedMessage(1, this.raws, (item: AddressViewModel) => item.serialize(writer));
-        if (!w)
-            return writer.getResultBuffer();
-    }
-    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): AddressAllResponse {
-        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new AddressAllResponse();
-        while (reader.nextField()) {
-            if (reader.isEndGroup())
-                break;
-            switch (reader.getFieldNumber()) {
-                case 1:
-                    reader.readMessage(message.raws, () => pb_1.Message.addToRepeatedWrapperField(message, 1, AddressViewModel.deserialize(reader), AddressViewModel));
-                    break;
-                default: reader.skipField();
-            }
-        }
-        return message;
-    }
-    serializeBinary(): Uint8Array {
-        return this.serialize();
-    }
-    static deserializeBinary(bytes: Uint8Array): AddressAllResponse {
-        return AddressAllResponse.deserialize(bytes);
-    }
+    return message;
+  }
+  serializeBinary(): Uint8Array {
+    return this.serialize();
+  }
+  static deserializeBinary(bytes: Uint8Array): AddressAllResponse {
+    return AddressAllResponse.deserialize(bytes);
+  }
 }
 export class AddressViewModel extends pb_1.Message {
-    #one_of_decls: number[][] = [];
-    constructor(data?: any[] | {
-        id?: string;
-        recipient?: string;
-        phoneNumber?: string;
-        country?: string;
-        province?: string;
-        city?: string;
-        street?: string;
-        label?: string;
-        isDefault?: boolean;
-        gender?: dependency_1.Gender;
-    }) {
-        super();
-        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
-        if (!Array.isArray(data) && typeof data == "object") {
-            if ("id" in data && data.id != undefined) {
-                this.id = data.id;
-            }
-            if ("recipient" in data && data.recipient != undefined) {
-                this.recipient = data.recipient;
-            }
-            if ("phoneNumber" in data && data.phoneNumber != undefined) {
-                this.phoneNumber = data.phoneNumber;
-            }
-            if ("country" in data && data.country != undefined) {
-                this.country = data.country;
-            }
-            if ("province" in data && data.province != undefined) {
-                this.province = data.province;
-            }
-            if ("city" in data && data.city != undefined) {
-                this.city = data.city;
-            }
-            if ("street" in data && data.street != undefined) {
-                this.street = data.street;
-            }
-            if ("label" in data && data.label != undefined) {
-                this.label = data.label;
-            }
-            if ("isDefault" in data && data.isDefault != undefined) {
-                this.isDefault = data.isDefault;
-            }
-            if ("gender" in data && data.gender != undefined) {
-                this.gender = data.gender;
-            }
+  #one_of_decls: number[][] = [];
+  constructor(
+    data?:
+      | any[]
+      | {
+          id?: string;
+          recipient?: string;
+          phoneNumber?: string;
+          country?: string;
+          province?: string;
+          city?: string;
+          street?: string;
+          label?: string;
+          isDefault?: boolean;
+          gender?: dependency_1.Gender;
         }
+  ) {
+    super();
+    pb_1.Message.initialize(
+      this,
+      Array.isArray(data) ? data : [],
+      0,
+      -1,
+      [],
+      this.#one_of_decls
+    );
+    if (!Array.isArray(data) && typeof data == "object") {
+      if ("id" in data && data.id != undefined) {
+        this.id = data.id;
+      }
+      if ("recipient" in data && data.recipient != undefined) {
+        this.recipient = data.recipient;
+      }
+      if ("phoneNumber" in data && data.phoneNumber != undefined) {
+        this.phoneNumber = data.phoneNumber;
+      }
+      if ("country" in data && data.country != undefined) {
+        this.country = data.country;
+      }
+      if ("province" in data && data.province != undefined) {
+        this.province = data.province;
+      }
+      if ("city" in data && data.city != undefined) {
+        this.city = data.city;
+      }
+      if ("street" in data && data.street != undefined) {
+        this.street = data.street;
+      }
+      if ("label" in data && data.label != undefined) {
+        this.label = data.label;
+      }
+      if ("isDefault" in data && data.isDefault != undefined) {
+        this.isDefault = data.isDefault;
+      }
+      if ("gender" in data && data.gender != undefined) {
+        this.gender = data.gender;
+      }
     }
-    get id() {
-        return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+  }
+  get id() {
+    return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+  }
+  set id(value: string) {
+    pb_1.Message.setField(this, 1, value);
+  }
+  get recipient() {
+    return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+  }
+  set recipient(value: string) {
+    pb_1.Message.setField(this, 2, value);
+  }
+  get phoneNumber() {
+    return pb_1.Message.getFieldWithDefault(this, 3, "") as string;
+  }
+  set phoneNumber(value: string) {
+    pb_1.Message.setField(this, 3, value);
+  }
+  get country() {
+    return pb_1.Message.getFieldWithDefault(this, 4, "") as string;
+  }
+  set country(value: string) {
+    pb_1.Message.setField(this, 4, value);
+  }
+  get province() {
+    return pb_1.Message.getFieldWithDefault(this, 5, "") as string;
+  }
+  set province(value: string) {
+    pb_1.Message.setField(this, 5, value);
+  }
+  get city() {
+    return pb_1.Message.getFieldWithDefault(this, 6, "") as string;
+  }
+  set city(value: string) {
+    pb_1.Message.setField(this, 6, value);
+  }
+  get street() {
+    return pb_1.Message.getFieldWithDefault(this, 7, "") as string;
+  }
+  set street(value: string) {
+    pb_1.Message.setField(this, 7, value);
+  }
+  get label() {
+    return pb_1.Message.getFieldWithDefault(this, 8, "") as string;
+  }
+  set label(value: string) {
+    pb_1.Message.setField(this, 8, value);
+  }
+  get isDefault() {
+    return pb_1.Message.getFieldWithDefault(this, 9, false) as boolean;
+  }
+  set isDefault(value: boolean) {
+    pb_1.Message.setField(this, 9, value);
+  }
+  get gender() {
+    return pb_1.Message.getFieldWithDefault(
+      this,
+      10,
+      dependency_1.Gender._Gender_UNSPECIFIED
+    ) as dependency_1.Gender;
+  }
+  set gender(value: dependency_1.Gender) {
+    pb_1.Message.setField(this, 10, value);
+  }
+  static fromObject(data: {
+    id?: string;
+    recipient?: string;
+    phoneNumber?: string;
+    country?: string;
+    province?: string;
+    city?: string;
+    street?: string;
+    label?: string;
+    isDefault?: boolean;
+    gender?: dependency_1.Gender;
+  }): AddressViewModel {
+    const message = new AddressViewModel({});
+    if (data.id != null) {
+      message.id = data.id;
     }
-    set id(value: string) {
-        pb_1.Message.setField(this, 1, value);
+    if (data.recipient != null) {
+      message.recipient = data.recipient;
     }
-    get recipient() {
-        return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+    if (data.phoneNumber != null) {
+      message.phoneNumber = data.phoneNumber;
     }
-    set recipient(value: string) {
-        pb_1.Message.setField(this, 2, value);
+    if (data.country != null) {
+      message.country = data.country;
     }
-    get phoneNumber() {
-        return pb_1.Message.getFieldWithDefault(this, 3, "") as string;
+    if (data.province != null) {
+      message.province = data.province;
     }
-    set phoneNumber(value: string) {
-        pb_1.Message.setField(this, 3, value);
+    if (data.city != null) {
+      message.city = data.city;
     }
-    get country() {
-        return pb_1.Message.getFieldWithDefault(this, 4, "") as string;
+    if (data.street != null) {
+      message.street = data.street;
     }
-    set country(value: string) {
-        pb_1.Message.setField(this, 4, value);
+    if (data.label != null) {
+      message.label = data.label;
     }
-    get province() {
-        return pb_1.Message.getFieldWithDefault(this, 5, "") as string;
+    if (data.isDefault != null) {
+      message.isDefault = data.isDefault;
     }
-    set province(value: string) {
-        pb_1.Message.setField(this, 5, value);
+    if (data.gender != null) {
+      message.gender = data.gender;
     }
-    get city() {
-        return pb_1.Message.getFieldWithDefault(this, 6, "") as string;
+    return message;
+  }
+  toObject() {
+    const data: {
+      id?: string;
+      recipient?: string;
+      phoneNumber?: string;
+      country?: string;
+      province?: string;
+      city?: string;
+      street?: string;
+      label?: string;
+      isDefault?: boolean;
+      gender?: dependency_1.Gender;
+    } = {};
+    if (this.id != null) {
+      data.id = this.id;
     }
-    set city(value: string) {
-        pb_1.Message.setField(this, 6, value);
+    if (this.recipient != null) {
+      data.recipient = this.recipient;
     }
-    get street() {
-        return pb_1.Message.getFieldWithDefault(this, 7, "") as string;
+    if (this.phoneNumber != null) {
+      data.phoneNumber = this.phoneNumber;
     }
-    set street(value: string) {
-        pb_1.Message.setField(this, 7, value);
+    if (this.country != null) {
+      data.country = this.country;
     }
-    get label() {
-        return pb_1.Message.getFieldWithDefault(this, 8, "") as string;
+    if (this.province != null) {
+      data.province = this.province;
     }
-    set label(value: string) {
-        pb_1.Message.setField(this, 8, value);
+    if (this.city != null) {
+      data.city = this.city;
     }
-    get isDefault() {
-        return pb_1.Message.getFieldWithDefault(this, 9, false) as boolean;
+    if (this.street != null) {
+      data.street = this.street;
     }
-    set isDefault(value: boolean) {
-        pb_1.Message.setField(this, 9, value);
+    if (this.label != null) {
+      data.label = this.label;
     }
-    get gender() {
-        return pb_1.Message.getFieldWithDefault(this, 10, dependency_1.Gender._Gender_UNSPECIFIED) as dependency_1.Gender;
+    if (this.isDefault != null) {
+      data.isDefault = this.isDefault;
     }
-    set gender(value: dependency_1.Gender) {
-        pb_1.Message.setField(this, 10, value);
+    if (this.gender != null) {
+      data.gender = this.gender;
     }
-    static fromObject(data: {
-        id?: string;
-        recipient?: string;
-        phoneNumber?: string;
-        country?: string;
-        province?: string;
-        city?: string;
-        street?: string;
-        label?: string;
-        isDefault?: boolean;
-        gender?: dependency_1.Gender;
-    }): AddressViewModel {
-        const message = new AddressViewModel({});
-        if (data.id != null) {
-            message.id = data.id;
-        }
-        if (data.recipient != null) {
-            message.recipient = data.recipient;
-        }
-        if (data.phoneNumber != null) {
-            message.phoneNumber = data.phoneNumber;
-        }
-        if (data.country != null) {
-            message.country = data.country;
-        }
-        if (data.province != null) {
-            message.province = data.province;
-        }
-        if (data.city != null) {
-            message.city = data.city;
-        }
-        if (data.street != null) {
-            message.street = data.street;
-        }
-        if (data.label != null) {
-            message.label = data.label;
-        }
-        if (data.isDefault != null) {
-            message.isDefault = data.isDefault;
-        }
-        if (data.gender != null) {
-            message.gender = data.gender;
-        }
-        return message;
+    return data;
+  }
+  serialize(): Uint8Array;
+  serialize(w: pb_1.BinaryWriter): void;
+  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+    const writer = w || new pb_1.BinaryWriter();
+    if (this.id.length) writer.writeString(1, this.id);
+    if (this.recipient.length) writer.writeString(2, this.recipient);
+    if (this.phoneNumber.length) writer.writeString(3, this.phoneNumber);
+    if (this.country.length) writer.writeString(4, this.country);
+    if (this.province.length) writer.writeString(5, this.province);
+    if (this.city.length) writer.writeString(6, this.city);
+    if (this.street.length) writer.writeString(7, this.street);
+    if (this.label.length) writer.writeString(8, this.label);
+    if (this.isDefault != false) writer.writeBool(9, this.isDefault);
+    if (this.gender != dependency_1.Gender._Gender_UNSPECIFIED)
+      writer.writeEnum(10, this.gender);
+    if (!w) return writer.getResultBuffer();
+  }
+  static deserialize(bytes: Uint8Array | pb_1.BinaryReader): AddressViewModel {
+    const reader =
+        bytes instanceof pb_1.BinaryReader
+          ? bytes
+          : new pb_1.BinaryReader(bytes),
+      message = new AddressViewModel();
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) break;
+      switch (reader.getFieldNumber()) {
+        case 1:
+          message.id = reader.readString();
+          break;
+        case 2:
+          message.recipient = reader.readString();
+          break;
+        case 3:
+          message.phoneNumber = reader.readString();
+          break;
+        case 4:
+          message.country = reader.readString();
+          break;
+        case 5:
+          message.province = reader.readString();
+          break;
+        case 6:
+          message.city = reader.readString();
+          break;
+        case 7:
+          message.street = reader.readString();
+          break;
+        case 8:
+          message.label = reader.readString();
+          break;
+        case 9:
+          message.isDefault = reader.readBool();
+          break;
+        case 10:
+          message.gender = reader.readEnum();
+          break;
+        default:
+          reader.skipField();
+      }
     }
-    toObject() {
-        const data: {
-            id?: string;
-            recipient?: string;
-            phoneNumber?: string;
-            country?: string;
-            province?: string;
-            city?: string;
-            street?: string;
-            label?: string;
-            isDefault?: boolean;
-            gender?: dependency_1.Gender;
-        } = {};
-        if (this.id != null) {
-            data.id = this.id;
-        }
-        if (this.recipient != null) {
-            data.recipient = this.recipient;
-        }
-        if (this.phoneNumber != null) {
-            data.phoneNumber = this.phoneNumber;
-        }
-        if (this.country != null) {
-            data.country = this.country;
-        }
-        if (this.province != null) {
-            data.province = this.province;
-        }
-        if (this.city != null) {
-            data.city = this.city;
-        }
-        if (this.street != null) {
-            data.street = this.street;
-        }
-        if (this.label != null) {
-            data.label = this.label;
-        }
-        if (this.isDefault != null) {
-            data.isDefault = this.isDefault;
-        }
-        if (this.gender != null) {
-            data.gender = this.gender;
-        }
-        return data;
-    }
-    serialize(): Uint8Array;
-    serialize(w: pb_1.BinaryWriter): void;
-    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-        const writer = w || new pb_1.BinaryWriter();
-        if (this.id.length)
-            writer.writeString(1, this.id);
-        if (this.recipient.length)
-            writer.writeString(2, this.recipient);
-        if (this.phoneNumber.length)
-            writer.writeString(3, this.phoneNumber);
-        if (this.country.length)
-            writer.writeString(4, this.country);
-        if (this.province.length)
-            writer.writeString(5, this.province);
-        if (this.city.length)
-            writer.writeString(6, this.city);
-        if (this.street.length)
-            writer.writeString(7, this.street);
-        if (this.label.length)
-            writer.writeString(8, this.label);
-        if (this.isDefault != false)
-            writer.writeBool(9, this.isDefault);
-        if (this.gender != dependency_1.Gender._Gender_UNSPECIFIED)
-            writer.writeEnum(10, this.gender);
-        if (!w)
-            return writer.getResultBuffer();
-    }
-    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): AddressViewModel {
-        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new AddressViewModel();
-        while (reader.nextField()) {
-            if (reader.isEndGroup())
-                break;
-            switch (reader.getFieldNumber()) {
-                case 1:
-                    message.id = reader.readString();
-                    break;
-                case 2:
-                    message.recipient = reader.readString();
-                    break;
-                case 3:
-                    message.phoneNumber = reader.readString();
-                    break;
-                case 4:
-                    message.country = reader.readString();
-                    break;
-                case 5:
-                    message.province = reader.readString();
-                    break;
-                case 6:
-                    message.city = reader.readString();
-                    break;
-                case 7:
-                    message.street = reader.readString();
-                    break;
-                case 8:
-                    message.label = reader.readString();
-                    break;
-                case 9:
-                    message.isDefault = reader.readBool();
-                    break;
-                case 10:
-                    message.gender = reader.readEnum();
-                    break;
-                default: reader.skipField();
-            }
-        }
-        return message;
-    }
-    serializeBinary(): Uint8Array {
-        return this.serialize();
-    }
-    static deserializeBinary(bytes: Uint8Array): AddressViewModel {
-        return AddressViewModel.deserialize(bytes);
-    }
+    return message;
+  }
+  serializeBinary(): Uint8Array {
+    return this.serialize();
+  }
+  static deserializeBinary(bytes: Uint8Array): AddressViewModel {
+    return AddressViewModel.deserialize(bytes);
+  }
 }
 export class ChangePhoneNumberRequest extends pb_1.Message {
-    #one_of_decls: number[][] = [];
-    constructor(data?: any[] | {
-        phone?: string;
-        captcha?: string;
-    }) {
-        super();
-        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
-        if (!Array.isArray(data) && typeof data == "object") {
-            if ("phone" in data && data.phone != undefined) {
-                this.phone = data.phone;
-            }
-            if ("captcha" in data && data.captcha != undefined) {
-                this.captcha = data.captcha;
-            }
+  #one_of_decls: number[][] = [];
+  constructor(
+    data?:
+      | any[]
+      | {
+          phone?: string;
+          captcha?: string;
         }
+  ) {
+    super();
+    pb_1.Message.initialize(
+      this,
+      Array.isArray(data) ? data : [],
+      0,
+      -1,
+      [],
+      this.#one_of_decls
+    );
+    if (!Array.isArray(data) && typeof data == "object") {
+      if ("phone" in data && data.phone != undefined) {
+        this.phone = data.phone;
+      }
+      if ("captcha" in data && data.captcha != undefined) {
+        this.captcha = data.captcha;
+      }
     }
-    get phone() {
-        return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+  }
+  get phone() {
+    return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+  }
+  set phone(value: string) {
+    pb_1.Message.setField(this, 1, value);
+  }
+  get captcha() {
+    return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+  }
+  set captcha(value: string) {
+    pb_1.Message.setField(this, 2, value);
+  }
+  static fromObject(data: {
+    phone?: string;
+    captcha?: string;
+  }): ChangePhoneNumberRequest {
+    const message = new ChangePhoneNumberRequest({});
+    if (data.phone != null) {
+      message.phone = data.phone;
     }
-    set phone(value: string) {
-        pb_1.Message.setField(this, 1, value);
+    if (data.captcha != null) {
+      message.captcha = data.captcha;
     }
-    get captcha() {
-        return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+    return message;
+  }
+  toObject() {
+    const data: {
+      phone?: string;
+      captcha?: string;
+    } = {};
+    if (this.phone != null) {
+      data.phone = this.phone;
     }
-    set captcha(value: string) {
-        pb_1.Message.setField(this, 2, value);
+    if (this.captcha != null) {
+      data.captcha = this.captcha;
     }
-    static fromObject(data: {
-        phone?: string;
-        captcha?: string;
-    }): ChangePhoneNumberRequest {
-        const message = new ChangePhoneNumberRequest({});
-        if (data.phone != null) {
-            message.phone = data.phone;
-        }
-        if (data.captcha != null) {
-            message.captcha = data.captcha;
-        }
-        return message;
+    return data;
+  }
+  serialize(): Uint8Array;
+  serialize(w: pb_1.BinaryWriter): void;
+  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+    const writer = w || new pb_1.BinaryWriter();
+    if (this.phone.length) writer.writeString(1, this.phone);
+    if (this.captcha.length) writer.writeString(2, this.captcha);
+    if (!w) return writer.getResultBuffer();
+  }
+  static deserialize(
+    bytes: Uint8Array | pb_1.BinaryReader
+  ): ChangePhoneNumberRequest {
+    const reader =
+        bytes instanceof pb_1.BinaryReader
+          ? bytes
+          : new pb_1.BinaryReader(bytes),
+      message = new ChangePhoneNumberRequest();
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) break;
+      switch (reader.getFieldNumber()) {
+        case 1:
+          message.phone = reader.readString();
+          break;
+        case 2:
+          message.captcha = reader.readString();
+          break;
+        default:
+          reader.skipField();
+      }
     }
-    toObject() {
-        const data: {
-            phone?: string;
-            captcha?: string;
-        } = {};
-        if (this.phone != null) {
-            data.phone = this.phone;
-        }
-        if (this.captcha != null) {
-            data.captcha = this.captcha;
-        }
-        return data;
-    }
-    serialize(): Uint8Array;
-    serialize(w: pb_1.BinaryWriter): void;
-    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-        const writer = w || new pb_1.BinaryWriter();
-        if (this.phone.length)
-            writer.writeString(1, this.phone);
-        if (this.captcha.length)
-            writer.writeString(2, this.captcha);
-        if (!w)
-            return writer.getResultBuffer();
-    }
-    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): ChangePhoneNumberRequest {
-        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new ChangePhoneNumberRequest();
-        while (reader.nextField()) {
-            if (reader.isEndGroup())
-                break;
-            switch (reader.getFieldNumber()) {
-                case 1:
-                    message.phone = reader.readString();
-                    break;
-                case 2:
-                    message.captcha = reader.readString();
-                    break;
-                default: reader.skipField();
-            }
-        }
-        return message;
-    }
-    serializeBinary(): Uint8Array {
-        return this.serialize();
-    }
-    static deserializeBinary(bytes: Uint8Array): ChangePhoneNumberRequest {
-        return ChangePhoneNumberRequest.deserialize(bytes);
-    }
+    return message;
+  }
+  serializeBinary(): Uint8Array {
+    return this.serialize();
+  }
+  static deserializeBinary(bytes: Uint8Array): ChangePhoneNumberRequest {
+    return ChangePhoneNumberRequest.deserialize(bytes);
+  }
 }
