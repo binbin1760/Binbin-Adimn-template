@@ -3,398 +3,371 @@
  * compiler version: 3.20.3
  * source: object.proto
  * git: https://github.com/thesayyn/protoc-gen-ts */
-// @ts-nocheck
 import * as pb_1 from "google-protobuf";
 export class CosResponse extends pb_1.Message {
-  #one_of_decls: number[][] = [];
-  constructor(
-    data?:
-      | any[]
-      | {
-          credentials?: CosCredentials;
-          requestId?: string;
-          expiration?: string;
-          startTime?: number;
-          expiredTime?: number;
-          bucket?: string;
-          region?: string;
-          folder?: string;
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        credentials?: CosCredentials;
+        requestId?: string;
+        expiration?: string;
+        startTime?: number;
+        expiredTime?: number;
+        bucket?: string;
+        region?: string;
+        folder?: string;
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("credentials" in data && data.credentials != undefined) {
+                this.credentials = data.credentials;
+            }
+            if ("requestId" in data && data.requestId != undefined) {
+                this.requestId = data.requestId;
+            }
+            if ("expiration" in data && data.expiration != undefined) {
+                this.expiration = data.expiration;
+            }
+            if ("startTime" in data && data.startTime != undefined) {
+                this.startTime = data.startTime;
+            }
+            if ("expiredTime" in data && data.expiredTime != undefined) {
+                this.expiredTime = data.expiredTime;
+            }
+            if ("bucket" in data && data.bucket != undefined) {
+                this.bucket = data.bucket;
+            }
+            if ("region" in data && data.region != undefined) {
+                this.region = data.region;
+            }
+            if ("folder" in data && data.folder != undefined) {
+                this.folder = data.folder;
+            }
         }
-  ) {
-    super();
-    pb_1.Message.initialize(
-      this,
-      Array.isArray(data) ? data : [],
-      0,
-      -1,
-      [],
-      this.#one_of_decls
-    );
-    if (!Array.isArray(data) && typeof data == "object") {
-      if ("credentials" in data && data.credentials != undefined) {
-        this.credentials = data.credentials;
-      }
-      if ("requestId" in data && data.requestId != undefined) {
-        this.requestId = data.requestId;
-      }
-      if ("expiration" in data && data.expiration != undefined) {
-        this.expiration = data.expiration;
-      }
-      if ("startTime" in data && data.startTime != undefined) {
-        this.startTime = data.startTime;
-      }
-      if ("expiredTime" in data && data.expiredTime != undefined) {
-        this.expiredTime = data.expiredTime;
-      }
-      if ("bucket" in data && data.bucket != undefined) {
-        this.bucket = data.bucket;
-      }
-      if ("region" in data && data.region != undefined) {
-        this.region = data.region;
-      }
-      if ("folder" in data && data.folder != undefined) {
-        this.folder = data.folder;
-      }
     }
-  }
-  get credentials() {
-    return pb_1.Message.getWrapperField(
-      this,
-      CosCredentials,
-      1
-    ) as CosCredentials;
-  }
-  set credentials(value: CosCredentials) {
-    pb_1.Message.setWrapperField(this, 1, value);
-  }
-  get hasCredentials() {
-    return pb_1.Message.getField(this, 1) != null;
-  }
-  get requestId() {
-    return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
-  }
-  set requestId(value: string) {
-    pb_1.Message.setField(this, 2, value);
-  }
-  get expiration() {
-    return pb_1.Message.getFieldWithDefault(this, 3, "") as string;
-  }
-  set expiration(value: string) {
-    pb_1.Message.setField(this, 3, value);
-  }
-  get startTime() {
-    return pb_1.Message.getFieldWithDefault(this, 4, 0) as number;
-  }
-  set startTime(value: number) {
-    pb_1.Message.setField(this, 4, value);
-  }
-  get expiredTime() {
-    return pb_1.Message.getFieldWithDefault(this, 5, 0) as number;
-  }
-  set expiredTime(value: number) {
-    pb_1.Message.setField(this, 5, value);
-  }
-  get bucket() {
-    return pb_1.Message.getFieldWithDefault(this, 6, "") as string;
-  }
-  set bucket(value: string) {
-    pb_1.Message.setField(this, 6, value);
-  }
-  get region() {
-    return pb_1.Message.getFieldWithDefault(this, 7, "") as string;
-  }
-  set region(value: string) {
-    pb_1.Message.setField(this, 7, value);
-  }
-  get folder() {
-    return pb_1.Message.getFieldWithDefault(this, 8, "") as string;
-  }
-  set folder(value: string) {
-    pb_1.Message.setField(this, 8, value);
-  }
-  static fromObject(data: {
-    credentials?: ReturnType<typeof CosCredentials.prototype.toObject>;
-    requestId?: string;
-    expiration?: string;
-    startTime?: number;
-    expiredTime?: number;
-    bucket?: string;
-    region?: string;
-    folder?: string;
-  }): CosResponse {
-    const message = new CosResponse({});
-    if (data.credentials != null) {
-      message.credentials = CosCredentials.fromObject(data.credentials);
+    get credentials() {
+        return pb_1.Message.getWrapperField(this, CosCredentials, 1) as CosCredentials;
     }
-    if (data.requestId != null) {
-      message.requestId = data.requestId;
+    set credentials(value: CosCredentials) {
+        pb_1.Message.setWrapperField(this, 1, value);
     }
-    if (data.expiration != null) {
-      message.expiration = data.expiration;
+    get hasCredentials() {
+        return pb_1.Message.getField(this, 1) != null;
     }
-    if (data.startTime != null) {
-      message.startTime = data.startTime;
+    get requestId() {
+        return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
     }
-    if (data.expiredTime != null) {
-      message.expiredTime = data.expiredTime;
+    set requestId(value: string) {
+        pb_1.Message.setField(this, 2, value);
     }
-    if (data.bucket != null) {
-      message.bucket = data.bucket;
+    get expiration() {
+        return pb_1.Message.getFieldWithDefault(this, 3, "") as string;
     }
-    if (data.region != null) {
-      message.region = data.region;
+    set expiration(value: string) {
+        pb_1.Message.setField(this, 3, value);
     }
-    if (data.folder != null) {
-      message.folder = data.folder;
+    get startTime() {
+        return pb_1.Message.getFieldWithDefault(this, 4, 0) as number;
     }
-    return message;
-  }
-  toObject() {
-    const data: {
-      credentials?: ReturnType<typeof CosCredentials.prototype.toObject>;
-      requestId?: string;
-      expiration?: string;
-      startTime?: number;
-      expiredTime?: number;
-      bucket?: string;
-      region?: string;
-      folder?: string;
-    } = {};
-    if (this.credentials != null) {
-      data.credentials = this.credentials.toObject();
+    set startTime(value: number) {
+        pb_1.Message.setField(this, 4, value);
     }
-    if (this.requestId != null) {
-      data.requestId = this.requestId;
+    get expiredTime() {
+        return pb_1.Message.getFieldWithDefault(this, 5, 0) as number;
     }
-    if (this.expiration != null) {
-      data.expiration = this.expiration;
+    set expiredTime(value: number) {
+        pb_1.Message.setField(this, 5, value);
     }
-    if (this.startTime != null) {
-      data.startTime = this.startTime;
+    get bucket() {
+        return pb_1.Message.getFieldWithDefault(this, 6, "") as string;
     }
-    if (this.expiredTime != null) {
-      data.expiredTime = this.expiredTime;
+    set bucket(value: string) {
+        pb_1.Message.setField(this, 6, value);
     }
-    if (this.bucket != null) {
-      data.bucket = this.bucket;
+    get region() {
+        return pb_1.Message.getFieldWithDefault(this, 7, "") as string;
     }
-    if (this.region != null) {
-      data.region = this.region;
+    set region(value: string) {
+        pb_1.Message.setField(this, 7, value);
     }
-    if (this.folder != null) {
-      data.folder = this.folder;
+    get folder() {
+        return pb_1.Message.getFieldWithDefault(this, 8, "") as string;
     }
-    return data;
-  }
-  serialize(): Uint8Array;
-  serialize(w: pb_1.BinaryWriter): void;
-  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-    const writer = w || new pb_1.BinaryWriter();
-    if (this.hasCredentials)
-      writer.writeMessage(1, this.credentials, () =>
-        this.credentials.serialize(writer)
-      );
-    if (this.requestId.length) writer.writeString(2, this.requestId);
-    if (this.expiration.length) writer.writeString(3, this.expiration);
-    if (this.startTime != 0) writer.writeUint64(4, this.startTime);
-    if (this.expiredTime != 0) writer.writeUint64(5, this.expiredTime);
-    if (this.bucket.length) writer.writeString(6, this.bucket);
-    if (this.region.length) writer.writeString(7, this.region);
-    if (this.folder.length) writer.writeString(8, this.folder);
-    if (!w) return writer.getResultBuffer();
-  }
-  static deserialize(bytes: Uint8Array | pb_1.BinaryReader): CosResponse {
-    const reader =
-        bytes instanceof pb_1.BinaryReader
-          ? bytes
-          : new pb_1.BinaryReader(bytes),
-      message = new CosResponse();
-    while (reader.nextField()) {
-      if (reader.isEndGroup()) break;
-      switch (reader.getFieldNumber()) {
-        case 1:
-          reader.readMessage(
-            message.credentials,
-            () => (message.credentials = CosCredentials.deserialize(reader))
-          );
-          break;
-        case 2:
-          message.requestId = reader.readString();
-          break;
-        case 3:
-          message.expiration = reader.readString();
-          break;
-        case 4:
-          message.startTime = reader.readUint64();
-          break;
-        case 5:
-          message.expiredTime = reader.readUint64();
-          break;
-        case 6:
-          message.bucket = reader.readString();
-          break;
-        case 7:
-          message.region = reader.readString();
-          break;
-        case 8:
-          message.folder = reader.readString();
-          break;
-        default:
-          reader.skipField();
-      }
+    set folder(value: string) {
+        pb_1.Message.setField(this, 8, value);
     }
-    return message;
-  }
-  serializeBinary(): Uint8Array {
-    return this.serialize();
-  }
-  static deserializeBinary(bytes: Uint8Array): CosResponse {
-    return CosResponse.deserialize(bytes);
-  }
+    static fromObject(data: {
+        credentials?: ReturnType<typeof CosCredentials.prototype.toObject>;
+        requestId?: string;
+        expiration?: string;
+        startTime?: number;
+        expiredTime?: number;
+        bucket?: string;
+        region?: string;
+        folder?: string;
+    }): CosResponse {
+        const message = new CosResponse({});
+        if (data.credentials != null) {
+            message.credentials = CosCredentials.fromObject(data.credentials);
+        }
+        if (data.requestId != null) {
+            message.requestId = data.requestId;
+        }
+        if (data.expiration != null) {
+            message.expiration = data.expiration;
+        }
+        if (data.startTime != null) {
+            message.startTime = data.startTime;
+        }
+        if (data.expiredTime != null) {
+            message.expiredTime = data.expiredTime;
+        }
+        if (data.bucket != null) {
+            message.bucket = data.bucket;
+        }
+        if (data.region != null) {
+            message.region = data.region;
+        }
+        if (data.folder != null) {
+            message.folder = data.folder;
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            credentials?: ReturnType<typeof CosCredentials.prototype.toObject>;
+            requestId?: string;
+            expiration?: string;
+            startTime?: number;
+            expiredTime?: number;
+            bucket?: string;
+            region?: string;
+            folder?: string;
+        } = {};
+        if (this.credentials != null) {
+            data.credentials = this.credentials.toObject();
+        }
+        if (this.requestId != null) {
+            data.requestId = this.requestId;
+        }
+        if (this.expiration != null) {
+            data.expiration = this.expiration;
+        }
+        if (this.startTime != null) {
+            data.startTime = this.startTime;
+        }
+        if (this.expiredTime != null) {
+            data.expiredTime = this.expiredTime;
+        }
+        if (this.bucket != null) {
+            data.bucket = this.bucket;
+        }
+        if (this.region != null) {
+            data.region = this.region;
+        }
+        if (this.folder != null) {
+            data.folder = this.folder;
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.hasCredentials)
+            writer.writeMessage(1, this.credentials, () => this.credentials.serialize(writer));
+        if (this.requestId.length)
+            writer.writeString(2, this.requestId);
+        if (this.expiration.length)
+            writer.writeString(3, this.expiration);
+        if (this.startTime != 0)
+            writer.writeUint64(4, this.startTime);
+        if (this.expiredTime != 0)
+            writer.writeUint64(5, this.expiredTime);
+        if (this.bucket.length)
+            writer.writeString(6, this.bucket);
+        if (this.region.length)
+            writer.writeString(7, this.region);
+        if (this.folder.length)
+            writer.writeString(8, this.folder);
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): CosResponse {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new CosResponse();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    reader.readMessage(message.credentials, () => message.credentials = CosCredentials.deserialize(reader));
+                    break;
+                case 2:
+                    message.requestId = reader.readString();
+                    break;
+                case 3:
+                    message.expiration = reader.readString();
+                    break;
+                case 4:
+                    message.startTime = reader.readUint64();
+                    break;
+                case 5:
+                    message.expiredTime = reader.readUint64();
+                    break;
+                case 6:
+                    message.bucket = reader.readString();
+                    break;
+                case 7:
+                    message.region = reader.readString();
+                    break;
+                case 8:
+                    message.folder = reader.readString();
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): CosResponse {
+        return CosResponse.deserialize(bytes);
+    }
 }
 export class CosCredentials extends pb_1.Message {
-  #one_of_decls: number[][] = [];
-  constructor(
-    data?:
-      | any[]
-      | {
-          tmpSecretId?: string;
-          tmpSecretKey?: string;
-          sessionToken?: string;
-          token?: string;
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        tmpSecretId?: string;
+        tmpSecretKey?: string;
+        sessionToken?: string;
+        token?: string;
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("tmpSecretId" in data && data.tmpSecretId != undefined) {
+                this.tmpSecretId = data.tmpSecretId;
+            }
+            if ("tmpSecretKey" in data && data.tmpSecretKey != undefined) {
+                this.tmpSecretKey = data.tmpSecretKey;
+            }
+            if ("sessionToken" in data && data.sessionToken != undefined) {
+                this.sessionToken = data.sessionToken;
+            }
+            if ("token" in data && data.token != undefined) {
+                this.token = data.token;
+            }
         }
-  ) {
-    super();
-    pb_1.Message.initialize(
-      this,
-      Array.isArray(data) ? data : [],
-      0,
-      -1,
-      [],
-      this.#one_of_decls
-    );
-    if (!Array.isArray(data) && typeof data == "object") {
-      if ("tmpSecretId" in data && data.tmpSecretId != undefined) {
-        this.tmpSecretId = data.tmpSecretId;
-      }
-      if ("tmpSecretKey" in data && data.tmpSecretKey != undefined) {
-        this.tmpSecretKey = data.tmpSecretKey;
-      }
-      if ("sessionToken" in data && data.sessionToken != undefined) {
-        this.sessionToken = data.sessionToken;
-      }
-      if ("token" in data && data.token != undefined) {
-        this.token = data.token;
-      }
     }
-  }
-  get tmpSecretId() {
-    return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
-  }
-  set tmpSecretId(value: string) {
-    pb_1.Message.setField(this, 1, value);
-  }
-  get tmpSecretKey() {
-    return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
-  }
-  set tmpSecretKey(value: string) {
-    pb_1.Message.setField(this, 2, value);
-  }
-  get sessionToken() {
-    return pb_1.Message.getFieldWithDefault(this, 3, "") as string;
-  }
-  set sessionToken(value: string) {
-    pb_1.Message.setField(this, 3, value);
-  }
-  get token() {
-    return pb_1.Message.getFieldWithDefault(this, 4, "") as string;
-  }
-  set token(value: string) {
-    pb_1.Message.setField(this, 4, value);
-  }
-  static fromObject(data: {
-    tmpSecretId?: string;
-    tmpSecretKey?: string;
-    sessionToken?: string;
-    token?: string;
-  }): CosCredentials {
-    const message = new CosCredentials({});
-    if (data.tmpSecretId != null) {
-      message.tmpSecretId = data.tmpSecretId;
+    get tmpSecretId() {
+        return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
     }
-    if (data.tmpSecretKey != null) {
-      message.tmpSecretKey = data.tmpSecretKey;
+    set tmpSecretId(value: string) {
+        pb_1.Message.setField(this, 1, value);
     }
-    if (data.sessionToken != null) {
-      message.sessionToken = data.sessionToken;
+    get tmpSecretKey() {
+        return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
     }
-    if (data.token != null) {
-      message.token = data.token;
+    set tmpSecretKey(value: string) {
+        pb_1.Message.setField(this, 2, value);
     }
-    return message;
-  }
-  toObject() {
-    const data: {
-      tmpSecretId?: string;
-      tmpSecretKey?: string;
-      sessionToken?: string;
-      token?: string;
-    } = {};
-    if (this.tmpSecretId != null) {
-      data.tmpSecretId = this.tmpSecretId;
+    get sessionToken() {
+        return pb_1.Message.getFieldWithDefault(this, 3, "") as string;
     }
-    if (this.tmpSecretKey != null) {
-      data.tmpSecretKey = this.tmpSecretKey;
+    set sessionToken(value: string) {
+        pb_1.Message.setField(this, 3, value);
     }
-    if (this.sessionToken != null) {
-      data.sessionToken = this.sessionToken;
+    get token() {
+        return pb_1.Message.getFieldWithDefault(this, 4, "") as string;
     }
-    if (this.token != null) {
-      data.token = this.token;
+    set token(value: string) {
+        pb_1.Message.setField(this, 4, value);
     }
-    return data;
-  }
-  serialize(): Uint8Array;
-  serialize(w: pb_1.BinaryWriter): void;
-  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-    const writer = w || new pb_1.BinaryWriter();
-    if (this.tmpSecretId.length) writer.writeString(1, this.tmpSecretId);
-    if (this.tmpSecretKey.length) writer.writeString(2, this.tmpSecretKey);
-    if (this.sessionToken.length) writer.writeString(3, this.sessionToken);
-    if (this.token.length) writer.writeString(4, this.token);
-    if (!w) return writer.getResultBuffer();
-  }
-  static deserialize(bytes: Uint8Array | pb_1.BinaryReader): CosCredentials {
-    const reader =
-        bytes instanceof pb_1.BinaryReader
-          ? bytes
-          : new pb_1.BinaryReader(bytes),
-      message = new CosCredentials();
-    while (reader.nextField()) {
-      if (reader.isEndGroup()) break;
-      switch (reader.getFieldNumber()) {
-        case 1:
-          message.tmpSecretId = reader.readString();
-          break;
-        case 2:
-          message.tmpSecretKey = reader.readString();
-          break;
-        case 3:
-          message.sessionToken = reader.readString();
-          break;
-        case 4:
-          message.token = reader.readString();
-          break;
-        default:
-          reader.skipField();
-      }
+    static fromObject(data: {
+        tmpSecretId?: string;
+        tmpSecretKey?: string;
+        sessionToken?: string;
+        token?: string;
+    }): CosCredentials {
+        const message = new CosCredentials({});
+        if (data.tmpSecretId != null) {
+            message.tmpSecretId = data.tmpSecretId;
+        }
+        if (data.tmpSecretKey != null) {
+            message.tmpSecretKey = data.tmpSecretKey;
+        }
+        if (data.sessionToken != null) {
+            message.sessionToken = data.sessionToken;
+        }
+        if (data.token != null) {
+            message.token = data.token;
+        }
+        return message;
     }
-    return message;
-  }
-  serializeBinary(): Uint8Array {
-    return this.serialize();
-  }
-  static deserializeBinary(bytes: Uint8Array): CosCredentials {
-    return CosCredentials.deserialize(bytes);
-  }
+    toObject() {
+        const data: {
+            tmpSecretId?: string;
+            tmpSecretKey?: string;
+            sessionToken?: string;
+            token?: string;
+        } = {};
+        if (this.tmpSecretId != null) {
+            data.tmpSecretId = this.tmpSecretId;
+        }
+        if (this.tmpSecretKey != null) {
+            data.tmpSecretKey = this.tmpSecretKey;
+        }
+        if (this.sessionToken != null) {
+            data.sessionToken = this.sessionToken;
+        }
+        if (this.token != null) {
+            data.token = this.token;
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.tmpSecretId.length)
+            writer.writeString(1, this.tmpSecretId);
+        if (this.tmpSecretKey.length)
+            writer.writeString(2, this.tmpSecretKey);
+        if (this.sessionToken.length)
+            writer.writeString(3, this.sessionToken);
+        if (this.token.length)
+            writer.writeString(4, this.token);
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): CosCredentials {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new CosCredentials();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    message.tmpSecretId = reader.readString();
+                    break;
+                case 2:
+                    message.tmpSecretKey = reader.readString();
+                    break;
+                case 3:
+                    message.sessionToken = reader.readString();
+                    break;
+                case 4:
+                    message.token = reader.readString();
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): CosCredentials {
+        return CosCredentials.deserialize(bytes);
+    }
 }

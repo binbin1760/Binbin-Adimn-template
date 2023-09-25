@@ -221,6 +221,9 @@ async function getData() {
   const req = new MenuPageRequest({ page: page });
   const result = (await Menu.allMenu(req)).toObject();
   console.log(result);
+  // data.value = result.raws?.map((item, index) => {
+  //   item.key = index;
+  // })
 }
 getData();
 </script>

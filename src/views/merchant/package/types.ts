@@ -1,8 +1,9 @@
+import { ApprovalStat } from "@/protoJs";
 export interface PackageType {
-  key: number;
-  type: string;
-  packageName: string;
+  key: string;
   name: string;
-  packageType: string;
-  status: string;
+  merchant: string;
+  categories: Array<string>;
+  updateAt: number;
+  stat: ApprovalStat;
 }

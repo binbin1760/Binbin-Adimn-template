@@ -3,6 +3,7 @@
  * compiler version: 3.20.3
  * source: enums.proto
  * git: https://github.com/thesayyn/protoc-gen-ts */
+
 export enum Status {
   _Status_UNSPECIFIED = 0,
   NORMAL = 1,
@@ -94,4 +95,24 @@ export enum FeedbackType {
   FeedbackType_BUG_REPORT = 1,
   FeedbackType_FEATURE_REQUEST = 2,
   FeedbackType_USER_EXPERIENCE_ISSUE = 3,
+}
+export enum ReportScene {
+  _ReportScene_UNSPECIFIED = 0,
+  _ReportScene_IM = 1,
+  _ReportScene_PROFILE = 2,
+}
+export enum OrderStat {
+  _OrderStat_UNSPECIFIED = 0,
+}
+export enum ApprovalStat {
+  _ApprovalStat_UNSPECIFIED = 0,
+  _ApprovalStat_PENDING_APPROVAL = 1,
+  _ApprovalStat_APPROVED = 2,
+  _ApprovalStat_DISABLED = 3,
+}
+export enum PurchasePackageCategory {
+  _PurchasePackageCategory_UNSPECIFIED = 0,
+  _PurchasePackageCategory_Bathing = 1,
+  _PurchasePackageCategory_Beauty = 2,
+  _PurchasePackageCategory_Boarding = 3,
 }

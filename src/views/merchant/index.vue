@@ -2,9 +2,8 @@
   <div class="merchant">
     <MerchantHeader
       :options="statusOptions"
-      @update:name="getName"
-      @update:status="getStatus"
-      @update:phone="getPhone"
+      @querydata="getQueryData"
+      @re-set="getResetData"
     ></MerchantHeader>
     <div class="data-table-box">
       <div class="data-table">
@@ -26,23 +25,34 @@
 import { DataTableColumns } from "naive-ui";
 import { Merchant } from "./types";
 import { MerchantHeader } from "./components";
+import { merchant } from "@/api";
+import {
+  TableCmsMerchantFilterRequest,
+  PagerRequest,
+  ApprovalStat,
+} from "@/protoJs";
+import { format } from "date-fns";
 const Router = useRouter();
 //  select
-const statusOptions = [
+type Options = {
+  label: string;
+  value: ApprovalStat;
+};
+const statusOptions: Array<Options> = [
   {
     label: "待审核",
-    value: "1",
+    value: ApprovalStat._ApprovalStat_PENDING_APPROVAL,
   },
   {
     label: "已通过",
-    value: "2",
+    value: ApprovalStat._ApprovalStat_APPROVED,
   },
   {
     label: "未通过",
-    value: "3",
+    value: ApprovalStat._ApprovalStat_DISABLED,
   },
 ];
-// 表格
+// 表格 + 分页
 const columnsCreate = (): DataTableColumns<Merchant> => [
   {
     title: "商家名称",
@@ -56,8 +66,23 @@ const columnsCreate = (): DataTableColumns<Merchant> => [
   },
   {
     title: "联系电话",
-    key: "call",
+    key: "phoneNumber",
     align: "center",
+    render(row) {
+      const list = row.phoneNumber.map((item, index) => {
+        return h("div", {}, { default: () => `联系电话${index + 1}：${item}` });
+      });
+      return list;
+    },
+  },
+  {
+    title: "申请时间",
+    key: "updateAt",
+    align: "center",
+    render(row) {
+      const time = format(parseInt(row.updateAt), "yyyy-MM-dd HH:mm:ss");
+      return h("span", {}, { default: () => time });
+    },
   },
   {
     title: "状态",
@@ -66,15 +91,15 @@ const columnsCreate = (): DataTableColumns<Merchant> => [
     render(row) {
       let textColor: string | null = null;
       let text: string | null = null;
-      if (row.status === "1") {
+      if (row.stat === ApprovalStat._ApprovalStat_PENDING_APPROVAL) {
         textColor = "#ED7B2F";
         text = "待审核";
       }
-      if (row.status === "2") {
+      if (row.stat === ApprovalStat._ApprovalStat_APPROVED) {
         textColor = "#00A870";
         text = "已通过";
       }
-      if (row.status === "3") {
+      if (row.stat === ApprovalStat._ApprovalStat_DISABLED) {
         textColor = "#E34D59 ";
         text = "未通过";
       }
@@ -86,33 +111,43 @@ const columnsCreate = (): DataTableColumns<Merchant> => [
     key: "",
     align: "center",
     render(row) {
-      let text: string | null = null;
-      let color: string | null = null;
-      if (row.status !== "1") {
-        text = "已审核";
-        color = "#999999";
-      } else {
-        text = "审核";
-        color = "#266FE8";
-      }
-      const list = [
-        h(
+      let htemp: any;
+      if (row.stat !== ApprovalStat._ApprovalStat_PENDING_APPROVAL) {
+        htemp = h(
           "div",
           {
             style: {
-              color: color,
+              color: "#999999",
               marginRight: "1rem",
               width: "4.8rem",
               display: "inline-block",
               cursor: "pointer",
             },
           },
-          { default: () => text }
-        ),
+          { default: () => "已审核" }
+        );
+      } else {
+        htemp = h(
+          "div",
+          {
+            onClick: () => toDetailPage(row.key, true),
+            style: {
+              color: "#266FE8",
+              marginRight: "1rem",
+              width: "4.8rem",
+              display: "inline-block",
+              cursor: "pointer",
+            },
+          },
+          { default: () => "审核" }
+        );
+      }
+      const list = [
+        htemp,
         h(
           "span",
           {
-            onClick: () => toDetailPage(),
+            onClick: () => toDetailPage(row.key, false),
             style: { color: "#266FE8", cursor: "pointer" },
           },
           { default: () => "查看详情" }
@@ -122,49 +157,47 @@ const columnsCreate = (): DataTableColumns<Merchant> => [
     },
   },
 ];
-const data = ref<Array<Partial<Merchant>>>([
-  {
-    key: 0,
-    name: "廖顺彬的猫猫店",
-    address: "西部智谷A区",
-    call: "1234567890",
-    status: "1",
-  },
-  {
-    key: 1,
-    name: "廖顺彬的猫猫店",
-    address: "西部智谷A区",
-    call: "1234567890",
-    status: "2",
-  },
-  {
-    key: 2,
-    name: "廖顺彬的猫猫店",
-    address: "西部智谷A区",
-    call: "1234567890",
-    status: "3",
-  },
-]);
-const column = columnsCreate();
-function toDetailPage() {
-  Router.push("/merchant-service/merchant-info-detail");
-}
-// 分页
-const pages = ref<number>(1);
+const data = ref<Array<Partial<Merchant>>>();
+const pages = ref<number>(0);
 const pageCount = ref<number>();
-const total = ref<number>(3);
+const total = ref<number | undefined>();
+const column = columnsCreate();
+function toDetailPage(id: string | number, isEdit: boolean) {
+  const info = JSON.stringify({ id, isEdit });
+  Router.push({
+    path: "/merchant-service/merchant-info-detail",
+    query: { info },
+  });
+}
+async function getMerchantTable() {
+  const page = new PagerRequest({ pageNumber: pages.value, pageSize: 5 });
+  const req = new TableCmsMerchantFilterRequest({ page });
+  const result = (await merchant.merchantList(req)).toObject();
+  data.value = result.raws?.map((item) => {
+    const address =
+      (item.address?.country as unknown as string) + item.address?.street;
+    return {
+      key: item.id,
+      name: item.name,
+      address: address,
+      updateAt: item.updateAt,
+      phoneNumber: item.phoneNumber,
+      stat: item.stat,
+    };
+  }) as unknown as Array<Partial<Merchant>>;
+  total.value = result.page?.total;
+  pageCount.value = Math.ceil((result.page?.total as unknown as number) / 5);
+}
+getMerchantTable();
 function getCurrentPage(page: number) {
   pages.value = page;
 }
 //数据处理
-function getName(e: string) {
-  console.log(e);
+function getQueryData(e: Array<Partial<Merchant>>) {
+  data.value = e;
 }
-function getStatus(e: string) {
-  console.log(e);
-}
-function getPhone(e: string) {
-  console.log(e);
+function getResetData() {
+  getMerchantTable();
 }
 </script>
 <style scoped lang="less">

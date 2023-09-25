@@ -64,14 +64,6 @@ export const constantRoute: Array<RouteRecordRaw> = [
         component: () => import("@/views/merchant/index.vue"),
       },
       {
-        path: "/merchant-service/edit-info",
-        meta: {
-          isRoot: true,
-          name: "信息修改审核",
-        },
-        component: () => import("@/views/merchant/editInfo/index.vue"),
-      },
-      {
         path: "/merchant-service/package",
         meta: {
           isRoot: true,
@@ -96,16 +88,6 @@ export const constantRoute: Array<RouteRecordRaw> = [
         },
         component: () =>
           import("@/views/merchant/detail-list/merchant-info.vue"),
-      },
-      {
-        path: "/merchant-service/merchant-fixinfo-detial",
-        meta: {
-          isRoot: true,
-          name: "商家资料修改详情",
-          hidden: false,
-        },
-        component: () =>
-          import("@/views/merchant/detail-list/merchant-fixinfo.vue"),
       },
       {
         path: "/merchant-service/package-detial",

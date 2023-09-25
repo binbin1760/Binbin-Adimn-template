@@ -78,7 +78,6 @@ async function getLogData() {
   const pageRequest = new PagerRequest({ pageNumber: 0, pageSize: 10 });
   const req = new SysLogPageRequest({ page: pageRequest });
   const result = await log.log(req);
-  console.log(result.toObject());
 
   total.value = result.toObject().page?.total;
   data.value = result.toObject().raws?.map((item, index) => {

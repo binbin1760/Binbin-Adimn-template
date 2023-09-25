@@ -7,3 +7,4 @@ export * from "./pets";
 export * from "./register";
 export * from "./roles";
 export * from "./smsService";
+export * from "./merchant";
