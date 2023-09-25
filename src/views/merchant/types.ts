@@ -1,8 +1,9 @@
 export interface Merchant {
-  key: number;
+  key: string | number;
   type: string;
   name: string;
   address: string;
-  call: string;
-  status: string;
+  phoneNumber: Array<string>;
+  updateAt: string;
+  stat: number;
 }

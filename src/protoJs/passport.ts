@@ -3,450 +3,388 @@
  * compiler version: 3.20.3
  * source: passport.proto
  * git: https://github.com/thesayyn/protoc-gen-ts */
-// @ts-nocheck
 import * as dependency_1 from "./enums";
 import * as pb_1 from "google-protobuf";
 export class PassportByMobileRequest extends pb_1.Message {
-  #one_of_decls: number[][] = [];
-  constructor(
-    data?:
-      | any[]
-      | {
-          mobile?: string;
-          captcha?: string;
-          clientType?: dependency_1.ClientType;
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        mobile?: string;
+        captcha?: string;
+        clientType?: dependency_1.ClientType;
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("mobile" in data && data.mobile != undefined) {
+                this.mobile = data.mobile;
+            }
+            if ("captcha" in data && data.captcha != undefined) {
+                this.captcha = data.captcha;
+            }
+            if ("clientType" in data && data.clientType != undefined) {
+                this.clientType = data.clientType;
+            }
         }
-  ) {
-    super();
-    pb_1.Message.initialize(
-      this,
-      Array.isArray(data) ? data : [],
-      0,
-      -1,
-      [],
-      this.#one_of_decls
-    );
-    if (!Array.isArray(data) && typeof data == "object") {
-      if ("mobile" in data && data.mobile != undefined) {
-        this.mobile = data.mobile;
-      }
-      if ("captcha" in data && data.captcha != undefined) {
-        this.captcha = data.captcha;
-      }
-      if ("clientType" in data && data.clientType != undefined) {
-        this.clientType = data.clientType;
-      }
     }
-  }
-  get mobile() {
-    return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
-  }
-  set mobile(value: string) {
-    pb_1.Message.setField(this, 1, value);
-  }
-  get captcha() {
-    return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
-  }
-  set captcha(value: string) {
-    pb_1.Message.setField(this, 2, value);
-  }
-  get clientType() {
-    return pb_1.Message.getFieldWithDefault(
-      this,
-      3,
-      dependency_1.ClientType._ClientType_UNSPECIFIED
-    ) as dependency_1.ClientType;
-  }
-  set clientType(value: dependency_1.ClientType) {
-    pb_1.Message.setField(this, 3, value);
-  }
-  static fromObject(data: {
-    mobile?: string;
-    captcha?: string;
-    clientType?: dependency_1.ClientType;
-  }): PassportByMobileRequest {
-    const message = new PassportByMobileRequest({});
-    if (data.mobile != null) {
-      message.mobile = data.mobile;
+    get mobile() {
+        return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
     }
-    if (data.captcha != null) {
-      message.captcha = data.captcha;
+    set mobile(value: string) {
+        pb_1.Message.setField(this, 1, value);
     }
-    if (data.clientType != null) {
-      message.clientType = data.clientType;
+    get captcha() {
+        return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
     }
-    return message;
-  }
-  toObject() {
-    const data: {
-      mobile?: string;
-      captcha?: string;
-      clientType?: dependency_1.ClientType;
-    } = {};
-    if (this.mobile != null) {
-      data.mobile = this.mobile;
+    set captcha(value: string) {
+        pb_1.Message.setField(this, 2, value);
     }
-    if (this.captcha != null) {
-      data.captcha = this.captcha;
+    get clientType() {
+        return pb_1.Message.getFieldWithDefault(this, 3, dependency_1.ClientType._ClientType_UNSPECIFIED) as dependency_1.ClientType;
     }
-    if (this.clientType != null) {
-      data.clientType = this.clientType;
+    set clientType(value: dependency_1.ClientType) {
+        pb_1.Message.setField(this, 3, value);
     }
-    return data;
-  }
-  serialize(): Uint8Array;
-  serialize(w: pb_1.BinaryWriter): void;
-  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-    const writer = w || new pb_1.BinaryWriter();
-    if (this.mobile.length) writer.writeString(1, this.mobile);
-    if (this.captcha.length) writer.writeString(2, this.captcha);
-    if (this.clientType != dependency_1.ClientType._ClientType_UNSPECIFIED)
-      writer.writeEnum(3, this.clientType);
-    if (!w) return writer.getResultBuffer();
-  }
-  static deserialize(
-    bytes: Uint8Array | pb_1.BinaryReader
-  ): PassportByMobileRequest {
-    const reader =
-        bytes instanceof pb_1.BinaryReader
-          ? bytes
-          : new pb_1.BinaryReader(bytes),
-      message = new PassportByMobileRequest();
-    while (reader.nextField()) {
-      if (reader.isEndGroup()) break;
-      switch (reader.getFieldNumber()) {
-        case 1:
-          message.mobile = reader.readString();
-          break;
-        case 2:
-          message.captcha = reader.readString();
-          break;
-        case 3:
-          message.clientType = reader.readEnum();
-          break;
-        default:
-          reader.skipField();
-      }
+    static fromObject(data: {
+        mobile?: string;
+        captcha?: string;
+        clientType?: dependency_1.ClientType;
+    }): PassportByMobileRequest {
+        const message = new PassportByMobileRequest({});
+        if (data.mobile != null) {
+            message.mobile = data.mobile;
+        }
+        if (data.captcha != null) {
+            message.captcha = data.captcha;
+        }
+        if (data.clientType != null) {
+            message.clientType = data.clientType;
+        }
+        return message;
     }
-    return message;
-  }
-  serializeBinary(): Uint8Array {
-    return this.serialize();
-  }
-  static deserializeBinary(bytes: Uint8Array): PassportByMobileRequest {
-    return PassportByMobileRequest.deserialize(bytes);
-  }
+    toObject() {
+        const data: {
+            mobile?: string;
+            captcha?: string;
+            clientType?: dependency_1.ClientType;
+        } = {};
+        if (this.mobile != null) {
+            data.mobile = this.mobile;
+        }
+        if (this.captcha != null) {
+            data.captcha = this.captcha;
+        }
+        if (this.clientType != null) {
+            data.clientType = this.clientType;
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.mobile.length)
+            writer.writeString(1, this.mobile);
+        if (this.captcha.length)
+            writer.writeString(2, this.captcha);
+        if (this.clientType != dependency_1.ClientType._ClientType_UNSPECIFIED)
+            writer.writeEnum(3, this.clientType);
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): PassportByMobileRequest {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new PassportByMobileRequest();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    message.mobile = reader.readString();
+                    break;
+                case 2:
+                    message.captcha = reader.readString();
+                    break;
+                case 3:
+                    message.clientType = reader.readEnum();
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): PassportByMobileRequest {
+        return PassportByMobileRequest.deserialize(bytes);
+    }
 }
 export class PassportResponse extends pb_1.Message {
-  #one_of_decls: number[][] = [];
-  constructor(
-    data?:
-      | any[]
-      | {
-          token?: string;
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        token?: string;
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("token" in data && data.token != undefined) {
+                this.token = data.token;
+            }
         }
-  ) {
-    super();
-    pb_1.Message.initialize(
-      this,
-      Array.isArray(data) ? data : [],
-      0,
-      -1,
-      [],
-      this.#one_of_decls
-    );
-    if (!Array.isArray(data) && typeof data == "object") {
-      if ("token" in data && data.token != undefined) {
-        this.token = data.token;
-      }
     }
-  }
-  get token() {
-    return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
-  }
-  set token(value: string) {
-    pb_1.Message.setField(this, 1, value);
-  }
-  static fromObject(data: { token?: string }): PassportResponse {
-    const message = new PassportResponse({});
-    if (data.token != null) {
-      message.token = data.token;
+    get token() {
+        return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
     }
-    return message;
-  }
-  toObject() {
-    const data: {
-      token?: string;
-    } = {};
-    if (this.token != null) {
-      data.token = this.token;
+    set token(value: string) {
+        pb_1.Message.setField(this, 1, value);
     }
-    return data;
-  }
-  serialize(): Uint8Array;
-  serialize(w: pb_1.BinaryWriter): void;
-  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-    const writer = w || new pb_1.BinaryWriter();
-    if (this.token.length) writer.writeString(1, this.token);
-    if (!w) return writer.getResultBuffer();
-  }
-  static deserialize(bytes: Uint8Array | pb_1.BinaryReader): PassportResponse {
-    const reader =
-        bytes instanceof pb_1.BinaryReader
-          ? bytes
-          : new pb_1.BinaryReader(bytes),
-      message = new PassportResponse();
-    while (reader.nextField()) {
-      if (reader.isEndGroup()) break;
-      switch (reader.getFieldNumber()) {
-        case 1:
-          message.token = reader.readString();
-          break;
-        default:
-          reader.skipField();
-      }
+    static fromObject(data: {
+        token?: string;
+    }): PassportResponse {
+        const message = new PassportResponse({});
+        if (data.token != null) {
+            message.token = data.token;
+        }
+        return message;
     }
-    return message;
-  }
-  serializeBinary(): Uint8Array {
-    return this.serialize();
-  }
-  static deserializeBinary(bytes: Uint8Array): PassportResponse {
-    return PassportResponse.deserialize(bytes);
-  }
+    toObject() {
+        const data: {
+            token?: string;
+        } = {};
+        if (this.token != null) {
+            data.token = this.token;
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.token.length)
+            writer.writeString(1, this.token);
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): PassportResponse {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new PassportResponse();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    message.token = reader.readString();
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): PassportResponse {
+        return PassportResponse.deserialize(bytes);
+    }
 }
 export class PassportByQQRequest extends pb_1.Message {
-  #one_of_decls: number[][] = [];
-  constructor(
-    data?:
-      | any[]
-      | {
-          openid?: string;
-          accessToken?: string;
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        openid?: string;
+        accessToken?: string;
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("openid" in data && data.openid != undefined) {
+                this.openid = data.openid;
+            }
+            if ("accessToken" in data && data.accessToken != undefined) {
+                this.accessToken = data.accessToken;
+            }
         }
-  ) {
-    super();
-    pb_1.Message.initialize(
-      this,
-      Array.isArray(data) ? data : [],
-      0,
-      -1,
-      [],
-      this.#one_of_decls
-    );
-    if (!Array.isArray(data) && typeof data == "object") {
-      if ("openid" in data && data.openid != undefined) {
-        this.openid = data.openid;
-      }
-      if ("accessToken" in data && data.accessToken != undefined) {
-        this.accessToken = data.accessToken;
-      }
     }
-  }
-  get openid() {
-    return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
-  }
-  set openid(value: string) {
-    pb_1.Message.setField(this, 1, value);
-  }
-  get accessToken() {
-    return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
-  }
-  set accessToken(value: string) {
-    pb_1.Message.setField(this, 2, value);
-  }
-  static fromObject(data: {
-    openid?: string;
-    accessToken?: string;
-  }): PassportByQQRequest {
-    const message = new PassportByQQRequest({});
-    if (data.openid != null) {
-      message.openid = data.openid;
+    get openid() {
+        return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
     }
-    if (data.accessToken != null) {
-      message.accessToken = data.accessToken;
+    set openid(value: string) {
+        pb_1.Message.setField(this, 1, value);
     }
-    return message;
-  }
-  toObject() {
-    const data: {
-      openid?: string;
-      accessToken?: string;
-    } = {};
-    if (this.openid != null) {
-      data.openid = this.openid;
+    get accessToken() {
+        return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
     }
-    if (this.accessToken != null) {
-      data.accessToken = this.accessToken;
+    set accessToken(value: string) {
+        pb_1.Message.setField(this, 2, value);
     }
-    return data;
-  }
-  serialize(): Uint8Array;
-  serialize(w: pb_1.BinaryWriter): void;
-  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-    const writer = w || new pb_1.BinaryWriter();
-    if (this.openid.length) writer.writeString(1, this.openid);
-    if (this.accessToken.length) writer.writeString(2, this.accessToken);
-    if (!w) return writer.getResultBuffer();
-  }
-  static deserialize(
-    bytes: Uint8Array | pb_1.BinaryReader
-  ): PassportByQQRequest {
-    const reader =
-        bytes instanceof pb_1.BinaryReader
-          ? bytes
-          : new pb_1.BinaryReader(bytes),
-      message = new PassportByQQRequest();
-    while (reader.nextField()) {
-      if (reader.isEndGroup()) break;
-      switch (reader.getFieldNumber()) {
-        case 1:
-          message.openid = reader.readString();
-          break;
-        case 2:
-          message.accessToken = reader.readString();
-          break;
-        default:
-          reader.skipField();
-      }
+    static fromObject(data: {
+        openid?: string;
+        accessToken?: string;
+    }): PassportByQQRequest {
+        const message = new PassportByQQRequest({});
+        if (data.openid != null) {
+            message.openid = data.openid;
+        }
+        if (data.accessToken != null) {
+            message.accessToken = data.accessToken;
+        }
+        return message;
     }
-    return message;
-  }
-  serializeBinary(): Uint8Array {
-    return this.serialize();
-  }
-  static deserializeBinary(bytes: Uint8Array): PassportByQQRequest {
-    return PassportByQQRequest.deserialize(bytes);
-  }
+    toObject() {
+        const data: {
+            openid?: string;
+            accessToken?: string;
+        } = {};
+        if (this.openid != null) {
+            data.openid = this.openid;
+        }
+        if (this.accessToken != null) {
+            data.accessToken = this.accessToken;
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.openid.length)
+            writer.writeString(1, this.openid);
+        if (this.accessToken.length)
+            writer.writeString(2, this.accessToken);
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): PassportByQQRequest {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new PassportByQQRequest();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    message.openid = reader.readString();
+                    break;
+                case 2:
+                    message.accessToken = reader.readString();
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): PassportByQQRequest {
+        return PassportByQQRequest.deserialize(bytes);
+    }
 }
 export class PassportByCombineRequest extends pb_1.Message {
-  #one_of_decls: number[][] = [];
-  constructor(
-    data?:
-      | any[]
-      | {
-          carrier?: string;
-          token?: string;
-          clientType?: dependency_1.ClientType;
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        carrier?: string;
+        token?: string;
+        clientType?: dependency_1.ClientType;
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("carrier" in data && data.carrier != undefined) {
+                this.carrier = data.carrier;
+            }
+            if ("token" in data && data.token != undefined) {
+                this.token = data.token;
+            }
+            if ("clientType" in data && data.clientType != undefined) {
+                this.clientType = data.clientType;
+            }
         }
-  ) {
-    super();
-    pb_1.Message.initialize(
-      this,
-      Array.isArray(data) ? data : [],
-      0,
-      -1,
-      [],
-      this.#one_of_decls
-    );
-    if (!Array.isArray(data) && typeof data == "object") {
-      if ("carrier" in data && data.carrier != undefined) {
-        this.carrier = data.carrier;
-      }
-      if ("token" in data && data.token != undefined) {
-        this.token = data.token;
-      }
-      if ("clientType" in data && data.clientType != undefined) {
-        this.clientType = data.clientType;
-      }
     }
-  }
-  get carrier() {
-    return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
-  }
-  set carrier(value: string) {
-    pb_1.Message.setField(this, 1, value);
-  }
-  get token() {
-    return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
-  }
-  set token(value: string) {
-    pb_1.Message.setField(this, 2, value);
-  }
-  get clientType() {
-    return pb_1.Message.getFieldWithDefault(
-      this,
-      3,
-      dependency_1.ClientType._ClientType_UNSPECIFIED
-    ) as dependency_1.ClientType;
-  }
-  set clientType(value: dependency_1.ClientType) {
-    pb_1.Message.setField(this, 3, value);
-  }
-  static fromObject(data: {
-    carrier?: string;
-    token?: string;
-    clientType?: dependency_1.ClientType;
-  }): PassportByCombineRequest {
-    const message = new PassportByCombineRequest({});
-    if (data.carrier != null) {
-      message.carrier = data.carrier;
+    get carrier() {
+        return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
     }
-    if (data.token != null) {
-      message.token = data.token;
+    set carrier(value: string) {
+        pb_1.Message.setField(this, 1, value);
     }
-    if (data.clientType != null) {
-      message.clientType = data.clientType;
+    get token() {
+        return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
     }
-    return message;
-  }
-  toObject() {
-    const data: {
-      carrier?: string;
-      token?: string;
-      clientType?: dependency_1.ClientType;
-    } = {};
-    if (this.carrier != null) {
-      data.carrier = this.carrier;
+    set token(value: string) {
+        pb_1.Message.setField(this, 2, value);
     }
-    if (this.token != null) {
-      data.token = this.token;
+    get clientType() {
+        return pb_1.Message.getFieldWithDefault(this, 3, dependency_1.ClientType._ClientType_UNSPECIFIED) as dependency_1.ClientType;
     }
-    if (this.clientType != null) {
-      data.clientType = this.clientType;
+    set clientType(value: dependency_1.ClientType) {
+        pb_1.Message.setField(this, 3, value);
     }
-    return data;
-  }
-  serialize(): Uint8Array;
-  serialize(w: pb_1.BinaryWriter): void;
-  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-    const writer = w || new pb_1.BinaryWriter();
-    if (this.carrier.length) writer.writeString(1, this.carrier);
-    if (this.token.length) writer.writeString(2, this.token);
-    if (this.clientType != dependency_1.ClientType._ClientType_UNSPECIFIED)
-      writer.writeEnum(3, this.clientType);
-    if (!w) return writer.getResultBuffer();
-  }
-  static deserialize(
-    bytes: Uint8Array | pb_1.BinaryReader
-  ): PassportByCombineRequest {
-    const reader =
-        bytes instanceof pb_1.BinaryReader
-          ? bytes
-          : new pb_1.BinaryReader(bytes),
-      message = new PassportByCombineRequest();
-    while (reader.nextField()) {
-      if (reader.isEndGroup()) break;
-      switch (reader.getFieldNumber()) {
-        case 1:
-          message.carrier = reader.readString();
-          break;
-        case 2:
-          message.token = reader.readString();
-          break;
-        case 3:
-          message.clientType = reader.readEnum();
-          break;
-        default:
-          reader.skipField();
-      }
+    static fromObject(data: {
+        carrier?: string;
+        token?: string;
+        clientType?: dependency_1.ClientType;
+    }): PassportByCombineRequest {
+        const message = new PassportByCombineRequest({});
+        if (data.carrier != null) {
+            message.carrier = data.carrier;
+        }
+        if (data.token != null) {
+            message.token = data.token;
+        }
+        if (data.clientType != null) {
+            message.clientType = data.clientType;
+        }
+        return message;
     }
-    return message;
-  }
-  serializeBinary(): Uint8Array {
-    return this.serialize();
-  }
-  static deserializeBinary(bytes: Uint8Array): PassportByCombineRequest {
-    return PassportByCombineRequest.deserialize(bytes);
-  }
+    toObject() {
+        const data: {
+            carrier?: string;
+            token?: string;
+            clientType?: dependency_1.ClientType;
+        } = {};
+        if (this.carrier != null) {
+            data.carrier = this.carrier;
+        }
+        if (this.token != null) {
+            data.token = this.token;
+        }
+        if (this.clientType != null) {
+            data.clientType = this.clientType;
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.carrier.length)
+            writer.writeString(1, this.carrier);
+        if (this.token.length)
+            writer.writeString(2, this.token);
+        if (this.clientType != dependency_1.ClientType._ClientType_UNSPECIFIED)
+            writer.writeEnum(3, this.clientType);
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): PassportByCombineRequest {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new PassportByCombineRequest();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    message.carrier = reader.readString();
+                    break;
+                case 2:
+                    message.token = reader.readString();
+                    break;
+                case 3:
+                    message.clientType = reader.readEnum();
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): PassportByCombineRequest {
+        return PassportByCombineRequest.deserialize(bytes);
+    }
 }

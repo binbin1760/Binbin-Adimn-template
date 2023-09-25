@@ -3,1528 +3,1359 @@
  * compiler version: 3.20.3
  * source: menu.proto
  * git: https://github.com/thesayyn/protoc-gen-ts */
-// @ts-nocheck
 import * as dependency_1 from "./enums";
 import * as dependency_2 from "./page";
 import * as pb_1 from "google-protobuf";
 export class MenuViewModel extends pb_1.Message {
-  #one_of_decls: number[][] = [];
-  constructor(
-    data?:
-      | any[]
-      | {
-          id?: string;
-          type?: dependency_1.MenuType;
-          title?: string;
-          pid?: string;
-          path?: string;
-          component?: string;
-          componentName?: string;
-          redirect?: string;
-          children?: string[];
-          meta?: Meta;
-          sort?: number;
-          identity?: string;
-          isFrame?: boolean;
-          label?: string;
-          leaf?: boolean;
-          hasChildren?: boolean;
-          key?: string;
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        id?: string;
+        type?: dependency_1.MenuType;
+        title?: string;
+        pid?: string;
+        path?: string;
+        component?: string;
+        componentName?: string;
+        redirect?: string;
+        children?: string[];
+        meta?: Meta;
+        sort?: number;
+        identity?: string;
+        isFrame?: boolean;
+        label?: string;
+        leaf?: boolean;
+        hasChildren?: boolean;
+        key?: string;
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [9], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("id" in data && data.id != undefined) {
+                this.id = data.id;
+            }
+            if ("type" in data && data.type != undefined) {
+                this.type = data.type;
+            }
+            if ("title" in data && data.title != undefined) {
+                this.title = data.title;
+            }
+            if ("pid" in data && data.pid != undefined) {
+                this.pid = data.pid;
+            }
+            if ("path" in data && data.path != undefined) {
+                this.path = data.path;
+            }
+            if ("component" in data && data.component != undefined) {
+                this.component = data.component;
+            }
+            if ("componentName" in data && data.componentName != undefined) {
+                this.componentName = data.componentName;
+            }
+            if ("redirect" in data && data.redirect != undefined) {
+                this.redirect = data.redirect;
+            }
+            if ("children" in data && data.children != undefined) {
+                this.children = data.children;
+            }
+            if ("meta" in data && data.meta != undefined) {
+                this.meta = data.meta;
+            }
+            if ("sort" in data && data.sort != undefined) {
+                this.sort = data.sort;
+            }
+            if ("identity" in data && data.identity != undefined) {
+                this.identity = data.identity;
+            }
+            if ("isFrame" in data && data.isFrame != undefined) {
+                this.isFrame = data.isFrame;
+            }
+            if ("label" in data && data.label != undefined) {
+                this.label = data.label;
+            }
+            if ("leaf" in data && data.leaf != undefined) {
+                this.leaf = data.leaf;
+            }
+            if ("hasChildren" in data && data.hasChildren != undefined) {
+                this.hasChildren = data.hasChildren;
+            }
+            if ("key" in data && data.key != undefined) {
+                this.key = data.key;
+            }
         }
-  ) {
-    super();
-    pb_1.Message.initialize(
-      this,
-      Array.isArray(data) ? data : [],
-      0,
-      -1,
-      [9],
-      this.#one_of_decls
-    );
-    if (!Array.isArray(data) && typeof data == "object") {
-      if ("id" in data && data.id != undefined) {
-        this.id = data.id;
-      }
-      if ("type" in data && data.type != undefined) {
-        this.type = data.type;
-      }
-      if ("title" in data && data.title != undefined) {
-        this.title = data.title;
-      }
-      if ("pid" in data && data.pid != undefined) {
-        this.pid = data.pid;
-      }
-      if ("path" in data && data.path != undefined) {
-        this.path = data.path;
-      }
-      if ("component" in data && data.component != undefined) {
-        this.component = data.component;
-      }
-      if ("componentName" in data && data.componentName != undefined) {
-        this.componentName = data.componentName;
-      }
-      if ("redirect" in data && data.redirect != undefined) {
-        this.redirect = data.redirect;
-      }
-      if ("children" in data && data.children != undefined) {
-        this.children = data.children;
-      }
-      if ("meta" in data && data.meta != undefined) {
-        this.meta = data.meta;
-      }
-      if ("sort" in data && data.sort != undefined) {
-        this.sort = data.sort;
-      }
-      if ("identity" in data && data.identity != undefined) {
-        this.identity = data.identity;
-      }
-      if ("isFrame" in data && data.isFrame != undefined) {
-        this.isFrame = data.isFrame;
-      }
-      if ("label" in data && data.label != undefined) {
-        this.label = data.label;
-      }
-      if ("leaf" in data && data.leaf != undefined) {
-        this.leaf = data.leaf;
-      }
-      if ("hasChildren" in data && data.hasChildren != undefined) {
-        this.hasChildren = data.hasChildren;
-      }
-      if ("key" in data && data.key != undefined) {
-        this.key = data.key;
-      }
     }
-  }
-  get id() {
-    return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
-  }
-  set id(value: string) {
-    pb_1.Message.setField(this, 1, value);
-  }
-  get type() {
-    return pb_1.Message.getFieldWithDefault(
-      this,
-      2,
-      dependency_1.MenuType._MenuType_UNSPECIFIED
-    ) as dependency_1.MenuType;
-  }
-  set type(value: dependency_1.MenuType) {
-    pb_1.Message.setField(this, 2, value);
-  }
-  get title() {
-    return pb_1.Message.getFieldWithDefault(this, 3, "") as string;
-  }
-  set title(value: string) {
-    pb_1.Message.setField(this, 3, value);
-  }
-  get pid() {
-    return pb_1.Message.getFieldWithDefault(this, 4, "") as string;
-  }
-  set pid(value: string) {
-    pb_1.Message.setField(this, 4, value);
-  }
-  get path() {
-    return pb_1.Message.getFieldWithDefault(this, 5, "") as string;
-  }
-  set path(value: string) {
-    pb_1.Message.setField(this, 5, value);
-  }
-  get component() {
-    return pb_1.Message.getFieldWithDefault(this, 6, "") as string;
-  }
-  set component(value: string) {
-    pb_1.Message.setField(this, 6, value);
-  }
-  get componentName() {
-    return pb_1.Message.getFieldWithDefault(this, 7, "") as string;
-  }
-  set componentName(value: string) {
-    pb_1.Message.setField(this, 7, value);
-  }
-  get redirect() {
-    return pb_1.Message.getFieldWithDefault(this, 8, "") as string;
-  }
-  set redirect(value: string) {
-    pb_1.Message.setField(this, 8, value);
-  }
-  get children() {
-    return pb_1.Message.getFieldWithDefault(this, 9, []) as string[];
-  }
-  set children(value: string[]) {
-    pb_1.Message.setField(this, 9, value);
-  }
-  get meta() {
-    return pb_1.Message.getWrapperField(this, Meta, 10) as Meta;
-  }
-  set meta(value: Meta) {
-    pb_1.Message.setWrapperField(this, 10, value);
-  }
-  get hasMeta() {
-    return pb_1.Message.getField(this, 10) != null;
-  }
-  get sort() {
-    return pb_1.Message.getFieldWithDefault(this, 11, 0) as number;
-  }
-  set sort(value: number) {
-    pb_1.Message.setField(this, 11, value);
-  }
-  get identity() {
-    return pb_1.Message.getFieldWithDefault(this, 12, "") as string;
-  }
-  set identity(value: string) {
-    pb_1.Message.setField(this, 12, value);
-  }
-  get isFrame() {
-    return pb_1.Message.getFieldWithDefault(this, 13, false) as boolean;
-  }
-  set isFrame(value: boolean) {
-    pb_1.Message.setField(this, 13, value);
-  }
-  get label() {
-    return pb_1.Message.getFieldWithDefault(this, 14, "") as string;
-  }
-  set label(value: string) {
-    pb_1.Message.setField(this, 14, value);
-  }
-  get leaf() {
-    return pb_1.Message.getFieldWithDefault(this, 15, false) as boolean;
-  }
-  set leaf(value: boolean) {
-    pb_1.Message.setField(this, 15, value);
-  }
-  get hasChildren() {
-    return pb_1.Message.getFieldWithDefault(this, 16, false) as boolean;
-  }
-  set hasChildren(value: boolean) {
-    pb_1.Message.setField(this, 16, value);
-  }
-  get key() {
-    return pb_1.Message.getFieldWithDefault(this, 17, "") as string;
-  }
-  set key(value: string) {
-    pb_1.Message.setField(this, 17, value);
-  }
-  static fromObject(data: {
-    id?: string;
-    type?: dependency_1.MenuType;
-    title?: string;
-    pid?: string;
-    path?: string;
-    component?: string;
-    componentName?: string;
-    redirect?: string;
-    children?: string[];
-    meta?: ReturnType<typeof Meta.prototype.toObject>;
-    sort?: number;
-    identity?: string;
-    isFrame?: boolean;
-    label?: string;
-    leaf?: boolean;
-    hasChildren?: boolean;
-    key?: string;
-  }): MenuViewModel {
-    const message = new MenuViewModel({});
-    if (data.id != null) {
-      message.id = data.id;
+    get id() {
+        return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
     }
-    if (data.type != null) {
-      message.type = data.type;
+    set id(value: string) {
+        pb_1.Message.setField(this, 1, value);
     }
-    if (data.title != null) {
-      message.title = data.title;
+    get type() {
+        return pb_1.Message.getFieldWithDefault(this, 2, dependency_1.MenuType._MenuType_UNSPECIFIED) as dependency_1.MenuType;
     }
-    if (data.pid != null) {
-      message.pid = data.pid;
+    set type(value: dependency_1.MenuType) {
+        pb_1.Message.setField(this, 2, value);
     }
-    if (data.path != null) {
-      message.path = data.path;
+    get title() {
+        return pb_1.Message.getFieldWithDefault(this, 3, "") as string;
     }
-    if (data.component != null) {
-      message.component = data.component;
+    set title(value: string) {
+        pb_1.Message.setField(this, 3, value);
     }
-    if (data.componentName != null) {
-      message.componentName = data.componentName;
+    get pid() {
+        return pb_1.Message.getFieldWithDefault(this, 4, "") as string;
     }
-    if (data.redirect != null) {
-      message.redirect = data.redirect;
+    set pid(value: string) {
+        pb_1.Message.setField(this, 4, value);
     }
-    if (data.children != null) {
-      message.children = data.children;
+    get path() {
+        return pb_1.Message.getFieldWithDefault(this, 5, "") as string;
     }
-    if (data.meta != null) {
-      message.meta = Meta.fromObject(data.meta);
+    set path(value: string) {
+        pb_1.Message.setField(this, 5, value);
     }
-    if (data.sort != null) {
-      message.sort = data.sort;
+    get component() {
+        return pb_1.Message.getFieldWithDefault(this, 6, "") as string;
     }
-    if (data.identity != null) {
-      message.identity = data.identity;
+    set component(value: string) {
+        pb_1.Message.setField(this, 6, value);
     }
-    if (data.isFrame != null) {
-      message.isFrame = data.isFrame;
+    get componentName() {
+        return pb_1.Message.getFieldWithDefault(this, 7, "") as string;
     }
-    if (data.label != null) {
-      message.label = data.label;
+    set componentName(value: string) {
+        pb_1.Message.setField(this, 7, value);
     }
-    if (data.leaf != null) {
-      message.leaf = data.leaf;
+    get redirect() {
+        return pb_1.Message.getFieldWithDefault(this, 8, "") as string;
     }
-    if (data.hasChildren != null) {
-      message.hasChildren = data.hasChildren;
+    set redirect(value: string) {
+        pb_1.Message.setField(this, 8, value);
     }
-    if (data.key != null) {
-      message.key = data.key;
+    get children() {
+        return pb_1.Message.getFieldWithDefault(this, 9, []) as string[];
     }
-    return message;
-  }
-  toObject() {
-    const data: {
-      id?: string;
-      type?: dependency_1.MenuType;
-      title?: string;
-      pid?: string;
-      path?: string;
-      component?: string;
-      componentName?: string;
-      redirect?: string;
-      children?: string[];
-      meta?: ReturnType<typeof Meta.prototype.toObject>;
-      sort?: number;
-      identity?: string;
-      isFrame?: boolean;
-      label?: string;
-      leaf?: boolean;
-      hasChildren?: boolean;
-      key?: string;
-    } = {};
-    if (this.id != null) {
-      data.id = this.id;
+    set children(value: string[]) {
+        pb_1.Message.setField(this, 9, value);
     }
-    if (this.type != null) {
-      data.type = this.type;
+    get meta() {
+        return pb_1.Message.getWrapperField(this, Meta, 10) as Meta;
     }
-    if (this.title != null) {
-      data.title = this.title;
+    set meta(value: Meta) {
+        pb_1.Message.setWrapperField(this, 10, value);
     }
-    if (this.pid != null) {
-      data.pid = this.pid;
+    get hasMeta() {
+        return pb_1.Message.getField(this, 10) != null;
     }
-    if (this.path != null) {
-      data.path = this.path;
+    get sort() {
+        return pb_1.Message.getFieldWithDefault(this, 11, 0) as number;
     }
-    if (this.component != null) {
-      data.component = this.component;
+    set sort(value: number) {
+        pb_1.Message.setField(this, 11, value);
     }
-    if (this.componentName != null) {
-      data.componentName = this.componentName;
+    get identity() {
+        return pb_1.Message.getFieldWithDefault(this, 12, "") as string;
     }
-    if (this.redirect != null) {
-      data.redirect = this.redirect;
+    set identity(value: string) {
+        pb_1.Message.setField(this, 12, value);
     }
-    if (this.children != null) {
-      data.children = this.children;
+    get isFrame() {
+        return pb_1.Message.getFieldWithDefault(this, 13, false) as boolean;
     }
-    if (this.meta != null) {
-      data.meta = this.meta.toObject();
+    set isFrame(value: boolean) {
+        pb_1.Message.setField(this, 13, value);
     }
-    if (this.sort != null) {
-      data.sort = this.sort;
+    get label() {
+        return pb_1.Message.getFieldWithDefault(this, 14, "") as string;
     }
-    if (this.identity != null) {
-      data.identity = this.identity;
+    set label(value: string) {
+        pb_1.Message.setField(this, 14, value);
     }
-    if (this.isFrame != null) {
-      data.isFrame = this.isFrame;
+    get leaf() {
+        return pb_1.Message.getFieldWithDefault(this, 15, false) as boolean;
     }
-    if (this.label != null) {
-      data.label = this.label;
+    set leaf(value: boolean) {
+        pb_1.Message.setField(this, 15, value);
     }
-    if (this.leaf != null) {
-      data.leaf = this.leaf;
+    get hasChildren() {
+        return pb_1.Message.getFieldWithDefault(this, 16, false) as boolean;
     }
-    if (this.hasChildren != null) {
-      data.hasChildren = this.hasChildren;
+    set hasChildren(value: boolean) {
+        pb_1.Message.setField(this, 16, value);
     }
-    if (this.key != null) {
-      data.key = this.key;
+    get key() {
+        return pb_1.Message.getFieldWithDefault(this, 17, "") as string;
     }
-    return data;
-  }
-  serialize(): Uint8Array;
-  serialize(w: pb_1.BinaryWriter): void;
-  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-    const writer = w || new pb_1.BinaryWriter();
-    if (this.id.length) writer.writeString(1, this.id);
-    if (this.type != dependency_1.MenuType._MenuType_UNSPECIFIED)
-      writer.writeEnum(2, this.type);
-    if (this.title.length) writer.writeString(3, this.title);
-    if (this.pid.length) writer.writeString(4, this.pid);
-    if (this.path.length) writer.writeString(5, this.path);
-    if (this.component.length) writer.writeString(6, this.component);
-    if (this.componentName.length) writer.writeString(7, this.componentName);
-    if (this.redirect.length) writer.writeString(8, this.redirect);
-    if (this.children.length) writer.writeRepeatedString(9, this.children);
-    if (this.hasMeta)
-      writer.writeMessage(10, this.meta, () => this.meta.serialize(writer));
-    if (this.sort != 0) writer.writeInt32(11, this.sort);
-    if (this.identity.length) writer.writeString(12, this.identity);
-    if (this.isFrame != false) writer.writeBool(13, this.isFrame);
-    if (this.label.length) writer.writeString(14, this.label);
-    if (this.leaf != false) writer.writeBool(15, this.leaf);
-    if (this.hasChildren != false) writer.writeBool(16, this.hasChildren);
-    if (this.key.length) writer.writeString(17, this.key);
-    if (!w) return writer.getResultBuffer();
-  }
-  static deserialize(bytes: Uint8Array | pb_1.BinaryReader): MenuViewModel {
-    const reader =
-        bytes instanceof pb_1.BinaryReader
-          ? bytes
-          : new pb_1.BinaryReader(bytes),
-      message = new MenuViewModel();
-    while (reader.nextField()) {
-      if (reader.isEndGroup()) break;
-      switch (reader.getFieldNumber()) {
-        case 1:
-          message.id = reader.readString();
-          break;
-        case 2:
-          message.type = reader.readEnum();
-          break;
-        case 3:
-          message.title = reader.readString();
-          break;
-        case 4:
-          message.pid = reader.readString();
-          break;
-        case 5:
-          message.path = reader.readString();
-          break;
-        case 6:
-          message.component = reader.readString();
-          break;
-        case 7:
-          message.componentName = reader.readString();
-          break;
-        case 8:
-          message.redirect = reader.readString();
-          break;
-        case 9:
-          pb_1.Message.addToRepeatedField(message, 9, reader.readString());
-          break;
-        case 10:
-          reader.readMessage(
-            message.meta,
-            () => (message.meta = Meta.deserialize(reader))
-          );
-          break;
-        case 11:
-          message.sort = reader.readInt32();
-          break;
-        case 12:
-          message.identity = reader.readString();
-          break;
-        case 13:
-          message.isFrame = reader.readBool();
-          break;
-        case 14:
-          message.label = reader.readString();
-          break;
-        case 15:
-          message.leaf = reader.readBool();
-          break;
-        case 16:
-          message.hasChildren = reader.readBool();
-          break;
-        case 17:
-          message.key = reader.readString();
-          break;
-        default:
-          reader.skipField();
-      }
+    set key(value: string) {
+        pb_1.Message.setField(this, 17, value);
     }
-    return message;
-  }
-  serializeBinary(): Uint8Array {
-    return this.serialize();
-  }
-  static deserializeBinary(bytes: Uint8Array): MenuViewModel {
-    return MenuViewModel.deserialize(bytes);
-  }
+    static fromObject(data: {
+        id?: string;
+        type?: dependency_1.MenuType;
+        title?: string;
+        pid?: string;
+        path?: string;
+        component?: string;
+        componentName?: string;
+        redirect?: string;
+        children?: string[];
+        meta?: ReturnType<typeof Meta.prototype.toObject>;
+        sort?: number;
+        identity?: string;
+        isFrame?: boolean;
+        label?: string;
+        leaf?: boolean;
+        hasChildren?: boolean;
+        key?: string;
+    }): MenuViewModel {
+        const message = new MenuViewModel({});
+        if (data.id != null) {
+            message.id = data.id;
+        }
+        if (data.type != null) {
+            message.type = data.type;
+        }
+        if (data.title != null) {
+            message.title = data.title;
+        }
+        if (data.pid != null) {
+            message.pid = data.pid;
+        }
+        if (data.path != null) {
+            message.path = data.path;
+        }
+        if (data.component != null) {
+            message.component = data.component;
+        }
+        if (data.componentName != null) {
+            message.componentName = data.componentName;
+        }
+        if (data.redirect != null) {
+            message.redirect = data.redirect;
+        }
+        if (data.children != null) {
+            message.children = data.children;
+        }
+        if (data.meta != null) {
+            message.meta = Meta.fromObject(data.meta);
+        }
+        if (data.sort != null) {
+            message.sort = data.sort;
+        }
+        if (data.identity != null) {
+            message.identity = data.identity;
+        }
+        if (data.isFrame != null) {
+            message.isFrame = data.isFrame;
+        }
+        if (data.label != null) {
+            message.label = data.label;
+        }
+        if (data.leaf != null) {
+            message.leaf = data.leaf;
+        }
+        if (data.hasChildren != null) {
+            message.hasChildren = data.hasChildren;
+        }
+        if (data.key != null) {
+            message.key = data.key;
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            id?: string;
+            type?: dependency_1.MenuType;
+            title?: string;
+            pid?: string;
+            path?: string;
+            component?: string;
+            componentName?: string;
+            redirect?: string;
+            children?: string[];
+            meta?: ReturnType<typeof Meta.prototype.toObject>;
+            sort?: number;
+            identity?: string;
+            isFrame?: boolean;
+            label?: string;
+            leaf?: boolean;
+            hasChildren?: boolean;
+            key?: string;
+        } = {};
+        if (this.id != null) {
+            data.id = this.id;
+        }
+        if (this.type != null) {
+            data.type = this.type;
+        }
+        if (this.title != null) {
+            data.title = this.title;
+        }
+        if (this.pid != null) {
+            data.pid = this.pid;
+        }
+        if (this.path != null) {
+            data.path = this.path;
+        }
+        if (this.component != null) {
+            data.component = this.component;
+        }
+        if (this.componentName != null) {
+            data.componentName = this.componentName;
+        }
+        if (this.redirect != null) {
+            data.redirect = this.redirect;
+        }
+        if (this.children != null) {
+            data.children = this.children;
+        }
+        if (this.meta != null) {
+            data.meta = this.meta.toObject();
+        }
+        if (this.sort != null) {
+            data.sort = this.sort;
+        }
+        if (this.identity != null) {
+            data.identity = this.identity;
+        }
+        if (this.isFrame != null) {
+            data.isFrame = this.isFrame;
+        }
+        if (this.label != null) {
+            data.label = this.label;
+        }
+        if (this.leaf != null) {
+            data.leaf = this.leaf;
+        }
+        if (this.hasChildren != null) {
+            data.hasChildren = this.hasChildren;
+        }
+        if (this.key != null) {
+            data.key = this.key;
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.id.length)
+            writer.writeString(1, this.id);
+        if (this.type != dependency_1.MenuType._MenuType_UNSPECIFIED)
+            writer.writeEnum(2, this.type);
+        if (this.title.length)
+            writer.writeString(3, this.title);
+        if (this.pid.length)
+            writer.writeString(4, this.pid);
+        if (this.path.length)
+            writer.writeString(5, this.path);
+        if (this.component.length)
+            writer.writeString(6, this.component);
+        if (this.componentName.length)
+            writer.writeString(7, this.componentName);
+        if (this.redirect.length)
+            writer.writeString(8, this.redirect);
+        if (this.children.length)
+            writer.writeRepeatedString(9, this.children);
+        if (this.hasMeta)
+            writer.writeMessage(10, this.meta, () => this.meta.serialize(writer));
+        if (this.sort != 0)
+            writer.writeInt32(11, this.sort);
+        if (this.identity.length)
+            writer.writeString(12, this.identity);
+        if (this.isFrame != false)
+            writer.writeBool(13, this.isFrame);
+        if (this.label.length)
+            writer.writeString(14, this.label);
+        if (this.leaf != false)
+            writer.writeBool(15, this.leaf);
+        if (this.hasChildren != false)
+            writer.writeBool(16, this.hasChildren);
+        if (this.key.length)
+            writer.writeString(17, this.key);
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): MenuViewModel {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new MenuViewModel();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    message.id = reader.readString();
+                    break;
+                case 2:
+                    message.type = reader.readEnum();
+                    break;
+                case 3:
+                    message.title = reader.readString();
+                    break;
+                case 4:
+                    message.pid = reader.readString();
+                    break;
+                case 5:
+                    message.path = reader.readString();
+                    break;
+                case 6:
+                    message.component = reader.readString();
+                    break;
+                case 7:
+                    message.componentName = reader.readString();
+                    break;
+                case 8:
+                    message.redirect = reader.readString();
+                    break;
+                case 9:
+                    pb_1.Message.addToRepeatedField(message, 9, reader.readString());
+                    break;
+                case 10:
+                    reader.readMessage(message.meta, () => message.meta = Meta.deserialize(reader));
+                    break;
+                case 11:
+                    message.sort = reader.readInt32();
+                    break;
+                case 12:
+                    message.identity = reader.readString();
+                    break;
+                case 13:
+                    message.isFrame = reader.readBool();
+                    break;
+                case 14:
+                    message.label = reader.readString();
+                    break;
+                case 15:
+                    message.leaf = reader.readBool();
+                    break;
+                case 16:
+                    message.hasChildren = reader.readBool();
+                    break;
+                case 17:
+                    message.key = reader.readString();
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): MenuViewModel {
+        return MenuViewModel.deserialize(bytes);
+    }
 }
 export class Meta extends pb_1.Message {
-  #one_of_decls: number[][] = [];
-  constructor(
-    data?:
-      | any[]
-      | {
-          title?: string;
-          icon?: string;
-          noCache?: boolean;
-          affix?: boolean;
-          hidden?: boolean;
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        title?: string;
+        icon?: string;
+        noCache?: boolean;
+        affix?: boolean;
+        hidden?: boolean;
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("title" in data && data.title != undefined) {
+                this.title = data.title;
+            }
+            if ("icon" in data && data.icon != undefined) {
+                this.icon = data.icon;
+            }
+            if ("noCache" in data && data.noCache != undefined) {
+                this.noCache = data.noCache;
+            }
+            if ("affix" in data && data.affix != undefined) {
+                this.affix = data.affix;
+            }
+            if ("hidden" in data && data.hidden != undefined) {
+                this.hidden = data.hidden;
+            }
         }
-  ) {
-    super();
-    pb_1.Message.initialize(
-      this,
-      Array.isArray(data) ? data : [],
-      0,
-      -1,
-      [],
-      this.#one_of_decls
-    );
-    if (!Array.isArray(data) && typeof data == "object") {
-      if ("title" in data && data.title != undefined) {
-        this.title = data.title;
-      }
-      if ("icon" in data && data.icon != undefined) {
-        this.icon = data.icon;
-      }
-      if ("noCache" in data && data.noCache != undefined) {
-        this.noCache = data.noCache;
-      }
-      if ("affix" in data && data.affix != undefined) {
-        this.affix = data.affix;
-      }
-      if ("hidden" in data && data.hidden != undefined) {
-        this.hidden = data.hidden;
-      }
     }
-  }
-  get title() {
-    return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
-  }
-  set title(value: string) {
-    pb_1.Message.setField(this, 1, value);
-  }
-  get icon() {
-    return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
-  }
-  set icon(value: string) {
-    pb_1.Message.setField(this, 2, value);
-  }
-  get noCache() {
-    return pb_1.Message.getFieldWithDefault(this, 3, false) as boolean;
-  }
-  set noCache(value: boolean) {
-    pb_1.Message.setField(this, 3, value);
-  }
-  get affix() {
-    return pb_1.Message.getFieldWithDefault(this, 4, false) as boolean;
-  }
-  set affix(value: boolean) {
-    pb_1.Message.setField(this, 4, value);
-  }
-  get hidden() {
-    return pb_1.Message.getFieldWithDefault(this, 5, false) as boolean;
-  }
-  set hidden(value: boolean) {
-    pb_1.Message.setField(this, 5, value);
-  }
-  static fromObject(data: {
-    title?: string;
-    icon?: string;
-    noCache?: boolean;
-    affix?: boolean;
-    hidden?: boolean;
-  }): Meta {
-    const message = new Meta({});
-    if (data.title != null) {
-      message.title = data.title;
+    get title() {
+        return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
     }
-    if (data.icon != null) {
-      message.icon = data.icon;
+    set title(value: string) {
+        pb_1.Message.setField(this, 1, value);
     }
-    if (data.noCache != null) {
-      message.noCache = data.noCache;
+    get icon() {
+        return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
     }
-    if (data.affix != null) {
-      message.affix = data.affix;
+    set icon(value: string) {
+        pb_1.Message.setField(this, 2, value);
     }
-    if (data.hidden != null) {
-      message.hidden = data.hidden;
+    get noCache() {
+        return pb_1.Message.getFieldWithDefault(this, 3, false) as boolean;
     }
-    return message;
-  }
-  toObject() {
-    const data: {
-      title?: string;
-      icon?: string;
-      noCache?: boolean;
-      affix?: boolean;
-      hidden?: boolean;
-    } = {};
-    if (this.title != null) {
-      data.title = this.title;
+    set noCache(value: boolean) {
+        pb_1.Message.setField(this, 3, value);
     }
-    if (this.icon != null) {
-      data.icon = this.icon;
+    get affix() {
+        return pb_1.Message.getFieldWithDefault(this, 4, false) as boolean;
     }
-    if (this.noCache != null) {
-      data.noCache = this.noCache;
+    set affix(value: boolean) {
+        pb_1.Message.setField(this, 4, value);
     }
-    if (this.affix != null) {
-      data.affix = this.affix;
+    get hidden() {
+        return pb_1.Message.getFieldWithDefault(this, 5, false) as boolean;
     }
-    if (this.hidden != null) {
-      data.hidden = this.hidden;
+    set hidden(value: boolean) {
+        pb_1.Message.setField(this, 5, value);
     }
-    return data;
-  }
-  serialize(): Uint8Array;
-  serialize(w: pb_1.BinaryWriter): void;
-  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-    const writer = w || new pb_1.BinaryWriter();
-    if (this.title.length) writer.writeString(1, this.title);
-    if (this.icon.length) writer.writeString(2, this.icon);
-    if (this.noCache != false) writer.writeBool(3, this.noCache);
-    if (this.affix != false) writer.writeBool(4, this.affix);
-    if (this.hidden != false) writer.writeBool(5, this.hidden);
-    if (!w) return writer.getResultBuffer();
-  }
-  static deserialize(bytes: Uint8Array | pb_1.BinaryReader): Meta {
-    const reader =
-        bytes instanceof pb_1.BinaryReader
-          ? bytes
-          : new pb_1.BinaryReader(bytes),
-      message = new Meta();
-    while (reader.nextField()) {
-      if (reader.isEndGroup()) break;
-      switch (reader.getFieldNumber()) {
-        case 1:
-          message.title = reader.readString();
-          break;
-        case 2:
-          message.icon = reader.readString();
-          break;
-        case 3:
-          message.noCache = reader.readBool();
-          break;
-        case 4:
-          message.affix = reader.readBool();
-          break;
-        case 5:
-          message.hidden = reader.readBool();
-          break;
-        default:
-          reader.skipField();
-      }
+    static fromObject(data: {
+        title?: string;
+        icon?: string;
+        noCache?: boolean;
+        affix?: boolean;
+        hidden?: boolean;
+    }): Meta {
+        const message = new Meta({});
+        if (data.title != null) {
+            message.title = data.title;
+        }
+        if (data.icon != null) {
+            message.icon = data.icon;
+        }
+        if (data.noCache != null) {
+            message.noCache = data.noCache;
+        }
+        if (data.affix != null) {
+            message.affix = data.affix;
+        }
+        if (data.hidden != null) {
+            message.hidden = data.hidden;
+        }
+        return message;
     }
-    return message;
-  }
-  serializeBinary(): Uint8Array {
-    return this.serialize();
-  }
-  static deserializeBinary(bytes: Uint8Array): Meta {
-    return Meta.deserialize(bytes);
-  }
+    toObject() {
+        const data: {
+            title?: string;
+            icon?: string;
+            noCache?: boolean;
+            affix?: boolean;
+            hidden?: boolean;
+        } = {};
+        if (this.title != null) {
+            data.title = this.title;
+        }
+        if (this.icon != null) {
+            data.icon = this.icon;
+        }
+        if (this.noCache != null) {
+            data.noCache = this.noCache;
+        }
+        if (this.affix != null) {
+            data.affix = this.affix;
+        }
+        if (this.hidden != null) {
+            data.hidden = this.hidden;
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.title.length)
+            writer.writeString(1, this.title);
+        if (this.icon.length)
+            writer.writeString(2, this.icon);
+        if (this.noCache != false)
+            writer.writeBool(3, this.noCache);
+        if (this.affix != false)
+            writer.writeBool(4, this.affix);
+        if (this.hidden != false)
+            writer.writeBool(5, this.hidden);
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): Meta {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new Meta();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    message.title = reader.readString();
+                    break;
+                case 2:
+                    message.icon = reader.readString();
+                    break;
+                case 3:
+                    message.noCache = reader.readBool();
+                    break;
+                case 4:
+                    message.affix = reader.readBool();
+                    break;
+                case 5:
+                    message.hidden = reader.readBool();
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): Meta {
+        return Meta.deserialize(bytes);
+    }
 }
 export class ButtonWithIdentities extends pb_1.Message {
-  #one_of_decls: number[][] = [];
-  constructor(
-    data?:
-      | any[]
-      | {
-          btns?: ButtonIdentity[];
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        btns?: ButtonIdentity[];
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [1], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("btns" in data && data.btns != undefined) {
+                this.btns = data.btns;
+            }
         }
-  ) {
-    super();
-    pb_1.Message.initialize(
-      this,
-      Array.isArray(data) ? data : [],
-      0,
-      -1,
-      [1],
-      this.#one_of_decls
-    );
-    if (!Array.isArray(data) && typeof data == "object") {
-      if ("btns" in data && data.btns != undefined) {
-        this.btns = data.btns;
-      }
     }
-  }
-  get btns() {
-    return pb_1.Message.getRepeatedWrapperField(
-      this,
-      ButtonIdentity,
-      1
-    ) as ButtonIdentity[];
-  }
-  set btns(value: ButtonIdentity[]) {
-    pb_1.Message.setRepeatedWrapperField(this, 1, value);
-  }
-  static fromObject(data: {
-    btns?: ReturnType<typeof ButtonIdentity.prototype.toObject>[];
-  }): ButtonWithIdentities {
-    const message = new ButtonWithIdentities({});
-    if (data.btns != null) {
-      message.btns = data.btns.map((item) => ButtonIdentity.fromObject(item));
+    get btns() {
+        return pb_1.Message.getRepeatedWrapperField(this, ButtonIdentity, 1) as ButtonIdentity[];
     }
-    return message;
-  }
-  toObject() {
-    const data: {
-      btns?: ReturnType<typeof ButtonIdentity.prototype.toObject>[];
-    } = {};
-    if (this.btns != null) {
-      data.btns = this.btns.map((item: ButtonIdentity) => item.toObject());
+    set btns(value: ButtonIdentity[]) {
+        pb_1.Message.setRepeatedWrapperField(this, 1, value);
     }
-    return data;
-  }
-  serialize(): Uint8Array;
-  serialize(w: pb_1.BinaryWriter): void;
-  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-    const writer = w || new pb_1.BinaryWriter();
-    if (this.btns.length)
-      writer.writeRepeatedMessage(1, this.btns, (item: ButtonIdentity) =>
-        item.serialize(writer)
-      );
-    if (!w) return writer.getResultBuffer();
-  }
-  static deserialize(
-    bytes: Uint8Array | pb_1.BinaryReader
-  ): ButtonWithIdentities {
-    const reader =
-        bytes instanceof pb_1.BinaryReader
-          ? bytes
-          : new pb_1.BinaryReader(bytes),
-      message = new ButtonWithIdentities();
-    while (reader.nextField()) {
-      if (reader.isEndGroup()) break;
-      switch (reader.getFieldNumber()) {
-        case 1:
-          reader.readMessage(message.btns, () =>
-            pb_1.Message.addToRepeatedWrapperField(
-              message,
-              1,
-              ButtonIdentity.deserialize(reader),
-              ButtonIdentity
-            )
-          );
-          break;
-        default:
-          reader.skipField();
-      }
+    static fromObject(data: {
+        btns?: ReturnType<typeof ButtonIdentity.prototype.toObject>[];
+    }): ButtonWithIdentities {
+        const message = new ButtonWithIdentities({});
+        if (data.btns != null) {
+            message.btns = data.btns.map(item => ButtonIdentity.fromObject(item));
+        }
+        return message;
     }
-    return message;
-  }
-  serializeBinary(): Uint8Array {
-    return this.serialize();
-  }
-  static deserializeBinary(bytes: Uint8Array): ButtonWithIdentities {
-    return ButtonWithIdentities.deserialize(bytes);
-  }
+    toObject() {
+        const data: {
+            btns?: ReturnType<typeof ButtonIdentity.prototype.toObject>[];
+        } = {};
+        if (this.btns != null) {
+            data.btns = this.btns.map((item: ButtonIdentity) => item.toObject());
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.btns.length)
+            writer.writeRepeatedMessage(1, this.btns, (item: ButtonIdentity) => item.serialize(writer));
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): ButtonWithIdentities {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new ButtonWithIdentities();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    reader.readMessage(message.btns, () => pb_1.Message.addToRepeatedWrapperField(message, 1, ButtonIdentity.deserialize(reader), ButtonIdentity));
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): ButtonWithIdentities {
+        return ButtonWithIdentities.deserialize(bytes);
+    }
 }
 export class ButtonIdentity extends pb_1.Message {
-  #one_of_decls: number[][] = [];
-  constructor(
-    data?:
-      | any[]
-      | {
-          id?: string;
-          name?: string;
-          identity?: string;
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        id?: string;
+        name?: string;
+        identity?: string;
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("id" in data && data.id != undefined) {
+                this.id = data.id;
+            }
+            if ("name" in data && data.name != undefined) {
+                this.name = data.name;
+            }
+            if ("identity" in data && data.identity != undefined) {
+                this.identity = data.identity;
+            }
         }
-  ) {
-    super();
-    pb_1.Message.initialize(
-      this,
-      Array.isArray(data) ? data : [],
-      0,
-      -1,
-      [],
-      this.#one_of_decls
-    );
-    if (!Array.isArray(data) && typeof data == "object") {
-      if ("id" in data && data.id != undefined) {
-        this.id = data.id;
-      }
-      if ("name" in data && data.name != undefined) {
-        this.name = data.name;
-      }
-      if ("identity" in data && data.identity != undefined) {
-        this.identity = data.identity;
-      }
     }
-  }
-  get id() {
-    return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
-  }
-  set id(value: string) {
-    pb_1.Message.setField(this, 1, value);
-  }
-  get name() {
-    return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
-  }
-  set name(value: string) {
-    pb_1.Message.setField(this, 2, value);
-  }
-  get identity() {
-    return pb_1.Message.getFieldWithDefault(this, 3, "") as string;
-  }
-  set identity(value: string) {
-    pb_1.Message.setField(this, 3, value);
-  }
-  static fromObject(data: {
-    id?: string;
-    name?: string;
-    identity?: string;
-  }): ButtonIdentity {
-    const message = new ButtonIdentity({});
-    if (data.id != null) {
-      message.id = data.id;
+    get id() {
+        return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
     }
-    if (data.name != null) {
-      message.name = data.name;
+    set id(value: string) {
+        pb_1.Message.setField(this, 1, value);
     }
-    if (data.identity != null) {
-      message.identity = data.identity;
+    get name() {
+        return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
     }
-    return message;
-  }
-  toObject() {
-    const data: {
-      id?: string;
-      name?: string;
-      identity?: string;
-    } = {};
-    if (this.id != null) {
-      data.id = this.id;
+    set name(value: string) {
+        pb_1.Message.setField(this, 2, value);
     }
-    if (this.name != null) {
-      data.name = this.name;
+    get identity() {
+        return pb_1.Message.getFieldWithDefault(this, 3, "") as string;
     }
-    if (this.identity != null) {
-      data.identity = this.identity;
+    set identity(value: string) {
+        pb_1.Message.setField(this, 3, value);
     }
-    return data;
-  }
-  serialize(): Uint8Array;
-  serialize(w: pb_1.BinaryWriter): void;
-  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-    const writer = w || new pb_1.BinaryWriter();
-    if (this.id.length) writer.writeString(1, this.id);
-    if (this.name.length) writer.writeString(2, this.name);
-    if (this.identity.length) writer.writeString(3, this.identity);
-    if (!w) return writer.getResultBuffer();
-  }
-  static deserialize(bytes: Uint8Array | pb_1.BinaryReader): ButtonIdentity {
-    const reader =
-        bytes instanceof pb_1.BinaryReader
-          ? bytes
-          : new pb_1.BinaryReader(bytes),
-      message = new ButtonIdentity();
-    while (reader.nextField()) {
-      if (reader.isEndGroup()) break;
-      switch (reader.getFieldNumber()) {
-        case 1:
-          message.id = reader.readString();
-          break;
-        case 2:
-          message.name = reader.readString();
-          break;
-        case 3:
-          message.identity = reader.readString();
-          break;
-        default:
-          reader.skipField();
-      }
+    static fromObject(data: {
+        id?: string;
+        name?: string;
+        identity?: string;
+    }): ButtonIdentity {
+        const message = new ButtonIdentity({});
+        if (data.id != null) {
+            message.id = data.id;
+        }
+        if (data.name != null) {
+            message.name = data.name;
+        }
+        if (data.identity != null) {
+            message.identity = data.identity;
+        }
+        return message;
     }
-    return message;
-  }
-  serializeBinary(): Uint8Array {
-    return this.serialize();
-  }
-  static deserializeBinary(bytes: Uint8Array): ButtonIdentity {
-    return ButtonIdentity.deserialize(bytes);
-  }
+    toObject() {
+        const data: {
+            id?: string;
+            name?: string;
+            identity?: string;
+        } = {};
+        if (this.id != null) {
+            data.id = this.id;
+        }
+        if (this.name != null) {
+            data.name = this.name;
+        }
+        if (this.identity != null) {
+            data.identity = this.identity;
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.id.length)
+            writer.writeString(1, this.id);
+        if (this.name.length)
+            writer.writeString(2, this.name);
+        if (this.identity.length)
+            writer.writeString(3, this.identity);
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): ButtonIdentity {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new ButtonIdentity();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    message.id = reader.readString();
+                    break;
+                case 2:
+                    message.name = reader.readString();
+                    break;
+                case 3:
+                    message.identity = reader.readString();
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): ButtonIdentity {
+        return ButtonIdentity.deserialize(bytes);
+    }
 }
 export class MenuPageResponse extends pb_1.Message {
-  #one_of_decls: number[][] = [];
-  constructor(
-    data?:
-      | any[]
-      | {
-          page?: dependency_2.PagerResponse;
-          raws?: MenuViewModel[];
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        page?: dependency_2.PagerResponse;
+        raws?: MenuViewModel[];
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [2], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("page" in data && data.page != undefined) {
+                this.page = data.page;
+            }
+            if ("raws" in data && data.raws != undefined) {
+                this.raws = data.raws;
+            }
         }
-  ) {
-    super();
-    pb_1.Message.initialize(
-      this,
-      Array.isArray(data) ? data : [],
-      0,
-      -1,
-      [2],
-      this.#one_of_decls
-    );
-    if (!Array.isArray(data) && typeof data == "object") {
-      if ("page" in data && data.page != undefined) {
-        this.page = data.page;
-      }
-      if ("raws" in data && data.raws != undefined) {
-        this.raws = data.raws;
-      }
     }
-  }
-  get page() {
-    return pb_1.Message.getWrapperField(
-      this,
-      dependency_2.PagerResponse,
-      1
-    ) as dependency_2.PagerResponse;
-  }
-  set page(value: dependency_2.PagerResponse) {
-    pb_1.Message.setWrapperField(this, 1, value);
-  }
-  get hasPage() {
-    return pb_1.Message.getField(this, 1) != null;
-  }
-  get raws() {
-    return pb_1.Message.getRepeatedWrapperField(
-      this,
-      MenuViewModel,
-      2
-    ) as MenuViewModel[];
-  }
-  set raws(value: MenuViewModel[]) {
-    pb_1.Message.setRepeatedWrapperField(this, 2, value);
-  }
-  static fromObject(data: {
-    page?: ReturnType<typeof dependency_2.PagerResponse.prototype.toObject>;
-    raws?: ReturnType<typeof MenuViewModel.prototype.toObject>[];
-  }): MenuPageResponse {
-    const message = new MenuPageResponse({});
-    if (data.page != null) {
-      message.page = dependency_2.PagerResponse.fromObject(data.page);
+    get page() {
+        return pb_1.Message.getWrapperField(this, dependency_2.PagerResponse, 1) as dependency_2.PagerResponse;
     }
-    if (data.raws != null) {
-      message.raws = data.raws.map((item) => MenuViewModel.fromObject(item));
+    set page(value: dependency_2.PagerResponse) {
+        pb_1.Message.setWrapperField(this, 1, value);
     }
-    return message;
-  }
-  toObject() {
-    const data: {
-      page?: ReturnType<typeof dependency_2.PagerResponse.prototype.toObject>;
-      raws?: ReturnType<typeof MenuViewModel.prototype.toObject>[];
-    } = {};
-    if (this.page != null) {
-      data.page = this.page.toObject();
+    get hasPage() {
+        return pb_1.Message.getField(this, 1) != null;
     }
-    if (this.raws != null) {
-      data.raws = this.raws.map((item: MenuViewModel) => item.toObject());
+    get raws() {
+        return pb_1.Message.getRepeatedWrapperField(this, MenuViewModel, 2) as MenuViewModel[];
     }
-    return data;
-  }
-  serialize(): Uint8Array;
-  serialize(w: pb_1.BinaryWriter): void;
-  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-    const writer = w || new pb_1.BinaryWriter();
-    if (this.hasPage)
-      writer.writeMessage(1, this.page, () => this.page.serialize(writer));
-    if (this.raws.length)
-      writer.writeRepeatedMessage(2, this.raws, (item: MenuViewModel) =>
-        item.serialize(writer)
-      );
-    if (!w) return writer.getResultBuffer();
-  }
-  static deserialize(bytes: Uint8Array | pb_1.BinaryReader): MenuPageResponse {
-    const reader =
-        bytes instanceof pb_1.BinaryReader
-          ? bytes
-          : new pb_1.BinaryReader(bytes),
-      message = new MenuPageResponse();
-    while (reader.nextField()) {
-      if (reader.isEndGroup()) break;
-      switch (reader.getFieldNumber()) {
-        case 1:
-          reader.readMessage(
-            message.page,
-            () =>
-              (message.page = dependency_2.PagerResponse.deserialize(reader))
-          );
-          break;
-        case 2:
-          reader.readMessage(message.raws, () =>
-            pb_1.Message.addToRepeatedWrapperField(
-              message,
-              2,
-              MenuViewModel.deserialize(reader),
-              MenuViewModel
-            )
-          );
-          break;
-        default:
-          reader.skipField();
-      }
+    set raws(value: MenuViewModel[]) {
+        pb_1.Message.setRepeatedWrapperField(this, 2, value);
     }
-    return message;
-  }
-  serializeBinary(): Uint8Array {
-    return this.serialize();
-  }
-  static deserializeBinary(bytes: Uint8Array): MenuPageResponse {
-    return MenuPageResponse.deserialize(bytes);
-  }
+    static fromObject(data: {
+        page?: ReturnType<typeof dependency_2.PagerResponse.prototype.toObject>;
+        raws?: ReturnType<typeof MenuViewModel.prototype.toObject>[];
+    }): MenuPageResponse {
+        const message = new MenuPageResponse({});
+        if (data.page != null) {
+            message.page = dependency_2.PagerResponse.fromObject(data.page);
+        }
+        if (data.raws != null) {
+            message.raws = data.raws.map(item => MenuViewModel.fromObject(item));
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            page?: ReturnType<typeof dependency_2.PagerResponse.prototype.toObject>;
+            raws?: ReturnType<typeof MenuViewModel.prototype.toObject>[];
+        } = {};
+        if (this.page != null) {
+            data.page = this.page.toObject();
+        }
+        if (this.raws != null) {
+            data.raws = this.raws.map((item: MenuViewModel) => item.toObject());
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.hasPage)
+            writer.writeMessage(1, this.page, () => this.page.serialize(writer));
+        if (this.raws.length)
+            writer.writeRepeatedMessage(2, this.raws, (item: MenuViewModel) => item.serialize(writer));
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): MenuPageResponse {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new MenuPageResponse();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    reader.readMessage(message.page, () => message.page = dependency_2.PagerResponse.deserialize(reader));
+                    break;
+                case 2:
+                    reader.readMessage(message.raws, () => pb_1.Message.addToRepeatedWrapperField(message, 2, MenuViewModel.deserialize(reader), MenuViewModel));
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): MenuPageResponse {
+        return MenuPageResponse.deserialize(bytes);
+    }
 }
 export class MenuPageRequest extends pb_1.Message {
-  #one_of_decls: number[][] = [];
-  constructor(
-    data?:
-      | any[]
-      | {
-          page?: dependency_2.PagerRequest;
-          parentId?: string;
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        page?: dependency_2.PagerRequest;
+        parentId?: string;
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("page" in data && data.page != undefined) {
+                this.page = data.page;
+            }
+            if ("parentId" in data && data.parentId != undefined) {
+                this.parentId = data.parentId;
+            }
         }
-  ) {
-    super();
-    pb_1.Message.initialize(
-      this,
-      Array.isArray(data) ? data : [],
-      0,
-      -1,
-      [],
-      this.#one_of_decls
-    );
-    if (!Array.isArray(data) && typeof data == "object") {
-      if ("page" in data && data.page != undefined) {
-        this.page = data.page;
-      }
-      if ("parentId" in data && data.parentId != undefined) {
-        this.parentId = data.parentId;
-      }
     }
-  }
-  get page() {
-    return pb_1.Message.getWrapperField(
-      this,
-      dependency_2.PagerRequest,
-      1
-    ) as dependency_2.PagerRequest;
-  }
-  set page(value: dependency_2.PagerRequest) {
-    pb_1.Message.setWrapperField(this, 1, value);
-  }
-  get hasPage() {
-    return pb_1.Message.getField(this, 1) != null;
-  }
-  get parentId() {
-    return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
-  }
-  set parentId(value: string) {
-    pb_1.Message.setField(this, 2, value);
-  }
-  static fromObject(data: {
-    page?: ReturnType<typeof dependency_2.PagerRequest.prototype.toObject>;
-    parentId?: string;
-  }): MenuPageRequest {
-    const message = new MenuPageRequest({});
-    if (data.page != null) {
-      message.page = dependency_2.PagerRequest.fromObject(data.page);
+    get page() {
+        return pb_1.Message.getWrapperField(this, dependency_2.PagerRequest, 1) as dependency_2.PagerRequest;
     }
-    if (data.parentId != null) {
-      message.parentId = data.parentId;
+    set page(value: dependency_2.PagerRequest) {
+        pb_1.Message.setWrapperField(this, 1, value);
     }
-    return message;
-  }
-  toObject() {
-    const data: {
-      page?: ReturnType<typeof dependency_2.PagerRequest.prototype.toObject>;
-      parentId?: string;
-    } = {};
-    if (this.page != null) {
-      data.page = this.page.toObject();
+    get hasPage() {
+        return pb_1.Message.getField(this, 1) != null;
     }
-    if (this.parentId != null) {
-      data.parentId = this.parentId;
+    get parentId() {
+        return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
     }
-    return data;
-  }
-  serialize(): Uint8Array;
-  serialize(w: pb_1.BinaryWriter): void;
-  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-    const writer = w || new pb_1.BinaryWriter();
-    if (this.hasPage)
-      writer.writeMessage(1, this.page, () => this.page.serialize(writer));
-    if (this.parentId.length) writer.writeString(2, this.parentId);
-    if (!w) return writer.getResultBuffer();
-  }
-  static deserialize(bytes: Uint8Array | pb_1.BinaryReader): MenuPageRequest {
-    const reader =
-        bytes instanceof pb_1.BinaryReader
-          ? bytes
-          : new pb_1.BinaryReader(bytes),
-      message = new MenuPageRequest();
-    while (reader.nextField()) {
-      if (reader.isEndGroup()) break;
-      switch (reader.getFieldNumber()) {
-        case 1:
-          reader.readMessage(
-            message.page,
-            () => (message.page = dependency_2.PagerRequest.deserialize(reader))
-          );
-          break;
-        case 2:
-          message.parentId = reader.readString();
-          break;
-        default:
-          reader.skipField();
-      }
+    set parentId(value: string) {
+        pb_1.Message.setField(this, 2, value);
     }
-    return message;
-  }
-  serializeBinary(): Uint8Array {
-    return this.serialize();
-  }
-  static deserializeBinary(bytes: Uint8Array): MenuPageRequest {
-    return MenuPageRequest.deserialize(bytes);
-  }
+    static fromObject(data: {
+        page?: ReturnType<typeof dependency_2.PagerRequest.prototype.toObject>;
+        parentId?: string;
+    }): MenuPageRequest {
+        const message = new MenuPageRequest({});
+        if (data.page != null) {
+            message.page = dependency_2.PagerRequest.fromObject(data.page);
+        }
+        if (data.parentId != null) {
+            message.parentId = data.parentId;
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            page?: ReturnType<typeof dependency_2.PagerRequest.prototype.toObject>;
+            parentId?: string;
+        } = {};
+        if (this.page != null) {
+            data.page = this.page.toObject();
+        }
+        if (this.parentId != null) {
+            data.parentId = this.parentId;
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.hasPage)
+            writer.writeMessage(1, this.page, () => this.page.serialize(writer));
+        if (this.parentId.length)
+            writer.writeString(2, this.parentId);
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): MenuPageRequest {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new MenuPageRequest();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    reader.readMessage(message.page, () => message.page = dependency_2.PagerRequest.deserialize(reader));
+                    break;
+                case 2:
+                    message.parentId = reader.readString();
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): MenuPageRequest {
+        return MenuPageRequest.deserialize(bytes);
+    }
 }
 export class RoutePageResponse extends pb_1.Message {
-  #one_of_decls: number[][] = [];
-  constructor(
-    data?:
-      | any[]
-      | {
-          routes?: RouteViewModel[];
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        routes?: RouteViewModel[];
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [1], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("routes" in data && data.routes != undefined) {
+                this.routes = data.routes;
+            }
         }
-  ) {
-    super();
-    pb_1.Message.initialize(
-      this,
-      Array.isArray(data) ? data : [],
-      0,
-      -1,
-      [1],
-      this.#one_of_decls
-    );
-    if (!Array.isArray(data) && typeof data == "object") {
-      if ("routes" in data && data.routes != undefined) {
-        this.routes = data.routes;
-      }
     }
-  }
-  get routes() {
-    return pb_1.Message.getRepeatedWrapperField(
-      this,
-      RouteViewModel,
-      1
-    ) as RouteViewModel[];
-  }
-  set routes(value: RouteViewModel[]) {
-    pb_1.Message.setRepeatedWrapperField(this, 1, value);
-  }
-  static fromObject(data: {
-    routes?: ReturnType<typeof RouteViewModel.prototype.toObject>[];
-  }): RoutePageResponse {
-    const message = new RoutePageResponse({});
-    if (data.routes != null) {
-      message.routes = data.routes.map((item) =>
-        RouteViewModel.fromObject(item)
-      );
+    get routes() {
+        return pb_1.Message.getRepeatedWrapperField(this, RouteViewModel, 1) as RouteViewModel[];
     }
-    return message;
-  }
-  toObject() {
-    const data: {
-      routes?: ReturnType<typeof RouteViewModel.prototype.toObject>[];
-    } = {};
-    if (this.routes != null) {
-      data.routes = this.routes.map((item: RouteViewModel) => item.toObject());
+    set routes(value: RouteViewModel[]) {
+        pb_1.Message.setRepeatedWrapperField(this, 1, value);
     }
-    return data;
-  }
-  serialize(): Uint8Array;
-  serialize(w: pb_1.BinaryWriter): void;
-  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-    const writer = w || new pb_1.BinaryWriter();
-    if (this.routes.length)
-      writer.writeRepeatedMessage(1, this.routes, (item: RouteViewModel) =>
-        item.serialize(writer)
-      );
-    if (!w) return writer.getResultBuffer();
-  }
-  static deserialize(bytes: Uint8Array | pb_1.BinaryReader): RoutePageResponse {
-    const reader =
-        bytes instanceof pb_1.BinaryReader
-          ? bytes
-          : new pb_1.BinaryReader(bytes),
-      message = new RoutePageResponse();
-    while (reader.nextField()) {
-      if (reader.isEndGroup()) break;
-      switch (reader.getFieldNumber()) {
-        case 1:
-          reader.readMessage(message.routes, () =>
-            pb_1.Message.addToRepeatedWrapperField(
-              message,
-              1,
-              RouteViewModel.deserialize(reader),
-              RouteViewModel
-            )
-          );
-          break;
-        default:
-          reader.skipField();
-      }
+    static fromObject(data: {
+        routes?: ReturnType<typeof RouteViewModel.prototype.toObject>[];
+    }): RoutePageResponse {
+        const message = new RoutePageResponse({});
+        if (data.routes != null) {
+            message.routes = data.routes.map(item => RouteViewModel.fromObject(item));
+        }
+        return message;
     }
-    return message;
-  }
-  serializeBinary(): Uint8Array {
-    return this.serialize();
-  }
-  static deserializeBinary(bytes: Uint8Array): RoutePageResponse {
-    return RoutePageResponse.deserialize(bytes);
-  }
+    toObject() {
+        const data: {
+            routes?: ReturnType<typeof RouteViewModel.prototype.toObject>[];
+        } = {};
+        if (this.routes != null) {
+            data.routes = this.routes.map((item: RouteViewModel) => item.toObject());
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.routes.length)
+            writer.writeRepeatedMessage(1, this.routes, (item: RouteViewModel) => item.serialize(writer));
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): RoutePageResponse {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new RoutePageResponse();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    reader.readMessage(message.routes, () => pb_1.Message.addToRepeatedWrapperField(message, 1, RouteViewModel.deserialize(reader), RouteViewModel));
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): RoutePageResponse {
+        return RoutePageResponse.deserialize(bytes);
+    }
 }
 export class RouteViewModel extends pb_1.Message {
-  #one_of_decls: number[][] = [];
-  constructor(
-    data?:
-      | any[]
-      | {
-          id?: string;
-          type?: dependency_1.MenuType;
-          title?: string;
-          path?: string;
-          component?: string;
-          componentName?: string;
-          redirect?: string;
-          children?: RouteViewModel[];
-          meta?: Meta;
-          sort?: number;
-          identity?: string;
-          isFrame?: boolean;
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        id?: string;
+        type?: dependency_1.MenuType;
+        title?: string;
+        path?: string;
+        component?: string;
+        componentName?: string;
+        redirect?: string;
+        children?: RouteViewModel[];
+        meta?: Meta;
+        sort?: number;
+        identity?: string;
+        isFrame?: boolean;
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [8], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("id" in data && data.id != undefined) {
+                this.id = data.id;
+            }
+            if ("type" in data && data.type != undefined) {
+                this.type = data.type;
+            }
+            if ("title" in data && data.title != undefined) {
+                this.title = data.title;
+            }
+            if ("path" in data && data.path != undefined) {
+                this.path = data.path;
+            }
+            if ("component" in data && data.component != undefined) {
+                this.component = data.component;
+            }
+            if ("componentName" in data && data.componentName != undefined) {
+                this.componentName = data.componentName;
+            }
+            if ("redirect" in data && data.redirect != undefined) {
+                this.redirect = data.redirect;
+            }
+            if ("children" in data && data.children != undefined) {
+                this.children = data.children;
+            }
+            if ("meta" in data && data.meta != undefined) {
+                this.meta = data.meta;
+            }
+            if ("sort" in data && data.sort != undefined) {
+                this.sort = data.sort;
+            }
+            if ("identity" in data && data.identity != undefined) {
+                this.identity = data.identity;
+            }
+            if ("isFrame" in data && data.isFrame != undefined) {
+                this.isFrame = data.isFrame;
+            }
         }
-  ) {
-    super();
-    pb_1.Message.initialize(
-      this,
-      Array.isArray(data) ? data : [],
-      0,
-      -1,
-      [8],
-      this.#one_of_decls
-    );
-    if (!Array.isArray(data) && typeof data == "object") {
-      if ("id" in data && data.id != undefined) {
-        this.id = data.id;
-      }
-      if ("type" in data && data.type != undefined) {
-        this.type = data.type;
-      }
-      if ("title" in data && data.title != undefined) {
-        this.title = data.title;
-      }
-      if ("path" in data && data.path != undefined) {
-        this.path = data.path;
-      }
-      if ("component" in data && data.component != undefined) {
-        this.component = data.component;
-      }
-      if ("componentName" in data && data.componentName != undefined) {
-        this.componentName = data.componentName;
-      }
-      if ("redirect" in data && data.redirect != undefined) {
-        this.redirect = data.redirect;
-      }
-      if ("children" in data && data.children != undefined) {
-        this.children = data.children;
-      }
-      if ("meta" in data && data.meta != undefined) {
-        this.meta = data.meta;
-      }
-      if ("sort" in data && data.sort != undefined) {
-        this.sort = data.sort;
-      }
-      if ("identity" in data && data.identity != undefined) {
-        this.identity = data.identity;
-      }
-      if ("isFrame" in data && data.isFrame != undefined) {
-        this.isFrame = data.isFrame;
-      }
     }
-  }
-  get id() {
-    return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
-  }
-  set id(value: string) {
-    pb_1.Message.setField(this, 1, value);
-  }
-  get type() {
-    return pb_1.Message.getFieldWithDefault(
-      this,
-      2,
-      dependency_1.MenuType._MenuType_UNSPECIFIED
-    ) as dependency_1.MenuType;
-  }
-  set type(value: dependency_1.MenuType) {
-    pb_1.Message.setField(this, 2, value);
-  }
-  get title() {
-    return pb_1.Message.getFieldWithDefault(this, 3, "") as string;
-  }
-  set title(value: string) {
-    pb_1.Message.setField(this, 3, value);
-  }
-  get path() {
-    return pb_1.Message.getFieldWithDefault(this, 4, "") as string;
-  }
-  set path(value: string) {
-    pb_1.Message.setField(this, 4, value);
-  }
-  get component() {
-    return pb_1.Message.getFieldWithDefault(this, 5, "") as string;
-  }
-  set component(value: string) {
-    pb_1.Message.setField(this, 5, value);
-  }
-  get componentName() {
-    return pb_1.Message.getFieldWithDefault(this, 6, "") as string;
-  }
-  set componentName(value: string) {
-    pb_1.Message.setField(this, 6, value);
-  }
-  get redirect() {
-    return pb_1.Message.getFieldWithDefault(this, 7, "") as string;
-  }
-  set redirect(value: string) {
-    pb_1.Message.setField(this, 7, value);
-  }
-  get children() {
-    return pb_1.Message.getRepeatedWrapperField(
-      this,
-      RouteViewModel,
-      8
-    ) as RouteViewModel[];
-  }
-  set children(value: RouteViewModel[]) {
-    pb_1.Message.setRepeatedWrapperField(this, 8, value);
-  }
-  get meta() {
-    return pb_1.Message.getWrapperField(this, Meta, 9) as Meta;
-  }
-  set meta(value: Meta) {
-    pb_1.Message.setWrapperField(this, 9, value);
-  }
-  get hasMeta() {
-    return pb_1.Message.getField(this, 9) != null;
-  }
-  get sort() {
-    return pb_1.Message.getFieldWithDefault(this, 10, 0) as number;
-  }
-  set sort(value: number) {
-    pb_1.Message.setField(this, 10, value);
-  }
-  get identity() {
-    return pb_1.Message.getFieldWithDefault(this, 11, "") as string;
-  }
-  set identity(value: string) {
-    pb_1.Message.setField(this, 11, value);
-  }
-  get isFrame() {
-    return pb_1.Message.getFieldWithDefault(this, 12, false) as boolean;
-  }
-  set isFrame(value: boolean) {
-    pb_1.Message.setField(this, 12, value);
-  }
-  static fromObject(data: {
-    id?: string;
-    type?: dependency_1.MenuType;
-    title?: string;
-    path?: string;
-    component?: string;
-    componentName?: string;
-    redirect?: string;
-    children?: ReturnType<typeof RouteViewModel.prototype.toObject>[];
-    meta?: ReturnType<typeof Meta.prototype.toObject>;
-    sort?: number;
-    identity?: string;
-    isFrame?: boolean;
-  }): RouteViewModel {
-    const message = new RouteViewModel({});
-    if (data.id != null) {
-      message.id = data.id;
+    get id() {
+        return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
     }
-    if (data.type != null) {
-      message.type = data.type;
+    set id(value: string) {
+        pb_1.Message.setField(this, 1, value);
     }
-    if (data.title != null) {
-      message.title = data.title;
+    get type() {
+        return pb_1.Message.getFieldWithDefault(this, 2, dependency_1.MenuType._MenuType_UNSPECIFIED) as dependency_1.MenuType;
     }
-    if (data.path != null) {
-      message.path = data.path;
+    set type(value: dependency_1.MenuType) {
+        pb_1.Message.setField(this, 2, value);
     }
-    if (data.component != null) {
-      message.component = data.component;
+    get title() {
+        return pb_1.Message.getFieldWithDefault(this, 3, "") as string;
     }
-    if (data.componentName != null) {
-      message.componentName = data.componentName;
+    set title(value: string) {
+        pb_1.Message.setField(this, 3, value);
     }
-    if (data.redirect != null) {
-      message.redirect = data.redirect;
+    get path() {
+        return pb_1.Message.getFieldWithDefault(this, 4, "") as string;
     }
-    if (data.children != null) {
-      message.children = data.children.map((item) =>
-        RouteViewModel.fromObject(item)
-      );
+    set path(value: string) {
+        pb_1.Message.setField(this, 4, value);
     }
-    if (data.meta != null) {
-      message.meta = Meta.fromObject(data.meta);
+    get component() {
+        return pb_1.Message.getFieldWithDefault(this, 5, "") as string;
     }
-    if (data.sort != null) {
-      message.sort = data.sort;
+    set component(value: string) {
+        pb_1.Message.setField(this, 5, value);
     }
-    if (data.identity != null) {
-      message.identity = data.identity;
+    get componentName() {
+        return pb_1.Message.getFieldWithDefault(this, 6, "") as string;
     }
-    if (data.isFrame != null) {
-      message.isFrame = data.isFrame;
+    set componentName(value: string) {
+        pb_1.Message.setField(this, 6, value);
     }
-    return message;
-  }
-  toObject() {
-    const data: {
-      id?: string;
-      type?: dependency_1.MenuType;
-      title?: string;
-      path?: string;
-      component?: string;
-      componentName?: string;
-      redirect?: string;
-      children?: ReturnType<typeof RouteViewModel.prototype.toObject>[];
-      meta?: ReturnType<typeof Meta.prototype.toObject>;
-      sort?: number;
-      identity?: string;
-      isFrame?: boolean;
-    } = {};
-    if (this.id != null) {
-      data.id = this.id;
+    get redirect() {
+        return pb_1.Message.getFieldWithDefault(this, 7, "") as string;
     }
-    if (this.type != null) {
-      data.type = this.type;
+    set redirect(value: string) {
+        pb_1.Message.setField(this, 7, value);
     }
-    if (this.title != null) {
-      data.title = this.title;
+    get children() {
+        return pb_1.Message.getRepeatedWrapperField(this, RouteViewModel, 8) as RouteViewModel[];
     }
-    if (this.path != null) {
-      data.path = this.path;
+    set children(value: RouteViewModel[]) {
+        pb_1.Message.setRepeatedWrapperField(this, 8, value);
     }
-    if (this.component != null) {
-      data.component = this.component;
+    get meta() {
+        return pb_1.Message.getWrapperField(this, Meta, 9) as Meta;
     }
-    if (this.componentName != null) {
-      data.componentName = this.componentName;
+    set meta(value: Meta) {
+        pb_1.Message.setWrapperField(this, 9, value);
     }
-    if (this.redirect != null) {
-      data.redirect = this.redirect;
+    get hasMeta() {
+        return pb_1.Message.getField(this, 9) != null;
     }
-    if (this.children != null) {
-      data.children = this.children.map((item: RouteViewModel) =>
-        item.toObject()
-      );
+    get sort() {
+        return pb_1.Message.getFieldWithDefault(this, 10, 0) as number;
     }
-    if (this.meta != null) {
-      data.meta = this.meta.toObject();
+    set sort(value: number) {
+        pb_1.Message.setField(this, 10, value);
     }
-    if (this.sort != null) {
-      data.sort = this.sort;
+    get identity() {
+        return pb_1.Message.getFieldWithDefault(this, 11, "") as string;
     }
-    if (this.identity != null) {
-      data.identity = this.identity;
+    set identity(value: string) {
+        pb_1.Message.setField(this, 11, value);
     }
-    if (this.isFrame != null) {
-      data.isFrame = this.isFrame;
+    get isFrame() {
+        return pb_1.Message.getFieldWithDefault(this, 12, false) as boolean;
     }
-    return data;
-  }
-  serialize(): Uint8Array;
-  serialize(w: pb_1.BinaryWriter): void;
-  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-    const writer = w || new pb_1.BinaryWriter();
-    if (this.id.length) writer.writeString(1, this.id);
-    if (this.type != dependency_1.MenuType._MenuType_UNSPECIFIED)
-      writer.writeEnum(2, this.type);
-    if (this.title.length) writer.writeString(3, this.title);
-    if (this.path.length) writer.writeString(4, this.path);
-    if (this.component.length) writer.writeString(5, this.component);
-    if (this.componentName.length) writer.writeString(6, this.componentName);
-    if (this.redirect.length) writer.writeString(7, this.redirect);
-    if (this.children.length)
-      writer.writeRepeatedMessage(8, this.children, (item: RouteViewModel) =>
-        item.serialize(writer)
-      );
-    if (this.hasMeta)
-      writer.writeMessage(9, this.meta, () => this.meta.serialize(writer));
-    if (this.sort != 0) writer.writeInt32(10, this.sort);
-    if (this.identity.length) writer.writeString(11, this.identity);
-    if (this.isFrame != false) writer.writeBool(12, this.isFrame);
-    if (!w) return writer.getResultBuffer();
-  }
-  static deserialize(bytes: Uint8Array | pb_1.BinaryReader): RouteViewModel {
-    const reader =
-        bytes instanceof pb_1.BinaryReader
-          ? bytes
-          : new pb_1.BinaryReader(bytes),
-      message = new RouteViewModel();
-    while (reader.nextField()) {
-      if (reader.isEndGroup()) break;
-      switch (reader.getFieldNumber()) {
-        case 1:
-          message.id = reader.readString();
-          break;
-        case 2:
-          message.type = reader.readEnum();
-          break;
-        case 3:
-          message.title = reader.readString();
-          break;
-        case 4:
-          message.path = reader.readString();
-          break;
-        case 5:
-          message.component = reader.readString();
-          break;
-        case 6:
-          message.componentName = reader.readString();
-          break;
-        case 7:
-          message.redirect = reader.readString();
-          break;
-        case 8:
-          reader.readMessage(message.children, () =>
-            pb_1.Message.addToRepeatedWrapperField(
-              message,
-              8,
-              RouteViewModel.deserialize(reader),
-              RouteViewModel
-            )
-          );
-          break;
-        case 9:
-          reader.readMessage(
-            message.meta,
-            () => (message.meta = Meta.deserialize(reader))
-          );
-          break;
-        case 10:
-          message.sort = reader.readInt32();
-          break;
-        case 11:
-          message.identity = reader.readString();
-          break;
-        case 12:
-          message.isFrame = reader.readBool();
-          break;
-        default:
-          reader.skipField();
-      }
+    set isFrame(value: boolean) {
+        pb_1.Message.setField(this, 12, value);
     }
-    return message;
-  }
-  serializeBinary(): Uint8Array {
-    return this.serialize();
-  }
-  static deserializeBinary(bytes: Uint8Array): RouteViewModel {
-    return RouteViewModel.deserialize(bytes);
-  }
+    static fromObject(data: {
+        id?: string;
+        type?: dependency_1.MenuType;
+        title?: string;
+        path?: string;
+        component?: string;
+        componentName?: string;
+        redirect?: string;
+        children?: ReturnType<typeof RouteViewModel.prototype.toObject>[];
+        meta?: ReturnType<typeof Meta.prototype.toObject>;
+        sort?: number;
+        identity?: string;
+        isFrame?: boolean;
+    }): RouteViewModel {
+        const message = new RouteViewModel({});
+        if (data.id != null) {
+            message.id = data.id;
+        }
+        if (data.type != null) {
+            message.type = data.type;
+        }
+        if (data.title != null) {
+            message.title = data.title;
+        }
+        if (data.path != null) {
+            message.path = data.path;
+        }
+        if (data.component != null) {
+            message.component = data.component;
+        }
+        if (data.componentName != null) {
+            message.componentName = data.componentName;
+        }
+        if (data.redirect != null) {
+            message.redirect = data.redirect;
+        }
+        if (data.children != null) {
+            message.children = data.children.map(item => RouteViewModel.fromObject(item));
+        }
+        if (data.meta != null) {
+            message.meta = Meta.fromObject(data.meta);
+        }
+        if (data.sort != null) {
+            message.sort = data.sort;
+        }
+        if (data.identity != null) {
+            message.identity = data.identity;
+        }
+        if (data.isFrame != null) {
+            message.isFrame = data.isFrame;
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            id?: string;
+            type?: dependency_1.MenuType;
+            title?: string;
+            path?: string;
+            component?: string;
+            componentName?: string;
+            redirect?: string;
+            children?: ReturnType<typeof RouteViewModel.prototype.toObject>[];
+            meta?: ReturnType<typeof Meta.prototype.toObject>;
+            sort?: number;
+            identity?: string;
+            isFrame?: boolean;
+        } = {};
+        if (this.id != null) {
+            data.id = this.id;
+        }
+        if (this.type != null) {
+            data.type = this.type;
+        }
+        if (this.title != null) {
+            data.title = this.title;
+        }
+        if (this.path != null) {
+            data.path = this.path;
+        }
+        if (this.component != null) {
+            data.component = this.component;
+        }
+        if (this.componentName != null) {
+            data.componentName = this.componentName;
+        }
+        if (this.redirect != null) {
+            data.redirect = this.redirect;
+        }
+        if (this.children != null) {
+            data.children = this.children.map((item: RouteViewModel) => item.toObject());
+        }
+        if (this.meta != null) {
+            data.meta = this.meta.toObject();
+        }
+        if (this.sort != null) {
+            data.sort = this.sort;
+        }
+        if (this.identity != null) {
+            data.identity = this.identity;
+        }
+        if (this.isFrame != null) {
+            data.isFrame = this.isFrame;
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.id.length)
+            writer.writeString(1, this.id);
+        if (this.type != dependency_1.MenuType._MenuType_UNSPECIFIED)
+            writer.writeEnum(2, this.type);
+        if (this.title.length)
+            writer.writeString(3, this.title);
+        if (this.path.length)
+            writer.writeString(4, this.path);
+        if (this.component.length)
+            writer.writeString(5, this.component);
+        if (this.componentName.length)
+            writer.writeString(6, this.componentName);
+        if (this.redirect.length)
+            writer.writeString(7, this.redirect);
+        if (this.children.length)
+            writer.writeRepeatedMessage(8, this.children, (item: RouteViewModel) => item.serialize(writer));
+        if (this.hasMeta)
+            writer.writeMessage(9, this.meta, () => this.meta.serialize(writer));
+        if (this.sort != 0)
+            writer.writeInt32(10, this.sort);
+        if (this.identity.length)
+            writer.writeString(11, this.identity);
+        if (this.isFrame != false)
+            writer.writeBool(12, this.isFrame);
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): RouteViewModel {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new RouteViewModel();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    message.id = reader.readString();
+                    break;
+                case 2:
+                    message.type = reader.readEnum();
+                    break;
+                case 3:
+                    message.title = reader.readString();
+                    break;
+                case 4:
+                    message.path = reader.readString();
+                    break;
+                case 5:
+                    message.component = reader.readString();
+                    break;
+                case 6:
+                    message.componentName = reader.readString();
+                    break;
+                case 7:
+                    message.redirect = reader.readString();
+                    break;
+                case 8:
+                    reader.readMessage(message.children, () => pb_1.Message.addToRepeatedWrapperField(message, 8, RouteViewModel.deserialize(reader), RouteViewModel));
+                    break;
+                case 9:
+                    reader.readMessage(message.meta, () => message.meta = Meta.deserialize(reader));
+                    break;
+                case 10:
+                    message.sort = reader.readInt32();
+                    break;
+                case 11:
+                    message.identity = reader.readString();
+                    break;
+                case 12:
+                    message.isFrame = reader.readBool();
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): RouteViewModel {
+        return RouteViewModel.deserialize(bytes);
+    }
 }

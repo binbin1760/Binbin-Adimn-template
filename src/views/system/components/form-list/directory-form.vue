@@ -210,8 +210,6 @@ async function submit() {
     sort: directoryForm.value.sort,
     isFrame: directoryForm.value.isFrame,
   });
-  console.log(directoryForm.value);
-
   const result = (await Menu.addMenu(req)).toObject();
   console.log(result);
 }
