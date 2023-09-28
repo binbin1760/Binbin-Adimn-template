@@ -110,7 +110,7 @@ const wrapperStyle = {
 };
 
 function tologin() {
-  Router.push("/online/api");
+  Router.push("/dashboard/console");
 }
 async function getCode() {
   const result = await smsService(phone.value);
@@ -125,7 +125,7 @@ async function userRegister() {
   const res = await login.register(req);
   if (res.token) {
     setUserInfo(`Bearer ${res.toObject().token}`);
-    Router.push("/online/api");
+    Router.push("/dashboard/console");
   }
 }
 function toRegister() {

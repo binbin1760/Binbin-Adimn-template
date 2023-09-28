@@ -98,31 +98,31 @@
         >通过</n-button
       >
     </div>
+    <n-modal v-model:show="showModal">
+      <n-card
+        style="width: 600px"
+        title="拒绝原因"
+        :bordered="false"
+        size="huge"
+        role="dialog"
+        aria-modal="true"
+      >
+        <n-input
+          v-model:value="refuseReason"
+          type="textarea"
+          placeholder="请输入拒绝理由（注意文明用语!）"
+        />
+        <div class="confirm">
+          <n-button color="#409EFF" :bordered="false" @click="refuse"
+            >确认</n-button
+          >
+          <n-button color="#E7E7E7" :bordered="false" @click="closeModal"
+            >取消</n-button
+          >
+        </div>
+      </n-card>
+    </n-modal>
   </div>
-  <n-modal v-model:show="showModal">
-    <n-card
-      style="width: 600px"
-      title="拒绝原因"
-      :bordered="false"
-      size="huge"
-      role="dialog"
-      aria-modal="true"
-    >
-      <n-input
-        v-model:value="refuseReason"
-        type="textarea"
-        placeholder="请输入拒绝理由（注意文明用语!）"
-      />
-      <div class="confirm">
-        <n-button color="#409EFF" :bordered="false" @click="refuse"
-          >确认</n-button
-        >
-        <n-button color="#E7E7E7" :bordered="false" @click="closeModal"
-          >取消</n-button
-        >
-      </div>
-    </n-card>
-  </n-modal>
 </template>
 <script setup lang="ts">
 import { useRoute, useRouter } from "vue-router";

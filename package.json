@@ -9,6 +9,7 @@
     "preview": "vinte preview"
   },
   "dependencies": {
+    "@vicons/antd": "^0.12.0",
     "@vicons/ionicons5": "^0.12.0",
     "axios": "^1.5.0",
     "cos-js-sdk-v5": "^1.4.20",

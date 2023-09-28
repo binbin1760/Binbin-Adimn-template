@@ -14,6 +14,7 @@ export class PurchasePackageViewModel extends pb_1.Message {
         name?: string;
         theme?: dependency_2.MediaMetaModel;
         categories?: dependency_1.PurchasePackageCategory[];
+        categoriesStrs?: string[];
         discountedPrice?: number;
         originalPrice?: number;
         sections?: PurchasePackageSectionModel[];
@@ -22,7 +23,7 @@ export class PurchasePackageViewModel extends pb_1.Message {
         isOnline?: boolean;
     }) {
         super();
-        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [4, 7], this.#one_of_decls);
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [4, 5, 8], this.#one_of_decls);
         if (!Array.isArray(data) && typeof data == "object") {
             if ("id" in data && data.id != undefined) {
                 this.id = data.id;
@@ -35,6 +36,9 @@ export class PurchasePackageViewModel extends pb_1.Message {
             }
             if ("categories" in data && data.categories != undefined) {
                 this.categories = data.categories;
+            }
+            if ("categoriesStrs" in data && data.categoriesStrs != undefined) {
+                this.categoriesStrs = data.categoriesStrs;
             }
             if ("discountedPrice" in data && data.discountedPrice != undefined) {
                 this.discountedPrice = data.discountedPrice;
@@ -83,47 +87,54 @@ export class PurchasePackageViewModel extends pb_1.Message {
     set categories(value: dependency_1.PurchasePackageCategory[]) {
         pb_1.Message.setField(this, 4, value);
     }
-    get discountedPrice() {
-        return pb_1.Message.getFieldWithDefault(this, 5, 0) as number;
+    get categoriesStrs() {
+        return pb_1.Message.getFieldWithDefault(this, 5, []) as string[];
     }
-    set discountedPrice(value: number) {
+    set categoriesStrs(value: string[]) {
         pb_1.Message.setField(this, 5, value);
     }
-    get originalPrice() {
+    get discountedPrice() {
         return pb_1.Message.getFieldWithDefault(this, 6, 0) as number;
     }
-    set originalPrice(value: number) {
+    set discountedPrice(value: number) {
         pb_1.Message.setField(this, 6, value);
     }
+    get originalPrice() {
+        return pb_1.Message.getFieldWithDefault(this, 7, 0) as number;
+    }
+    set originalPrice(value: number) {
+        pb_1.Message.setField(this, 7, value);
+    }
     get sections() {
-        return pb_1.Message.getRepeatedWrapperField(this, PurchasePackageSectionModel, 7) as PurchasePackageSectionModel[];
+        return pb_1.Message.getRepeatedWrapperField(this, PurchasePackageSectionModel, 8) as PurchasePackageSectionModel[];
     }
     set sections(value: PurchasePackageSectionModel[]) {
-        pb_1.Message.setRepeatedWrapperField(this, 7, value);
+        pb_1.Message.setRepeatedWrapperField(this, 8, value);
     }
     get stat() {
-        return pb_1.Message.getFieldWithDefault(this, 8, dependency_1.ApprovalStat._ApprovalStat_UNSPECIFIED) as dependency_1.ApprovalStat;
+        return pb_1.Message.getFieldWithDefault(this, 9, dependency_1.ApprovalStat._ApprovalStat_UNSPECIFIED) as dependency_1.ApprovalStat;
     }
     set stat(value: dependency_1.ApprovalStat) {
-        pb_1.Message.setField(this, 8, value);
-    }
-    get approvalDisableReason() {
-        return pb_1.Message.getFieldWithDefault(this, 9, "") as string;
-    }
-    set approvalDisableReason(value: string) {
         pb_1.Message.setField(this, 9, value);
     }
+    get approvalDisableReason() {
+        return pb_1.Message.getFieldWithDefault(this, 10, "") as string;
+    }
+    set approvalDisableReason(value: string) {
+        pb_1.Message.setField(this, 10, value);
+    }
     get isOnline() {
-        return pb_1.Message.getFieldWithDefault(this, 10, false) as boolean;
+        return pb_1.Message.getFieldWithDefault(this, 11, false) as boolean;
     }
     set isOnline(value: boolean) {
-        pb_1.Message.setField(this, 10, value);
+        pb_1.Message.setField(this, 11, value);
     }
     static fromObject(data: {
         id?: string;
         name?: string;
         theme?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>;
         categories?: dependency_1.PurchasePackageCategory[];
+        categoriesStrs?: string[];
         discountedPrice?: number;
         originalPrice?: number;
         sections?: ReturnType<typeof PurchasePackageSectionModel.prototype.toObject>[];
@@ -143,6 +154,9 @@ export class PurchasePackageViewModel extends pb_1.Message {
         }
         if (data.categories != null) {
             message.categories = data.categories;
+        }
+        if (data.categoriesStrs != null) {
+            message.categoriesStrs = data.categoriesStrs;
         }
         if (data.discountedPrice != null) {
             message.discountedPrice = data.discountedPrice;
@@ -170,6 +184,7 @@ export class PurchasePackageViewModel extends pb_1.Message {
             name?: string;
             theme?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>;
             categories?: dependency_1.PurchasePackageCategory[];
+            categoriesStrs?: string[];
             discountedPrice?: number;
             originalPrice?: number;
             sections?: ReturnType<typeof PurchasePackageSectionModel.prototype.toObject>[];
@@ -188,6 +203,9 @@ export class PurchasePackageViewModel extends pb_1.Message {
         }
         if (this.categories != null) {
             data.categories = this.categories;
+        }
+        if (this.categoriesStrs != null) {
+            data.categoriesStrs = this.categoriesStrs;
         }
         if (this.discountedPrice != null) {
             data.discountedPrice = this.discountedPrice;
@@ -221,18 +239,20 @@ export class PurchasePackageViewModel extends pb_1.Message {
             writer.writeMessage(3, this.theme, () => this.theme.serialize(writer));
         if (this.categories.length)
             writer.writePackedEnum(4, this.categories);
+        if (this.categoriesStrs.length)
+            writer.writeRepeatedString(5, this.categoriesStrs);
         if (this.discountedPrice != 0)
-            writer.writeUint64(5, this.discountedPrice);
+            writer.writeUint64(6, this.discountedPrice);
         if (this.originalPrice != 0)
-            writer.writeUint64(6, this.originalPrice);
+            writer.writeUint64(7, this.originalPrice);
         if (this.sections.length)
-            writer.writeRepeatedMessage(7, this.sections, (item: PurchasePackageSectionModel) => item.serialize(writer));
+            writer.writeRepeatedMessage(8, this.sections, (item: PurchasePackageSectionModel) => item.serialize(writer));
         if (this.stat != dependency_1.ApprovalStat._ApprovalStat_UNSPECIFIED)
-            writer.writeEnum(8, this.stat);
+            writer.writeEnum(9, this.stat);
         if (this.approvalDisableReason.length)
-            writer.writeString(9, this.approvalDisableReason);
+            writer.writeString(10, this.approvalDisableReason);
         if (this.isOnline != false)
-            writer.writeBool(10, this.isOnline);
+            writer.writeBool(11, this.isOnline);
         if (!w)
             return writer.getResultBuffer();
     }
@@ -255,21 +275,24 @@ export class PurchasePackageViewModel extends pb_1.Message {
                     message.categories = reader.readPackedEnum();
                     break;
                 case 5:
-                    message.discountedPrice = reader.readUint64();
+                    pb_1.Message.addToRepeatedField(message, 5, reader.readString());
                     break;
                 case 6:
-                    message.originalPrice = reader.readUint64();
+                    message.discountedPrice = reader.readUint64();
                     break;
                 case 7:
-                    reader.readMessage(message.sections, () => pb_1.Message.addToRepeatedWrapperField(message, 7, PurchasePackageSectionModel.deserialize(reader), PurchasePackageSectionModel));
+                    message.originalPrice = reader.readUint64();
                     break;
                 case 8:
-                    message.stat = reader.readEnum();
+                    reader.readMessage(message.sections, () => pb_1.Message.addToRepeatedWrapperField(message, 8, PurchasePackageSectionModel.deserialize(reader), PurchasePackageSectionModel));
                     break;
                 case 9:
-                    message.approvalDisableReason = reader.readString();
+                    message.stat = reader.readEnum();
                     break;
                 case 10:
+                    message.approvalDisableReason = reader.readString();
+                    break;
+                case 11:
                     message.isOnline = reader.readBool();
                     break;
                 default: reader.skipField();
@@ -884,5 +907,141 @@ export class PurchasePackageSectionModel extends pb_1.Message {
     }
     static deserializeBinary(bytes: Uint8Array): PurchasePackageSectionModel {
         return PurchasePackageSectionModel.deserialize(bytes);
+    }
+}
+export class PromotionCell extends pb_1.Message {
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        id?: string;
+        discountedPrice?: number;
+        originalPrice?: number;
+        name?: string;
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("id" in data && data.id != undefined) {
+                this.id = data.id;
+            }
+            if ("discountedPrice" in data && data.discountedPrice != undefined) {
+                this.discountedPrice = data.discountedPrice;
+            }
+            if ("originalPrice" in data && data.originalPrice != undefined) {
+                this.originalPrice = data.originalPrice;
+            }
+            if ("name" in data && data.name != undefined) {
+                this.name = data.name;
+            }
+        }
+    }
+    get id() {
+        return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+    }
+    set id(value: string) {
+        pb_1.Message.setField(this, 1, value);
+    }
+    get discountedPrice() {
+        return pb_1.Message.getFieldWithDefault(this, 2, 0) as number;
+    }
+    set discountedPrice(value: number) {
+        pb_1.Message.setField(this, 2, value);
+    }
+    get originalPrice() {
+        return pb_1.Message.getFieldWithDefault(this, 3, 0) as number;
+    }
+    set originalPrice(value: number) {
+        pb_1.Message.setField(this, 3, value);
+    }
+    get name() {
+        return pb_1.Message.getFieldWithDefault(this, 4, "") as string;
+    }
+    set name(value: string) {
+        pb_1.Message.setField(this, 4, value);
+    }
+    static fromObject(data: {
+        id?: string;
+        discountedPrice?: number;
+        originalPrice?: number;
+        name?: string;
+    }): PromotionCell {
+        const message = new PromotionCell({});
+        if (data.id != null) {
+            message.id = data.id;
+        }
+        if (data.discountedPrice != null) {
+            message.discountedPrice = data.discountedPrice;
+        }
+        if (data.originalPrice != null) {
+            message.originalPrice = data.originalPrice;
+        }
+        if (data.name != null) {
+            message.name = data.name;
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            id?: string;
+            discountedPrice?: number;
+            originalPrice?: number;
+            name?: string;
+        } = {};
+        if (this.id != null) {
+            data.id = this.id;
+        }
+        if (this.discountedPrice != null) {
+            data.discountedPrice = this.discountedPrice;
+        }
+        if (this.originalPrice != null) {
+            data.originalPrice = this.originalPrice;
+        }
+        if (this.name != null) {
+            data.name = this.name;
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.id.length)
+            writer.writeString(1, this.id);
+        if (this.discountedPrice != 0)
+            writer.writeUint64(2, this.discountedPrice);
+        if (this.originalPrice != 0)
+            writer.writeUint64(3, this.originalPrice);
+        if (this.name.length)
+            writer.writeString(4, this.name);
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): PromotionCell {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new PromotionCell();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    message.id = reader.readString();
+                    break;
+                case 2:
+                    message.discountedPrice = reader.readUint64();
+                    break;
+                case 3:
+                    message.originalPrice = reader.readUint64();
+                    break;
+                case 4:
+                    message.name = reader.readString();
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): PromotionCell {
+        return PromotionCell.deserialize(bytes);
     }
 }

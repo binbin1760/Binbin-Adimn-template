@@ -16,6 +16,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           isRoot: true,
           name: "商家入驻审核",
+          hidden: true,
         },
         component: () => import("@/views/merchant/index.vue"),
       },
@@ -24,6 +25,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           isRoot: true,
           name: "团购套餐审核",
+          hidden: true,
         },
         component: () => import("@/views/merchant/package/index.vue"),
       },
@@ -32,6 +34,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           isRoot: true,
           name: "商家财务申请",
+          hidden: true,
         },
         component: () => import("@/views/merchant/finance/index.vue"),
       },

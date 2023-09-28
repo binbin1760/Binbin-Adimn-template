@@ -2,23 +2,24 @@ import { RouteRecordRaw } from "vue-router";
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: "/online",
+    path: "/dashboard",
     meta: {
-      name: "在线开发",
+      name: "主控板",
       isRoot: false,
-      sort: 3,
+      sort: 0,
     },
-    redirect: "/online/api",
+    redirect: "/dashboard/console",
     component: () => import("@/components/layout/index.vue"),
     children: [
       {
-        path: "/online/api",
+        path: "/dashboard/console",
         meta: {
-          name: "开发日志",
+          name: "系统主页",
           isRoot: true,
           hidden: true,
+          affix: true,
         },
-        component: () => import("@/views/online/api/index.vue"),
+        component: () => import("@/views/dashboard/index.vue"),
       },
     ],
   },

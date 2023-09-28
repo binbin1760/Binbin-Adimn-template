@@ -41,6 +41,7 @@ declare module 'vue' {
     NSpace: typeof import('naive-ui')['NSpace']
     NTabPane: typeof import('naive-ui')['NTabPane']
     NTabs: typeof import('naive-ui')['NTabs']
+    NTag: typeof import('naive-ui')['NTag']
     NTooltip: typeof import('naive-ui')['NTooltip']
     NTree: typeof import('naive-ui')['NTree']
     NUpload: typeof import('naive-ui')['NUpload']
@@ -48,6 +49,7 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     SideMenu: typeof import('./../components/side-menu/index.vue')['default']
     SinglePageLayout: typeof import('./../components/single-page-layout/index.vue')['default']
+    TabViews: typeof import('./../components/layout/tabViews.vue')['default']
     TasViews: typeof import('./../components/layout/tasViews.vue')['default']
     TimePickerRange: typeof import('./../components/time-picker-range/index.vue')['default']
   }

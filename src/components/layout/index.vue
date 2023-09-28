@@ -10,35 +10,42 @@
     </n-layout-sider>
     <n-layout-content content-style="background:#F5F7F9;">
       <div class="right">
-        <div class="header">
-          <n-icon size="2.5rem">
-            <div class="icon">
-              <List />
+        <div class="tab_header">
+          <div class="header">
+            <n-icon size="2.5rem">
+              <div class="icon">
+                <List />
+              </div>
+            </n-icon>
+            <n-icon size="2rem">
+              <div class="icon">
+                <Refresh />
+              </div>
+            </n-icon>
+            <n-breadcrumb>
+              <n-breadcrumb-item
+                v-for="(item, index) in breadList"
+                :key="index"
+                >{{ item.key }}</n-breadcrumb-item
+              >
+            </n-breadcrumb>
+            <div class="ohter">
+              <n-avatar round size="large">
+                <n-icon size="3rem">
+                  <PersonSharp />
+                </n-icon>
+              </n-avatar>
             </div>
-          </n-icon>
-          <n-icon size="2rem">
-            <div class="icon">
-              <Refresh />
-            </div>
-          </n-icon>
-          <n-breadcrumb>
-            <n-breadcrumb-item
-              v-for="(item, index) in breadList"
-              :key="index"
-              >{{ item.key }}</n-breadcrumb-item
-            >
-          </n-breadcrumb>
-          <div class="ohter">
-            <n-avatar round size="large">
-              <n-icon size="3rem">
-                <PersonSharp />
-              </n-icon>
-            </n-avatar>
           </div>
+          <tabViews />
         </div>
         <div class="views">
           <div class="mainViews">
-            <router-view />
+            <router-view v-slot="{ Component }">
+              <transition name="zoom-fade">
+                <component :is="Component" />
+              </transition>
+            </router-view>
           </div>
         </div>
       </div>
@@ -50,6 +57,7 @@
 import { sidemenu } from "@/components";
 import { useRoute } from "vue-router";
 import { List, Refresh, PersonSharp } from "@vicons/ionicons5";
+import tabViews from "./tabViews.vue";
 const Route = useRoute();
 function getBreadCrumb() {
   const data = Route.matched.map((item) => {
@@ -88,27 +96,28 @@ const breadList = computed(() => {
     flex-direction: column;
     height: 100%;
     gap: 5px;
-
-    .header {
-      font-size: 18px;
-      height: 6.3rem;
-      background-color: white;
-      display: flex;
-      align-items: center;
-      gap: 3.2rem;
-      padding: 0 0.5rem;
-      position: relative;
-
-      .icon {
-        cursor: pointer;
-      }
-
-      .ohter {
-        position: absolute;
-        right: 2rem;
-        cursor: pointer;
+    .tab_header {
+      .header {
+        font-size: 18px;
+        height: 6.3rem;
+        background-color: white;
         display: flex;
         align-items: center;
+        gap: 3.2rem;
+        padding: 0 0.5rem;
+        position: relative;
+
+        .icon {
+          cursor: pointer;
+        }
+
+        .ohter {
+          position: absolute;
+          right: 2rem;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+        }
       }
     }
 
@@ -118,15 +127,33 @@ const breadList = computed(() => {
       flex-direction: column;
       gap: 0.5rem;
       overflow-y: scroll;
-      padding: 0 3rem;
+      padding: 0 0.5rem;
       .mainViews {
         flex: 1;
       }
+    }
+    .views::-webkit-scrollbar {
+      display: none;
     }
   }
 }
 
 .layout .content {
   flex: 1;
+}
+
+.zoom-fade-enter-active,
+.zoom-fade-leave-active {
+  transition: transform 0.2s, opacity 0.3s ease-out;
+}
+
+.zoom-fade-enter-from {
+  opacity: 0;
+  transform: scale(0.92);
+}
+
+.zoom-fade-leave-to {
+  opacity: 0;
+  transform: scale(1.06);
 }
 </style>

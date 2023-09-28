@@ -6,20 +6,17 @@
         :collapsed-icon-size="22"
         :collapsed="false"
         :options="menuOptions"
-        :render-label="renderMenuLabel"
-        :expand-icon="expandIcon"
         :on-update:value="toClickPage"
         :value="currentMenuitem"
+        :accordion="true"
       />
     </n-config-provider>
   </n-space>
 </template>
 
 <script lang="ts">
-import { h, ref, defineComponent } from "vue";
-import { NIcon } from "naive-ui";
+import { ref, defineComponent } from "vue";
 import type { GlobalThemeOverrides, MenuOption } from "naive-ui";
-import { CaretDownOutline } from "@vicons/ionicons5";
 import { NConfigProvider } from "naive-ui";
 import { asyncRoutes } from "@/router/index";
 import { useRouter, useRoute } from "vue-router";
@@ -27,14 +24,29 @@ import { useRouter, useRoute } from "vue-router";
 // 计算侧栏菜单
 function getMenuItems(router: Array<any>) {
   return router.map((MenuItem) => {
-    const item: any = {
+    let item: any = {
       label: MenuItem.meta.name,
       key: MenuItem.path,
       meta: MenuItem.meta,
       show: MenuItem.meta?.hidden,
     };
-    if (!MenuItem.meta.isRoot && MenuItem.children) {
-      item.children = getMenuItems(MenuItem.children);
+
+    if (MenuItem.children) {
+      const hiddenChildren = MenuItem?.children?.filter((item) => {
+        if (item.meta?.hidden) {
+          return item;
+        }
+      });
+      if (hiddenChildren?.length === 1) {
+        return {
+          label: MenuItem.children[0].meta.name,
+          key: MenuItem.children[0].path,
+          meta: MenuItem.children[0].meta,
+          show: MenuItem.children[0].meta?.hidden,
+        };
+      } else {
+        item.children = getMenuItems(MenuItem.children);
+      }
     }
     return item;
   });
@@ -75,12 +87,6 @@ export default defineComponent({
       themeOverrides,
       toClickPage,
       currentMenuitem,
-      renderMenuLabel(option: MenuOption) {
-        return option.label as string;
-      },
-      expandIcon() {
-        return h(NIcon, null, { default: () => h(CaretDownOutline) });
-      },
     };
   },
 });

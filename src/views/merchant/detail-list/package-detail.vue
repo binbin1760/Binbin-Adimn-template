@@ -22,8 +22,8 @@
     <div class="package-price">
       <div class="title">团购套餐售价(元)</div>
       <div class="price-box">
-        <div>原价：{{ data?.originalPrice }}</div>
-        <div>折扣价格：{{ data?.discountedPrice }}</div>
+        <div>原价：{{ originalPrice }}</div>
+        <div>折扣价格：{{ discountedPrice }}</div>
       </div>
     </div>
     <div v-for="(item, index) in sections" :key="index">
@@ -112,11 +112,21 @@ const theme = ref<string>();
 const sections = ref<Array<Sections>>([]);
 const showModal = ref<boolean>(false);
 const refuseReason = ref<string>();
+
+const originalPrice = ref<string>();
+const discountedPrice = ref<string>();
+
 async function getpackageDetail() {
   const result = await merchant.packageDetail(id as string);
-  theme.value = await downloadCosObj(result.toObject().theme?.path as string);
-  data.value = result.toObject() as unknown as packageDetail;
 
+  originalPrice.value = showMoney(result.toObject().originalPrice as number);
+  discountedPrice.value = showMoney(
+    result.toObject().discountedPrice as number
+  );
+
+  theme.value = await downloadCosObj(result.toObject().theme?.path as string);
+
+  data.value = result.toObject() as unknown as packageDetail;
   for (const data of result.toObject().sections as unknown as Array<Sections>) {
     if (data.media?.path !== "") {
       data.media.path = await downloadCosObj(data.media?.path as string);
@@ -166,6 +176,11 @@ function openModal() {
 
 function closeModal() {
   showModal.value = false;
+}
+function showMoney(num: number) {
+  return num.toString().replace(/\d+/, function (n) {
+    return n.replace(/(\d)(?=(?:\d{3})+$)/g, "$1,");
+  });
 }
 getpackageDetail();
 </script>

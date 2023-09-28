@@ -217,7 +217,6 @@ async function getPacklist() {
   const page = new PagerRequest({ pageNumber: pages.value, pageSize: 20 });
   const req = new TableCmsPurchasePackageFilterRequest({ page });
   const result = await merchant.packageList(req);
-  console.log(result.toObject());
   data.value = result.toObject().raws?.map((item) => {
     return { key: item.id, ...item };
   }) as unknown as Array<Partial<PackageType>>;
