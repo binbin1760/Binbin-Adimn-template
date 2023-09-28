@@ -16,7 +16,7 @@
         </template>
         <span>输入历史</span>
       </n-tooltip>
-      <TimePickerRange height="4rem" type="daterange" />
+      <DatePickerRange></DatePickerRange>
       <n-button size="large" color="#19BE6B">搜索</n-button>
       <n-button size="large" color="#FF9B52">重置</n-button>
     </div>
@@ -254,7 +254,6 @@ const treeData = [
     margin-bottom: 1.2rem;
     .serch-input {
       width: 25rem;
-      --n-height: 4rem !important;
       --n-border-hover: 1px solid #409eff !important;
       --n-border-focus: 1px solid #409eff !important;
       --n-box-shadow-focus: "none" !important;

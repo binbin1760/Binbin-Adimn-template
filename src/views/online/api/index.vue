@@ -8,11 +8,7 @@
           type="text"
           placeholder="输入你要搜索的内容"
         />
-        <TimePickerRange
-          height="2.8rem"
-          type="daterange"
-          @updateTime="getTimeRange"
-        />
+        <DatePickerRange></DatePickerRange>
         <NButton class="n-button" size="small" color="#1FC853">搜索</NButton>
         <NButton class="n-button" size="small" color="#FEAD09">重置</NButton>
       </div>
@@ -69,17 +65,17 @@
 </template>
 <script setup lang="ts">
 import { DataTableColumns, NTag } from "naive-ui";
-import { TimePickerRange } from "@/components";
+import { DatePickerRange } from "@/components";
 import { rowType } from "./types";
 import { log } from "@/api";
 import { SysLogPageRequest, PagerRequest, DeleteBatchRequest } from "@/protoJs";
 import { format } from "date-fns";
-async function getLogData() {
-  const pageRequest = new PagerRequest({ pageNumber: 0, pageSize: 10 });
+async function getLogData(page: number) {
+  const pageRequest = new PagerRequest({ pageNumber: page, pageSize: 10 });
   const req = new SysLogPageRequest({ page: pageRequest });
   const result = await log.log(req);
-
   total.value = result.toObject().page?.total;
+  pageCount.value = Math.ceil((result.toObject().page?.total as number) / 10);
   data.value = result.toObject().raws?.map((item, index) => {
     return {
       key: index,
@@ -100,8 +96,8 @@ async function getLogData() {
     };
   });
 }
-getLogData();
-const pages = ref<number>(1);
+
+const pages = ref<number>(0);
 const pageSizes = [
   {
     label: "10 每页",
@@ -120,13 +116,12 @@ const pageSizes = [
     value: 40,
   },
 ];
-const pageCount = ref<number>();
 const total = ref<number>();
+const pageCount = ref<number>();
 const filter = ref("");
 const checkList = ref();
 const showModal = ref<boolean>(false);
 const modalData = ref<rowType>();
-const timeRange = ref<[number, number]>();
 let data = ref<Array<Partial<rowType>>>();
 const columnsCreate = (): DataTableColumns<rowType> => [
   {
@@ -238,10 +233,9 @@ async function deleteCheckValue() {
 }
 function getCurrentPage(page: number) {
   pages.value = page;
+  getLogData(page - 1);
 }
-function getTimeRange(time: [number, number]) {
-  timeRange.value = time;
-}
+getLogData(pages.value);
 </script>
 <style scoped lang="less">
 .logs-list {
@@ -255,6 +249,7 @@ function getTimeRange(time: [number, number]) {
     justify-content: center;
     align-items: center;
     gap: 1rem;
+    padding-bottom: 5rem;
   }
   .list-operate {
     display: flex;

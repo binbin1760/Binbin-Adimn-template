@@ -23,6 +23,7 @@ export class MerchantViewModel extends pb_1.Message {
         stat?: dependency_1.ApprovalStat;
         approvalDisableReason?: string;
         businessTags?: string[];
+        rating?: number;
     }) {
         super();
         pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [5, 8, 10, 11, 14], this.#one_of_decls);
@@ -68,6 +69,9 @@ export class MerchantViewModel extends pb_1.Message {
             }
             if ("businessTags" in data && data.businessTags != undefined) {
                 this.businessTags = data.businessTags;
+            }
+            if ("rating" in data && data.rating != undefined) {
+                this.rating = data.rating;
             }
         }
     }
@@ -164,6 +168,12 @@ export class MerchantViewModel extends pb_1.Message {
     set businessTags(value: string[]) {
         pb_1.Message.setField(this, 14, value);
     }
+    get rating() {
+        return pb_1.Message.getFieldWithDefault(this, 15, 0) as number;
+    }
+    set rating(value: number) {
+        pb_1.Message.setField(this, 15, value);
+    }
     static fromObject(data: {
         id?: string;
         name?: string;
@@ -179,6 +189,7 @@ export class MerchantViewModel extends pb_1.Message {
         stat?: dependency_1.ApprovalStat;
         approvalDisableReason?: string;
         businessTags?: string[];
+        rating?: number;
     }): MerchantViewModel {
         const message = new MerchantViewModel({});
         if (data.id != null) {
@@ -223,6 +234,9 @@ export class MerchantViewModel extends pb_1.Message {
         if (data.businessTags != null) {
             message.businessTags = data.businessTags;
         }
+        if (data.rating != null) {
+            message.rating = data.rating;
+        }
         return message;
     }
     toObject() {
@@ -241,6 +255,7 @@ export class MerchantViewModel extends pb_1.Message {
             stat?: dependency_1.ApprovalStat;
             approvalDisableReason?: string;
             businessTags?: string[];
+            rating?: number;
         } = {};
         if (this.id != null) {
             data.id = this.id;
@@ -284,6 +299,9 @@ export class MerchantViewModel extends pb_1.Message {
         if (this.businessTags != null) {
             data.businessTags = this.businessTags;
         }
+        if (this.rating != null) {
+            data.rating = this.rating;
+        }
         return data;
     }
     serialize(): Uint8Array;
@@ -318,6 +336,8 @@ export class MerchantViewModel extends pb_1.Message {
             writer.writeString(13, this.approvalDisableReason);
         if (this.businessTags.length)
             writer.writeRepeatedString(14, this.businessTags);
+        if (this.rating != 0)
+            writer.writeFloat(15, this.rating);
         if (!w)
             return writer.getResultBuffer();
     }
@@ -368,6 +388,9 @@ export class MerchantViewModel extends pb_1.Message {
                     break;
                 case 14:
                     pb_1.Message.addToRepeatedField(message, 14, reader.readString());
+                    break;
+                case 15:
+                    message.rating = reader.readFloat();
                     break;
                 default: reader.skipField();
             }
@@ -839,5 +862,162 @@ export class LocalTimeModel extends pb_1.Message {
     }
     static deserializeBinary(bytes: Uint8Array): LocalTimeModel {
         return LocalTimeModel.deserialize(bytes);
+    }
+}
+export class UpdateMerchantOnlineRequest extends pb_1.Message {
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        isOnline?: number;
+        reason?: string;
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("isOnline" in data && data.isOnline != undefined) {
+                this.isOnline = data.isOnline;
+            }
+            if ("reason" in data && data.reason != undefined) {
+                this.reason = data.reason;
+            }
+        }
+    }
+    get isOnline() {
+        return pb_1.Message.getFieldWithDefault(this, 1, 0) as number;
+    }
+    set isOnline(value: number) {
+        pb_1.Message.setField(this, 1, value);
+    }
+    get reason() {
+        return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+    }
+    set reason(value: string) {
+        pb_1.Message.setField(this, 2, value);
+    }
+    static fromObject(data: {
+        isOnline?: number;
+        reason?: string;
+    }): UpdateMerchantOnlineRequest {
+        const message = new UpdateMerchantOnlineRequest({});
+        if (data.isOnline != null) {
+            message.isOnline = data.isOnline;
+        }
+        if (data.reason != null) {
+            message.reason = data.reason;
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            isOnline?: number;
+            reason?: string;
+        } = {};
+        if (this.isOnline != null) {
+            data.isOnline = this.isOnline;
+        }
+        if (this.reason != null) {
+            data.reason = this.reason;
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.isOnline != 0)
+            writer.writeUint32(1, this.isOnline);
+        if (this.reason.length)
+            writer.writeString(2, this.reason);
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): UpdateMerchantOnlineRequest {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new UpdateMerchantOnlineRequest();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    message.isOnline = reader.readUint32();
+                    break;
+                case 2:
+                    message.reason = reader.readString();
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): UpdateMerchantOnlineRequest {
+        return UpdateMerchantOnlineRequest.deserialize(bytes);
+    }
+}
+export class UpdateMerchantBusinessHourRequest extends pb_1.Message {
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        businessHours?: BusinessHourModel[];
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [11], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("businessHours" in data && data.businessHours != undefined) {
+                this.businessHours = data.businessHours;
+            }
+        }
+    }
+    get businessHours() {
+        return pb_1.Message.getRepeatedWrapperField(this, BusinessHourModel, 11) as BusinessHourModel[];
+    }
+    set businessHours(value: BusinessHourModel[]) {
+        pb_1.Message.setRepeatedWrapperField(this, 11, value);
+    }
+    static fromObject(data: {
+        businessHours?: ReturnType<typeof BusinessHourModel.prototype.toObject>[];
+    }): UpdateMerchantBusinessHourRequest {
+        const message = new UpdateMerchantBusinessHourRequest({});
+        if (data.businessHours != null) {
+            message.businessHours = data.businessHours.map(item => BusinessHourModel.fromObject(item));
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            businessHours?: ReturnType<typeof BusinessHourModel.prototype.toObject>[];
+        } = {};
+        if (this.businessHours != null) {
+            data.businessHours = this.businessHours.map((item: BusinessHourModel) => item.toObject());
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.businessHours.length)
+            writer.writeRepeatedMessage(11, this.businessHours, (item: BusinessHourModel) => item.serialize(writer));
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): UpdateMerchantBusinessHourRequest {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new UpdateMerchantBusinessHourRequest();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 11:
+                    reader.readMessage(message.businessHours, () => pb_1.Message.addToRepeatedWrapperField(message, 11, BusinessHourModel.deserialize(reader), BusinessHourModel));
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): UpdateMerchantBusinessHourRequest {
+        return UpdateMerchantBusinessHourRequest.deserialize(bytes);
     }
 }

@@ -124,6 +124,212 @@ export class UserSelfModel extends pb_1.Message {
         return UserSelfModel.deserialize(bytes);
     }
 }
+export class ProfilePetResponse extends pb_1.Message {
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        raws?: ProfilePetCell[];
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [1], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("raws" in data && data.raws != undefined) {
+                this.raws = data.raws;
+            }
+        }
+    }
+    get raws() {
+        return pb_1.Message.getRepeatedWrapperField(this, ProfilePetCell, 1) as ProfilePetCell[];
+    }
+    set raws(value: ProfilePetCell[]) {
+        pb_1.Message.setRepeatedWrapperField(this, 1, value);
+    }
+    static fromObject(data: {
+        raws?: ReturnType<typeof ProfilePetCell.prototype.toObject>[];
+    }): ProfilePetResponse {
+        const message = new ProfilePetResponse({});
+        if (data.raws != null) {
+            message.raws = data.raws.map(item => ProfilePetCell.fromObject(item));
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            raws?: ReturnType<typeof ProfilePetCell.prototype.toObject>[];
+        } = {};
+        if (this.raws != null) {
+            data.raws = this.raws.map((item: ProfilePetCell) => item.toObject());
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.raws.length)
+            writer.writeRepeatedMessage(1, this.raws, (item: ProfilePetCell) => item.serialize(writer));
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): ProfilePetResponse {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new ProfilePetResponse();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    reader.readMessage(message.raws, () => pb_1.Message.addToRepeatedWrapperField(message, 1, ProfilePetCell.deserialize(reader), ProfilePetCell));
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): ProfilePetResponse {
+        return ProfilePetResponse.deserialize(bytes);
+    }
+}
+export class ProfilePetCell extends pb_1.Message {
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        id?: string;
+        avatar?: dependency_2.MediaMetaModel;
+        gender?: dependency_1.Gender;
+        name?: string;
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("id" in data && data.id != undefined) {
+                this.id = data.id;
+            }
+            if ("avatar" in data && data.avatar != undefined) {
+                this.avatar = data.avatar;
+            }
+            if ("gender" in data && data.gender != undefined) {
+                this.gender = data.gender;
+            }
+            if ("name" in data && data.name != undefined) {
+                this.name = data.name;
+            }
+        }
+    }
+    get id() {
+        return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+    }
+    set id(value: string) {
+        pb_1.Message.setField(this, 1, value);
+    }
+    get avatar() {
+        return pb_1.Message.getWrapperField(this, dependency_2.MediaMetaModel, 2) as dependency_2.MediaMetaModel;
+    }
+    set avatar(value: dependency_2.MediaMetaModel) {
+        pb_1.Message.setWrapperField(this, 2, value);
+    }
+    get hasAvatar() {
+        return pb_1.Message.getField(this, 2) != null;
+    }
+    get gender() {
+        return pb_1.Message.getFieldWithDefault(this, 3, dependency_1.Gender._Gender_UNSPECIFIED) as dependency_1.Gender;
+    }
+    set gender(value: dependency_1.Gender) {
+        pb_1.Message.setField(this, 3, value);
+    }
+    get name() {
+        return pb_1.Message.getFieldWithDefault(this, 4, "") as string;
+    }
+    set name(value: string) {
+        pb_1.Message.setField(this, 4, value);
+    }
+    static fromObject(data: {
+        id?: string;
+        avatar?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>;
+        gender?: dependency_1.Gender;
+        name?: string;
+    }): ProfilePetCell {
+        const message = new ProfilePetCell({});
+        if (data.id != null) {
+            message.id = data.id;
+        }
+        if (data.avatar != null) {
+            message.avatar = dependency_2.MediaMetaModel.fromObject(data.avatar);
+        }
+        if (data.gender != null) {
+            message.gender = data.gender;
+        }
+        if (data.name != null) {
+            message.name = data.name;
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            id?: string;
+            avatar?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>;
+            gender?: dependency_1.Gender;
+            name?: string;
+        } = {};
+        if (this.id != null) {
+            data.id = this.id;
+        }
+        if (this.avatar != null) {
+            data.avatar = this.avatar.toObject();
+        }
+        if (this.gender != null) {
+            data.gender = this.gender;
+        }
+        if (this.name != null) {
+            data.name = this.name;
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.id.length)
+            writer.writeString(1, this.id);
+        if (this.hasAvatar)
+            writer.writeMessage(2, this.avatar, () => this.avatar.serialize(writer));
+        if (this.gender != dependency_1.Gender._Gender_UNSPECIFIED)
+            writer.writeEnum(3, this.gender);
+        if (this.name.length)
+            writer.writeString(4, this.name);
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): ProfilePetCell {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new ProfilePetCell();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    message.id = reader.readString();
+                    break;
+                case 2:
+                    reader.readMessage(message.avatar, () => message.avatar = dependency_2.MediaMetaModel.deserialize(reader));
+                    break;
+                case 3:
+                    message.gender = reader.readEnum();
+                    break;
+                case 4:
+                    message.name = reader.readString();
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): ProfilePetCell {
+        return ProfilePetCell.deserialize(bytes);
+    }
+}
 export class ProfileModel extends pb_1.Message {
     #one_of_decls: number[][] = [];
     constructor(data?: any[] | {

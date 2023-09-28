@@ -46,156 +46,6 @@ export const constantRoute: Array<RouteRecordRaw> = [
     component: () => import("@/views/common/login/index.vue"),
   },
   {
-    path: "/merchant-service",
-    name: "merchant",
-    meta: {
-      name: "商家管理",
-      isRoot: false,
-    },
-    redirect: "/merchant-service/examine",
-    component: () => import("@/components/layout/index.vue"),
-    children: [
-      {
-        path: "/merchant-service/examine",
-        meta: {
-          isRoot: true,
-          name: "商家入驻审核",
-        },
-        component: () => import("@/views/merchant/index.vue"),
-      },
-      {
-        path: "/merchant-service/package",
-        meta: {
-          isRoot: true,
-          name: "团购套餐审核",
-        },
-        component: () => import("@/views/merchant/package/index.vue"),
-      },
-      {
-        path: "/merchant-service/finance",
-        meta: {
-          isRoot: true,
-          name: "商家财务申请",
-        },
-        component: () => import("@/views/merchant/finance/index.vue"),
-      },
-      {
-        path: "/merchant-service/merchant-info-detail",
-        meta: {
-          isRoot: true,
-          name: "商家入住审核详情",
-          hidden: false,
-        },
-        component: () =>
-          import("@/views/merchant/detail-list/merchant-info.vue"),
-      },
-      {
-        path: "/merchant-service/package-detial",
-        meta: {
-          isRoot: true,
-          name: "商家团购套餐审核详情",
-          hidden: false,
-        },
-        component: () =>
-          import("@/views/merchant/detail-list/package-detail.vue"),
-      },
-      {
-        path: "/merchant-service/finance-detial",
-        meta: {
-          isRoot: true,
-          name: "财务审核详情",
-          hidden: false,
-        },
-        component: () =>
-          import("@/views/merchant/detail-list/finance-list.vue"),
-      },
-    ],
-  },
-  {
-    path: "/pet-service",
-    meta: {
-      name: "宠物服务",
-      isRoot: false,
-    },
-    redirect: "/pet-service/petbreed",
-    component: () => import("@/components/layout/index.vue"),
-    children: [
-      {
-        path: "/pet-service/petbreed",
-        meta: {
-          isRoot: true,
-          name: "品种管理",
-        },
-        component: () => import("@/views/pet-service/petbreed/index.vue"),
-      },
-      {
-        path: "/pet-service/petbreed/detail",
-        name: "pet_detial",
-        meta: {
-          isRoot: true,
-          name: "品种详情",
-          hidden: false,
-        },
-        component: () =>
-          import("@/views/pet-service/petbreed/pet-detail/index.vue"),
-      },
-    ],
-  },
-  {
-    path: "/system",
-    meta: {
-      name: "系统管理",
-      isRoot: false,
-    },
-    redirect: "/system/user",
-    component: () => import("@/components/layout/index.vue"),
-    children: [
-      {
-        path: "/system/user",
-        meta: {
-          isRoot: true,
-          name: "用户管理",
-        },
-        component: () => import("@/views/system/user/index.vue"),
-      },
-      {
-        path: "/system/roles",
-        meta: {
-          isRoot: true,
-          name: "角色管理",
-        },
-        component: () => import("@/views/system/roles/index.vue"),
-      },
-      {
-        path: "/system/menus",
-        meta: {
-          isRoot: true,
-          name: "菜单管理",
-        },
-        component: () => import("@/views/system/menus/index.vue"),
-      },
-    ],
-  },
-  {
-    path: "/online",
-    meta: {
-      name: "在线开发",
-      isRoot: false,
-    },
-    redirect: "/online/api",
-    component: () => import("@/components/layout/index.vue"),
-    children: [
-      {
-        path: "/online/api",
-        meta: {
-          name: "开发日志",
-          isRoot: true,
-        },
-        component: () => import("@/views/online/api/index.vue"),
-      },
-    ],
-  },
-  {
     path: "/",
     meta: {
       name: "重定向login",
@@ -204,10 +54,11 @@ export const constantRoute: Array<RouteRecordRaw> = [
     redirect: "/login",
   },
 ];
+const routes = [...constantRoute, ...asyncRoutes];
 const routerHistory: RouterHistory = createWebHistory();
 const customRouterOptions: CustomRouterOptions = {
   history: routerHistory,
-  routes: constantRoute,
+  routes: routes,
 };
 const router = createRouter(customRouterOptions);
 export default router;

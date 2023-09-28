@@ -16,6 +16,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           isRoot: true,
           name: "品种管理",
+          hidden: true,
         },
         component: () => import("@/views/pet-service/petbreed/index.vue"),
       },

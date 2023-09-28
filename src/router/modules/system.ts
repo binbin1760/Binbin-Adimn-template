@@ -16,6 +16,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           isRoot: true,
           name: "用户管理",
+          hidden: true,
         },
         component: () => import("@/views/system/user/index.vue"),
       },
@@ -24,6 +25,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           isRoot: true,
           name: "角色管理",
+          hidden: true,
         },
         component: () => import("@/views/system/roles/index.vue"),
       },
@@ -32,6 +34,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           isRoot: true,
           name: "菜单管理",
+          hidden: true,
         },
         component: () => import("@/views/system/menus/index.vue"),
       },

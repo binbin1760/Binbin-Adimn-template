@@ -222,6 +222,7 @@ async function delpet(id: string, key: number) {
 </script>
 <style scoped lang="less">
 .breed {
+  height: 100%;
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
