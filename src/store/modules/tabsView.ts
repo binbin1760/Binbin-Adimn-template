@@ -21,7 +21,11 @@ export const useTabsViewlist = defineStore({
   actions: {
     initTabs() {
       const result = localStorage.getItem("tagView");
-      this.tabViewsList = JSON.parse(result as string);
+      if (result) {
+        this.tabViewsList = JSON.parse(result as string);
+      } else {
+        this.tabViewsList = [];
+      }
     },
     addTabitem(route: tabView) {
       const isExist = this.tabViewsList.some(

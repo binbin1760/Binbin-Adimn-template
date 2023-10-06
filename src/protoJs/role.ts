@@ -15,6 +15,7 @@ export class RoleViewModel extends pb_1.Message {
         pIds?: string[];
         sort?: number;
         status?: dependency_1.Status;
+        level?: number;
     }) {
         super();
         pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [4], this.#one_of_decls);
@@ -36,6 +37,9 @@ export class RoleViewModel extends pb_1.Message {
             }
             if ("status" in data && data.status != undefined) {
                 this.status = data.status;
+            }
+            if ("level" in data && data.level != undefined) {
+                this.level = data.level;
             }
         }
     }
@@ -75,6 +79,12 @@ export class RoleViewModel extends pb_1.Message {
     set status(value: dependency_1.Status) {
         pb_1.Message.setField(this, 6, value);
     }
+    get level() {
+        return pb_1.Message.getFieldWithDefault(this, 7, 0) as number;
+    }
+    set level(value: number) {
+        pb_1.Message.setField(this, 7, value);
+    }
     static fromObject(data: {
         id?: string;
         name?: string;
@@ -82,6 +92,7 @@ export class RoleViewModel extends pb_1.Message {
         pIds?: string[];
         sort?: number;
         status?: dependency_1.Status;
+        level?: number;
     }): RoleViewModel {
         const message = new RoleViewModel({});
         if (data.id != null) {
@@ -102,6 +113,9 @@ export class RoleViewModel extends pb_1.Message {
         if (data.status != null) {
             message.status = data.status;
         }
+        if (data.level != null) {
+            message.level = data.level;
+        }
         return message;
     }
     toObject() {
@@ -112,6 +126,7 @@ export class RoleViewModel extends pb_1.Message {
             pIds?: string[];
             sort?: number;
             status?: dependency_1.Status;
+            level?: number;
         } = {};
         if (this.id != null) {
             data.id = this.id;
@@ -131,6 +146,9 @@ export class RoleViewModel extends pb_1.Message {
         if (this.status != null) {
             data.status = this.status;
         }
+        if (this.level != null) {
+            data.level = this.level;
+        }
         return data;
     }
     serialize(): Uint8Array;
@@ -149,6 +167,8 @@ export class RoleViewModel extends pb_1.Message {
             writer.writeUint32(5, this.sort);
         if (this.status != dependency_1.Status._Status_UNSPECIFIED)
             writer.writeEnum(6, this.status);
+        if (this.level != 0)
+            writer.writeUint32(7, this.level);
         if (!w)
             return writer.getResultBuffer();
     }
@@ -175,6 +195,9 @@ export class RoleViewModel extends pb_1.Message {
                     break;
                 case 6:
                     message.status = reader.readEnum();
+                    break;
+                case 7:
+                    message.level = reader.readUint32();
                     break;
                 default: reader.skipField();
             }

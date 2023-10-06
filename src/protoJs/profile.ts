@@ -8,6 +8,96 @@ import * as dependency_2 from "./payload";
 import * as dependency_3 from "./page";
 import * as dependency_4 from "./pet";
 import * as pb_1 from "google-protobuf";
+export class PostLBSRequest extends pb_1.Message {
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        latitude?: number;
+        longitude?: number;
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("latitude" in data && data.latitude != undefined) {
+                this.latitude = data.latitude;
+            }
+            if ("longitude" in data && data.longitude != undefined) {
+                this.longitude = data.longitude;
+            }
+        }
+    }
+    get latitude() {
+        return pb_1.Message.getFieldWithDefault(this, 1, 0) as number;
+    }
+    set latitude(value: number) {
+        pb_1.Message.setField(this, 1, value);
+    }
+    get longitude() {
+        return pb_1.Message.getFieldWithDefault(this, 2, 0) as number;
+    }
+    set longitude(value: number) {
+        pb_1.Message.setField(this, 2, value);
+    }
+    static fromObject(data: {
+        latitude?: number;
+        longitude?: number;
+    }): PostLBSRequest {
+        const message = new PostLBSRequest({});
+        if (data.latitude != null) {
+            message.latitude = data.latitude;
+        }
+        if (data.longitude != null) {
+            message.longitude = data.longitude;
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            latitude?: number;
+            longitude?: number;
+        } = {};
+        if (this.latitude != null) {
+            data.latitude = this.latitude;
+        }
+        if (this.longitude != null) {
+            data.longitude = this.longitude;
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.latitude != 0)
+            writer.writeDouble(1, this.latitude);
+        if (this.longitude != 0)
+            writer.writeDouble(2, this.longitude);
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): PostLBSRequest {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new PostLBSRequest();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    message.latitude = reader.readDouble();
+                    break;
+                case 2:
+                    message.longitude = reader.readDouble();
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): PostLBSRequest {
+        return PostLBSRequest.deserialize(bytes);
+    }
+}
 export class UserSelfModel extends pb_1.Message {
     #one_of_decls: number[][] = [];
     constructor(data?: any[] | {

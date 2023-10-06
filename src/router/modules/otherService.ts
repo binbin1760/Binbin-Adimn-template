@@ -3,6 +3,7 @@ import { RouteRecordRaw } from "vue-router";
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/other-service",
+    name: "otherService",
     meta: {
       name: "其他服务",
       isRoot: false,

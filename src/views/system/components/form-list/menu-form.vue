@@ -114,6 +114,21 @@
       </n-form-item>
 
       <n-form-item
+        label="菜单图标"
+        path="meta.icon"
+        :rule="{
+          required: true,
+          message: '不能为空',
+          trigger: ['input', 'blur'],
+        }"
+      >
+        <n-input
+          v-model:value="menuForm.meta.icon"
+          placeholder="请输入菜单图标"
+        ></n-input>
+      </n-form-item>
+
+      <n-form-item
         label="排序"
         path="sort"
         :rule="{
@@ -168,7 +183,18 @@
 </template>
 <script setup lang="ts">
 import { Menu } from "@/api";
-import { MenuViewModel, Meta, MenuType } from "@/protoJs";
+import {
+  MenuViewModel,
+  Meta,
+  MenuType,
+  PagerRequest,
+  MenuPageRequest,
+} from "@/protoJs";
+interface directoryListType {
+  label: string;
+  value: string;
+}
+const emit = defineEmits(["closeModal"]);
 const menuForm = ref({
   title: undefined,
   path: undefined,
@@ -181,21 +207,29 @@ const menuForm = ref({
     noCache: true,
     affix: false,
     title: undefined,
+    icon: undefined,
   },
   sort: undefined,
   isFrame: false,
 });
-const directoryList = [
-  { label: "1", value: "1" },
-  { label: "2", value: "2" },
-  { label: "3", value: "3" },
-];
+let directoryList = ref<Array<directoryListType>>([
+  { label: "获取数据失败", value: "1" },
+]);
+async function getDirectoryList() {
+  const page = new PagerRequest();
+  const req = new MenuPageRequest({ page });
+  const result = await Menu.allMenu(req);
+  directoryList.value = result.toObject().raws?.map((item) => {
+    return { label: item.label, value: item.id };
+  }) as unknown as Array<directoryListType>;
+}
 async function submit() {
   const metaReq = new Meta({
     title: menuForm.value.meta.title,
     noCache: menuForm.value.meta.noCache,
     affix: menuForm.value.meta.affix,
     hidden: menuForm.value.meta.hidden,
+    icon: menuForm.value.meta.icon,
   });
   const req = new MenuViewModel({
     type: MenuType.MENU,
@@ -210,8 +244,11 @@ async function submit() {
     pid: menuForm.value.pid,
   });
   const result = (await Menu.addMenu(req)).toObject();
-  console.log(result);
+  if (result.value) {
+    emit("closeModal");
+  }
 }
+getDirectoryList();
 </script>
 <style scoped lang="less">
 .menu-form {

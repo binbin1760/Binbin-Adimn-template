@@ -3,6 +3,7 @@ import { RouteRecordRaw } from "vue-router";
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/system",
+    name: "systemMange",
     meta: {
       name: "系统管理",
       isRoot: false,

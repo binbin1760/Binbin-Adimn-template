@@ -57,6 +57,15 @@ export class Menu {
       },
     });
   }
+  static detailMenu(id: string): Promise<MenuViewModel> {
+    return fetch({
+      url: `/admin/menu/${id}`,
+      method: "get",
+      data: {
+        resType: MenuViewModel,
+      },
+    });
+  }
   static buttonWithIdentities(): Promise<ButtonWithIdentities> {
     return fetch({
       url: "/admin/menu/identities",

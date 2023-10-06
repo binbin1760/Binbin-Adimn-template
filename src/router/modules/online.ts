@@ -3,6 +3,7 @@ import { RouteRecordRaw } from "vue-router";
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/online",
+    name: "onLine",
     meta: {
       name: "在线开发",
       isRoot: false,
