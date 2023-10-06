@@ -4,6 +4,9 @@
  * source: server/cms-approval.proto
  * git: https://github.com/thesayyn/protoc-gen-ts */
 import * as dependency_1 from "./enums";
+import * as dependency_2 from "./page";
+import * as dependency_3 from "./payload";
+import * as dependency_4 from "./merchant";
 import * as pb_1 from "google-protobuf";
 export class ApprovalRequest extends pb_1.Message {
   #one_of_decls: number[][] = [];

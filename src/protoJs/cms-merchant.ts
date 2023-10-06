@@ -5,502 +5,400 @@
  * git: https://github.com/thesayyn/protoc-gen-ts */
 import * as dependency_1 from "./enums";
 import * as dependency_2 from "./page";
+import * as dependency_3 from "./payload";
 import * as dependency_4 from "./merchant";
 import * as pb_1 from "google-protobuf";
 export class TableCmsMerchantFilterRequest extends pb_1.Message {
-  #one_of_decls: number[][] = [];
-  constructor(
-    data?:
-      | any[]
-      | {
-          page?: dependency_2.PagerRequest;
-          blurry?: string;
-          stat?: dependency_1.ApprovalStat;
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        page?: dependency_2.PagerRequest;
+        blurry?: string;
+        stat?: dependency_1.ApprovalStat;
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("page" in data && data.page != undefined) {
+                this.page = data.page;
+            }
+            if ("blurry" in data && data.blurry != undefined) {
+                this.blurry = data.blurry;
+            }
+            if ("stat" in data && data.stat != undefined) {
+                this.stat = data.stat;
+            }
         }
-  ) {
-    super();
-    pb_1.Message.initialize(
-      this,
-      Array.isArray(data) ? data : [],
-      0,
-      -1,
-      [],
-      this.#one_of_decls
-    );
-    if (!Array.isArray(data) && typeof data == "object") {
-      if ("page" in data && data.page != undefined) {
-        this.page = data.page;
-      }
-      if ("blurry" in data && data.blurry != undefined) {
-        this.blurry = data.blurry;
-      }
-      if ("stat" in data && data.stat != undefined) {
-        this.stat = data.stat;
-      }
     }
-  }
-  get page() {
-    return pb_1.Message.getWrapperField(
-      this,
-      dependency_2.PagerRequest,
-      1
-    ) as dependency_2.PagerRequest;
-  }
-  set page(value: dependency_2.PagerRequest) {
-    pb_1.Message.setWrapperField(this, 1, value);
-  }
-  get hasPage() {
-    return pb_1.Message.getField(this, 1) != null;
-  }
-  get blurry() {
-    return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
-  }
-  set blurry(value: string) {
-    pb_1.Message.setField(this, 2, value);
-  }
-  get stat() {
-    return pb_1.Message.getFieldWithDefault(
-      this,
-      3,
-      dependency_1.ApprovalStat._ApprovalStat_UNSPECIFIED
-    ) as dependency_1.ApprovalStat;
-  }
-  set stat(value: dependency_1.ApprovalStat) {
-    pb_1.Message.setField(this, 3, value);
-  }
-  static fromObject(data: {
-    page?: ReturnType<typeof dependency_2.PagerRequest.prototype.toObject>;
-    blurry?: string;
-    stat?: dependency_1.ApprovalStat;
-  }): TableCmsMerchantFilterRequest {
-    const message = new TableCmsMerchantFilterRequest({});
-    if (data.page != null) {
-      message.page = dependency_2.PagerRequest.fromObject(data.page);
+    get page() {
+        return pb_1.Message.getWrapperField(this, dependency_2.PagerRequest, 1) as dependency_2.PagerRequest;
     }
-    if (data.blurry != null) {
-      message.blurry = data.blurry;
+    set page(value: dependency_2.PagerRequest) {
+        pb_1.Message.setWrapperField(this, 1, value);
     }
-    if (data.stat != null) {
-      message.stat = data.stat;
+    get hasPage() {
+        return pb_1.Message.getField(this, 1) != null;
     }
-    return message;
-  }
-  toObject() {
-    const data: {
-      page?: ReturnType<typeof dependency_2.PagerRequest.prototype.toObject>;
-      blurry?: string;
-      stat?: dependency_1.ApprovalStat;
-    } = {};
-    if (this.page != null) {
-      data.page = this.page.toObject();
+    get blurry() {
+        return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
     }
-    if (this.blurry != null) {
-      data.blurry = this.blurry;
+    set blurry(value: string) {
+        pb_1.Message.setField(this, 2, value);
     }
-    if (this.stat != null) {
-      data.stat = this.stat;
+    get stat() {
+        return pb_1.Message.getFieldWithDefault(this, 3, dependency_1.ApprovalStat._ApprovalStat_UNSPECIFIED) as dependency_1.ApprovalStat;
     }
-    return data;
-  }
-  serialize(): Uint8Array;
-  serialize(w: pb_1.BinaryWriter): void;
-  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-    const writer = w || new pb_1.BinaryWriter();
-    if (this.hasPage)
-      writer.writeMessage(1, this.page, () => this.page.serialize(writer));
-    if (this.blurry.length) writer.writeString(2, this.blurry);
-    if (this.stat != dependency_1.ApprovalStat._ApprovalStat_UNSPECIFIED)
-      writer.writeEnum(3, this.stat);
-    if (!w) return writer.getResultBuffer();
-  }
-  static deserialize(
-    bytes: Uint8Array | pb_1.BinaryReader
-  ): TableCmsMerchantFilterRequest {
-    const reader =
-        bytes instanceof pb_1.BinaryReader
-          ? bytes
-          : new pb_1.BinaryReader(bytes),
-      message = new TableCmsMerchantFilterRequest();
-    while (reader.nextField()) {
-      if (reader.isEndGroup()) break;
-      switch (reader.getFieldNumber()) {
-        case 1:
-          reader.readMessage(
-            message.page,
-            () => (message.page = dependency_2.PagerRequest.deserialize(reader))
-          );
-          break;
-        case 2:
-          message.blurry = reader.readString();
-          break;
-        case 3:
-          message.stat = reader.readEnum();
-          break;
-        default:
-          reader.skipField();
-      }
+    set stat(value: dependency_1.ApprovalStat) {
+        pb_1.Message.setField(this, 3, value);
     }
-    return message;
-  }
-  serializeBinary(): Uint8Array {
-    return this.serialize();
-  }
-  static deserializeBinary(bytes: Uint8Array): TableCmsMerchantFilterRequest {
-    return TableCmsMerchantFilterRequest.deserialize(bytes);
-  }
+    static fromObject(data: {
+        page?: ReturnType<typeof dependency_2.PagerRequest.prototype.toObject>;
+        blurry?: string;
+        stat?: dependency_1.ApprovalStat;
+    }): TableCmsMerchantFilterRequest {
+        const message = new TableCmsMerchantFilterRequest({});
+        if (data.page != null) {
+            message.page = dependency_2.PagerRequest.fromObject(data.page);
+        }
+        if (data.blurry != null) {
+            message.blurry = data.blurry;
+        }
+        if (data.stat != null) {
+            message.stat = data.stat;
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            page?: ReturnType<typeof dependency_2.PagerRequest.prototype.toObject>;
+            blurry?: string;
+            stat?: dependency_1.ApprovalStat;
+        } = {};
+        if (this.page != null) {
+            data.page = this.page.toObject();
+        }
+        if (this.blurry != null) {
+            data.blurry = this.blurry;
+        }
+        if (this.stat != null) {
+            data.stat = this.stat;
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.hasPage)
+            writer.writeMessage(1, this.page, () => this.page.serialize(writer));
+        if (this.blurry.length)
+            writer.writeString(2, this.blurry);
+        if (this.stat != dependency_1.ApprovalStat._ApprovalStat_UNSPECIFIED)
+            writer.writeEnum(3, this.stat);
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): TableCmsMerchantFilterRequest {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new TableCmsMerchantFilterRequest();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    reader.readMessage(message.page, () => message.page = dependency_2.PagerRequest.deserialize(reader));
+                    break;
+                case 2:
+                    message.blurry = reader.readString();
+                    break;
+                case 3:
+                    message.stat = reader.readEnum();
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): TableCmsMerchantFilterRequest {
+        return TableCmsMerchantFilterRequest.deserialize(bytes);
+    }
 }
 export class TableCmsMerchantViewModel extends pb_1.Message {
-  #one_of_decls: number[][] = [];
-  constructor(
-    data?:
-      | any[]
-      | {
-          id?: string;
-          name?: string;
-          address?: dependency_4.MerchantAddressModel;
-          phoneNumber?: string[];
-          stat?: dependency_1.ApprovalStat;
-          updateAt?: number;
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        id?: string;
+        name?: string;
+        address?: dependency_4.MerchantAddressModel;
+        phoneNumber?: string[];
+        stat?: dependency_1.ApprovalStat;
+        updateAt?: number;
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [4], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("id" in data && data.id != undefined) {
+                this.id = data.id;
+            }
+            if ("name" in data && data.name != undefined) {
+                this.name = data.name;
+            }
+            if ("address" in data && data.address != undefined) {
+                this.address = data.address;
+            }
+            if ("phoneNumber" in data && data.phoneNumber != undefined) {
+                this.phoneNumber = data.phoneNumber;
+            }
+            if ("stat" in data && data.stat != undefined) {
+                this.stat = data.stat;
+            }
+            if ("updateAt" in data && data.updateAt != undefined) {
+                this.updateAt = data.updateAt;
+            }
         }
-  ) {
-    super();
-    pb_1.Message.initialize(
-      this,
-      Array.isArray(data) ? data : [],
-      0,
-      -1,
-      [4],
-      this.#one_of_decls
-    );
-    if (!Array.isArray(data) && typeof data == "object") {
-      if ("id" in data && data.id != undefined) {
-        this.id = data.id;
-      }
-      if ("name" in data && data.name != undefined) {
-        this.name = data.name;
-      }
-      if ("address" in data && data.address != undefined) {
-        this.address = data.address;
-      }
-      if ("phoneNumber" in data && data.phoneNumber != undefined) {
-        this.phoneNumber = data.phoneNumber;
-      }
-      if ("stat" in data && data.stat != undefined) {
-        this.stat = data.stat;
-      }
-      if ("updateAt" in data && data.updateAt != undefined) {
-        this.updateAt = data.updateAt;
-      }
     }
-  }
-  get id() {
-    return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
-  }
-  set id(value: string) {
-    pb_1.Message.setField(this, 1, value);
-  }
-  get name() {
-    return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
-  }
-  set name(value: string) {
-    pb_1.Message.setField(this, 2, value);
-  }
-  get address() {
-    return pb_1.Message.getWrapperField(
-      this,
-      dependency_4.MerchantAddressModel,
-      3
-    ) as dependency_4.MerchantAddressModel;
-  }
-  set address(value: dependency_4.MerchantAddressModel) {
-    pb_1.Message.setWrapperField(this, 3, value);
-  }
-  get hasAddress() {
-    return pb_1.Message.getField(this, 3) != null;
-  }
-  get phoneNumber() {
-    return pb_1.Message.getFieldWithDefault(this, 4, []) as string[];
-  }
-  set phoneNumber(value: string[]) {
-    pb_1.Message.setField(this, 4, value);
-  }
-  get stat() {
-    return pb_1.Message.getFieldWithDefault(
-      this,
-      5,
-      dependency_1.ApprovalStat._ApprovalStat_UNSPECIFIED
-    ) as dependency_1.ApprovalStat;
-  }
-  set stat(value: dependency_1.ApprovalStat) {
-    pb_1.Message.setField(this, 5, value);
-  }
-  get updateAt() {
-    return pb_1.Message.getFieldWithDefault(this, 6, 0) as number;
-  }
-  set updateAt(value: number) {
-    pb_1.Message.setField(this, 6, value);
-  }
-  static fromObject(data: {
-    id?: string;
-    name?: string;
-    address?: ReturnType<
-      typeof dependency_4.MerchantAddressModel.prototype.toObject
-    >;
-    phoneNumber?: string[];
-    stat?: dependency_1.ApprovalStat;
-    updateAt?: number;
-  }): TableCmsMerchantViewModel {
-    const message = new TableCmsMerchantViewModel({});
-    if (data.id != null) {
-      message.id = data.id;
+    get id() {
+        return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
     }
-    if (data.name != null) {
-      message.name = data.name;
+    set id(value: string) {
+        pb_1.Message.setField(this, 1, value);
     }
-    if (data.address != null) {
-      message.address = dependency_4.MerchantAddressModel.fromObject(
-        data.address
-      );
+    get name() {
+        return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
     }
-    if (data.phoneNumber != null) {
-      message.phoneNumber = data.phoneNumber;
+    set name(value: string) {
+        pb_1.Message.setField(this, 2, value);
     }
-    if (data.stat != null) {
-      message.stat = data.stat;
+    get address() {
+        return pb_1.Message.getWrapperField(this, dependency_4.MerchantAddressModel, 3) as dependency_4.MerchantAddressModel;
     }
-    if (data.updateAt != null) {
-      message.updateAt = data.updateAt;
+    set address(value: dependency_4.MerchantAddressModel) {
+        pb_1.Message.setWrapperField(this, 3, value);
     }
-    return message;
-  }
-  toObject() {
-    const data: {
-      id?: string;
-      name?: string;
-      address?: ReturnType<
-        typeof dependency_4.MerchantAddressModel.prototype.toObject
-      >;
-      phoneNumber?: string[];
-      stat?: dependency_1.ApprovalStat;
-      updateAt?: number;
-    } = {};
-    if (this.id != null) {
-      data.id = this.id;
+    get hasAddress() {
+        return pb_1.Message.getField(this, 3) != null;
     }
-    if (this.name != null) {
-      data.name = this.name;
+    get phoneNumber() {
+        return pb_1.Message.getFieldWithDefault(this, 4, []) as string[];
     }
-    if (this.address != null) {
-      data.address = this.address.toObject();
+    set phoneNumber(value: string[]) {
+        pb_1.Message.setField(this, 4, value);
     }
-    if (this.phoneNumber != null) {
-      data.phoneNumber = this.phoneNumber;
+    get stat() {
+        return pb_1.Message.getFieldWithDefault(this, 5, dependency_1.ApprovalStat._ApprovalStat_UNSPECIFIED) as dependency_1.ApprovalStat;
     }
-    if (this.stat != null) {
-      data.stat = this.stat;
+    set stat(value: dependency_1.ApprovalStat) {
+        pb_1.Message.setField(this, 5, value);
     }
-    if (this.updateAt != null) {
-      data.updateAt = this.updateAt;
+    get updateAt() {
+        return pb_1.Message.getFieldWithDefault(this, 6, 0) as number;
     }
-    return data;
-  }
-  serialize(): Uint8Array;
-  serialize(w: pb_1.BinaryWriter): void;
-  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-    const writer = w || new pb_1.BinaryWriter();
-    if (this.id.length) writer.writeString(1, this.id);
-    if (this.name.length) writer.writeString(2, this.name);
-    if (this.hasAddress)
-      writer.writeMessage(3, this.address, () =>
-        this.address.serialize(writer)
-      );
-    if (this.phoneNumber.length)
-      writer.writeRepeatedString(4, this.phoneNumber);
-    if (this.stat != dependency_1.ApprovalStat._ApprovalStat_UNSPECIFIED)
-      writer.writeEnum(5, this.stat);
-    if (this.updateAt != 0) writer.writeUint64(6, this.updateAt);
-    if (!w) return writer.getResultBuffer();
-  }
-  static deserialize(
-    bytes: Uint8Array | pb_1.BinaryReader
-  ): TableCmsMerchantViewModel {
-    const reader =
-        bytes instanceof pb_1.BinaryReader
-          ? bytes
-          : new pb_1.BinaryReader(bytes),
-      message = new TableCmsMerchantViewModel();
-    while (reader.nextField()) {
-      if (reader.isEndGroup()) break;
-      switch (reader.getFieldNumber()) {
-        case 1:
-          message.id = reader.readString();
-          break;
-        case 2:
-          message.name = reader.readString();
-          break;
-        case 3:
-          reader.readMessage(
-            message.address,
-            () =>
-              (message.address =
-                dependency_4.MerchantAddressModel.deserialize(reader))
-          );
-          break;
-        case 4:
-          pb_1.Message.addToRepeatedField(message, 4, reader.readString());
-          break;
-        case 5:
-          message.stat = reader.readEnum();
-          break;
-        case 6:
-          message.updateAt = reader.readUint64();
-          break;
-        default:
-          reader.skipField();
-      }
+    set updateAt(value: number) {
+        pb_1.Message.setField(this, 6, value);
     }
-    return message;
-  }
-  serializeBinary(): Uint8Array {
-    return this.serialize();
-  }
-  static deserializeBinary(bytes: Uint8Array): TableCmsMerchantViewModel {
-    return TableCmsMerchantViewModel.deserialize(bytes);
-  }
+    static fromObject(data: {
+        id?: string;
+        name?: string;
+        address?: ReturnType<typeof dependency_4.MerchantAddressModel.prototype.toObject>;
+        phoneNumber?: string[];
+        stat?: dependency_1.ApprovalStat;
+        updateAt?: number;
+    }): TableCmsMerchantViewModel {
+        const message = new TableCmsMerchantViewModel({});
+        if (data.id != null) {
+            message.id = data.id;
+        }
+        if (data.name != null) {
+            message.name = data.name;
+        }
+        if (data.address != null) {
+            message.address = dependency_4.MerchantAddressModel.fromObject(data.address);
+        }
+        if (data.phoneNumber != null) {
+            message.phoneNumber = data.phoneNumber;
+        }
+        if (data.stat != null) {
+            message.stat = data.stat;
+        }
+        if (data.updateAt != null) {
+            message.updateAt = data.updateAt;
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            id?: string;
+            name?: string;
+            address?: ReturnType<typeof dependency_4.MerchantAddressModel.prototype.toObject>;
+            phoneNumber?: string[];
+            stat?: dependency_1.ApprovalStat;
+            updateAt?: number;
+        } = {};
+        if (this.id != null) {
+            data.id = this.id;
+        }
+        if (this.name != null) {
+            data.name = this.name;
+        }
+        if (this.address != null) {
+            data.address = this.address.toObject();
+        }
+        if (this.phoneNumber != null) {
+            data.phoneNumber = this.phoneNumber;
+        }
+        if (this.stat != null) {
+            data.stat = this.stat;
+        }
+        if (this.updateAt != null) {
+            data.updateAt = this.updateAt;
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.id.length)
+            writer.writeString(1, this.id);
+        if (this.name.length)
+            writer.writeString(2, this.name);
+        if (this.hasAddress)
+            writer.writeMessage(3, this.address, () => this.address.serialize(writer));
+        if (this.phoneNumber.length)
+            writer.writeRepeatedString(4, this.phoneNumber);
+        if (this.stat != dependency_1.ApprovalStat._ApprovalStat_UNSPECIFIED)
+            writer.writeEnum(5, this.stat);
+        if (this.updateAt != 0)
+            writer.writeUint64(6, this.updateAt);
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): TableCmsMerchantViewModel {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new TableCmsMerchantViewModel();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    message.id = reader.readString();
+                    break;
+                case 2:
+                    message.name = reader.readString();
+                    break;
+                case 3:
+                    reader.readMessage(message.address, () => message.address = dependency_4.MerchantAddressModel.deserialize(reader));
+                    break;
+                case 4:
+                    pb_1.Message.addToRepeatedField(message, 4, reader.readString());
+                    break;
+                case 5:
+                    message.stat = reader.readEnum();
+                    break;
+                case 6:
+                    message.updateAt = reader.readUint64();
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): TableCmsMerchantViewModel {
+        return TableCmsMerchantViewModel.deserialize(bytes);
+    }
 }
 export class TableCmsMerchantFilterResponse extends pb_1.Message {
-  #one_of_decls: number[][] = [];
-  constructor(
-    data?:
-      | any[]
-      | {
-          page?: dependency_2.PagerResponse;
-          raws?: TableCmsMerchantViewModel[];
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        page?: dependency_2.PagerResponse;
+        raws?: TableCmsMerchantViewModel[];
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [2], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("page" in data && data.page != undefined) {
+                this.page = data.page;
+            }
+            if ("raws" in data && data.raws != undefined) {
+                this.raws = data.raws;
+            }
         }
-  ) {
-    super();
-    pb_1.Message.initialize(
-      this,
-      Array.isArray(data) ? data : [],
-      0,
-      -1,
-      [2],
-      this.#one_of_decls
-    );
-    if (!Array.isArray(data) && typeof data == "object") {
-      if ("page" in data && data.page != undefined) {
-        this.page = data.page;
-      }
-      if ("raws" in data && data.raws != undefined) {
-        this.raws = data.raws;
-      }
     }
-  }
-  get page() {
-    return pb_1.Message.getWrapperField(
-      this,
-      dependency_2.PagerResponse,
-      1
-    ) as dependency_2.PagerResponse;
-  }
-  set page(value: dependency_2.PagerResponse) {
-    pb_1.Message.setWrapperField(this, 1, value);
-  }
-  get hasPage() {
-    return pb_1.Message.getField(this, 1) != null;
-  }
-  get raws() {
-    return pb_1.Message.getRepeatedWrapperField(
-      this,
-      TableCmsMerchantViewModel,
-      2
-    ) as TableCmsMerchantViewModel[];
-  }
-  set raws(value: TableCmsMerchantViewModel[]) {
-    pb_1.Message.setRepeatedWrapperField(this, 2, value);
-  }
-  static fromObject(data: {
-    page?: ReturnType<typeof dependency_2.PagerResponse.prototype.toObject>;
-    raws?: ReturnType<typeof TableCmsMerchantViewModel.prototype.toObject>[];
-  }): TableCmsMerchantFilterResponse {
-    const message = new TableCmsMerchantFilterResponse({});
-    if (data.page != null) {
-      message.page = dependency_2.PagerResponse.fromObject(data.page);
+    get page() {
+        return pb_1.Message.getWrapperField(this, dependency_2.PagerResponse, 1) as dependency_2.PagerResponse;
     }
-    if (data.raws != null) {
-      message.raws = data.raws.map((item) =>
-        TableCmsMerchantViewModel.fromObject(item)
-      );
+    set page(value: dependency_2.PagerResponse) {
+        pb_1.Message.setWrapperField(this, 1, value);
     }
-    return message;
-  }
-  toObject() {
-    const data: {
-      page?: ReturnType<typeof dependency_2.PagerResponse.prototype.toObject>;
-      raws?: ReturnType<typeof TableCmsMerchantViewModel.prototype.toObject>[];
-    } = {};
-    if (this.page != null) {
-      data.page = this.page.toObject();
+    get hasPage() {
+        return pb_1.Message.getField(this, 1) != null;
     }
-    if (this.raws != null) {
-      data.raws = this.raws.map((item: TableCmsMerchantViewModel) =>
-        item.toObject()
-      );
+    get raws() {
+        return pb_1.Message.getRepeatedWrapperField(this, TableCmsMerchantViewModel, 2) as TableCmsMerchantViewModel[];
     }
-    return data;
-  }
-  serialize(): Uint8Array;
-  serialize(w: pb_1.BinaryWriter): void;
-  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-    const writer = w || new pb_1.BinaryWriter();
-    if (this.hasPage)
-      writer.writeMessage(1, this.page, () => this.page.serialize(writer));
-    if (this.raws.length)
-      writer.writeRepeatedMessage(
-        2,
-        this.raws,
-        (item: TableCmsMerchantViewModel) => item.serialize(writer)
-      );
-    if (!w) return writer.getResultBuffer();
-  }
-  static deserialize(
-    bytes: Uint8Array | pb_1.BinaryReader
-  ): TableCmsMerchantFilterResponse {
-    const reader =
-        bytes instanceof pb_1.BinaryReader
-          ? bytes
-          : new pb_1.BinaryReader(bytes),
-      message = new TableCmsMerchantFilterResponse();
-    while (reader.nextField()) {
-      if (reader.isEndGroup()) break;
-      switch (reader.getFieldNumber()) {
-        case 1:
-          reader.readMessage(
-            message.page,
-            () =>
-              (message.page = dependency_2.PagerResponse.deserialize(reader))
-          );
-          break;
-        case 2:
-          reader.readMessage(message.raws, () =>
-            pb_1.Message.addToRepeatedWrapperField(
-              message,
-              2,
-              TableCmsMerchantViewModel.deserialize(reader),
-              TableCmsMerchantViewModel
-            )
-          );
-          break;
-        default:
-          reader.skipField();
-      }
+    set raws(value: TableCmsMerchantViewModel[]) {
+        pb_1.Message.setRepeatedWrapperField(this, 2, value);
     }
-    return message;
-  }
-  serializeBinary(): Uint8Array {
-    return this.serialize();
-  }
-  static deserializeBinary(bytes: Uint8Array): TableCmsMerchantFilterResponse {
-    return TableCmsMerchantFilterResponse.deserialize(bytes);
-  }
+    static fromObject(data: {
+        page?: ReturnType<typeof dependency_2.PagerResponse.prototype.toObject>;
+        raws?: ReturnType<typeof TableCmsMerchantViewModel.prototype.toObject>[];
+    }): TableCmsMerchantFilterResponse {
+        const message = new TableCmsMerchantFilterResponse({});
+        if (data.page != null) {
+            message.page = dependency_2.PagerResponse.fromObject(data.page);
+        }
+        if (data.raws != null) {
+            message.raws = data.raws.map(item => TableCmsMerchantViewModel.fromObject(item));
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            page?: ReturnType<typeof dependency_2.PagerResponse.prototype.toObject>;
+            raws?: ReturnType<typeof TableCmsMerchantViewModel.prototype.toObject>[];
+        } = {};
+        if (this.page != null) {
+            data.page = this.page.toObject();
+        }
+        if (this.raws != null) {
+            data.raws = this.raws.map((item: TableCmsMerchantViewModel) => item.toObject());
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.hasPage)
+            writer.writeMessage(1, this.page, () => this.page.serialize(writer));
+        if (this.raws.length)
+            writer.writeRepeatedMessage(2, this.raws, (item: TableCmsMerchantViewModel) => item.serialize(writer));
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): TableCmsMerchantFilterResponse {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new TableCmsMerchantFilterResponse();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    reader.readMessage(message.page, () => message.page = dependency_2.PagerResponse.deserialize(reader));
+                    break;
+                case 2:
+                    reader.readMessage(message.raws, () => pb_1.Message.addToRepeatedWrapperField(message, 2, TableCmsMerchantViewModel.deserialize(reader), TableCmsMerchantViewModel));
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): TableCmsMerchantFilterResponse {
+        return TableCmsMerchantFilterResponse.deserialize(bytes);
+    }
 }

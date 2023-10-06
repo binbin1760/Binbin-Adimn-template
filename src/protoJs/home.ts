@@ -3,1117 +3,472 @@
  * compiler version: 3.20.3
  * source: home.proto
  * git: https://github.com/thesayyn/protoc-gen-ts */
+import * as dependency_1 from "./enums";
 import * as dependency_2 from "./payload";
 import * as dependency_3 from "./page";
-import * as dependency_4 from "./purchase-package";
+import * as dependency_4 from "./merchant";
+import * as dependency_5 from "./purchase-package";
 import * as pb_1 from "google-protobuf";
 export class MerchantPageFilterRequest extends pb_1.Message {
-  #one_of_decls: number[][] = [];
-  constructor(
-    data?:
-      | any[]
-      | {
-          page?: dependency_3.PagerRequest;
-          blurry?: string;
-          latitude?: number;
-          longitude?: number;
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        page?: dependency_3.PagerRequest;
+        blurry?: string;
+        latitude?: number;
+        longitude?: number;
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("page" in data && data.page != undefined) {
+                this.page = data.page;
+            }
+            if ("blurry" in data && data.blurry != undefined) {
+                this.blurry = data.blurry;
+            }
+            if ("latitude" in data && data.latitude != undefined) {
+                this.latitude = data.latitude;
+            }
+            if ("longitude" in data && data.longitude != undefined) {
+                this.longitude = data.longitude;
+            }
         }
-  ) {
-    super();
-    pb_1.Message.initialize(
-      this,
-      Array.isArray(data) ? data : [],
-      0,
-      -1,
-      [],
-      this.#one_of_decls
-    );
-    if (!Array.isArray(data) && typeof data == "object") {
-      if ("page" in data && data.page != undefined) {
-        this.page = data.page;
-      }
-      if ("blurry" in data && data.blurry != undefined) {
-        this.blurry = data.blurry;
-      }
-      if ("latitude" in data && data.latitude != undefined) {
-        this.latitude = data.latitude;
-      }
-      if ("longitude" in data && data.longitude != undefined) {
-        this.longitude = data.longitude;
-      }
     }
-  }
-  get page() {
-    return pb_1.Message.getWrapperField(
-      this,
-      dependency_3.PagerRequest,
-      1
-    ) as dependency_3.PagerRequest;
-  }
-  set page(value: dependency_3.PagerRequest) {
-    pb_1.Message.setWrapperField(this, 1, value);
-  }
-  get hasPage() {
-    return pb_1.Message.getField(this, 1) != null;
-  }
-  get blurry() {
-    return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
-  }
-  set blurry(value: string) {
-    pb_1.Message.setField(this, 2, value);
-  }
-  get latitude() {
-    return pb_1.Message.getFieldWithDefault(this, 3, 0) as number;
-  }
-  set latitude(value: number) {
-    pb_1.Message.setField(this, 3, value);
-  }
-  get longitude() {
-    return pb_1.Message.getFieldWithDefault(this, 4, 0) as number;
-  }
-  set longitude(value: number) {
-    pb_1.Message.setField(this, 4, value);
-  }
-  static fromObject(data: {
-    page?: ReturnType<typeof dependency_3.PagerRequest.prototype.toObject>;
-    blurry?: string;
-    latitude?: number;
-    longitude?: number;
-  }): MerchantPageFilterRequest {
-    const message = new MerchantPageFilterRequest({});
-    if (data.page != null) {
-      message.page = dependency_3.PagerRequest.fromObject(data.page);
+    get page() {
+        return pb_1.Message.getWrapperField(this, dependency_3.PagerRequest, 1) as dependency_3.PagerRequest;
     }
-    if (data.blurry != null) {
-      message.blurry = data.blurry;
+    set page(value: dependency_3.PagerRequest) {
+        pb_1.Message.setWrapperField(this, 1, value);
     }
-    if (data.latitude != null) {
-      message.latitude = data.latitude;
+    get hasPage() {
+        return pb_1.Message.getField(this, 1) != null;
     }
-    if (data.longitude != null) {
-      message.longitude = data.longitude;
+    get blurry() {
+        return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
     }
-    return message;
-  }
-  toObject() {
-    const data: {
-      page?: ReturnType<typeof dependency_3.PagerRequest.prototype.toObject>;
-      blurry?: string;
-      latitude?: number;
-      longitude?: number;
-    } = {};
-    if (this.page != null) {
-      data.page = this.page.toObject();
+    set blurry(value: string) {
+        pb_1.Message.setField(this, 2, value);
     }
-    if (this.blurry != null) {
-      data.blurry = this.blurry;
+    get latitude() {
+        return pb_1.Message.getFieldWithDefault(this, 3, 0) as number;
     }
-    if (this.latitude != null) {
-      data.latitude = this.latitude;
+    set latitude(value: number) {
+        pb_1.Message.setField(this, 3, value);
     }
-    if (this.longitude != null) {
-      data.longitude = this.longitude;
+    get longitude() {
+        return pb_1.Message.getFieldWithDefault(this, 4, 0) as number;
     }
-    return data;
-  }
-  serialize(): Uint8Array;
-  serialize(w: pb_1.BinaryWriter): void;
-  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-    const writer = w || new pb_1.BinaryWriter();
-    if (this.hasPage)
-      writer.writeMessage(1, this.page, () => this.page.serialize(writer));
-    if (this.blurry.length) writer.writeString(2, this.blurry);
-    if (this.latitude != 0) writer.writeDouble(3, this.latitude);
-    if (this.longitude != 0) writer.writeDouble(4, this.longitude);
-    if (!w) return writer.getResultBuffer();
-  }
-  static deserialize(
-    bytes: Uint8Array | pb_1.BinaryReader
-  ): MerchantPageFilterRequest {
-    const reader =
-        bytes instanceof pb_1.BinaryReader
-          ? bytes
-          : new pb_1.BinaryReader(bytes),
-      message = new MerchantPageFilterRequest();
-    while (reader.nextField()) {
-      if (reader.isEndGroup()) break;
-      switch (reader.getFieldNumber()) {
-        case 1:
-          reader.readMessage(
-            message.page,
-            () => (message.page = dependency_3.PagerRequest.deserialize(reader))
-          );
-          break;
-        case 2:
-          message.blurry = reader.readString();
-          break;
-        case 3:
-          message.latitude = reader.readDouble();
-          break;
-        case 4:
-          message.longitude = reader.readDouble();
-          break;
-        default:
-          reader.skipField();
-      }
+    set longitude(value: number) {
+        pb_1.Message.setField(this, 4, value);
     }
-    return message;
-  }
-  serializeBinary(): Uint8Array {
-    return this.serialize();
-  }
-  static deserializeBinary(bytes: Uint8Array): MerchantPageFilterRequest {
-    return MerchantPageFilterRequest.deserialize(bytes);
-  }
+    static fromObject(data: {
+        page?: ReturnType<typeof dependency_3.PagerRequest.prototype.toObject>;
+        blurry?: string;
+        latitude?: number;
+        longitude?: number;
+    }): MerchantPageFilterRequest {
+        const message = new MerchantPageFilterRequest({});
+        if (data.page != null) {
+            message.page = dependency_3.PagerRequest.fromObject(data.page);
+        }
+        if (data.blurry != null) {
+            message.blurry = data.blurry;
+        }
+        if (data.latitude != null) {
+            message.latitude = data.latitude;
+        }
+        if (data.longitude != null) {
+            message.longitude = data.longitude;
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            page?: ReturnType<typeof dependency_3.PagerRequest.prototype.toObject>;
+            blurry?: string;
+            latitude?: number;
+            longitude?: number;
+        } = {};
+        if (this.page != null) {
+            data.page = this.page.toObject();
+        }
+        if (this.blurry != null) {
+            data.blurry = this.blurry;
+        }
+        if (this.latitude != null) {
+            data.latitude = this.latitude;
+        }
+        if (this.longitude != null) {
+            data.longitude = this.longitude;
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.hasPage)
+            writer.writeMessage(1, this.page, () => this.page.serialize(writer));
+        if (this.blurry.length)
+            writer.writeString(2, this.blurry);
+        if (this.latitude != 0)
+            writer.writeDouble(3, this.latitude);
+        if (this.longitude != 0)
+            writer.writeDouble(4, this.longitude);
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): MerchantPageFilterRequest {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new MerchantPageFilterRequest();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    reader.readMessage(message.page, () => message.page = dependency_3.PagerRequest.deserialize(reader));
+                    break;
+                case 2:
+                    message.blurry = reader.readString();
+                    break;
+                case 3:
+                    message.latitude = reader.readDouble();
+                    break;
+                case 4:
+                    message.longitude = reader.readDouble();
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): MerchantPageFilterRequest {
+        return MerchantPageFilterRequest.deserialize(bytes);
+    }
 }
 export class MerchantPageResponse extends pb_1.Message {
-  #one_of_decls: number[][] = [];
-  constructor(
-    data?:
-      | any[]
-      | {
-          page?: dependency_3.PagerResponse;
-          raws?: MerchantCell[];
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        page?: dependency_3.PagerResponse;
+        raws?: MerchantCell[];
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [2], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("page" in data && data.page != undefined) {
+                this.page = data.page;
+            }
+            if ("raws" in data && data.raws != undefined) {
+                this.raws = data.raws;
+            }
         }
-  ) {
-    super();
-    pb_1.Message.initialize(
-      this,
-      Array.isArray(data) ? data : [],
-      0,
-      -1,
-      [2],
-      this.#one_of_decls
-    );
-    if (!Array.isArray(data) && typeof data == "object") {
-      if ("page" in data && data.page != undefined) {
-        this.page = data.page;
-      }
-      if ("raws" in data && data.raws != undefined) {
-        this.raws = data.raws;
-      }
     }
-  }
-  get page() {
-    return pb_1.Message.getWrapperField(
-      this,
-      dependency_3.PagerResponse,
-      1
-    ) as dependency_3.PagerResponse;
-  }
-  set page(value: dependency_3.PagerResponse) {
-    pb_1.Message.setWrapperField(this, 1, value);
-  }
-  get hasPage() {
-    return pb_1.Message.getField(this, 1) != null;
-  }
-  get raws() {
-    return pb_1.Message.getRepeatedWrapperField(
-      this,
-      MerchantCell,
-      2
-    ) as MerchantCell[];
-  }
-  set raws(value: MerchantCell[]) {
-    pb_1.Message.setRepeatedWrapperField(this, 2, value);
-  }
-  static fromObject(data: {
-    page?: ReturnType<typeof dependency_3.PagerResponse.prototype.toObject>;
-    raws?: ReturnType<typeof MerchantCell.prototype.toObject>[];
-  }): MerchantPageResponse {
-    const message = new MerchantPageResponse({});
-    if (data.page != null) {
-      message.page = dependency_3.PagerResponse.fromObject(data.page);
+    get page() {
+        return pb_1.Message.getWrapperField(this, dependency_3.PagerResponse, 1) as dependency_3.PagerResponse;
     }
-    if (data.raws != null) {
-      message.raws = data.raws.map((item) => MerchantCell.fromObject(item));
+    set page(value: dependency_3.PagerResponse) {
+        pb_1.Message.setWrapperField(this, 1, value);
     }
-    return message;
-  }
-  toObject() {
-    const data: {
-      page?: ReturnType<typeof dependency_3.PagerResponse.prototype.toObject>;
-      raws?: ReturnType<typeof MerchantCell.prototype.toObject>[];
-    } = {};
-    if (this.page != null) {
-      data.page = this.page.toObject();
+    get hasPage() {
+        return pb_1.Message.getField(this, 1) != null;
     }
-    if (this.raws != null) {
-      data.raws = this.raws.map((item: MerchantCell) => item.toObject());
+    get raws() {
+        return pb_1.Message.getRepeatedWrapperField(this, MerchantCell, 2) as MerchantCell[];
     }
-    return data;
-  }
-  serialize(): Uint8Array;
-  serialize(w: pb_1.BinaryWriter): void;
-  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-    const writer = w || new pb_1.BinaryWriter();
-    if (this.hasPage)
-      writer.writeMessage(1, this.page, () => this.page.serialize(writer));
-    if (this.raws.length)
-      writer.writeRepeatedMessage(2, this.raws, (item: MerchantCell) =>
-        item.serialize(writer)
-      );
-    if (!w) return writer.getResultBuffer();
-  }
-  static deserialize(
-    bytes: Uint8Array | pb_1.BinaryReader
-  ): MerchantPageResponse {
-    const reader =
-        bytes instanceof pb_1.BinaryReader
-          ? bytes
-          : new pb_1.BinaryReader(bytes),
-      message = new MerchantPageResponse();
-    while (reader.nextField()) {
-      if (reader.isEndGroup()) break;
-      switch (reader.getFieldNumber()) {
-        case 1:
-          reader.readMessage(
-            message.page,
-            () =>
-              (message.page = dependency_3.PagerResponse.deserialize(reader))
-          );
-          break;
-        case 2:
-          reader.readMessage(message.raws, () =>
-            pb_1.Message.addToRepeatedWrapperField(
-              message,
-              2,
-              MerchantCell.deserialize(reader),
-              MerchantCell
-            )
-          );
-          break;
-        default:
-          reader.skipField();
-      }
+    set raws(value: MerchantCell[]) {
+        pb_1.Message.setRepeatedWrapperField(this, 2, value);
     }
-    return message;
-  }
-  serializeBinary(): Uint8Array {
-    return this.serialize();
-  }
-  static deserializeBinary(bytes: Uint8Array): MerchantPageResponse {
-    return MerchantPageResponse.deserialize(bytes);
-  }
+    static fromObject(data: {
+        page?: ReturnType<typeof dependency_3.PagerResponse.prototype.toObject>;
+        raws?: ReturnType<typeof MerchantCell.prototype.toObject>[];
+    }): MerchantPageResponse {
+        const message = new MerchantPageResponse({});
+        if (data.page != null) {
+            message.page = dependency_3.PagerResponse.fromObject(data.page);
+        }
+        if (data.raws != null) {
+            message.raws = data.raws.map(item => MerchantCell.fromObject(item));
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            page?: ReturnType<typeof dependency_3.PagerResponse.prototype.toObject>;
+            raws?: ReturnType<typeof MerchantCell.prototype.toObject>[];
+        } = {};
+        if (this.page != null) {
+            data.page = this.page.toObject();
+        }
+        if (this.raws != null) {
+            data.raws = this.raws.map((item: MerchantCell) => item.toObject());
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.hasPage)
+            writer.writeMessage(1, this.page, () => this.page.serialize(writer));
+        if (this.raws.length)
+            writer.writeRepeatedMessage(2, this.raws, (item: MerchantCell) => item.serialize(writer));
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): MerchantPageResponse {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new MerchantPageResponse();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    reader.readMessage(message.page, () => message.page = dependency_3.PagerResponse.deserialize(reader));
+                    break;
+                case 2:
+                    reader.readMessage(message.raws, () => pb_1.Message.addToRepeatedWrapperField(message, 2, MerchantCell.deserialize(reader), MerchantCell));
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): MerchantPageResponse {
+        return MerchantPageResponse.deserialize(bytes);
+    }
 }
 export class MerchantCell extends pb_1.Message {
-  #one_of_decls: number[][] = [];
-  constructor(
-    data?:
-      | any[]
-      | {
-          id?: string;
-          name?: string;
-          rating?: number;
-          tags?: string[];
-          addr?: string;
-          distance?: string;
-          promotions?: dependency_4.PromotionCell[];
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        id?: string;
+        name?: string;
+        theme?: dependency_2.MediaMetaModel;
+        rating?: number;
+        tags?: string[];
+        addr?: string;
+        distance?: number;
+        promotions?: dependency_5.PromotionCell[];
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [5, 8], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("id" in data && data.id != undefined) {
+                this.id = data.id;
+            }
+            if ("name" in data && data.name != undefined) {
+                this.name = data.name;
+            }
+            if ("theme" in data && data.theme != undefined) {
+                this.theme = data.theme;
+            }
+            if ("rating" in data && data.rating != undefined) {
+                this.rating = data.rating;
+            }
+            if ("tags" in data && data.tags != undefined) {
+                this.tags = data.tags;
+            }
+            if ("addr" in data && data.addr != undefined) {
+                this.addr = data.addr;
+            }
+            if ("distance" in data && data.distance != undefined) {
+                this.distance = data.distance;
+            }
+            if ("promotions" in data && data.promotions != undefined) {
+                this.promotions = data.promotions;
+            }
         }
-  ) {
-    super();
-    pb_1.Message.initialize(
-      this,
-      Array.isArray(data) ? data : [],
-      0,
-      -1,
-      [4, 7],
-      this.#one_of_decls
-    );
-    if (!Array.isArray(data) && typeof data == "object") {
-      if ("id" in data && data.id != undefined) {
-        this.id = data.id;
-      }
-      if ("name" in data && data.name != undefined) {
-        this.name = data.name;
-      }
-      if ("rating" in data && data.rating != undefined) {
-        this.rating = data.rating;
-      }
-      if ("tags" in data && data.tags != undefined) {
-        this.tags = data.tags;
-      }
-      if ("addr" in data && data.addr != undefined) {
-        this.addr = data.addr;
-      }
-      if ("distance" in data && data.distance != undefined) {
-        this.distance = data.distance;
-      }
-      if ("promotions" in data && data.promotions != undefined) {
-        this.promotions = data.promotions;
-      }
     }
-  }
-  get id() {
-    return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
-  }
-  set id(value: string) {
-    pb_1.Message.setField(this, 1, value);
-  }
-  get name() {
-    return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
-  }
-  set name(value: string) {
-    pb_1.Message.setField(this, 2, value);
-  }
-  get rating() {
-    return pb_1.Message.getFieldWithDefault(this, 3, 0) as number;
-  }
-  set rating(value: number) {
-    pb_1.Message.setField(this, 3, value);
-  }
-  get tags() {
-    return pb_1.Message.getFieldWithDefault(this, 4, []) as string[];
-  }
-  set tags(value: string[]) {
-    pb_1.Message.setField(this, 4, value);
-  }
-  get addr() {
-    return pb_1.Message.getFieldWithDefault(this, 5, "") as string;
-  }
-  set addr(value: string) {
-    pb_1.Message.setField(this, 5, value);
-  }
-  get distance() {
-    return pb_1.Message.getFieldWithDefault(this, 6, "") as string;
-  }
-  set distance(value: string) {
-    pb_1.Message.setField(this, 6, value);
-  }
-  get promotions() {
-    return pb_1.Message.getRepeatedWrapperField(
-      this,
-      dependency_4.PromotionCell,
-      7
-    ) as dependency_4.PromotionCell[];
-  }
-  set promotions(value: dependency_4.PromotionCell[]) {
-    pb_1.Message.setRepeatedWrapperField(this, 7, value);
-  }
-  static fromObject(data: {
-    id?: string;
-    name?: string;
-    rating?: number;
-    tags?: string[];
-    addr?: string;
-    distance?: string;
-    promotions?: ReturnType<
-      typeof dependency_4.PromotionCell.prototype.toObject
-    >[];
-  }): MerchantCell {
-    const message = new MerchantCell({});
-    if (data.id != null) {
-      message.id = data.id;
+    get id() {
+        return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
     }
-    if (data.name != null) {
-      message.name = data.name;
+    set id(value: string) {
+        pb_1.Message.setField(this, 1, value);
     }
-    if (data.rating != null) {
-      message.rating = data.rating;
+    get name() {
+        return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
     }
-    if (data.tags != null) {
-      message.tags = data.tags;
+    set name(value: string) {
+        pb_1.Message.setField(this, 2, value);
     }
-    if (data.addr != null) {
-      message.addr = data.addr;
+    get theme() {
+        return pb_1.Message.getWrapperField(this, dependency_2.MediaMetaModel, 3) as dependency_2.MediaMetaModel;
     }
-    if (data.distance != null) {
-      message.distance = data.distance;
+    set theme(value: dependency_2.MediaMetaModel) {
+        pb_1.Message.setWrapperField(this, 3, value);
     }
-    if (data.promotions != null) {
-      message.promotions = data.promotions.map((item) =>
-        dependency_4.PromotionCell.fromObject(item)
-      );
+    get hasTheme() {
+        return pb_1.Message.getField(this, 3) != null;
     }
-    return message;
-  }
-  toObject() {
-    const data: {
-      id?: string;
-      name?: string;
-      rating?: number;
-      tags?: string[];
-      addr?: string;
-      distance?: string;
-      promotions?: ReturnType<
-        typeof dependency_4.PromotionCell.prototype.toObject
-      >[];
-    } = {};
-    if (this.id != null) {
-      data.id = this.id;
+    get rating() {
+        return pb_1.Message.getFieldWithDefault(this, 4, 0) as number;
     }
-    if (this.name != null) {
-      data.name = this.name;
+    set rating(value: number) {
+        pb_1.Message.setField(this, 4, value);
     }
-    if (this.rating != null) {
-      data.rating = this.rating;
+    get tags() {
+        return pb_1.Message.getFieldWithDefault(this, 5, []) as string[];
     }
-    if (this.tags != null) {
-      data.tags = this.tags;
+    set tags(value: string[]) {
+        pb_1.Message.setField(this, 5, value);
     }
-    if (this.addr != null) {
-      data.addr = this.addr;
+    get addr() {
+        return pb_1.Message.getFieldWithDefault(this, 6, "") as string;
     }
-    if (this.distance != null) {
-      data.distance = this.distance;
+    set addr(value: string) {
+        pb_1.Message.setField(this, 6, value);
     }
-    if (this.promotions != null) {
-      data.promotions = this.promotions.map(
-        (item: dependency_4.PromotionCell) => item.toObject()
-      );
+    get distance() {
+        return pb_1.Message.getFieldWithDefault(this, 7, 0) as number;
     }
-    return data;
-  }
-  serialize(): Uint8Array;
-  serialize(w: pb_1.BinaryWriter): void;
-  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-    const writer = w || new pb_1.BinaryWriter();
-    if (this.id.length) writer.writeString(1, this.id);
-    if (this.name.length) writer.writeString(2, this.name);
-    if (this.rating != 0) writer.writeFloat(3, this.rating);
-    if (this.tags.length) writer.writeRepeatedString(4, this.tags);
-    if (this.addr.length) writer.writeString(5, this.addr);
-    if (this.distance.length) writer.writeString(6, this.distance);
-    if (this.promotions.length)
-      writer.writeRepeatedMessage(
-        7,
-        this.promotions,
-        (item: dependency_4.PromotionCell) => item.serialize(writer)
-      );
-    if (!w) return writer.getResultBuffer();
-  }
-  static deserialize(bytes: Uint8Array | pb_1.BinaryReader): MerchantCell {
-    const reader =
-        bytes instanceof pb_1.BinaryReader
-          ? bytes
-          : new pb_1.BinaryReader(bytes),
-      message = new MerchantCell();
-    while (reader.nextField()) {
-      if (reader.isEndGroup()) break;
-      switch (reader.getFieldNumber()) {
-        case 1:
-          message.id = reader.readString();
-          break;
-        case 2:
-          message.name = reader.readString();
-          break;
-        case 3:
-          message.rating = reader.readFloat();
-          break;
-        case 4:
-          pb_1.Message.addToRepeatedField(message, 4, reader.readString());
-          break;
-        case 5:
-          message.addr = reader.readString();
-          break;
-        case 6:
-          message.distance = reader.readString();
-          break;
-        case 7:
-          reader.readMessage(message.promotions, () =>
-            pb_1.Message.addToRepeatedWrapperField(
-              message,
-              7,
-              dependency_4.PromotionCell.deserialize(reader),
-              dependency_4.PromotionCell
-            )
-          );
-          break;
-        default:
-          reader.skipField();
-      }
+    set distance(value: number) {
+        pb_1.Message.setField(this, 7, value);
     }
-    return message;
-  }
-  serializeBinary(): Uint8Array {
-    return this.serialize();
-  }
-  static deserializeBinary(bytes: Uint8Array): MerchantCell {
-    return MerchantCell.deserialize(bytes);
-  }
-}
-export class PurchasePackagePageFilterRequest extends pb_1.Message {
-  #one_of_decls: number[][] = [];
-  constructor(
-    data?:
-      | any[]
-      | {
-          page?: dependency_3.PagerRequest;
-          categoryId?: string;
-          latitude?: number;
-          longitude?: number;
+    get promotions() {
+        return pb_1.Message.getRepeatedWrapperField(this, dependency_5.PromotionCell, 8) as dependency_5.PromotionCell[];
+    }
+    set promotions(value: dependency_5.PromotionCell[]) {
+        pb_1.Message.setRepeatedWrapperField(this, 8, value);
+    }
+    static fromObject(data: {
+        id?: string;
+        name?: string;
+        theme?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>;
+        rating?: number;
+        tags?: string[];
+        addr?: string;
+        distance?: number;
+        promotions?: ReturnType<typeof dependency_5.PromotionCell.prototype.toObject>[];
+    }): MerchantCell {
+        const message = new MerchantCell({});
+        if (data.id != null) {
+            message.id = data.id;
         }
-  ) {
-    super();
-    pb_1.Message.initialize(
-      this,
-      Array.isArray(data) ? data : [],
-      0,
-      -1,
-      [],
-      this.#one_of_decls
-    );
-    if (!Array.isArray(data) && typeof data == "object") {
-      if ("page" in data && data.page != undefined) {
-        this.page = data.page;
-      }
-      if ("categoryId" in data && data.categoryId != undefined) {
-        this.categoryId = data.categoryId;
-      }
-      if ("latitude" in data && data.latitude != undefined) {
-        this.latitude = data.latitude;
-      }
-      if ("longitude" in data && data.longitude != undefined) {
-        this.longitude = data.longitude;
-      }
-    }
-  }
-  get page() {
-    return pb_1.Message.getWrapperField(
-      this,
-      dependency_3.PagerRequest,
-      1
-    ) as dependency_3.PagerRequest;
-  }
-  set page(value: dependency_3.PagerRequest) {
-    pb_1.Message.setWrapperField(this, 1, value);
-  }
-  get hasPage() {
-    return pb_1.Message.getField(this, 1) != null;
-  }
-  get categoryId() {
-    return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
-  }
-  set categoryId(value: string) {
-    pb_1.Message.setField(this, 2, value);
-  }
-  get latitude() {
-    return pb_1.Message.getFieldWithDefault(this, 3, 0) as number;
-  }
-  set latitude(value: number) {
-    pb_1.Message.setField(this, 3, value);
-  }
-  get longitude() {
-    return pb_1.Message.getFieldWithDefault(this, 4, 0) as number;
-  }
-  set longitude(value: number) {
-    pb_1.Message.setField(this, 4, value);
-  }
-  static fromObject(data: {
-    page?: ReturnType<typeof dependency_3.PagerRequest.prototype.toObject>;
-    categoryId?: string;
-    latitude?: number;
-    longitude?: number;
-  }): PurchasePackagePageFilterRequest {
-    const message = new PurchasePackagePageFilterRequest({});
-    if (data.page != null) {
-      message.page = dependency_3.PagerRequest.fromObject(data.page);
-    }
-    if (data.categoryId != null) {
-      message.categoryId = data.categoryId;
-    }
-    if (data.latitude != null) {
-      message.latitude = data.latitude;
-    }
-    if (data.longitude != null) {
-      message.longitude = data.longitude;
-    }
-    return message;
-  }
-  toObject() {
-    const data: {
-      page?: ReturnType<typeof dependency_3.PagerRequest.prototype.toObject>;
-      categoryId?: string;
-      latitude?: number;
-      longitude?: number;
-    } = {};
-    if (this.page != null) {
-      data.page = this.page.toObject();
-    }
-    if (this.categoryId != null) {
-      data.categoryId = this.categoryId;
-    }
-    if (this.latitude != null) {
-      data.latitude = this.latitude;
-    }
-    if (this.longitude != null) {
-      data.longitude = this.longitude;
-    }
-    return data;
-  }
-  serialize(): Uint8Array;
-  serialize(w: pb_1.BinaryWriter): void;
-  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-    const writer = w || new pb_1.BinaryWriter();
-    if (this.hasPage)
-      writer.writeMessage(1, this.page, () => this.page.serialize(writer));
-    if (this.categoryId.length) writer.writeString(2, this.categoryId);
-    if (this.latitude != 0) writer.writeDouble(3, this.latitude);
-    if (this.longitude != 0) writer.writeDouble(4, this.longitude);
-    if (!w) return writer.getResultBuffer();
-  }
-  static deserialize(
-    bytes: Uint8Array | pb_1.BinaryReader
-  ): PurchasePackagePageFilterRequest {
-    const reader =
-        bytes instanceof pb_1.BinaryReader
-          ? bytes
-          : new pb_1.BinaryReader(bytes),
-      message = new PurchasePackagePageFilterRequest();
-    while (reader.nextField()) {
-      if (reader.isEndGroup()) break;
-      switch (reader.getFieldNumber()) {
-        case 1:
-          reader.readMessage(
-            message.page,
-            () => (message.page = dependency_3.PagerRequest.deserialize(reader))
-          );
-          break;
-        case 2:
-          message.categoryId = reader.readString();
-          break;
-        case 3:
-          message.latitude = reader.readDouble();
-          break;
-        case 4:
-          message.longitude = reader.readDouble();
-          break;
-        default:
-          reader.skipField();
-      }
-    }
-    return message;
-  }
-  serializeBinary(): Uint8Array {
-    return this.serialize();
-  }
-  static deserializeBinary(
-    bytes: Uint8Array
-  ): PurchasePackagePageFilterRequest {
-    return PurchasePackagePageFilterRequest.deserialize(bytes);
-  }
-}
-export class PurchasePackagePageResponse extends pb_1.Message {
-  #one_of_decls: number[][] = [];
-  constructor(
-    data?:
-      | any[]
-      | {
-          page?: dependency_3.PagerResponse;
-          raws?: PurchasePackageCell[];
+        if (data.name != null) {
+            message.name = data.name;
         }
-  ) {
-    super();
-    pb_1.Message.initialize(
-      this,
-      Array.isArray(data) ? data : [],
-      0,
-      -1,
-      [2],
-      this.#one_of_decls
-    );
-    if (!Array.isArray(data) && typeof data == "object") {
-      if ("page" in data && data.page != undefined) {
-        this.page = data.page;
-      }
-      if ("raws" in data && data.raws != undefined) {
-        this.raws = data.raws;
-      }
-    }
-  }
-  get page() {
-    return pb_1.Message.getWrapperField(
-      this,
-      dependency_3.PagerResponse,
-      1
-    ) as dependency_3.PagerResponse;
-  }
-  set page(value: dependency_3.PagerResponse) {
-    pb_1.Message.setWrapperField(this, 1, value);
-  }
-  get hasPage() {
-    return pb_1.Message.getField(this, 1) != null;
-  }
-  get raws() {
-    return pb_1.Message.getRepeatedWrapperField(
-      this,
-      PurchasePackageCell,
-      2
-    ) as PurchasePackageCell[];
-  }
-  set raws(value: PurchasePackageCell[]) {
-    pb_1.Message.setRepeatedWrapperField(this, 2, value);
-  }
-  static fromObject(data: {
-    page?: ReturnType<typeof dependency_3.PagerResponse.prototype.toObject>;
-    raws?: ReturnType<typeof PurchasePackageCell.prototype.toObject>[];
-  }): PurchasePackagePageResponse {
-    const message = new PurchasePackagePageResponse({});
-    if (data.page != null) {
-      message.page = dependency_3.PagerResponse.fromObject(data.page);
-    }
-    if (data.raws != null) {
-      message.raws = data.raws.map((item) =>
-        PurchasePackageCell.fromObject(item)
-      );
-    }
-    return message;
-  }
-  toObject() {
-    const data: {
-      page?: ReturnType<typeof dependency_3.PagerResponse.prototype.toObject>;
-      raws?: ReturnType<typeof PurchasePackageCell.prototype.toObject>[];
-    } = {};
-    if (this.page != null) {
-      data.page = this.page.toObject();
-    }
-    if (this.raws != null) {
-      data.raws = this.raws.map((item: PurchasePackageCell) => item.toObject());
-    }
-    return data;
-  }
-  serialize(): Uint8Array;
-  serialize(w: pb_1.BinaryWriter): void;
-  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-    const writer = w || new pb_1.BinaryWriter();
-    if (this.hasPage)
-      writer.writeMessage(1, this.page, () => this.page.serialize(writer));
-    if (this.raws.length)
-      writer.writeRepeatedMessage(2, this.raws, (item: PurchasePackageCell) =>
-        item.serialize(writer)
-      );
-    if (!w) return writer.getResultBuffer();
-  }
-  static deserialize(
-    bytes: Uint8Array | pb_1.BinaryReader
-  ): PurchasePackagePageResponse {
-    const reader =
-        bytes instanceof pb_1.BinaryReader
-          ? bytes
-          : new pb_1.BinaryReader(bytes),
-      message = new PurchasePackagePageResponse();
-    while (reader.nextField()) {
-      if (reader.isEndGroup()) break;
-      switch (reader.getFieldNumber()) {
-        case 1:
-          reader.readMessage(
-            message.page,
-            () =>
-              (message.page = dependency_3.PagerResponse.deserialize(reader))
-          );
-          break;
-        case 2:
-          reader.readMessage(message.raws, () =>
-            pb_1.Message.addToRepeatedWrapperField(
-              message,
-              2,
-              PurchasePackageCell.deserialize(reader),
-              PurchasePackageCell
-            )
-          );
-          break;
-        default:
-          reader.skipField();
-      }
-    }
-    return message;
-  }
-  serializeBinary(): Uint8Array {
-    return this.serialize();
-  }
-  static deserializeBinary(bytes: Uint8Array): PurchasePackagePageResponse {
-    return PurchasePackagePageResponse.deserialize(bytes);
-  }
-}
-export class PurchasePackageCell extends pb_1.Message {
-  #one_of_decls: number[][] = [];
-  constructor(
-    data?:
-      | any[]
-      | {
-          id?: string;
-          theme?: dependency_2.MediaMetaModel;
-          name?: string;
-          sales?: number;
-          remark?: string;
-          merchantName?: string;
-          merchantAddr?: string;
-          distance?: string;
-          discountedPrice?: number;
-          originalPrice?: number;
+        if (data.theme != null) {
+            message.theme = dependency_2.MediaMetaModel.fromObject(data.theme);
         }
-  ) {
-    super();
-    pb_1.Message.initialize(
-      this,
-      Array.isArray(data) ? data : [],
-      0,
-      -1,
-      [],
-      this.#one_of_decls
-    );
-    if (!Array.isArray(data) && typeof data == "object") {
-      if ("id" in data && data.id != undefined) {
-        this.id = data.id;
-      }
-      if ("theme" in data && data.theme != undefined) {
-        this.theme = data.theme;
-      }
-      if ("name" in data && data.name != undefined) {
-        this.name = data.name;
-      }
-      if ("sales" in data && data.sales != undefined) {
-        this.sales = data.sales;
-      }
-      if ("remark" in data && data.remark != undefined) {
-        this.remark = data.remark;
-      }
-      if ("merchantName" in data && data.merchantName != undefined) {
-        this.merchantName = data.merchantName;
-      }
-      if ("merchantAddr" in data && data.merchantAddr != undefined) {
-        this.merchantAddr = data.merchantAddr;
-      }
-      if ("distance" in data && data.distance != undefined) {
-        this.distance = data.distance;
-      }
-      if ("discountedPrice" in data && data.discountedPrice != undefined) {
-        this.discountedPrice = data.discountedPrice;
-      }
-      if ("originalPrice" in data && data.originalPrice != undefined) {
-        this.originalPrice = data.originalPrice;
-      }
+        if (data.rating != null) {
+            message.rating = data.rating;
+        }
+        if (data.tags != null) {
+            message.tags = data.tags;
+        }
+        if (data.addr != null) {
+            message.addr = data.addr;
+        }
+        if (data.distance != null) {
+            message.distance = data.distance;
+        }
+        if (data.promotions != null) {
+            message.promotions = data.promotions.map(item => dependency_5.PromotionCell.fromObject(item));
+        }
+        return message;
     }
-  }
-  get id() {
-    return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
-  }
-  set id(value: string) {
-    pb_1.Message.setField(this, 1, value);
-  }
-  get theme() {
-    return pb_1.Message.getWrapperField(
-      this,
-      dependency_2.MediaMetaModel,
-      2
-    ) as dependency_2.MediaMetaModel;
-  }
-  set theme(value: dependency_2.MediaMetaModel) {
-    pb_1.Message.setWrapperField(this, 2, value);
-  }
-  get hasTheme() {
-    return pb_1.Message.getField(this, 2) != null;
-  }
-  get name() {
-    return pb_1.Message.getFieldWithDefault(this, 3, "") as string;
-  }
-  set name(value: string) {
-    pb_1.Message.setField(this, 3, value);
-  }
-  get sales() {
-    return pb_1.Message.getFieldWithDefault(this, 4, 0) as number;
-  }
-  set sales(value: number) {
-    pb_1.Message.setField(this, 4, value);
-  }
-  get remark() {
-    return pb_1.Message.getFieldWithDefault(this, 5, "") as string;
-  }
-  set remark(value: string) {
-    pb_1.Message.setField(this, 5, value);
-  }
-  get merchantName() {
-    return pb_1.Message.getFieldWithDefault(this, 6, "") as string;
-  }
-  set merchantName(value: string) {
-    pb_1.Message.setField(this, 6, value);
-  }
-  get merchantAddr() {
-    return pb_1.Message.getFieldWithDefault(this, 7, "") as string;
-  }
-  set merchantAddr(value: string) {
-    pb_1.Message.setField(this, 7, value);
-  }
-  get distance() {
-    return pb_1.Message.getFieldWithDefault(this, 8, "") as string;
-  }
-  set distance(value: string) {
-    pb_1.Message.setField(this, 8, value);
-  }
-  get discountedPrice() {
-    return pb_1.Message.getFieldWithDefault(this, 9, 0) as number;
-  }
-  set discountedPrice(value: number) {
-    pb_1.Message.setField(this, 9, value);
-  }
-  get originalPrice() {
-    return pb_1.Message.getFieldWithDefault(this, 10, 0) as number;
-  }
-  set originalPrice(value: number) {
-    pb_1.Message.setField(this, 10, value);
-  }
-  static fromObject(data: {
-    id?: string;
-    theme?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>;
-    name?: string;
-    sales?: number;
-    remark?: string;
-    merchantName?: string;
-    merchantAddr?: string;
-    distance?: string;
-    discountedPrice?: number;
-    originalPrice?: number;
-  }): PurchasePackageCell {
-    const message = new PurchasePackageCell({});
-    if (data.id != null) {
-      message.id = data.id;
+    toObject() {
+        const data: {
+            id?: string;
+            name?: string;
+            theme?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>;
+            rating?: number;
+            tags?: string[];
+            addr?: string;
+            distance?: number;
+            promotions?: ReturnType<typeof dependency_5.PromotionCell.prototype.toObject>[];
+        } = {};
+        if (this.id != null) {
+            data.id = this.id;
+        }
+        if (this.name != null) {
+            data.name = this.name;
+        }
+        if (this.theme != null) {
+            data.theme = this.theme.toObject();
+        }
+        if (this.rating != null) {
+            data.rating = this.rating;
+        }
+        if (this.tags != null) {
+            data.tags = this.tags;
+        }
+        if (this.addr != null) {
+            data.addr = this.addr;
+        }
+        if (this.distance != null) {
+            data.distance = this.distance;
+        }
+        if (this.promotions != null) {
+            data.promotions = this.promotions.map((item: dependency_5.PromotionCell) => item.toObject());
+        }
+        return data;
     }
-    if (data.theme != null) {
-      message.theme = dependency_2.MediaMetaModel.fromObject(data.theme);
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.id.length)
+            writer.writeString(1, this.id);
+        if (this.name.length)
+            writer.writeString(2, this.name);
+        if (this.hasTheme)
+            writer.writeMessage(3, this.theme, () => this.theme.serialize(writer));
+        if (this.rating != 0)
+            writer.writeFloat(4, this.rating);
+        if (this.tags.length)
+            writer.writeRepeatedString(5, this.tags);
+        if (this.addr.length)
+            writer.writeString(6, this.addr);
+        if (this.distance != 0)
+            writer.writeDouble(7, this.distance);
+        if (this.promotions.length)
+            writer.writeRepeatedMessage(8, this.promotions, (item: dependency_5.PromotionCell) => item.serialize(writer));
+        if (!w)
+            return writer.getResultBuffer();
     }
-    if (data.name != null) {
-      message.name = data.name;
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): MerchantCell {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new MerchantCell();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    message.id = reader.readString();
+                    break;
+                case 2:
+                    message.name = reader.readString();
+                    break;
+                case 3:
+                    reader.readMessage(message.theme, () => message.theme = dependency_2.MediaMetaModel.deserialize(reader));
+                    break;
+                case 4:
+                    message.rating = reader.readFloat();
+                    break;
+                case 5:
+                    pb_1.Message.addToRepeatedField(message, 5, reader.readString());
+                    break;
+                case 6:
+                    message.addr = reader.readString();
+                    break;
+                case 7:
+                    message.distance = reader.readDouble();
+                    break;
+                case 8:
+                    reader.readMessage(message.promotions, () => pb_1.Message.addToRepeatedWrapperField(message, 8, dependency_5.PromotionCell.deserialize(reader), dependency_5.PromotionCell));
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
     }
-    if (data.sales != null) {
-      message.sales = data.sales;
+    serializeBinary(): Uint8Array {
+        return this.serialize();
     }
-    if (data.remark != null) {
-      message.remark = data.remark;
+    static deserializeBinary(bytes: Uint8Array): MerchantCell {
+        return MerchantCell.deserialize(bytes);
     }
-    if (data.merchantName != null) {
-      message.merchantName = data.merchantName;
-    }
-    if (data.merchantAddr != null) {
-      message.merchantAddr = data.merchantAddr;
-    }
-    if (data.distance != null) {
-      message.distance = data.distance;
-    }
-    if (data.discountedPrice != null) {
-      message.discountedPrice = data.discountedPrice;
-    }
-    if (data.originalPrice != null) {
-      message.originalPrice = data.originalPrice;
-    }
-    return message;
-  }
-  toObject() {
-    const data: {
-      id?: string;
-      theme?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>;
-      name?: string;
-      sales?: number;
-      remark?: string;
-      merchantName?: string;
-      merchantAddr?: string;
-      distance?: string;
-      discountedPrice?: number;
-      originalPrice?: number;
-    } = {};
-    if (this.id != null) {
-      data.id = this.id;
-    }
-    if (this.theme != null) {
-      data.theme = this.theme.toObject();
-    }
-    if (this.name != null) {
-      data.name = this.name;
-    }
-    if (this.sales != null) {
-      data.sales = this.sales;
-    }
-    if (this.remark != null) {
-      data.remark = this.remark;
-    }
-    if (this.merchantName != null) {
-      data.merchantName = this.merchantName;
-    }
-    if (this.merchantAddr != null) {
-      data.merchantAddr = this.merchantAddr;
-    }
-    if (this.distance != null) {
-      data.distance = this.distance;
-    }
-    if (this.discountedPrice != null) {
-      data.discountedPrice = this.discountedPrice;
-    }
-    if (this.originalPrice != null) {
-      data.originalPrice = this.originalPrice;
-    }
-    return data;
-  }
-  serialize(): Uint8Array;
-  serialize(w: pb_1.BinaryWriter): void;
-  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-    const writer = w || new pb_1.BinaryWriter();
-    if (this.id.length) writer.writeString(1, this.id);
-    if (this.hasTheme)
-      writer.writeMessage(2, this.theme, () => this.theme.serialize(writer));
-    if (this.name.length) writer.writeString(3, this.name);
-    if (this.sales != 0) writer.writeUint32(4, this.sales);
-    if (this.remark.length) writer.writeString(5, this.remark);
-    if (this.merchantName.length) writer.writeString(6, this.merchantName);
-    if (this.merchantAddr.length) writer.writeString(7, this.merchantAddr);
-    if (this.distance.length) writer.writeString(8, this.distance);
-    if (this.discountedPrice != 0) writer.writeUint64(9, this.discountedPrice);
-    if (this.originalPrice != 0) writer.writeUint64(10, this.originalPrice);
-    if (!w) return writer.getResultBuffer();
-  }
-  static deserialize(
-    bytes: Uint8Array | pb_1.BinaryReader
-  ): PurchasePackageCell {
-    const reader =
-        bytes instanceof pb_1.BinaryReader
-          ? bytes
-          : new pb_1.BinaryReader(bytes),
-      message = new PurchasePackageCell();
-    while (reader.nextField()) {
-      if (reader.isEndGroup()) break;
-      switch (reader.getFieldNumber()) {
-        case 1:
-          message.id = reader.readString();
-          break;
-        case 2:
-          reader.readMessage(
-            message.theme,
-            () =>
-              (message.theme = dependency_2.MediaMetaModel.deserialize(reader))
-          );
-          break;
-        case 3:
-          message.name = reader.readString();
-          break;
-        case 4:
-          message.sales = reader.readUint32();
-          break;
-        case 5:
-          message.remark = reader.readString();
-          break;
-        case 6:
-          message.merchantName = reader.readString();
-          break;
-        case 7:
-          message.merchantAddr = reader.readString();
-          break;
-        case 8:
-          message.distance = reader.readString();
-          break;
-        case 9:
-          message.discountedPrice = reader.readUint64();
-          break;
-        case 10:
-          message.originalPrice = reader.readUint64();
-          break;
-        default:
-          reader.skipField();
-      }
-    }
-    return message;
-  }
-  serializeBinary(): Uint8Array {
-    return this.serialize();
-  }
-  static deserializeBinary(bytes: Uint8Array): PurchasePackageCell {
-    return PurchasePackageCell.deserialize(bytes);
-  }
 }

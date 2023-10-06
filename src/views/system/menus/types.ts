@@ -1,5 +1,5 @@
 export interface MenusType {
-  key: number;
+  key: string;
   id: string;
   title: string;
   type: number;
@@ -10,4 +10,5 @@ export interface MenusType {
   isFrame: boolean;
   noCache: boolean;
   hidden: boolean;
+  child: Array<{ label: string; value: string }>;
 }

@@ -175,7 +175,9 @@
 <script setup lang="ts">
 import { Menu } from "@/api";
 import { MenuViewModel, Meta, MenuType } from "@/protoJs";
-
+const props = defineProps<{
+  id: string;
+}>();
 const emit = defineEmits(["closeModal"]);
 type directoryFormType = {
   title: string | undefined;
@@ -183,17 +185,17 @@ type directoryFormType = {
   component: string | undefined;
   componentName: string | undefined;
   redirect: string | undefined;
-  children: string | undefined;
+  children: string[] | undefined;
   identity: string | undefined;
   meta: {
-    hidden: boolean;
-    noCache: boolean;
-    affix: boolean;
+    hidden: boolean | undefined;
+    noCache: boolean | undefined;
+    affix: boolean | undefined;
     title: string | undefined;
     icon: string | undefined;
   };
   sort: number | undefined;
-  isFrame: boolean;
+  isFrame: boolean | undefined;
 };
 const directoryForm = ref<directoryFormType>({
   title: undefined,
@@ -214,6 +216,24 @@ const directoryForm = ref<directoryFormType>({
   isFrame: false,
 });
 
+async function getDirectorDetail() {
+  const result = (await Menu.detailMenu(props.id)).toObject();
+  directoryForm.value.title = result.title;
+  directoryForm.value.path = result.path;
+  directoryForm.value.component = result.component;
+  directoryForm.value.componentName = result.componentName;
+  directoryForm.value.redirect = result.redirect;
+  directoryForm.value.children = result.children;
+  directoryForm.value.identity = result.identity;
+  directoryForm.value.meta.hidden = result.meta?.hidden;
+  directoryForm.value.meta.noCache = result.meta?.noCache;
+  directoryForm.value.meta.title = result.meta?.title;
+  directoryForm.value.meta.icon = result.meta?.icon;
+  directoryForm.value.meta.affix = result.meta?.affix;
+  directoryForm.value.sort = result.sort;
+  directoryForm.value.isFrame = result.isFrame;
+}
+
 async function submit() {
   const metaReq = new Meta({
     title: directoryForm.value.meta.title,
@@ -223,6 +243,7 @@ async function submit() {
     icon: directoryForm.value.meta.icon,
   });
   const req = new MenuViewModel({
+    id: props.id,
     type: MenuType.DIR,
     title: directoryForm.value.title,
     meta: metaReq,
@@ -233,11 +254,12 @@ async function submit() {
     sort: directoryForm.value.sort,
     isFrame: directoryForm.value.isFrame,
   });
-  const result = (await Menu.addMenu(req)).toObject();
+  const result = (await Menu.editMenu(req)).toObject();
   if (result.value) {
     emit("closeModal");
   }
 }
+getDirectorDetail();
 </script>
 <style scoped lang="less">
 .directory-form {

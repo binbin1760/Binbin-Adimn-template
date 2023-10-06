@@ -1,33 +1,13 @@
 <template>
   <div class="menus">
-    <div class="serch">
-      <n-tooltip
-        placement="bottom"
-        trigger="click"
-        :style="{ background: 'white', color: '#000000' }"
-        :arrow-style="{ background: 'white' }"
-      >
-        <template #trigger>
-          <NInput
-            class="serch-input"
-            placeholder="请输入用户名或者邮箱搜索"
-            type="text"
-          />
-        </template>
-        <span>输入历史</span>
-      </n-tooltip>
-      <DatePickerRange></DatePickerRange>
-      <n-button size="large" color="#19BE6B">搜索</n-button>
-      <n-button size="large" color="#FF9B52">重置</n-button>
-    </div>
     <div class="operate-list">
       <n-button size="large" color="#409EFF" @click="addNewMenu()"
         >新增</n-button
       >
-      <n-button size="large" color="#F56D6D">删除</n-button>
+      <n-button size="large" color="#F56D6D" @click="delMenu">删除</n-button>
     </div>
     <div class="data-able">
-      <DataTable :data="data" :columns="columns" />
+      <DataTable :data="data" :columns="columns" @get-row-key="getRowKeyData" />
     </div>
     <div class="pageination">
       <div class="page-total">
@@ -36,12 +16,8 @@
       <n-pagination
         v-model:page="pages"
         :page-count="pageCount"
-        show-size-picker
-        show-quick-jumper
-        :page-sizes="pageSizes"
         :on-update:page="getCurrentPage"
       >
-        <template #goto>跳至</template>
       </n-pagination>
     </div>
 
@@ -60,23 +36,48 @@
             <n-radio-group v-model:value="formType" name="left-size">
               <n-radio-button value="directory"> 目录 </n-radio-button>
               <n-radio-button value="menu"> 菜单 </n-radio-button>
-              <n-radio-button value="button"> 按钮 </n-radio-button>
             </n-radio-group>
           </div>
-          <menuForm v-if="formType === 'menu'"></menuForm>
-          <directoryForm v-if="formType === 'directory'"></directoryForm>
+          <menuForm
+            v-if="formType === 'menu'"
+            @close-modal="closeModal"
+          ></menuForm>
+          <directoryForm
+            v-if="formType === 'directory'"
+            @close-modal="closeModal"
+          ></directoryForm>
         </div>
       </template>
+    </n-modal>
+
+    <n-modal
+      v-model:show="dirModal"
+      title="目录编辑"
+      class="custom-card"
+      preset="card"
+      :style="{ width: '600px' }"
+      transform-origin="center"
+    >
+      <editDir :id="(dirId as string)" @close-modal="closeDirModal"></editDir>
     </n-modal>
   </div>
 </template>
 <script setup lang="ts">
 import { DataTableColumns } from "naive-ui";
-import { menuForm, directoryForm } from "../components";
+import { menuForm, directoryForm, editDir } from "../components";
 import { MenusType } from "./types";
 import { Menu } from "@/api";
-import { MenuPageRequest, PagerRequest } from "@/protoJs";
+import {
+  MenuPageRequest,
+  PagerRequest,
+  DeleteBatchRequest,
+  MenuType,
+} from "@/protoJs";
+
 const showModal = ref<boolean>(false);
+const dirModal = ref<boolean>(false);
+let dirId = ref<string>();
+
 // 表单
 const formType = ref<string>("directory");
 function getFiled(value: boolean) {
@@ -101,19 +102,36 @@ const columnsCreate = (): DataTableColumns<MenusType> => [
     type: "selection",
   },
   {
+    type: "expand",
+    renderExpand: (row) => {
+      console.log(row.child);
+      const list = row.child.map((item) => {
+        return h(
+          NTag,
+          {
+            onClick: () => editRowChild(item.value),
+            style: { marginRight: "1.6rem" },
+          },
+          { default: () => item.label }
+        );
+      });
+      return list;
+    },
+  },
+  {
     title: "类型",
     key: "type",
     align: "center",
     render(row) {
       let result: string | undefined;
-      if (row.type === 1) {
+      if (row.type === MenuType.DIR) {
         result = "目录";
       }
 
-      if (row.type === 2) {
+      if (row.type === MenuType.MENU) {
         result = "菜单";
       }
-      if (row.type === 3) {
+      if (row.type === MenuType.BUTTON) {
         result = "按钮";
       }
       return h("div", {}, { default: () => result });
@@ -122,7 +140,7 @@ const columnsCreate = (): DataTableColumns<MenusType> => [
   { title: "菜单标题", key: "title", align: "center" },
   { title: "菜单图标", key: "icon", align: "center" },
   { title: "排序", key: "sort", align: "center" },
-  { title: "权限表示", key: "identity", align: "center" },
+  { title: "权限标识", key: "key", align: "center" },
   { title: "组件", key: "componentName", align: "center" },
   {
     title: "外链",
@@ -155,16 +173,25 @@ const columnsCreate = (): DataTableColumns<MenusType> => [
     title: "操作",
     key: "operate",
     align: "center",
-    render() {
+    render(row) {
       const list = [
         h(
           NButton,
-          { size: "small", color: "#1990FF", style: { marginRight: "0.8rem" } },
+          {
+            onClick: () => editMenuItem(row),
+            size: "small",
+            color: "#1990FF",
+            style: { marginRight: "0.8rem" },
+          },
           { default: () => "编辑" }
         ),
         h(
           NButton,
-          { size: "small", color: "#FF4A4A" },
+          {
+            onClick: () => delMenuItem(row.key),
+            size: "small",
+            color: "#FF4A4A",
+          },
           { default: () => "删除" }
         ),
       ];
@@ -175,7 +202,7 @@ const columnsCreate = (): DataTableColumns<MenusType> => [
 const columns = columnsCreate();
 const data = ref<Array<Partial<MenusType>>>([
   {
-    key: 0,
+    key: "12313",
     title: "系统管理",
     type: 1,
     icon: "管理",
@@ -187,43 +214,98 @@ const data = ref<Array<Partial<MenusType>>>([
     hidden: false,
   },
 ]);
+const ids = ref([]);
 // 分页
 const pages = ref<number>(1);
-const pageCount = ref<number>(10);
-const total = ref<number>(10);
-const pageSizes = [
-  {
-    label: "10 每页",
-    value: 10,
-  },
-  {
-    label: "20 每页",
-    value: 20,
-  },
-  {
-    label: "30 每页",
-    value: 30,
-  },
-  {
-    label: "40 每页",
-    value: 40,
-  },
-];
+const pageCount = ref<number>(1);
+const total = ref<number | undefined>(0);
+
 function getCurrentPage(page: number) {
   pages.value = page;
 }
 // 数据处理
+function closeModal() {
+  showModal.value = false;
+  getData();
+}
+function closeDirModal() {
+  dirModal.value = false;
+  getData();
+}
 function addNewMenu() {
   showModal.value = true;
 }
+
+function query(id: string) {
+  return new Promise((resolve) => {
+    let a: any;
+    const page = new PagerRequest({ pageNumber: 0, pageSize: 20 });
+    const req = new MenuPageRequest({ page: page, parentId: id });
+    Menu.allMenu(req).then((res) => {
+      a = res.toObject().raws?.map((item) => {
+        return { label: item.label, value: item.id };
+      });
+      resolve(a);
+    });
+  });
+}
+
 async function getData() {
-  const page = new PagerRequest({ pageNumber: 1, pageSize: 5 });
+  const page = new PagerRequest({ pageNumber: 0, pageSize: 20 });
   const req = new MenuPageRequest({ page: page });
   const result = (await Menu.allMenu(req)).toObject();
-  console.log(result);
-  // data.value = result.raws?.map((item, index) => {
-  //   item.key = index;
-  // })
+  data.value = result.raws?.map((item) => {
+    return {
+      key: item.id,
+      title: item.meta?.title,
+      type: item.type,
+      icon: item.meta?.icon,
+      componentName: item.componentName,
+      sort: item.sort,
+      identity: item.identity,
+      isFrame: item.isFrame,
+      noCache: item.meta?.noCache,
+      hidden: item.meta?.hidden,
+      child: item.children,
+    };
+  }) as unknown as Array<Partial<MenusType>>;
+  for (let i = 0; i < data.value?.length; i++) {
+    if (data.value[i].child?.length) {
+      query(data.value[i].key as string).then((res) => {
+        data.value[i].child = res as unknown as Array<{
+          label: string;
+          value: string;
+        }>;
+      });
+    }
+  }
+  total.value = result.page?.total;
+}
+
+function getRowKeyData(e: any) {
+  ids.value = e;
+}
+async function delMenuItem(id: string) {
+  const ids = [id];
+  const del = new DeleteBatchRequest({ ids: ids });
+  const result = await Menu.delMenu(del);
+  if (result.toObject().value) {
+    getData();
+  }
+}
+async function delMenu() {
+  const del = new DeleteBatchRequest({ ids: ids.value });
+  const result = await Menu.delMenu(del);
+  if (result.toObject().value) {
+    getData();
+  }
+}
+function editMenuItem(row) {
+  dirId.value = row.key;
+  dirModal.value = true;
+}
+function editRowChild(id: any) {
+  console.log(id);
 }
 getData();
 </script>
@@ -232,18 +314,6 @@ getData();
   height: 100%;
   display: flex;
   flex-direction: column;
-  .serch {
-    display: flex;
-    gap: 1.3rem;
-    align-items: center;
-    margin-bottom: 1.2rem;
-    .serch-input {
-      width: 25rem;
-      --n-border-hover: 1px solid #409eff !important;
-      --n-border-focus: 1px solid #409eff !important;
-      --n-box-shadow-focus: "none" !important;
-    }
-  }
   .operate-list {
     display: flex;
     align-items: center;
@@ -256,6 +326,7 @@ getData();
   .pageination {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.4rem;
     margin-top: 2rem;
     color: #999999;

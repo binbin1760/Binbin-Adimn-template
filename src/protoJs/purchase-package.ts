@@ -1045,3 +1045,766 @@ export class PromotionCell extends pb_1.Message {
         return PromotionCell.deserialize(bytes);
     }
 }
+export class PurchasePackageCommonPageFilterRequest extends pb_1.Message {
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        page?: dependency_3.PagerRequest;
+        categoryId?: string;
+        latitude?: number;
+        longitude?: number;
+        blurry?: string;
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("page" in data && data.page != undefined) {
+                this.page = data.page;
+            }
+            if ("categoryId" in data && data.categoryId != undefined) {
+                this.categoryId = data.categoryId;
+            }
+            if ("latitude" in data && data.latitude != undefined) {
+                this.latitude = data.latitude;
+            }
+            if ("longitude" in data && data.longitude != undefined) {
+                this.longitude = data.longitude;
+            }
+            if ("blurry" in data && data.blurry != undefined) {
+                this.blurry = data.blurry;
+            }
+        }
+    }
+    get page() {
+        return pb_1.Message.getWrapperField(this, dependency_3.PagerRequest, 1) as dependency_3.PagerRequest;
+    }
+    set page(value: dependency_3.PagerRequest) {
+        pb_1.Message.setWrapperField(this, 1, value);
+    }
+    get hasPage() {
+        return pb_1.Message.getField(this, 1) != null;
+    }
+    get categoryId() {
+        return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+    }
+    set categoryId(value: string) {
+        pb_1.Message.setField(this, 2, value);
+    }
+    get latitude() {
+        return pb_1.Message.getFieldWithDefault(this, 3, 0) as number;
+    }
+    set latitude(value: number) {
+        pb_1.Message.setField(this, 3, value);
+    }
+    get longitude() {
+        return pb_1.Message.getFieldWithDefault(this, 4, 0) as number;
+    }
+    set longitude(value: number) {
+        pb_1.Message.setField(this, 4, value);
+    }
+    get blurry() {
+        return pb_1.Message.getFieldWithDefault(this, 5, "") as string;
+    }
+    set blurry(value: string) {
+        pb_1.Message.setField(this, 5, value);
+    }
+    static fromObject(data: {
+        page?: ReturnType<typeof dependency_3.PagerRequest.prototype.toObject>;
+        categoryId?: string;
+        latitude?: number;
+        longitude?: number;
+        blurry?: string;
+    }): PurchasePackageCommonPageFilterRequest {
+        const message = new PurchasePackageCommonPageFilterRequest({});
+        if (data.page != null) {
+            message.page = dependency_3.PagerRequest.fromObject(data.page);
+        }
+        if (data.categoryId != null) {
+            message.categoryId = data.categoryId;
+        }
+        if (data.latitude != null) {
+            message.latitude = data.latitude;
+        }
+        if (data.longitude != null) {
+            message.longitude = data.longitude;
+        }
+        if (data.blurry != null) {
+            message.blurry = data.blurry;
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            page?: ReturnType<typeof dependency_3.PagerRequest.prototype.toObject>;
+            categoryId?: string;
+            latitude?: number;
+            longitude?: number;
+            blurry?: string;
+        } = {};
+        if (this.page != null) {
+            data.page = this.page.toObject();
+        }
+        if (this.categoryId != null) {
+            data.categoryId = this.categoryId;
+        }
+        if (this.latitude != null) {
+            data.latitude = this.latitude;
+        }
+        if (this.longitude != null) {
+            data.longitude = this.longitude;
+        }
+        if (this.blurry != null) {
+            data.blurry = this.blurry;
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.hasPage)
+            writer.writeMessage(1, this.page, () => this.page.serialize(writer));
+        if (this.categoryId.length)
+            writer.writeString(2, this.categoryId);
+        if (this.latitude != 0)
+            writer.writeDouble(3, this.latitude);
+        if (this.longitude != 0)
+            writer.writeDouble(4, this.longitude);
+        if (this.blurry.length)
+            writer.writeString(5, this.blurry);
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): PurchasePackageCommonPageFilterRequest {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new PurchasePackageCommonPageFilterRequest();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    reader.readMessage(message.page, () => message.page = dependency_3.PagerRequest.deserialize(reader));
+                    break;
+                case 2:
+                    message.categoryId = reader.readString();
+                    break;
+                case 3:
+                    message.latitude = reader.readDouble();
+                    break;
+                case 4:
+                    message.longitude = reader.readDouble();
+                    break;
+                case 5:
+                    message.blurry = reader.readString();
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): PurchasePackageCommonPageFilterRequest {
+        return PurchasePackageCommonPageFilterRequest.deserialize(bytes);
+    }
+}
+export class PurchasePackageCommonPageResponse extends pb_1.Message {
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        page?: dependency_3.PagerResponse;
+        raws?: PurchasePackageCommonCell[];
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [2], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("page" in data && data.page != undefined) {
+                this.page = data.page;
+            }
+            if ("raws" in data && data.raws != undefined) {
+                this.raws = data.raws;
+            }
+        }
+    }
+    get page() {
+        return pb_1.Message.getWrapperField(this, dependency_3.PagerResponse, 1) as dependency_3.PagerResponse;
+    }
+    set page(value: dependency_3.PagerResponse) {
+        pb_1.Message.setWrapperField(this, 1, value);
+    }
+    get hasPage() {
+        return pb_1.Message.getField(this, 1) != null;
+    }
+    get raws() {
+        return pb_1.Message.getRepeatedWrapperField(this, PurchasePackageCommonCell, 2) as PurchasePackageCommonCell[];
+    }
+    set raws(value: PurchasePackageCommonCell[]) {
+        pb_1.Message.setRepeatedWrapperField(this, 2, value);
+    }
+    static fromObject(data: {
+        page?: ReturnType<typeof dependency_3.PagerResponse.prototype.toObject>;
+        raws?: ReturnType<typeof PurchasePackageCommonCell.prototype.toObject>[];
+    }): PurchasePackageCommonPageResponse {
+        const message = new PurchasePackageCommonPageResponse({});
+        if (data.page != null) {
+            message.page = dependency_3.PagerResponse.fromObject(data.page);
+        }
+        if (data.raws != null) {
+            message.raws = data.raws.map(item => PurchasePackageCommonCell.fromObject(item));
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            page?: ReturnType<typeof dependency_3.PagerResponse.prototype.toObject>;
+            raws?: ReturnType<typeof PurchasePackageCommonCell.prototype.toObject>[];
+        } = {};
+        if (this.page != null) {
+            data.page = this.page.toObject();
+        }
+        if (this.raws != null) {
+            data.raws = this.raws.map((item: PurchasePackageCommonCell) => item.toObject());
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.hasPage)
+            writer.writeMessage(1, this.page, () => this.page.serialize(writer));
+        if (this.raws.length)
+            writer.writeRepeatedMessage(2, this.raws, (item: PurchasePackageCommonCell) => item.serialize(writer));
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): PurchasePackageCommonPageResponse {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new PurchasePackageCommonPageResponse();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    reader.readMessage(message.page, () => message.page = dependency_3.PagerResponse.deserialize(reader));
+                    break;
+                case 2:
+                    reader.readMessage(message.raws, () => pb_1.Message.addToRepeatedWrapperField(message, 2, PurchasePackageCommonCell.deserialize(reader), PurchasePackageCommonCell));
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): PurchasePackageCommonPageResponse {
+        return PurchasePackageCommonPageResponse.deserialize(bytes);
+    }
+}
+export class PurchasePackageCommonCell extends pb_1.Message {
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        id?: string;
+        theme?: dependency_2.MediaMetaModel;
+        name?: string;
+        sales?: number;
+        merchantId?: string;
+        merchantName?: string;
+        merchantAddr?: string;
+        distance?: number;
+        discountedPrice?: number;
+        originalPrice?: number;
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("id" in data && data.id != undefined) {
+                this.id = data.id;
+            }
+            if ("theme" in data && data.theme != undefined) {
+                this.theme = data.theme;
+            }
+            if ("name" in data && data.name != undefined) {
+                this.name = data.name;
+            }
+            if ("sales" in data && data.sales != undefined) {
+                this.sales = data.sales;
+            }
+            if ("merchantId" in data && data.merchantId != undefined) {
+                this.merchantId = data.merchantId;
+            }
+            if ("merchantName" in data && data.merchantName != undefined) {
+                this.merchantName = data.merchantName;
+            }
+            if ("merchantAddr" in data && data.merchantAddr != undefined) {
+                this.merchantAddr = data.merchantAddr;
+            }
+            if ("distance" in data && data.distance != undefined) {
+                this.distance = data.distance;
+            }
+            if ("discountedPrice" in data && data.discountedPrice != undefined) {
+                this.discountedPrice = data.discountedPrice;
+            }
+            if ("originalPrice" in data && data.originalPrice != undefined) {
+                this.originalPrice = data.originalPrice;
+            }
+        }
+    }
+    get id() {
+        return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+    }
+    set id(value: string) {
+        pb_1.Message.setField(this, 1, value);
+    }
+    get theme() {
+        return pb_1.Message.getWrapperField(this, dependency_2.MediaMetaModel, 2) as dependency_2.MediaMetaModel;
+    }
+    set theme(value: dependency_2.MediaMetaModel) {
+        pb_1.Message.setWrapperField(this, 2, value);
+    }
+    get hasTheme() {
+        return pb_1.Message.getField(this, 2) != null;
+    }
+    get name() {
+        return pb_1.Message.getFieldWithDefault(this, 3, "") as string;
+    }
+    set name(value: string) {
+        pb_1.Message.setField(this, 3, value);
+    }
+    get sales() {
+        return pb_1.Message.getFieldWithDefault(this, 4, 0) as number;
+    }
+    set sales(value: number) {
+        pb_1.Message.setField(this, 4, value);
+    }
+    get merchantId() {
+        return pb_1.Message.getFieldWithDefault(this, 5, "") as string;
+    }
+    set merchantId(value: string) {
+        pb_1.Message.setField(this, 5, value);
+    }
+    get merchantName() {
+        return pb_1.Message.getFieldWithDefault(this, 6, "") as string;
+    }
+    set merchantName(value: string) {
+        pb_1.Message.setField(this, 6, value);
+    }
+    get merchantAddr() {
+        return pb_1.Message.getFieldWithDefault(this, 7, "") as string;
+    }
+    set merchantAddr(value: string) {
+        pb_1.Message.setField(this, 7, value);
+    }
+    get distance() {
+        return pb_1.Message.getFieldWithDefault(this, 8, 0) as number;
+    }
+    set distance(value: number) {
+        pb_1.Message.setField(this, 8, value);
+    }
+    get discountedPrice() {
+        return pb_1.Message.getFieldWithDefault(this, 9, 0) as number;
+    }
+    set discountedPrice(value: number) {
+        pb_1.Message.setField(this, 9, value);
+    }
+    get originalPrice() {
+        return pb_1.Message.getFieldWithDefault(this, 10, 0) as number;
+    }
+    set originalPrice(value: number) {
+        pb_1.Message.setField(this, 10, value);
+    }
+    static fromObject(data: {
+        id?: string;
+        theme?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>;
+        name?: string;
+        sales?: number;
+        merchantId?: string;
+        merchantName?: string;
+        merchantAddr?: string;
+        distance?: number;
+        discountedPrice?: number;
+        originalPrice?: number;
+    }): PurchasePackageCommonCell {
+        const message = new PurchasePackageCommonCell({});
+        if (data.id != null) {
+            message.id = data.id;
+        }
+        if (data.theme != null) {
+            message.theme = dependency_2.MediaMetaModel.fromObject(data.theme);
+        }
+        if (data.name != null) {
+            message.name = data.name;
+        }
+        if (data.sales != null) {
+            message.sales = data.sales;
+        }
+        if (data.merchantId != null) {
+            message.merchantId = data.merchantId;
+        }
+        if (data.merchantName != null) {
+            message.merchantName = data.merchantName;
+        }
+        if (data.merchantAddr != null) {
+            message.merchantAddr = data.merchantAddr;
+        }
+        if (data.distance != null) {
+            message.distance = data.distance;
+        }
+        if (data.discountedPrice != null) {
+            message.discountedPrice = data.discountedPrice;
+        }
+        if (data.originalPrice != null) {
+            message.originalPrice = data.originalPrice;
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            id?: string;
+            theme?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>;
+            name?: string;
+            sales?: number;
+            merchantId?: string;
+            merchantName?: string;
+            merchantAddr?: string;
+            distance?: number;
+            discountedPrice?: number;
+            originalPrice?: number;
+        } = {};
+        if (this.id != null) {
+            data.id = this.id;
+        }
+        if (this.theme != null) {
+            data.theme = this.theme.toObject();
+        }
+        if (this.name != null) {
+            data.name = this.name;
+        }
+        if (this.sales != null) {
+            data.sales = this.sales;
+        }
+        if (this.merchantId != null) {
+            data.merchantId = this.merchantId;
+        }
+        if (this.merchantName != null) {
+            data.merchantName = this.merchantName;
+        }
+        if (this.merchantAddr != null) {
+            data.merchantAddr = this.merchantAddr;
+        }
+        if (this.distance != null) {
+            data.distance = this.distance;
+        }
+        if (this.discountedPrice != null) {
+            data.discountedPrice = this.discountedPrice;
+        }
+        if (this.originalPrice != null) {
+            data.originalPrice = this.originalPrice;
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.id.length)
+            writer.writeString(1, this.id);
+        if (this.hasTheme)
+            writer.writeMessage(2, this.theme, () => this.theme.serialize(writer));
+        if (this.name.length)
+            writer.writeString(3, this.name);
+        if (this.sales != 0)
+            writer.writeUint32(4, this.sales);
+        if (this.merchantId.length)
+            writer.writeString(5, this.merchantId);
+        if (this.merchantName.length)
+            writer.writeString(6, this.merchantName);
+        if (this.merchantAddr.length)
+            writer.writeString(7, this.merchantAddr);
+        if (this.distance != 0)
+            writer.writeDouble(8, this.distance);
+        if (this.discountedPrice != 0)
+            writer.writeUint64(9, this.discountedPrice);
+        if (this.originalPrice != 0)
+            writer.writeUint64(10, this.originalPrice);
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): PurchasePackageCommonCell {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new PurchasePackageCommonCell();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    message.id = reader.readString();
+                    break;
+                case 2:
+                    reader.readMessage(message.theme, () => message.theme = dependency_2.MediaMetaModel.deserialize(reader));
+                    break;
+                case 3:
+                    message.name = reader.readString();
+                    break;
+                case 4:
+                    message.sales = reader.readUint32();
+                    break;
+                case 5:
+                    message.merchantId = reader.readString();
+                    break;
+                case 6:
+                    message.merchantName = reader.readString();
+                    break;
+                case 7:
+                    message.merchantAddr = reader.readString();
+                    break;
+                case 8:
+                    message.distance = reader.readDouble();
+                    break;
+                case 9:
+                    message.discountedPrice = reader.readUint64();
+                    break;
+                case 10:
+                    message.originalPrice = reader.readUint64();
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): PurchasePackageCommonCell {
+        return PurchasePackageCommonCell.deserialize(bytes);
+    }
+}
+export class PurchasePackageCommonDetail extends pb_1.Message {
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        id?: string;
+        theme?: dependency_2.MediaMetaModel;
+        name?: string;
+        merchantId?: string;
+        merchantName?: string;
+        discountedPrice?: number;
+        originalPrice?: number;
+        sections?: PurchasePackageSectionModel[];
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [8], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("id" in data && data.id != undefined) {
+                this.id = data.id;
+            }
+            if ("theme" in data && data.theme != undefined) {
+                this.theme = data.theme;
+            }
+            if ("name" in data && data.name != undefined) {
+                this.name = data.name;
+            }
+            if ("merchantId" in data && data.merchantId != undefined) {
+                this.merchantId = data.merchantId;
+            }
+            if ("merchantName" in data && data.merchantName != undefined) {
+                this.merchantName = data.merchantName;
+            }
+            if ("discountedPrice" in data && data.discountedPrice != undefined) {
+                this.discountedPrice = data.discountedPrice;
+            }
+            if ("originalPrice" in data && data.originalPrice != undefined) {
+                this.originalPrice = data.originalPrice;
+            }
+            if ("sections" in data && data.sections != undefined) {
+                this.sections = data.sections;
+            }
+        }
+    }
+    get id() {
+        return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+    }
+    set id(value: string) {
+        pb_1.Message.setField(this, 1, value);
+    }
+    get theme() {
+        return pb_1.Message.getWrapperField(this, dependency_2.MediaMetaModel, 2) as dependency_2.MediaMetaModel;
+    }
+    set theme(value: dependency_2.MediaMetaModel) {
+        pb_1.Message.setWrapperField(this, 2, value);
+    }
+    get hasTheme() {
+        return pb_1.Message.getField(this, 2) != null;
+    }
+    get name() {
+        return pb_1.Message.getFieldWithDefault(this, 3, "") as string;
+    }
+    set name(value: string) {
+        pb_1.Message.setField(this, 3, value);
+    }
+    get merchantId() {
+        return pb_1.Message.getFieldWithDefault(this, 4, "") as string;
+    }
+    set merchantId(value: string) {
+        pb_1.Message.setField(this, 4, value);
+    }
+    get merchantName() {
+        return pb_1.Message.getFieldWithDefault(this, 5, "") as string;
+    }
+    set merchantName(value: string) {
+        pb_1.Message.setField(this, 5, value);
+    }
+    get discountedPrice() {
+        return pb_1.Message.getFieldWithDefault(this, 6, 0) as number;
+    }
+    set discountedPrice(value: number) {
+        pb_1.Message.setField(this, 6, value);
+    }
+    get originalPrice() {
+        return pb_1.Message.getFieldWithDefault(this, 7, 0) as number;
+    }
+    set originalPrice(value: number) {
+        pb_1.Message.setField(this, 7, value);
+    }
+    get sections() {
+        return pb_1.Message.getRepeatedWrapperField(this, PurchasePackageSectionModel, 8) as PurchasePackageSectionModel[];
+    }
+    set sections(value: PurchasePackageSectionModel[]) {
+        pb_1.Message.setRepeatedWrapperField(this, 8, value);
+    }
+    static fromObject(data: {
+        id?: string;
+        theme?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>;
+        name?: string;
+        merchantId?: string;
+        merchantName?: string;
+        discountedPrice?: number;
+        originalPrice?: number;
+        sections?: ReturnType<typeof PurchasePackageSectionModel.prototype.toObject>[];
+    }): PurchasePackageCommonDetail {
+        const message = new PurchasePackageCommonDetail({});
+        if (data.id != null) {
+            message.id = data.id;
+        }
+        if (data.theme != null) {
+            message.theme = dependency_2.MediaMetaModel.fromObject(data.theme);
+        }
+        if (data.name != null) {
+            message.name = data.name;
+        }
+        if (data.merchantId != null) {
+            message.merchantId = data.merchantId;
+        }
+        if (data.merchantName != null) {
+            message.merchantName = data.merchantName;
+        }
+        if (data.discountedPrice != null) {
+            message.discountedPrice = data.discountedPrice;
+        }
+        if (data.originalPrice != null) {
+            message.originalPrice = data.originalPrice;
+        }
+        if (data.sections != null) {
+            message.sections = data.sections.map(item => PurchasePackageSectionModel.fromObject(item));
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            id?: string;
+            theme?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>;
+            name?: string;
+            merchantId?: string;
+            merchantName?: string;
+            discountedPrice?: number;
+            originalPrice?: number;
+            sections?: ReturnType<typeof PurchasePackageSectionModel.prototype.toObject>[];
+        } = {};
+        if (this.id != null) {
+            data.id = this.id;
+        }
+        if (this.theme != null) {
+            data.theme = this.theme.toObject();
+        }
+        if (this.name != null) {
+            data.name = this.name;
+        }
+        if (this.merchantId != null) {
+            data.merchantId = this.merchantId;
+        }
+        if (this.merchantName != null) {
+            data.merchantName = this.merchantName;
+        }
+        if (this.discountedPrice != null) {
+            data.discountedPrice = this.discountedPrice;
+        }
+        if (this.originalPrice != null) {
+            data.originalPrice = this.originalPrice;
+        }
+        if (this.sections != null) {
+            data.sections = this.sections.map((item: PurchasePackageSectionModel) => item.toObject());
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.id.length)
+            writer.writeString(1, this.id);
+        if (this.hasTheme)
+            writer.writeMessage(2, this.theme, () => this.theme.serialize(writer));
+        if (this.name.length)
+            writer.writeString(3, this.name);
+        if (this.merchantId.length)
+            writer.writeString(4, this.merchantId);
+        if (this.merchantName.length)
+            writer.writeString(5, this.merchantName);
+        if (this.discountedPrice != 0)
+            writer.writeUint64(6, this.discountedPrice);
+        if (this.originalPrice != 0)
+            writer.writeUint64(7, this.originalPrice);
+        if (this.sections.length)
+            writer.writeRepeatedMessage(8, this.sections, (item: PurchasePackageSectionModel) => item.serialize(writer));
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): PurchasePackageCommonDetail {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new PurchasePackageCommonDetail();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    message.id = reader.readString();
+                    break;
+                case 2:
+                    reader.readMessage(message.theme, () => message.theme = dependency_2.MediaMetaModel.deserialize(reader));
+                    break;
+                case 3:
+                    message.name = reader.readString();
+                    break;
+                case 4:
+                    message.merchantId = reader.readString();
+                    break;
+                case 5:
+                    message.merchantName = reader.readString();
+                    break;
+                case 6:
+                    message.discountedPrice = reader.readUint64();
+                    break;
+                case 7:
+                    message.originalPrice = reader.readUint64();
+                    break;
+                case 8:
+                    reader.readMessage(message.sections, () => pb_1.Message.addToRepeatedWrapperField(message, 8, PurchasePackageSectionModel.deserialize(reader), PurchasePackageSectionModel));
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): PurchasePackageCommonDetail {
+        return PurchasePackageCommonDetail.deserialize(bytes);
+    }
+}

@@ -5,7 +5,516 @@
  * git: https://github.com/thesayyn/protoc-gen-ts */
 import * as dependency_1 from "./enums";
 import * as dependency_2 from "./payload";
+import * as dependency_3 from "./purchase-package";
 import * as pb_1 from "google-protobuf";
+export class MerchantDetailModel extends pb_1.Message {
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        id?: string;
+        name?: string;
+        rating?: number;
+        tags?: string[];
+        screenshots?: dependency_2.MediaMetaModel[];
+        businessHours?: BusinessHourModel[];
+        address?: MerchantAddressModel;
+        phoneNumber?: string[];
+        distance?: number;
+        isOnline?: boolean;
+        pks?: MerchantPKCell[];
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [4, 5, 6, 8, 11], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("id" in data && data.id != undefined) {
+                this.id = data.id;
+            }
+            if ("name" in data && data.name != undefined) {
+                this.name = data.name;
+            }
+            if ("rating" in data && data.rating != undefined) {
+                this.rating = data.rating;
+            }
+            if ("tags" in data && data.tags != undefined) {
+                this.tags = data.tags;
+            }
+            if ("screenshots" in data && data.screenshots != undefined) {
+                this.screenshots = data.screenshots;
+            }
+            if ("businessHours" in data && data.businessHours != undefined) {
+                this.businessHours = data.businessHours;
+            }
+            if ("address" in data && data.address != undefined) {
+                this.address = data.address;
+            }
+            if ("phoneNumber" in data && data.phoneNumber != undefined) {
+                this.phoneNumber = data.phoneNumber;
+            }
+            if ("distance" in data && data.distance != undefined) {
+                this.distance = data.distance;
+            }
+            if ("isOnline" in data && data.isOnline != undefined) {
+                this.isOnline = data.isOnline;
+            }
+            if ("pks" in data && data.pks != undefined) {
+                this.pks = data.pks;
+            }
+        }
+    }
+    get id() {
+        return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+    }
+    set id(value: string) {
+        pb_1.Message.setField(this, 1, value);
+    }
+    get name() {
+        return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+    }
+    set name(value: string) {
+        pb_1.Message.setField(this, 2, value);
+    }
+    get rating() {
+        return pb_1.Message.getFieldWithDefault(this, 3, 0) as number;
+    }
+    set rating(value: number) {
+        pb_1.Message.setField(this, 3, value);
+    }
+    get tags() {
+        return pb_1.Message.getFieldWithDefault(this, 4, []) as string[];
+    }
+    set tags(value: string[]) {
+        pb_1.Message.setField(this, 4, value);
+    }
+    get screenshots() {
+        return pb_1.Message.getRepeatedWrapperField(this, dependency_2.MediaMetaModel, 5) as dependency_2.MediaMetaModel[];
+    }
+    set screenshots(value: dependency_2.MediaMetaModel[]) {
+        pb_1.Message.setRepeatedWrapperField(this, 5, value);
+    }
+    get businessHours() {
+        return pb_1.Message.getRepeatedWrapperField(this, BusinessHourModel, 6) as BusinessHourModel[];
+    }
+    set businessHours(value: BusinessHourModel[]) {
+        pb_1.Message.setRepeatedWrapperField(this, 6, value);
+    }
+    get address() {
+        return pb_1.Message.getWrapperField(this, MerchantAddressModel, 7) as MerchantAddressModel;
+    }
+    set address(value: MerchantAddressModel) {
+        pb_1.Message.setWrapperField(this, 7, value);
+    }
+    get hasAddress() {
+        return pb_1.Message.getField(this, 7) != null;
+    }
+    get phoneNumber() {
+        return pb_1.Message.getFieldWithDefault(this, 8, []) as string[];
+    }
+    set phoneNumber(value: string[]) {
+        pb_1.Message.setField(this, 8, value);
+    }
+    get distance() {
+        return pb_1.Message.getFieldWithDefault(this, 9, 0) as number;
+    }
+    set distance(value: number) {
+        pb_1.Message.setField(this, 9, value);
+    }
+    get isOnline() {
+        return pb_1.Message.getFieldWithDefault(this, 10, false) as boolean;
+    }
+    set isOnline(value: boolean) {
+        pb_1.Message.setField(this, 10, value);
+    }
+    get pks() {
+        return pb_1.Message.getRepeatedWrapperField(this, MerchantPKCell, 11) as MerchantPKCell[];
+    }
+    set pks(value: MerchantPKCell[]) {
+        pb_1.Message.setRepeatedWrapperField(this, 11, value);
+    }
+    static fromObject(data: {
+        id?: string;
+        name?: string;
+        rating?: number;
+        tags?: string[];
+        screenshots?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>[];
+        businessHours?: ReturnType<typeof BusinessHourModel.prototype.toObject>[];
+        address?: ReturnType<typeof MerchantAddressModel.prototype.toObject>;
+        phoneNumber?: string[];
+        distance?: number;
+        isOnline?: boolean;
+        pks?: ReturnType<typeof MerchantPKCell.prototype.toObject>[];
+    }): MerchantDetailModel {
+        const message = new MerchantDetailModel({});
+        if (data.id != null) {
+            message.id = data.id;
+        }
+        if (data.name != null) {
+            message.name = data.name;
+        }
+        if (data.rating != null) {
+            message.rating = data.rating;
+        }
+        if (data.tags != null) {
+            message.tags = data.tags;
+        }
+        if (data.screenshots != null) {
+            message.screenshots = data.screenshots.map(item => dependency_2.MediaMetaModel.fromObject(item));
+        }
+        if (data.businessHours != null) {
+            message.businessHours = data.businessHours.map(item => BusinessHourModel.fromObject(item));
+        }
+        if (data.address != null) {
+            message.address = MerchantAddressModel.fromObject(data.address);
+        }
+        if (data.phoneNumber != null) {
+            message.phoneNumber = data.phoneNumber;
+        }
+        if (data.distance != null) {
+            message.distance = data.distance;
+        }
+        if (data.isOnline != null) {
+            message.isOnline = data.isOnline;
+        }
+        if (data.pks != null) {
+            message.pks = data.pks.map(item => MerchantPKCell.fromObject(item));
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            id?: string;
+            name?: string;
+            rating?: number;
+            tags?: string[];
+            screenshots?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>[];
+            businessHours?: ReturnType<typeof BusinessHourModel.prototype.toObject>[];
+            address?: ReturnType<typeof MerchantAddressModel.prototype.toObject>;
+            phoneNumber?: string[];
+            distance?: number;
+            isOnline?: boolean;
+            pks?: ReturnType<typeof MerchantPKCell.prototype.toObject>[];
+        } = {};
+        if (this.id != null) {
+            data.id = this.id;
+        }
+        if (this.name != null) {
+            data.name = this.name;
+        }
+        if (this.rating != null) {
+            data.rating = this.rating;
+        }
+        if (this.tags != null) {
+            data.tags = this.tags;
+        }
+        if (this.screenshots != null) {
+            data.screenshots = this.screenshots.map((item: dependency_2.MediaMetaModel) => item.toObject());
+        }
+        if (this.businessHours != null) {
+            data.businessHours = this.businessHours.map((item: BusinessHourModel) => item.toObject());
+        }
+        if (this.address != null) {
+            data.address = this.address.toObject();
+        }
+        if (this.phoneNumber != null) {
+            data.phoneNumber = this.phoneNumber;
+        }
+        if (this.distance != null) {
+            data.distance = this.distance;
+        }
+        if (this.isOnline != null) {
+            data.isOnline = this.isOnline;
+        }
+        if (this.pks != null) {
+            data.pks = this.pks.map((item: MerchantPKCell) => item.toObject());
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.id.length)
+            writer.writeString(1, this.id);
+        if (this.name.length)
+            writer.writeString(2, this.name);
+        if (this.rating != 0)
+            writer.writeFloat(3, this.rating);
+        if (this.tags.length)
+            writer.writeRepeatedString(4, this.tags);
+        if (this.screenshots.length)
+            writer.writeRepeatedMessage(5, this.screenshots, (item: dependency_2.MediaMetaModel) => item.serialize(writer));
+        if (this.businessHours.length)
+            writer.writeRepeatedMessage(6, this.businessHours, (item: BusinessHourModel) => item.serialize(writer));
+        if (this.hasAddress)
+            writer.writeMessage(7, this.address, () => this.address.serialize(writer));
+        if (this.phoneNumber.length)
+            writer.writeRepeatedString(8, this.phoneNumber);
+        if (this.distance != 0)
+            writer.writeDouble(9, this.distance);
+        if (this.isOnline != false)
+            writer.writeBool(10, this.isOnline);
+        if (this.pks.length)
+            writer.writeRepeatedMessage(11, this.pks, (item: MerchantPKCell) => item.serialize(writer));
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): MerchantDetailModel {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new MerchantDetailModel();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    message.id = reader.readString();
+                    break;
+                case 2:
+                    message.name = reader.readString();
+                    break;
+                case 3:
+                    message.rating = reader.readFloat();
+                    break;
+                case 4:
+                    pb_1.Message.addToRepeatedField(message, 4, reader.readString());
+                    break;
+                case 5:
+                    reader.readMessage(message.screenshots, () => pb_1.Message.addToRepeatedWrapperField(message, 5, dependency_2.MediaMetaModel.deserialize(reader), dependency_2.MediaMetaModel));
+                    break;
+                case 6:
+                    reader.readMessage(message.businessHours, () => pb_1.Message.addToRepeatedWrapperField(message, 6, BusinessHourModel.deserialize(reader), BusinessHourModel));
+                    break;
+                case 7:
+                    reader.readMessage(message.address, () => message.address = MerchantAddressModel.deserialize(reader));
+                    break;
+                case 8:
+                    pb_1.Message.addToRepeatedField(message, 8, reader.readString());
+                    break;
+                case 9:
+                    message.distance = reader.readDouble();
+                    break;
+                case 10:
+                    message.isOnline = reader.readBool();
+                    break;
+                case 11:
+                    reader.readMessage(message.pks, () => pb_1.Message.addToRepeatedWrapperField(message, 11, MerchantPKCell.deserialize(reader), MerchantPKCell));
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): MerchantDetailModel {
+        return MerchantDetailModel.deserialize(bytes);
+    }
+}
+export class MerchantPKCell extends pb_1.Message {
+    #one_of_decls: number[][] = [];
+    constructor(data?: any[] | {
+        id?: string;
+        theme?: dependency_2.MediaMetaModel;
+        name?: string;
+        tags?: string[];
+        sales?: number;
+        discountedPrice?: number;
+        originalPrice?: number;
+    }) {
+        super();
+        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [4], this.#one_of_decls);
+        if (!Array.isArray(data) && typeof data == "object") {
+            if ("id" in data && data.id != undefined) {
+                this.id = data.id;
+            }
+            if ("theme" in data && data.theme != undefined) {
+                this.theme = data.theme;
+            }
+            if ("name" in data && data.name != undefined) {
+                this.name = data.name;
+            }
+            if ("tags" in data && data.tags != undefined) {
+                this.tags = data.tags;
+            }
+            if ("sales" in data && data.sales != undefined) {
+                this.sales = data.sales;
+            }
+            if ("discountedPrice" in data && data.discountedPrice != undefined) {
+                this.discountedPrice = data.discountedPrice;
+            }
+            if ("originalPrice" in data && data.originalPrice != undefined) {
+                this.originalPrice = data.originalPrice;
+            }
+        }
+    }
+    get id() {
+        return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+    }
+    set id(value: string) {
+        pb_1.Message.setField(this, 1, value);
+    }
+    get theme() {
+        return pb_1.Message.getWrapperField(this, dependency_2.MediaMetaModel, 2) as dependency_2.MediaMetaModel;
+    }
+    set theme(value: dependency_2.MediaMetaModel) {
+        pb_1.Message.setWrapperField(this, 2, value);
+    }
+    get hasTheme() {
+        return pb_1.Message.getField(this, 2) != null;
+    }
+    get name() {
+        return pb_1.Message.getFieldWithDefault(this, 3, "") as string;
+    }
+    set name(value: string) {
+        pb_1.Message.setField(this, 3, value);
+    }
+    get tags() {
+        return pb_1.Message.getFieldWithDefault(this, 4, []) as string[];
+    }
+    set tags(value: string[]) {
+        pb_1.Message.setField(this, 4, value);
+    }
+    get sales() {
+        return pb_1.Message.getFieldWithDefault(this, 5, 0) as number;
+    }
+    set sales(value: number) {
+        pb_1.Message.setField(this, 5, value);
+    }
+    get discountedPrice() {
+        return pb_1.Message.getFieldWithDefault(this, 6, 0) as number;
+    }
+    set discountedPrice(value: number) {
+        pb_1.Message.setField(this, 6, value);
+    }
+    get originalPrice() {
+        return pb_1.Message.getFieldWithDefault(this, 7, 0) as number;
+    }
+    set originalPrice(value: number) {
+        pb_1.Message.setField(this, 7, value);
+    }
+    static fromObject(data: {
+        id?: string;
+        theme?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>;
+        name?: string;
+        tags?: string[];
+        sales?: number;
+        discountedPrice?: number;
+        originalPrice?: number;
+    }): MerchantPKCell {
+        const message = new MerchantPKCell({});
+        if (data.id != null) {
+            message.id = data.id;
+        }
+        if (data.theme != null) {
+            message.theme = dependency_2.MediaMetaModel.fromObject(data.theme);
+        }
+        if (data.name != null) {
+            message.name = data.name;
+        }
+        if (data.tags != null) {
+            message.tags = data.tags;
+        }
+        if (data.sales != null) {
+            message.sales = data.sales;
+        }
+        if (data.discountedPrice != null) {
+            message.discountedPrice = data.discountedPrice;
+        }
+        if (data.originalPrice != null) {
+            message.originalPrice = data.originalPrice;
+        }
+        return message;
+    }
+    toObject() {
+        const data: {
+            id?: string;
+            theme?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>;
+            name?: string;
+            tags?: string[];
+            sales?: number;
+            discountedPrice?: number;
+            originalPrice?: number;
+        } = {};
+        if (this.id != null) {
+            data.id = this.id;
+        }
+        if (this.theme != null) {
+            data.theme = this.theme.toObject();
+        }
+        if (this.name != null) {
+            data.name = this.name;
+        }
+        if (this.tags != null) {
+            data.tags = this.tags;
+        }
+        if (this.sales != null) {
+            data.sales = this.sales;
+        }
+        if (this.discountedPrice != null) {
+            data.discountedPrice = this.discountedPrice;
+        }
+        if (this.originalPrice != null) {
+            data.originalPrice = this.originalPrice;
+        }
+        return data;
+    }
+    serialize(): Uint8Array;
+    serialize(w: pb_1.BinaryWriter): void;
+    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+        const writer = w || new pb_1.BinaryWriter();
+        if (this.id.length)
+            writer.writeString(1, this.id);
+        if (this.hasTheme)
+            writer.writeMessage(2, this.theme, () => this.theme.serialize(writer));
+        if (this.name.length)
+            writer.writeString(3, this.name);
+        if (this.tags.length)
+            writer.writeRepeatedString(4, this.tags);
+        if (this.sales != 0)
+            writer.writeUint32(5, this.sales);
+        if (this.discountedPrice != 0)
+            writer.writeUint64(6, this.discountedPrice);
+        if (this.originalPrice != 0)
+            writer.writeUint64(7, this.originalPrice);
+        if (!w)
+            return writer.getResultBuffer();
+    }
+    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): MerchantPKCell {
+        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new MerchantPKCell();
+        while (reader.nextField()) {
+            if (reader.isEndGroup())
+                break;
+            switch (reader.getFieldNumber()) {
+                case 1:
+                    message.id = reader.readString();
+                    break;
+                case 2:
+                    reader.readMessage(message.theme, () => message.theme = dependency_2.MediaMetaModel.deserialize(reader));
+                    break;
+                case 3:
+                    message.name = reader.readString();
+                    break;
+                case 4:
+                    pb_1.Message.addToRepeatedField(message, 4, reader.readString());
+                    break;
+                case 5:
+                    message.sales = reader.readUint32();
+                    break;
+                case 6:
+                    message.discountedPrice = reader.readUint64();
+                    break;
+                case 7:
+                    message.originalPrice = reader.readUint64();
+                    break;
+                default: reader.skipField();
+            }
+        }
+        return message;
+    }
+    serializeBinary(): Uint8Array {
+        return this.serialize();
+    }
+    static deserializeBinary(bytes: Uint8Array): MerchantPKCell {
+        return MerchantPKCell.deserialize(bytes);
+    }
+}
 export class MerchantViewModel extends pb_1.Message {
     #one_of_decls: number[][] = [];
     constructor(data?: any[] | {
@@ -22,8 +531,9 @@ export class MerchantViewModel extends pb_1.Message {
         businessHours?: BusinessHourModel[];
         stat?: dependency_1.ApprovalStat;
         approvalDisableReason?: string;
-        businessTags?: string[];
+        tags?: string[];
         rating?: number;
+        isOnline?: boolean;
     }) {
         super();
         pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [5, 8, 10, 11, 14], this.#one_of_decls);
@@ -67,11 +577,14 @@ export class MerchantViewModel extends pb_1.Message {
             if ("approvalDisableReason" in data && data.approvalDisableReason != undefined) {
                 this.approvalDisableReason = data.approvalDisableReason;
             }
-            if ("businessTags" in data && data.businessTags != undefined) {
-                this.businessTags = data.businessTags;
+            if ("tags" in data && data.tags != undefined) {
+                this.tags = data.tags;
             }
             if ("rating" in data && data.rating != undefined) {
                 this.rating = data.rating;
+            }
+            if ("isOnline" in data && data.isOnline != undefined) {
+                this.isOnline = data.isOnline;
             }
         }
     }
@@ -162,10 +675,10 @@ export class MerchantViewModel extends pb_1.Message {
     set approvalDisableReason(value: string) {
         pb_1.Message.setField(this, 13, value);
     }
-    get businessTags() {
+    get tags() {
         return pb_1.Message.getFieldWithDefault(this, 14, []) as string[];
     }
-    set businessTags(value: string[]) {
+    set tags(value: string[]) {
         pb_1.Message.setField(this, 14, value);
     }
     get rating() {
@@ -173,6 +686,12 @@ export class MerchantViewModel extends pb_1.Message {
     }
     set rating(value: number) {
         pb_1.Message.setField(this, 15, value);
+    }
+    get isOnline() {
+        return pb_1.Message.getFieldWithDefault(this, 16, false) as boolean;
+    }
+    set isOnline(value: boolean) {
+        pb_1.Message.setField(this, 16, value);
     }
     static fromObject(data: {
         id?: string;
@@ -188,8 +707,9 @@ export class MerchantViewModel extends pb_1.Message {
         businessHours?: ReturnType<typeof BusinessHourModel.prototype.toObject>[];
         stat?: dependency_1.ApprovalStat;
         approvalDisableReason?: string;
-        businessTags?: string[];
+        tags?: string[];
         rating?: number;
+        isOnline?: boolean;
     }): MerchantViewModel {
         const message = new MerchantViewModel({});
         if (data.id != null) {
@@ -231,11 +751,14 @@ export class MerchantViewModel extends pb_1.Message {
         if (data.approvalDisableReason != null) {
             message.approvalDisableReason = data.approvalDisableReason;
         }
-        if (data.businessTags != null) {
-            message.businessTags = data.businessTags;
+        if (data.tags != null) {
+            message.tags = data.tags;
         }
         if (data.rating != null) {
             message.rating = data.rating;
+        }
+        if (data.isOnline != null) {
+            message.isOnline = data.isOnline;
         }
         return message;
     }
@@ -254,8 +777,9 @@ export class MerchantViewModel extends pb_1.Message {
             businessHours?: ReturnType<typeof BusinessHourModel.prototype.toObject>[];
             stat?: dependency_1.ApprovalStat;
             approvalDisableReason?: string;
-            businessTags?: string[];
+            tags?: string[];
             rating?: number;
+            isOnline?: boolean;
         } = {};
         if (this.id != null) {
             data.id = this.id;
@@ -296,11 +820,14 @@ export class MerchantViewModel extends pb_1.Message {
         if (this.approvalDisableReason != null) {
             data.approvalDisableReason = this.approvalDisableReason;
         }
-        if (this.businessTags != null) {
-            data.businessTags = this.businessTags;
+        if (this.tags != null) {
+            data.tags = this.tags;
         }
         if (this.rating != null) {
             data.rating = this.rating;
+        }
+        if (this.isOnline != null) {
+            data.isOnline = this.isOnline;
         }
         return data;
     }
@@ -334,10 +861,12 @@ export class MerchantViewModel extends pb_1.Message {
             writer.writeEnum(12, this.stat);
         if (this.approvalDisableReason.length)
             writer.writeString(13, this.approvalDisableReason);
-        if (this.businessTags.length)
-            writer.writeRepeatedString(14, this.businessTags);
+        if (this.tags.length)
+            writer.writeRepeatedString(14, this.tags);
         if (this.rating != 0)
             writer.writeFloat(15, this.rating);
+        if (this.isOnline != false)
+            writer.writeBool(16, this.isOnline);
         if (!w)
             return writer.getResultBuffer();
     }
@@ -391,6 +920,9 @@ export class MerchantViewModel extends pb_1.Message {
                     break;
                 case 15:
                     message.rating = reader.readFloat();
+                    break;
+                case 16:
+                    message.isOnline = reader.readBool();
                     break;
                 default: reader.skipField();
             }

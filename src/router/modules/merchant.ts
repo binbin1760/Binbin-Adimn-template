@@ -3,6 +3,7 @@ import { RouteRecordRaw } from "vue-router";
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/merchant-service",
+    name: "merchantService",
     meta: {
       name: "商家管理",
       isRoot: false,
@@ -14,7 +15,6 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/merchant-service/examine",
         meta: {
-          isRoot: true,
           name: "商家入驻审核",
           hidden: true,
         },
@@ -23,7 +23,6 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/merchant-service/package",
         meta: {
-          isRoot: true,
           name: "团购套餐审核",
           hidden: true,
         },
@@ -32,7 +31,6 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/merchant-service/finance",
         meta: {
-          isRoot: true,
           name: "商家财务申请",
           hidden: true,
         },

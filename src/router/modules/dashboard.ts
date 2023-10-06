@@ -5,7 +5,6 @@ const routes: Array<RouteRecordRaw> = [
     path: "/dashboard",
     meta: {
       name: "主控板",
-      isRoot: false,
       sort: 0,
     },
     redirect: "/dashboard/console",

@@ -3,9 +3,9 @@ import { RouteRecordRaw } from "vue-router";
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/pet-service",
+    name: "petService",
     meta: {
       name: "宠物服务",
-      isRoot: false,
       sort: 2,
     },
     redirect: "/pet-service/petbreed",
@@ -14,7 +14,6 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/pet-service/petbreed",
         meta: {
-          isRoot: true,
           name: "品种管理",
           hidden: true,
         },
