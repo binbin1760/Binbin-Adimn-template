@@ -1,10 +1,8 @@
 <template>
   <div class="menus">
     <div class="operate-list">
-      <n-button size="large" color="#409EFF" @click="addNewMenu()"
-        >新增</n-button
-      >
-      <n-button size="large" color="#F56D6D" @click="delMenu">删除</n-button>
+      <n-button color="#409EFF" @click="addNewMenu()"> 新增 </n-button>
+      <n-button color="#F56D6D" @click="delMenu"> 删除 </n-button>
     </div>
     <div class="data-able">
       <DataTable :data="data" :columns="columns" @get-row-key="getRowKeyData" />
@@ -60,11 +58,25 @@
     >
       <editDir :id="(dirId as string)" @close-modal="closeDirModal"></editDir>
     </n-modal>
+
+    <n-modal
+      v-model:show="menuModal"
+      title="菜单编辑"
+      class="custom-card"
+      preset="card"
+      :style="{ width: '600px' }"
+      transform-origin="center"
+    >
+      <editMenu
+        :id="(menuId as string)"
+        @close-modal="closeMenuModal"
+      ></editMenu>
+    </n-modal>
   </div>
 </template>
 <script setup lang="ts">
 import { DataTableColumns } from "naive-ui";
-import { menuForm, directoryForm, editDir } from "../components";
+import { menuForm, directoryForm, editDir, editMenu } from "../components";
 import { MenusType } from "./types";
 import { Menu } from "@/api";
 import {
@@ -76,8 +88,9 @@ import {
 
 const showModal = ref<boolean>(false);
 const dirModal = ref<boolean>(false);
+const menuModal = ref<boolean>(false);
 let dirId = ref<string>();
-
+let menuId = ref<string>();
 // 表单
 const formType = ref<string>("directory");
 function getFiled(value: boolean) {
@@ -104,11 +117,12 @@ const columnsCreate = (): DataTableColumns<MenusType> => [
   {
     type: "expand",
     renderExpand: (row) => {
-      console.log(row.child);
       const list = row.child.map((item) => {
         return h(
           NTag,
           {
+            closable: true,
+            onClose: () => delMenuItem(item.value),
             onClick: () => editRowChild(item.value),
             style: { marginRight: "1.6rem" },
           },
@@ -171,7 +185,7 @@ const columnsCreate = (): DataTableColumns<MenusType> => [
   },
   {
     title: "操作",
-    key: "operate",
+    key: "action",
     align: "center",
     render(row) {
       const list = [
@@ -232,6 +246,10 @@ function closeDirModal() {
   dirModal.value = false;
   getData();
 }
+function closeMenuModal() {
+  menuModal.value = false;
+  getData();
+}
 function addNewMenu() {
   showModal.value = true;
 }
@@ -270,14 +288,12 @@ async function getData() {
     };
   }) as unknown as Array<Partial<MenusType>>;
   for (let i = 0; i < data.value?.length; i++) {
-    if (data.value[i].child?.length) {
-      query(data.value[i].key as string).then((res) => {
-        data.value[i].child = res as unknown as Array<{
-          label: string;
-          value: string;
-        }>;
-      });
-    }
+    query(data.value[i].key as string).then((res) => {
+      data.value[i].child = res as unknown as Array<{
+        label: string;
+        value: string;
+      }>;
+    });
   }
   total.value = result.page?.total;
 }
@@ -289,6 +305,8 @@ async function delMenuItem(id: string) {
   const ids = [id];
   const del = new DeleteBatchRequest({ ids: ids });
   const result = await Menu.delMenu(del);
+  console.log(result.toObject());
+
   if (result.toObject().value) {
     getData();
   }
@@ -304,8 +322,9 @@ function editMenuItem(row) {
   dirId.value = row.key;
   dirModal.value = true;
 }
-function editRowChild(id: any) {
-  console.log(id);
+function editRowChild(id: string) {
+  menuModal.value = true;
+  menuId.value = id;
 }
 getData();
 </script>

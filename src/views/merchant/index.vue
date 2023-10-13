@@ -112,7 +112,10 @@ const columnsCreate = (): DataTableColumns<Merchant> => [
     align: "center",
     render(row) {
       let htemp: any;
-      if (row.stat !== ApprovalStat._ApprovalStat_PENDING_APPROVAL) {
+      if (
+        row.stat !== ApprovalStat._ApprovalStat_PENDING_APPROVAL &&
+        row.stat !== ApprovalStat._ApprovalStat_PENDING_EDIT_APPROVAL
+      ) {
         htemp = h(
           "div",
           {

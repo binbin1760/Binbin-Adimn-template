@@ -30,7 +30,7 @@
               >
             </n-breadcrumb>
             <div class="ohter">
-              <n-avatar round size="large">
+              <n-avatar round size="large" @click="logOut">
                 <n-icon size="3rem">
                   <PersonSharp />
                 </n-icon>
@@ -41,9 +41,11 @@
         </div>
         <div class="views">
           <div class="mainViews">
-            <router-view v-slot="{ Component }">
-              <component :is="Component" />
-            </router-view>
+            <AppProvider>
+              <router-view v-slot="{ Component }">
+                <component :is="Component" />
+              </router-view>
+            </AppProvider>
           </div>
         </div>
       </div>
@@ -53,10 +55,12 @@
 
 <script setup lang="ts">
 import { sidemenu } from "@/components";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { List, Refresh, PersonSharp } from "@vicons/ionicons5";
 import tabViews from "./tabViews.vue";
+import { removeUserInfo } from "@/utils/getUserInfo";
 const Route = useRoute();
+const Router = useRouter();
 function getBreadCrumb() {
   const data = Route.matched.map((item) => {
     return { key: item.meta.name, value: item.path };
@@ -66,6 +70,10 @@ function getBreadCrumb() {
 const breadList = computed(() => {
   return getBreadCrumb();
 });
+function logOut() {
+  removeUserInfo();
+  Router.push("/login");
+}
 </script>
 
 <style scoped lang="less">

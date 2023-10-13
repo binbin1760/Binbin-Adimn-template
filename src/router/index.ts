@@ -6,6 +6,8 @@ import {
   RouterOptions,
 } from "vue-router";
 
+import { createRouterGuards } from "@/router/guards";
+import { App } from "vue";
 /***
  *asyncRoutes 需要权限验证的路由
  *constantRouter 普通路由
@@ -39,6 +41,7 @@ export const asyncRoutes = [...routesModuleList];
 export const constantRoute: Array<RouteRecordRaw> = [
   {
     path: "/login",
+    name: "Login",
     meta: {
       name: "登录",
       isRoot: true,
@@ -61,4 +64,10 @@ const customRouterOptions: CustomRouterOptions = {
   routes: routes,
 };
 const router = createRouter(customRouterOptions);
+
+export function setupRouter(app: App) {
+  app.use(router);
+  // 创建路由守卫
+  createRouterGuards(router);
+}
 export default router;

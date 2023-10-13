@@ -17,3 +17,4 @@ export * from "./cms-merchant";
 export * from "./cms-purchase_package";
 export * from "./cms-usr";
 export * from "./auth";
+export * from "./order";

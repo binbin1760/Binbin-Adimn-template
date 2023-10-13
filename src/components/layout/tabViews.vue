@@ -1,10 +1,10 @@
 <template>
   <div class="tab-views">
-    <div class="leftout" @click="leftScroll">
+    <!-- <div class="leftout" @click="leftScroll">
       <NIcon size="large">
         <LeftOutlined />
       </NIcon>
-    </div>
+    </div> -->
     <div ref="tagScroll" class="tag-list" @wheel="scrollX">
       <n-tag
         size="large"
@@ -18,18 +18,18 @@
         >{{ item.meta.name }}</n-tag
       >
     </div>
-    <div class="rightout">
+    <!-- <div class="rightout">
       <NIcon size="large">
         <RightOutlined />
       </NIcon>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script setup lang="ts">
 import { useRoute, useRouter } from "vue-router";
 import { tabView, useTabsViewlist } from "@/store/modules/tabsView";
-import { RightOutlined, LeftOutlined } from "@vicons/antd";
+// import { RightOutlined, LeftOutlined } from "@vicons/antd";
 
 const TabsViewlist = useTabsViewlist();
 const Route = useRoute();
@@ -57,9 +57,9 @@ function closeTag(index: number) {
   TabsViewlist.delTabitem(index);
 }
 
-function leftScroll() {
-  console.log(tagScroll);
-}
+// function leftScroll() {
+//   console.log(tagScroll);
+// }
 function scrollX(event: any) {
   if (event.deltaY > 0) {
     tagScroll.value.scrollLeft += 50;

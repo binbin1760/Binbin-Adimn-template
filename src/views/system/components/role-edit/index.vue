@@ -3,7 +3,7 @@
     <n-form
       ref="formRef"
       :label-width="80"
-      :model="role"
+      :model="props.roleData"
       label-placement="left"
       require-mark-placement="left"
     >
@@ -17,7 +17,7 @@
         }"
       >
         <n-input
-          v-model:value="props.role.name"
+          v-model:value="props.roleData.name"
           placeholder="请输入角色名称"
         ></n-input>
       </n-form-item>
@@ -32,18 +32,27 @@
         }"
       >
         <n-input
-          v-model:value="props.role.remark"
+          v-model:value="props.roleData.remark"
           placeholder="角色备注"
         ></n-input>
       </n-form-item>
 
-      <n-form-item label="拥有权限">
-        <n-select
-          v-model:value="props.role.pIds"
-          multiple
-          :options="pidsOptions"
-          placeholder="权限选择"
-        />
+      <n-form-item
+        label="排序"
+        path="sort"
+        :rule="{
+          type: 'number',
+          required: true,
+          message: '不能为空',
+          trigger: ['blur', 'change'],
+        }"
+      >
+        <n-input-number
+          v-model:value="props.roleData.sort"
+          placeholder="大于0,排序越靠前"
+          :min="1"
+        >
+        </n-input-number>
       </n-form-item>
 
       <n-form-item
@@ -57,7 +66,7 @@
         }"
       >
         <n-input-number
-          v-model:value="props.role.level"
+          v-model:value="props.roleData.level"
           placeholder="大于0,越小级别越高"
           :min="1"
         >
@@ -66,38 +75,37 @@
 
       <n-form-item label="状态">
         <n-select
-          v-model:value="props.role.status"
+          v-model:value="props.roleData.status"
           :options="statusOptions"
           placeholder="角色状态"
         />
       </n-form-item>
     </n-form>
     <div class="confirm">
-      <n-button size="large" color="#1990FF">提交</n-button>
+      <n-button size="large" color="#1990FF" @click="submit">提交</n-button>
       <n-button size="large" @click="closeModal">取消</n-button>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { Status } from "../../../../protoJs";
+import { RoleViewModel, Status } from "../../../../protoJs";
+import { role } from "@/api";
+import { useMessage } from "naive-ui";
+const message = useMessage();
 export interface RoleType {
-  key: number;
-  name: string;
-  remark: string;
-  pIds: Array<string>;
-  status: Status;
-  level: number;
+  name: "";
+  remark: "";
+  pIds: [];
+  level: 1;
+  sort: 0;
+  status: Status.NORMAL;
 }
+
 const props = defineProps<{
-  role: Partial<RoleType>;
+  roleData: Partial<RoleType>;
 }>();
 const emit = defineEmits(["close"]);
-const pidsOptions = [
-  { label: "菜单1", value: "1" },
-  { label: "菜单2", value: "2" },
-  { label: "菜单3", value: "3" },
-  { label: "菜单4", value: "4" },
-];
+
 const statusOptions = [
   { label: "启用", value: Status.NORMAL },
   { label: "禁用", value: Status.BLOCKED },
@@ -106,6 +114,15 @@ const statusOptions = [
 ];
 function closeModal() {
   emit("close");
+}
+async function submit() {
+  const req = new RoleViewModel(props.roleData);
+  const result = (await role.editRole(req)).toObject();
+  if (result.value) {
+    emit("close");
+  } else {
+    message.error("操作失败");
+  }
 }
 </script>
 <style scoped lang="less">
