@@ -2,7 +2,7 @@
   <div class="directory-form">
     <n-form
       ref="formRef"
-      :label-width="80"
+      :label-width="95"
       :model="directoryForm"
       label-placement="left"
       require-mark-placement="left"
@@ -36,7 +36,7 @@
         ></n-input>
       </n-form-item>
       <n-form-item
-        label="路径"
+        label="跳转路径"
         path="path"
         :rule="{
           required: true,
@@ -51,7 +51,7 @@
       </n-form-item>
 
       <n-form-item
-        label="跳转路径"
+        label="组件路径"
         path="component"
         :rule="{
           required: true,
@@ -81,7 +81,7 @@
       </n-form-item>
 
       <n-form-item
-        label="跳转地址"
+        label="路由重定向"
         path="redirect"
         :rule="{
           required: true,

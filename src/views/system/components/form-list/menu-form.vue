@@ -2,7 +2,7 @@
   <div class="menu-form">
     <n-form
       ref="formRef"
-      :label-width="80"
+      :label-width="95"
       :model="menuForm"
       label-placement="left"
       require-mark-placement="left"
@@ -38,7 +38,7 @@
       </n-form-item>
 
       <n-form-item
-        label="路径"
+        label="跳转路径"
         path="path"
         :rule="{
           required: true,
@@ -48,12 +48,12 @@
       >
         <n-input
           v-model:value="menuForm.path"
-          placeholder="请输入路由路径"
+          placeholder="请输入跳转"
         ></n-input>
       </n-form-item>
 
       <n-form-item
-        label="组件"
+        label="组件路径"
         path="component"
         :rule="{
           required: true,
@@ -83,7 +83,7 @@
       </n-form-item>
 
       <n-form-item
-        label="跳转地址"
+        label="路由重定向"
         path="redirect"
         :rule="{
           required: true,
@@ -244,6 +244,9 @@ async function submit() {
     pid: menuForm.value.pid,
   });
   const result = (await Menu.addMenu(req)).toObject();
+  console.log(menuForm.value.pid);
+  console.log(result);
+
   if (result.value) {
     emit("closeModal");
   }

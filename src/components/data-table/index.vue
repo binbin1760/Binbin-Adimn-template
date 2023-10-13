@@ -4,12 +4,13 @@
       class="n-data-table"
       :columns="props.columns"
       :data="props.data"
-      :bordered="false"
+      :bordered="true"
       :remote="true"
       pagination-behavior-on-filter="current"
       @update-checked-row-keys="handleCheck"
       :style="props.style"
-    />
+    >
+    </n-data-table>
   </div>
 </template>
 <script setup lang="ts">
@@ -28,11 +29,9 @@ function handleCheck(rowKeys: DataTableRowKey[]) {
 </script>
 <style></style>
 <style scoped lang="less">
-.data-table {
-  border-radius: 24px 24px 0 0;
-  overflow: hidden;
-}
 .n-data-table {
-  --n-merged-th-color: #bbd3fb;
+  border-radius: 5px;
+  overflow: hidden;
+  --n-merged-th-color: #fafafc;
 }
 </style>

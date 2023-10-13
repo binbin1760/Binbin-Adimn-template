@@ -1049,7 +1049,7 @@ export class PurchasePackageCommonPageFilterRequest extends pb_1.Message {
     #one_of_decls: number[][] = [];
     constructor(data?: any[] | {
         page?: dependency_3.PagerRequest;
-        categoryId?: string;
+        categoryId?: number;
         latitude?: number;
         longitude?: number;
         blurry?: string;
@@ -1084,9 +1084,9 @@ export class PurchasePackageCommonPageFilterRequest extends pb_1.Message {
         return pb_1.Message.getField(this, 1) != null;
     }
     get categoryId() {
-        return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+        return pb_1.Message.getFieldWithDefault(this, 2, 0) as number;
     }
-    set categoryId(value: string) {
+    set categoryId(value: number) {
         pb_1.Message.setField(this, 2, value);
     }
     get latitude() {
@@ -1109,7 +1109,7 @@ export class PurchasePackageCommonPageFilterRequest extends pb_1.Message {
     }
     static fromObject(data: {
         page?: ReturnType<typeof dependency_3.PagerRequest.prototype.toObject>;
-        categoryId?: string;
+        categoryId?: number;
         latitude?: number;
         longitude?: number;
         blurry?: string;
@@ -1135,7 +1135,7 @@ export class PurchasePackageCommonPageFilterRequest extends pb_1.Message {
     toObject() {
         const data: {
             page?: ReturnType<typeof dependency_3.PagerRequest.prototype.toObject>;
-            categoryId?: string;
+            categoryId?: number;
             latitude?: number;
             longitude?: number;
             blurry?: string;
@@ -1163,8 +1163,8 @@ export class PurchasePackageCommonPageFilterRequest extends pb_1.Message {
         const writer = w || new pb_1.BinaryWriter();
         if (this.hasPage)
             writer.writeMessage(1, this.page, () => this.page.serialize(writer));
-        if (this.categoryId.length)
-            writer.writeString(2, this.categoryId);
+        if (this.categoryId != 0)
+            writer.writeUint32(2, this.categoryId);
         if (this.latitude != 0)
             writer.writeDouble(3, this.latitude);
         if (this.longitude != 0)
@@ -1184,7 +1184,7 @@ export class PurchasePackageCommonPageFilterRequest extends pb_1.Message {
                     reader.readMessage(message.page, () => message.page = dependency_3.PagerRequest.deserialize(reader));
                     break;
                 case 2:
-                    message.categoryId = reader.readString();
+                    message.categoryId = reader.readUint32();
                     break;
                 case 3:
                     message.latitude = reader.readDouble();
@@ -1588,6 +1588,7 @@ export class PurchasePackageCommonDetail extends pb_1.Message {
         discountedPrice?: number;
         originalPrice?: number;
         sections?: PurchasePackageSectionModel[];
+        merchantUid?: string;
     }) {
         super();
         pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [8], this.#one_of_decls);
@@ -1615,6 +1616,9 @@ export class PurchasePackageCommonDetail extends pb_1.Message {
             }
             if ("sections" in data && data.sections != undefined) {
                 this.sections = data.sections;
+            }
+            if ("merchantUid" in data && data.merchantUid != undefined) {
+                this.merchantUid = data.merchantUid;
             }
         }
     }
@@ -1669,6 +1673,12 @@ export class PurchasePackageCommonDetail extends pb_1.Message {
     set sections(value: PurchasePackageSectionModel[]) {
         pb_1.Message.setRepeatedWrapperField(this, 8, value);
     }
+    get merchantUid() {
+        return pb_1.Message.getFieldWithDefault(this, 9, "") as string;
+    }
+    set merchantUid(value: string) {
+        pb_1.Message.setField(this, 9, value);
+    }
     static fromObject(data: {
         id?: string;
         theme?: ReturnType<typeof dependency_2.MediaMetaModel.prototype.toObject>;
@@ -1678,6 +1688,7 @@ export class PurchasePackageCommonDetail extends pb_1.Message {
         discountedPrice?: number;
         originalPrice?: number;
         sections?: ReturnType<typeof PurchasePackageSectionModel.prototype.toObject>[];
+        merchantUid?: string;
     }): PurchasePackageCommonDetail {
         const message = new PurchasePackageCommonDetail({});
         if (data.id != null) {
@@ -1704,6 +1715,9 @@ export class PurchasePackageCommonDetail extends pb_1.Message {
         if (data.sections != null) {
             message.sections = data.sections.map(item => PurchasePackageSectionModel.fromObject(item));
         }
+        if (data.merchantUid != null) {
+            message.merchantUid = data.merchantUid;
+        }
         return message;
     }
     toObject() {
@@ -1716,6 +1730,7 @@ export class PurchasePackageCommonDetail extends pb_1.Message {
             discountedPrice?: number;
             originalPrice?: number;
             sections?: ReturnType<typeof PurchasePackageSectionModel.prototype.toObject>[];
+            merchantUid?: string;
         } = {};
         if (this.id != null) {
             data.id = this.id;
@@ -1741,6 +1756,9 @@ export class PurchasePackageCommonDetail extends pb_1.Message {
         if (this.sections != null) {
             data.sections = this.sections.map((item: PurchasePackageSectionModel) => item.toObject());
         }
+        if (this.merchantUid != null) {
+            data.merchantUid = this.merchantUid;
+        }
         return data;
     }
     serialize(): Uint8Array;
@@ -1763,6 +1781,8 @@ export class PurchasePackageCommonDetail extends pb_1.Message {
             writer.writeUint64(7, this.originalPrice);
         if (this.sections.length)
             writer.writeRepeatedMessage(8, this.sections, (item: PurchasePackageSectionModel) => item.serialize(writer));
+        if (this.merchantUid.length)
+            writer.writeString(9, this.merchantUid);
         if (!w)
             return writer.getResultBuffer();
     }
@@ -1795,6 +1815,9 @@ export class PurchasePackageCommonDetail extends pb_1.Message {
                     break;
                 case 8:
                     reader.readMessage(message.sections, () => pb_1.Message.addToRepeatedWrapperField(message, 8, PurchasePackageSectionModel.deserialize(reader), PurchasePackageSectionModel));
+                    break;
+                case 9:
+                    message.merchantUid = reader.readString();
                     break;
                 default: reader.skipField();
             }

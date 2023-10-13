@@ -21,6 +21,7 @@ export class MerchantDetailModel extends pb_1.Message {
         distance?: number;
         isOnline?: boolean;
         pks?: MerchantPKCell[];
+        merchantUid?: string;
     }) {
         super();
         pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [4, 5, 6, 8, 11], this.#one_of_decls);
@@ -57,6 +58,9 @@ export class MerchantDetailModel extends pb_1.Message {
             }
             if ("pks" in data && data.pks != undefined) {
                 this.pks = data.pks;
+            }
+            if ("merchantUid" in data && data.merchantUid != undefined) {
+                this.merchantUid = data.merchantUid;
             }
         }
     }
@@ -129,6 +133,12 @@ export class MerchantDetailModel extends pb_1.Message {
     set pks(value: MerchantPKCell[]) {
         pb_1.Message.setRepeatedWrapperField(this, 11, value);
     }
+    get merchantUid() {
+        return pb_1.Message.getFieldWithDefault(this, 12, "") as string;
+    }
+    set merchantUid(value: string) {
+        pb_1.Message.setField(this, 12, value);
+    }
     static fromObject(data: {
         id?: string;
         name?: string;
@@ -141,6 +151,7 @@ export class MerchantDetailModel extends pb_1.Message {
         distance?: number;
         isOnline?: boolean;
         pks?: ReturnType<typeof MerchantPKCell.prototype.toObject>[];
+        merchantUid?: string;
     }): MerchantDetailModel {
         const message = new MerchantDetailModel({});
         if (data.id != null) {
@@ -176,6 +187,9 @@ export class MerchantDetailModel extends pb_1.Message {
         if (data.pks != null) {
             message.pks = data.pks.map(item => MerchantPKCell.fromObject(item));
         }
+        if (data.merchantUid != null) {
+            message.merchantUid = data.merchantUid;
+        }
         return message;
     }
     toObject() {
@@ -191,6 +205,7 @@ export class MerchantDetailModel extends pb_1.Message {
             distance?: number;
             isOnline?: boolean;
             pks?: ReturnType<typeof MerchantPKCell.prototype.toObject>[];
+            merchantUid?: string;
         } = {};
         if (this.id != null) {
             data.id = this.id;
@@ -225,6 +240,9 @@ export class MerchantDetailModel extends pb_1.Message {
         if (this.pks != null) {
             data.pks = this.pks.map((item: MerchantPKCell) => item.toObject());
         }
+        if (this.merchantUid != null) {
+            data.merchantUid = this.merchantUid;
+        }
         return data;
     }
     serialize(): Uint8Array;
@@ -253,6 +271,8 @@ export class MerchantDetailModel extends pb_1.Message {
             writer.writeBool(10, this.isOnline);
         if (this.pks.length)
             writer.writeRepeatedMessage(11, this.pks, (item: MerchantPKCell) => item.serialize(writer));
+        if (this.merchantUid.length)
+            writer.writeString(12, this.merchantUid);
         if (!w)
             return writer.getResultBuffer();
     }
@@ -294,6 +314,9 @@ export class MerchantDetailModel extends pb_1.Message {
                     break;
                 case 11:
                     reader.readMessage(message.pks, () => pb_1.Message.addToRepeatedWrapperField(message, 11, MerchantPKCell.deserialize(reader), MerchantPKCell));
+                    break;
+                case 12:
+                    message.merchantUid = reader.readString();
                     break;
                 default: reader.skipField();
             }

@@ -14,15 +14,28 @@
   </n-space>
 </template>
 
-<script lang="ts">
-import { ref, defineComponent } from "vue";
-import type { GlobalThemeOverrides, MenuOption } from "naive-ui";
+<script lang="ts" setup>
+import { ref } from "vue";
+import type { GlobalThemeOverrides } from "naive-ui";
 import { NConfigProvider } from "naive-ui";
 import { asyncRoutes } from "@/router/index";
 import { useRouter, useRoute } from "vue-router";
-
+import { Menu, userServe } from "@/api";
+const roleMenuData = ref();
+const menuOptions = ref<any>();
 // 计算侧栏菜单
-function getMenuItems(router: Array<any>) {
+Menu.ownMenu().then(async (res) => {
+  roleMenuData.value = res.toObject().routes;
+  const author = (await userServe.ownAuthority()).toObject().authorities;
+  if (author && author.includes("admin")) {
+    menuOptions.value = adminMenu(asyncRoutes);
+  } else {
+    console.log(author);
+    const roleRouter = getMenuItems(asyncRoutes, roleMenuData.value);
+    menuOptions.value = adminMenu(roleRouter);
+  }
+});
+function adminMenu(router: any) {
   return router.map((MenuItem) => {
     let item: any = {
       label: MenuItem.meta.name,
@@ -45,13 +58,29 @@ function getMenuItems(router: Array<any>) {
           show: MenuItem.children[0].meta?.hidden,
         };
       } else {
-        item.children = getMenuItems(MenuItem.children);
+        item.children = adminMenu(MenuItem.children);
       }
     }
     return item;
   });
 }
-const menuOptions: MenuOption[] = getMenuItems(asyncRoutes);
+// 菜单计算
+function getMenuItems(router: Array<any>, list: any) {
+  const pathList = list.map((it) => {
+    return it.path;
+  });
+  const dir = router.filter((MenuItem) => {
+    return pathList.includes(MenuItem.path);
+  });
+  dir.forEach((it) => {
+    const temp = it.children.filter((i) => {
+      return pathList.includes(i.path);
+    });
+    it.children = temp;
+  });
+  return dir;
+}
+
 const themeOverrides: GlobalThemeOverrides = {
   Menu: {
     itemTextColor: "#BBBBBB",
@@ -69,26 +98,14 @@ const themeOverrides: GlobalThemeOverrides = {
     fontSize: "14px",
   },
 };
-
-export default defineComponent({
-  setup() {
-    const Router = useRouter();
-    const Route = useRoute();
-    function toClickPage(key: string) {
-      Router.push(key);
-    }
-    // 菜单与路由激活状态绑定
-    const currentMenuitem = computed(() => {
-      return Route.path;
-    });
-    return {
-      collapsed: ref(true),
-      menuOptions,
-      themeOverrides,
-      toClickPage,
-      currentMenuitem,
-    };
-  },
+const Router = useRouter();
+const Route = useRoute();
+function toClickPage(key: string) {
+  Router.push(key);
+}
+// 菜单与路由激活状态绑定
+const currentMenuitem = computed(() => {
+  return Route.path;
 });
 </script>
 <style scoped lang="less"></style>

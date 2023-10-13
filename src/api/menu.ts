@@ -6,14 +6,15 @@ import {
   DeleteBatchRequest,
   ButtonWithIdentities,
   MenuPageResponse,
+  RoutePageResponse,
 } from "@/protoJs";
 export class Menu {
-  static ownMenu(): Promise<CRUDResult> {
+  static ownMenu(): Promise<RoutePageResponse> {
     return fetch({
       url: "/admin/menu/own",
       method: "get",
       data: {
-        resType: CRUDResult,
+        resType: RoutePageResponse,
       },
     });
   }
@@ -69,7 +70,7 @@ export class Menu {
   static buttonWithIdentities(): Promise<ButtonWithIdentities> {
     return fetch({
       url: "/admin/menu/identities",
-      method: "get",
+      method: "POST",
       data: {
         resType: ButtonWithIdentities,
       },

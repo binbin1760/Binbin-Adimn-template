@@ -2,14 +2,14 @@
   <div class="directory-form">
     <n-form
       ref="formRef"
-      :label-width="80"
+      :label-width="95"
       :model="directoryForm"
       label-placement="left"
       require-mark-placement="left"
     >
       <n-form-item
         label="路由名称"
-        path="identity"
+        path="title"
         :rule="{
           required: true,
           message: '不能为空',
@@ -17,7 +17,7 @@
         }"
       >
         <n-input
-          v-model:value="directoryForm.identity"
+          v-model:value="directoryForm.title"
           placeholder="请输入目录标题"
         ></n-input>
       </n-form-item>
@@ -36,7 +36,7 @@
         ></n-input>
       </n-form-item>
       <n-form-item
-        label="路径"
+        label="跳转路径"
         path="path"
         :rule="{
           required: true,
@@ -51,7 +51,7 @@
       </n-form-item>
 
       <n-form-item
-        label="跳转路径"
+        label="组件路径"
         path="component"
         :rule="{
           required: true,
@@ -61,7 +61,7 @@
       >
         <n-input
           v-model:value="directoryForm.component"
-          placeholder="请输入路由跳转路径"
+          placeholder="请输组件相对路径"
         ></n-input>
       </n-form-item>
 
@@ -81,7 +81,7 @@
       </n-form-item>
 
       <n-form-item
-        label="跳转地址"
+        label="路由重定向"
         path="redirect"
         :rule="{
           required: true,

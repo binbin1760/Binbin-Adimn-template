@@ -8,3 +8,4 @@ export * from "./register";
 export * from "./roles";
 export * from "./smsService";
 export * from "./merchant";
+export * from "./userServe";

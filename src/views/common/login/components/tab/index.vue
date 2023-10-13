@@ -2,13 +2,13 @@
   <n-config-provider :theme-overrides="customTheme">
     <n-tabs
       class="card-tabs"
-      default-value="signin"
+      default-value="signup"
       size="large"
       justify-content="space-evenly"
       :pane-wrapper-style="wrapperStyle"
       type="line"
     >
-      <n-tab-pane name="signin" tab="账号登录">
+      <n-tab-pane name="signin" tab="账号登录" :disabled="true">
         <n-form>
           <div class="input-class">
             <n-input
@@ -122,11 +122,12 @@ async function userRegister() {
     clientType: ClientType.H5,
     captcha: code.value,
   });
-  const res = await login.register(req);
-  if (res.token) {
-    setUserInfo(`Bearer ${res.toObject().token}`);
-    Router.push("/dashboard/console");
-  }
+  login.register(req).then(async (res) => {
+    if (res.toObject().token) {
+      setUserInfo(`Bearer ${res.toObject().token}`);
+      Router.push("/dashboard/console");
+    }
+  });
 }
 function toRegister() {
   emit("change", "register");

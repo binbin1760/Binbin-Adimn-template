@@ -1,192 +1,138 @@
 <template>
   <div class="user">
     <div class="serch">
-      <n-tooltip
-        placement="bottom"
-        trigger="click"
-        :style="{ background: 'white', color: '#000000' }"
-        :arrow-style="{ background: 'white' }"
-      >
-        <template #trigger>
-          <NInput
-            class="serch-input"
-            placeholder="请输入用户名或者邮箱搜索"
-            type="text"
-          />
-        </template>
-        <span>输入历史</span>
-      </n-tooltip>
-      <DatePickerRange></DatePickerRange>
-      <n-popselect
-        :show-checkmark="false"
-        v-model:value="popselectValue"
-        :options="options"
-      >
-        <n-button color="#409EFF" size="large" :style="{ width: '12rem' }">{{
-          popselectValue || "状态"
-        }}</n-button>
-      </n-popselect>
-      <n-button size="large" color="#19BE6B">搜索</n-button>
-      <n-button size="large" color="#FF9B52">重置</n-button>
-    </div>
-    <div class="operate-list">
-      <n-button size="large" color="#409EFF">新增</n-button>
-      <n-button size="large" color="#19BE6B">编辑</n-button>
-      <n-button size="large" color="#F56D6D">删除</n-button>
-      <n-button size="large" color="#FF9900">导出</n-button>
+      <NInput
+        class="serch-input"
+        placeholder="请输入用户名或者邮箱搜索"
+        type="text"
+      />
+      <n-button color="#409EFF" @click="confirmSerch">搜索</n-button>
+      <n-button type="default">重置</n-button>
     </div>
     <div class="data-able">
       <DataTable :data="data" :columns="columns" />
-    </div>
-    <div class="pageination">
-      <div class="page-total">
-        共<span class="total-number"> {{ total }} </span>条
+      <div class="pageination">
+        <div class="page-total">
+          共<span class="total-number"> {{ total }} </span>条
+        </div>
+        <n-pagination
+          v-model:page="pages"
+          :page-count="pageCount"
+          :on-update:page="getCurrentPage"
+        >
+        </n-pagination>
       </div>
-      <n-pagination
-        v-model:page="pages"
-        :page-count="pageCount"
-        show-size-picker
-        show-quick-jumper
-        :page-sizes="pageSizes"
-        :on-update:page="getCurrentPage"
-      >
-        <template #goto>跳至</template>
-      </n-pagination>
     </div>
+
+    <n-modal
+      v-model:show="userRole"
+      title="设置用户权限"
+      preset="card"
+      :style="{ width: '600px' }"
+      transform-origin="center"
+    >
+      <editUser :id="userId" @close="closeModal()"></editUser>
+    </n-modal>
   </div>
 </template>
 <script setup lang="ts">
 import { userTable } from "@/views/system/user/types";
-import { DataTableColumns, NSwitch } from "naive-ui";
+import { DataTableColumns, useMessage } from "naive-ui";
+import { editUser } from "../components";
+import {
+  Gender,
+  PagerRequest,
+  Status,
+  TableCmsUsrFilterRequest,
+} from "@/protoJs";
+import { userServe } from "@/api";
 
+const message = useMessage();
 const columnsCreate = (): DataTableColumns<userTable> => [
-  {
-    type: "selection",
-  },
-  { title: "用户名", key: "userName", align: "center" },
   { title: "昵称", key: "nickName", align: "center" },
   {
     title: "性别",
-    key: "sex",
+    key: "gender",
+    align: "center",
+  },
+  { title: "手机", key: "phone", align: "center" },
+  {
+    title: "拥有角色",
+    key: "roles",
     align: "center",
     render(row) {
-      let sexValue: string = "";
-      let sexbgcolor: string = "";
-      if (row.sex === 0) {
-        sexValue = "女";
-        sexbgcolor = "#FF2D55";
-      }
-      if (row.sex === 1) {
-        sexValue = "男";
-        sexbgcolor = "#409EFF";
-      }
-      return h(
-        "span",
-        {
-          style: {
-            background: sexbgcolor,
-            padding: "4px 2.8rem",
-            borderRadius: "6rem",
-            color: "white",
-            fontSize: "12px",
-            cursor: "pointer",
-          },
-          onclick: () => {
-            if (row.sex === 0) {
-              row.sex = 1;
-            } else {
-              row.sex = 0;
-            }
-          },
-        },
-        { default: () => sexValue }
-      );
+      const list = row.roles?.map((item) => {
+        return h(
+          NTag,
+          { bordered: false, type: "info", style: { marginRight: "0.8rem" } },
+          { default: () => item }
+        );
+      });
+      return list;
     },
   },
-  { title: "就职公司", key: "company", align: "center" },
-  { title: "手机", key: "phone", align: "center" },
-  { title: "邮箱", key: "email", align: "center" },
   {
     title: "状态",
-    key: "nickName",
+    key: "status",
     align: "center",
-    render(row) {
-      return h(NSwitch, {
-        defaultValue: row.status,
-        builtinThemeOverrides: { railColorActive: "#409EFF" },
-      });
-    },
   },
   {
     title: "操作",
-    key: "operate",
+    key: "action",
     align: "center",
+    render(row) {
+      return h(
+        NButton,
+        {
+          onClick: () => editUserRoles(row.key),
+          size: "small",
+          color: "#1990FF",
+        },
+        { default: () => "修改角色" }
+      );
+    },
   },
 ];
 const columns = columnsCreate();
 const data = ref<Array<Partial<userTable>>>([
   {
-    key: 0,
-    userName: "廖顺彬",
-    nickName: "廖顺彬",
-    company: "成都薪火无限科技有限公司",
-    phone: "17608288136",
-    email: "569279172@qq.com",
-    status: true,
-    sex: 0,
-  },
-  {
-    key: 1,
-    userName: "廖顺彬2",
-    nickName: "廖顺彬",
-    company: "成都薪火无限科技有限公司",
-    phone: "17608288136",
-    email: "569279172@qq.com",
-    status: false,
-    sex: 1,
-  },
-  {
-    key: 3,
-    userName: "廖顺彬3",
-    nickName: "廖顺彬",
-    company: "成都薪火无限科技有限公司",
-    phone: "17608288136",
-    email: "569279172@qq.com",
-    status: true,
-    sex: 0,
+    key: "请求失败",
+    nickName: "请求失败",
+    phone: "请求失败",
+    status: Status.BLOCKED,
+    gender: Gender.Man,
+    roles: ["请求失败"],
   },
 ]);
 const pages = ref<number>(1);
-const pageCount = ref<number>(10);
-const total = ref<number>(10);
-const pageSizes = [
-  {
-    label: "10 每页",
-    value: 10,
-  },
-  {
-    label: "20 每页",
-    value: 20,
-  },
-  {
-    label: "30 每页",
-    value: 30,
-  },
-  {
-    label: "40 每页",
-    value: 40,
-  },
-];
+const pageCount = ref<number>(1);
+const total = ref<number>(1);
 
-const popselectValue = ref<string>();
-const options = [
-  { label: "激活", value: "激活" },
-  { label: "锁定", value: "锁定" },
-];
-
+const userRole = ref<boolean>(false);
+const userId = ref<string>();
+function confirmSerch() {
+  message.info("123");
+}
+function closeModal() {
+  userRole.value = false;
+  getData();
+}
 function getCurrentPage(page: number) {
   pages.value = page;
 }
+function editUserRoles(id: string) {
+  userId.value = id;
+  userRole.value = true;
+}
+async function getData() {
+  const page = new PagerRequest({ pageNumber: pages.value - 1, pageSize: 20 });
+  const req = new TableCmsUsrFilterRequest({ page });
+  const result = (await userServe.getUserData(req)).toObject();
+  data.value = result.raws?.map((item) => {
+    return { key: item.id, ...item };
+  }) as unknown as Array<userTable>;
+}
+getData();
 </script>
 <style scoped lang="less">
 .user {
@@ -198,6 +144,8 @@ function getCurrentPage(page: number) {
     gap: 1.3rem;
     align-items: center;
     margin-bottom: 1.2rem;
+    background-color: white;
+    padding: 1rem 0.5rem;
     .serch-input {
       width: 25rem;
       --n-border-hover: 1px solid #409eff !important;
@@ -205,25 +153,27 @@ function getCurrentPage(page: number) {
       --n-box-shadow-focus: "none" !important;
     }
   }
-  .operate-list {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
   .data-able {
     border-top: 1px solid #efeff5;
-  }
-  .pageination {
+    background-color: white;
+    padding: 1rem 0.5rem;
+    height: 100%;
+    flex: 1;
     display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin-top: 2rem;
-    color: #999999;
-    .page-total {
-      padding-right: 4.5rem;
-      .total-number {
-        margin: 0 5px;
+    flex-direction: column;
+    justify-content: space-between;
+    .pageination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      margin-top: 2rem;
+      color: #999999;
+      .page-total {
+        padding-right: 4.5rem;
+        .total-number {
+          margin: 0 5px;
+        }
       }
     }
   }
