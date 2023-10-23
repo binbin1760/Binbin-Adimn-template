@@ -1,10 +1,22 @@
 <template>
   <div class="menus">
     <div class="operate-list">
-      <n-button color="#409EFF" @click="addNewMenu()"> 新增 </n-button>
-      <n-button color="#F56D6D" @click="delMenu"> 删除 </n-button>
+      <n-button
+        color="#409EFF"
+        v-permission="'admin-menu:add'"
+        @click="addNewMenu()"
+      >
+        新增
+      </n-button>
+      <n-button
+        color="#F56D6D"
+        @click="delMenu"
+        v-permission="'admin-menu:del'"
+      >
+        删除
+      </n-button>
     </div>
-    <div class="data-able">
+    <div class="data-able" v-permission="'admin-menu:add:all'">
       <DataTable :data="data" :columns="columns" @get-row-key="getRowKeyData" />
     </div>
     <div class="pageination">
@@ -85,7 +97,13 @@ import {
   DeleteBatchRequest,
   MenuType,
 } from "@/protoJs";
-
+import { withDirectives } from "vue";
+import { permission } from "@/directives/permission";
+import { useMyDialog } from "@/hooks";
+const { showDialog } = useMyDialog({
+  title: "确认删除",
+  text: "确认需要进行删除操作",
+});
 const showModal = ref<boolean>(false);
 const dirModal = ref<boolean>(false);
 const menuModal = ref<boolean>(false);
@@ -118,15 +136,18 @@ const columnsCreate = (): DataTableColumns<MenusType> => [
     type: "expand",
     renderExpand: (row) => {
       const list = row.child.map((item) => {
-        return h(
-          NTag,
-          {
-            closable: true,
-            onClose: () => delMenuItem(item.value),
-            onClick: () => editRowChild(item.value),
-            style: { marginRight: "1.6rem" },
-          },
-          { default: () => item.label }
+        return withDirectives(
+          h(
+            NTag,
+            {
+              closable: true,
+              onClose: () => delMenuItem(item.value),
+              onClick: () => editRowChild(item.value),
+              style: { marginRight: "1.6rem" },
+            },
+            { default: () => item.label }
+          ),
+          [[permission, "admin-menu:detail:{id}"]]
         );
       });
       return list;
@@ -188,7 +209,7 @@ const columnsCreate = (): DataTableColumns<MenusType> => [
     key: "action",
     align: "center",
     render(row) {
-      const list = [
+      const editMenu = withDirectives(
         h(
           NButton,
           {
@@ -199,6 +220,9 @@ const columnsCreate = (): DataTableColumns<MenusType> => [
           },
           { default: () => "编辑" }
         ),
+        [[permission, "admin-menu:edit"]]
+      );
+      const delMenu = withDirectives(
         h(
           NButton,
           {
@@ -208,7 +232,9 @@ const columnsCreate = (): DataTableColumns<MenusType> => [
           },
           { default: () => "删除" }
         ),
-      ];
+        [[permission, "admin-menu:del"]]
+      );
+      const list = [editMenu, delMenu];
       return list;
     },
   },
@@ -302,21 +328,23 @@ function getRowKeyData(e: any) {
   ids.value = e;
 }
 async function delMenuItem(id: string) {
-  const ids = [id];
-  const del = new DeleteBatchRequest({ ids: ids });
-  const result = await Menu.delMenu(del);
-  console.log(result.toObject());
-
-  if (result.toObject().value) {
-    getData();
-  }
+  showDialog("危险操作", "是否删除当前菜单", async () => {
+    const ids = [id];
+    const del = new DeleteBatchRequest({ ids: ids });
+    const result = await Menu.delMenu(del);
+    if (result.toObject().value) {
+      getData();
+    }
+  });
 }
 async function delMenu() {
-  const del = new DeleteBatchRequest({ ids: ids.value });
-  const result = await Menu.delMenu(del);
-  if (result.toObject().value) {
-    getData();
-  }
+  showDialog("危险操作", "是否批量删除选中的目录", async () => {
+    const del = new DeleteBatchRequest({ ids: ids.value });
+    const result = await Menu.delMenu(del);
+    if (result.toObject().value) {
+      getData();
+    }
+  });
 }
 function editMenuItem(row) {
   dirId.value = row.key;
@@ -333,14 +361,16 @@ getData();
   height: 100%;
   display: flex;
   flex-direction: column;
+  background-color: white;
   .operate-list {
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin-bottom: 2rem;
+    padding: 1.6rem 0.5rem;
   }
   .data-able {
-    border-top: 1px solid #efeff5;
+    flex: 1;
+    padding: 0 0.5rem;
   }
   .pageination {
     display: flex;

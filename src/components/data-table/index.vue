@@ -1,11 +1,12 @@
 <template>
   <div class="data-table">
     <n-data-table
+      ref="tableHeight"
       class="n-data-table"
       :columns="props.columns"
       :data="props.data"
       :bordered="true"
-      :remote="true"
+      flex-height
       pagination-behavior-on-filter="current"
       @update-checked-row-keys="handleCheck"
       :style="props.style"
@@ -29,9 +30,17 @@ function handleCheck(rowKeys: DataTableRowKey[]) {
 </script>
 <style></style>
 <style scoped lang="less">
-.n-data-table {
-  border-radius: 5px;
-  overflow: hidden;
-  --n-merged-th-color: #fafafc;
+.data-table {
+  height: 100%;
+  display: flex;
+  .n-data-table {
+    flex: 1;
+    border-radius: 5px;
+    overflow: hidden;
+    --n-merged-th-color: #fafafc;
+  }
+  .n-data-table :deep(.n-data-table-td.n-data-table-td--last-row) {
+    border-bottom: 1px solid var(--n-merged-border-color) !important;
+  }
 }
 </style>

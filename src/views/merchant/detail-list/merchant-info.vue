@@ -112,7 +112,10 @@
           type="textarea"
           placeholder="请输入拒绝理由（注意文明用语!）"
         />
-        <div class="confirm">
+        <div
+          class="confirm"
+          v-permission="'merchant:edit:admin-approval-(merchantId)'"
+        >
           <n-button color="#409EFF" :bordered="false" @click="refuse"
             >确认</n-button
           >
@@ -131,7 +134,7 @@ import { downloadCosObj } from "@/utils";
 import { ApprovalRequest, ApprovalStat } from "@/protoJs";
 const Route = useRoute();
 const Router = useRouter();
-const { id, isEdit } = JSON.parse(Route.query.info as unknown as string);
+const { id, isEdit } = JSON.parse(Route.query.data as unknown as string);
 const data = ref();
 const theme = ref();
 const businessLicense = ref();

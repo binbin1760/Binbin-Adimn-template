@@ -4,7 +4,11 @@
       <n-button size="large" color="#409EFF" @click="addBreedClass()"
         >新增类目</n-button
       >
-      <n-button size="large" color="#409EFF" @click="addPet()"
+      <n-button
+        size="large"
+        color="#409EFF"
+        v-permission="'pet:add:admin-breed'"
+        @click="addPet()"
         >新增品种</n-button
       >
     </div>
@@ -12,17 +16,17 @@
       <div class="serch">
         <div class="serch-input">
           <div class="serch-select">
-            <div class="select-label">类目赛选：</div>
+            <div class="select-label">类目筛选：</div>
             <n-select
               v-model:value="serchBreed"
               :options="breedOptions"
-              placeholder="类目赛选"
+              placeholder="类目筛选"
               @update:value="filterData"
             >
             </n-select>
           </div>
           <n-button color="#ff9b52" @click="reSet()">重置</n-button>
-          <n-button color="#F56D6D" @click="delserchBreed">删除品类</n-button>
+          <n-button color="#F56D6D" @click="delserchBreed">删除类目</n-button>
         </div>
       </div>
       <div class="breed-table">
@@ -47,6 +51,13 @@ import { petBreedType } from "./types";
 import { addBreed, addpet } from "./components";
 import { pets } from "@/api";
 import { useRouter } from "vue-router";
+import { withDirectives } from "vue";
+import { permission } from "@/directives/permission";
+import { useMyDialog } from "@/hooks";
+const { showDialog } = useMyDialog({
+  title: "确认删除",
+  text: "确认需要进行删除操作",
+});
 const Router = useRouter();
 // 获取数据
 async function getBreedData() {
@@ -87,14 +98,16 @@ const add2Modal = ref<boolean>(false);
 const breedOptions = ref();
 const serchBreed = ref<string | null>(null);
 async function delserchBreed() {
-  const result = await pets.delpet(serchBreed.value as string);
-  if (result) {
-    const index = breedOptions.value.findIndex(
-      (item: Record<string, string>) => item.value === serchBreed.value
-    );
-    breedOptions.value.splice(index, 1);
-    reSet();
-  }
+  showDialog("敏感操作", "请确认是否删除该品种", async () => {
+    const result = await pets.delpet(serchBreed.value as string);
+    if (result) {
+      const index = breedOptions.value.findIndex(
+        (item: Record<string, string>) => item.value === serchBreed.value
+      );
+      breedOptions.value.splice(index, 1);
+      reSet();
+    }
+  });
 }
 //  data-table 配置
 const columnsCreate = (): DataTableColumns<petBreedType> => [
@@ -151,13 +164,20 @@ const columnsCreate = (): DataTableColumns<petBreedType> => [
           },
           { default: () => "查看详情" }
         ),
-        h(
-          "span",
-          {
-            onClick: () => delpet(row.id, row.key),
-            style: { color: "#165DFF", cursor: "pointer", marginRight: "1rem" },
-          },
-          { default: () => "删除" }
+        withDirectives(
+          h(
+            "span",
+            {
+              onClick: () => delpet(row.id, row.key),
+              style: {
+                color: "#165DFF",
+                cursor: "pointer",
+                marginRight: "1rem",
+              },
+            },
+            { default: () => "删除" }
+          ),
+          [[permission, "pet:del:admin-breed-{id}"]]
         ),
       ];
       return list;
@@ -184,7 +204,7 @@ function reSet() {
   dataTemp.value = data.value;
 }
 function toDetailpage(pet: any, edit: boolean) {
-  const petInfo = JSON.stringify({
+  const data = JSON.stringify({
     title: pet.title,
     pid: pet.pid,
     isRecommend: pet.isRecommend,
@@ -194,7 +214,7 @@ function toDetailpage(pet: any, edit: boolean) {
   });
   Router.push({
     path: "/pet-service/petbreed/detail",
-    query: { petInfo },
+    query: { data },
   });
 }
 // 模态框
@@ -214,10 +234,12 @@ function addPet() {
   add2Modal.value = true;
 }
 async function delpet(id: string, key: number) {
-  const result = await pets.delpet(id);
-  if (result.toObject().value) {
-    data.value.splice(key, 1);
-  }
+  showDialog("敏感操作", "请确认是否删除该品种", async () => {
+    const result = await pets.delpet(id);
+    if (result.toObject().value) {
+      data.value.splice(key, 1);
+    }
+  });
 }
 </script>
 <style scoped lang="less">
@@ -230,19 +252,21 @@ async function delpet(id: string, key: number) {
     display: flex;
     align-items: center;
     gap: 1.6rem;
+    background-color: white;
+    padding: 1rem;
   }
   .breed-table-box {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 1.6rem;
-    width: 124rem;
     .serch {
       display: flex;
       flex-direction: column;
       gap: 3.2rem;
-      width: 123.2rem;
       .serch-input {
+        background-color: white;
+        padding: 1rem;
         display: flex;
         gap: 1.6rem;
         .serch-select {
@@ -255,14 +279,11 @@ async function delpet(id: string, key: number) {
           }
         }
       }
-      .qerry-button {
-        display: flex;
-        align-items: center;
-        justify-content: end;
-        gap: 1.6rem;
-      }
     }
     .breed-table {
+      flex: 1;
+      background-color: white;
+      padding: 1rem;
       border-top: 1px solid #efeff5;
     }
   }

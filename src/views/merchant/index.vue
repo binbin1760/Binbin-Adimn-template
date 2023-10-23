@@ -5,10 +5,8 @@
       @querydata="getQueryData"
       @re-set="getResetData"
     ></MerchantHeader>
-    <div class="data-table-box">
-      <div class="data-table">
-        <DataTable :columns="column" :data="data"></DataTable>
-      </div>
+    <div class="data-table-box" v-permission="'merchant:add:admin-table'">
+      <DataTable :columns="column" :data="data"></DataTable>
       <div class="pagination-box">
         <div class="page-total">共 {{ total }} 项数据</div>
         <n-pagination
@@ -161,19 +159,19 @@ const columnsCreate = (): DataTableColumns<Merchant> => [
   },
 ];
 const data = ref<Array<Partial<Merchant>>>();
-const pages = ref<number>(0);
+const pages = ref<number>(1);
 const pageCount = ref<number>();
 const total = ref<number | undefined>();
 const column = columnsCreate();
 function toDetailPage(id: string | number, isEdit: boolean) {
-  const info = JSON.stringify({ id, isEdit });
+  const data = JSON.stringify({ id, isEdit });
   Router.push({
     path: "/merchant-service/merchant-info-detail",
-    query: { info },
+    query: { data },
   });
 }
 async function getMerchantTable() {
-  const page = new PagerRequest({ pageNumber: pages.value, pageSize: 5 });
+  const page = new PagerRequest({ pageNumber: pages.value - 1, pageSize: 5 });
   const req = new TableCmsMerchantFilterRequest({ page });
   const result = (await merchant.merchantList(req)).toObject();
   data.value = result.raws?.map((item) => {
@@ -207,24 +205,24 @@ function getResetData() {
 .merchant {
   height: 100%;
   background: #ffffff;
-  border-radius: 2.4rem 2.4rem 0 2.4rem;
   display: flex;
   flex-direction: column;
   .data-table-box {
     width: 100%;
-    margin-top: 7rem;
+    margin-top: 5rem;
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding: 0.5rem;
+    box-sizing: border-box;
     .pagination-box {
       height: 6.4rem;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding-right: 8.1rem;
+      justify-content: center;
+      gap: 0.5rem;
       .page-total {
-        flex: 1;
         text-align: center;
       }
     }

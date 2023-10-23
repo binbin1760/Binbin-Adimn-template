@@ -1,7 +1,7 @@
 <template>
   <div class="logs-list">
     <div class="list-operate">
-      <div class="input-list">
+      <div class="input-list" v-permission="'admin-log:add:filter'">
         <n-input
           class="n-input"
           v-model:value="filter"
@@ -9,21 +9,21 @@
           placeholder="输入你要搜索的内容"
         />
         <DatePickerRange></DatePickerRange>
-        <NButton class="n-button" size="small" color="#1FC853">搜索</NButton>
-        <NButton class="n-button" size="small" color="#FEAD09">重置</NButton>
+        <NButton class="n-button" color="#1FC853">搜索</NButton>
+        <NButton class="n-button" color="#FEAD09">重置</NButton>
       </div>
       <div class="button-list">
         <NButton
           class="n-button"
-          size="small"
           color="#FB2F39"
+          v-permission="'admin-log:del:clear'"
           @click="clearData"
           >清空</NButton
         >
         <NButton
           class="n-button"
-          size="small"
-          color="#FD9093"
+          color="#FB2F39"
+          v-permission="'admin-log:del'"
           @click="deleteCheckValue"
           >删除</NButton
         >
@@ -41,12 +41,8 @@
       <n-pagination
         v-model:page="pages"
         :page-count="pageCount"
-        show-size-picker
-        show-quick-jumper
-        :page-sizes="pageSizes"
         :on-update:page="getCurrentPage"
       >
-        <template #goto> 前往 </template>
       </n-pagination>
     </div>
     <n-modal v-model:show="showModal" transform-origin="center">
@@ -70,6 +66,13 @@ import { rowType } from "./types";
 import { log } from "@/api";
 import { SysLogPageRequest, PagerRequest, DeleteBatchRequest } from "@/protoJs";
 import { format } from "date-fns";
+
+import { useMyDialog } from "@/hooks";
+const { showDialog } = useMyDialog({
+  title: "确认删除",
+  text: "确认需要进行删除操作",
+});
+
 async function getLogData(page: number) {
   const pageRequest = new PagerRequest({ pageNumber: page, pageSize: 10 });
   const req = new SysLogPageRequest({ page: pageRequest });
@@ -97,25 +100,7 @@ async function getLogData(page: number) {
   });
 }
 
-const pages = ref<number>(0);
-const pageSizes = [
-  {
-    label: "10 每页",
-    value: 10,
-  },
-  {
-    label: "20 每页",
-    value: 20,
-  },
-  {
-    label: "30 每页",
-    value: 30,
-  },
-  {
-    label: "40 每页",
-    value: 40,
-  },
-];
+const pages = ref<number>(1);
 const total = ref<number>();
 const pageCount = ref<number>();
 const filter = ref("");
@@ -218,24 +203,28 @@ function getRowKeyArray(e: any) {
   checkList.value = e;
 }
 async function clearData() {
-  log.clearLogs();
-  data.value = undefined;
+  showDialog("危险操作", "请确认是否清空全部日志", () => {
+    log.clearLogs();
+    data.value = undefined;
+  });
 }
 async function deleteCheckValue() {
-  const ids = checkList.value.map((item: number) => {
-    data.value = data.value ? data.value : [];
-    data.value.splice(item, 0);
-    return data.value[item].id;
+  showDialog("敏感操作", "请确认是否删除选中的日志", async () => {
+    const ids = checkList.value.map((item: number) => {
+      data.value = data.value ? data.value : [];
+      data.value.splice(item, 0);
+      return data.value[item].id;
+    });
+    const deleteRequest = new DeleteBatchRequest(ids);
+    const result = await log.deleteLogs(deleteRequest);
+    console.log(result.toObject());
   });
-  const deleteRequest = new DeleteBatchRequest(ids);
-  const result = await log.deleteLogs(deleteRequest);
-  console.log(result.toObject());
 }
 function getCurrentPage(page: number) {
   pages.value = page;
   getLogData(page - 1);
 }
-getLogData(pages.value);
+getLogData(pages.value - 1);
 </script>
 <style scoped lang="less">
 .logs-list {
@@ -243,13 +232,13 @@ getLogData(pages.value);
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
   .pageination {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    padding-bottom: 5rem;
+    background-color: white;
+    padding: 0.8rem 0.5rem;
   }
   .list-operate {
     display: flex;
@@ -259,9 +248,10 @@ getLogData(pages.value);
       display: flex;
       gap: 0.5rem;
       align-items: center;
+      background-color: white;
+      padding: 0.8rem 0.5rem;
       .n-input {
         width: 19rem;
-        height: 2.8rem;
         font-size: 12px;
       }
       .n-button {
@@ -273,10 +263,15 @@ getLogData(pages.value);
       gap: 0.5rem;
       align-items: center;
       margin-bottom: 1rem;
+      background-color: white;
+      padding: 0.8rem 0.5rem;
     }
   }
   .data-table {
     flex: 1;
+    background-color: white;
+    box-sizing: border-box;
+    padding: 0.5rem;
   }
 }
 </style>

@@ -1,14 +1,11 @@
 import { ObjectDirective } from "vue";
-import { userServe } from "@/api";
-async function getBtns() {
-  return (await userServe.ownAuthority()).toObject();
-}
+import { getRolesInfo } from "@/utils";
 export const permission: ObjectDirective = {
   async created(el, binding) {
     const btn = binding.value;
-    const btnlist = (await getBtns()).authorities;
-    if (btnlist?.includes("admin")) return;
-    if (!btnlist?.includes(btn)) {
+    const perList = getRolesInfo();
+    if (perList?.includes("admin")) return;
+    if (!perList?.includes(btn)) {
       if (!el.parentNode) {
         el.style.display = "none";
       } else {

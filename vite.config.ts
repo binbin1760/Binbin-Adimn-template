@@ -40,10 +40,10 @@ export default defineConfig(({ mode }) => {
     },
     server: {
       proxy: {
-        "/apis": {
+        "/api": {
           target: env.VITE_BASE_API,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/apis/, ""),
+          rewrite: (path) => path.replace(/^\/api/, ""),
         },
       },
     },

@@ -106,7 +106,7 @@ import { packageDetail, Sections } from "./types";
 import { ApprovalRequest, ApprovalStat } from "@/protoJs";
 const Router = useRouter();
 const Route = useRoute();
-const id = Route.query.id as string;
+const id = Route.query.data as string;
 const data = ref<Partial<packageDetail>>();
 const theme = ref<string>();
 const sections = ref<Array<Sections>>([]);

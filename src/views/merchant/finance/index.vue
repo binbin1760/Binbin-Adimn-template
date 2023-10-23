@@ -50,9 +50,7 @@
       </div>
     </div>
     <div class="data-table-box">
-      <div class="data-table">
-        <DataTable :columns="column" :data="data"></DataTable>
-      </div>
+      <DataTable :columns="column" :data="data"></DataTable>
       <div class="pagination-box">
         <div class="page-total">共 {{ total }} 项数据</div>
         <n-pagination
@@ -222,7 +220,6 @@ function getCurrentPage(page: number) {
   flex-direction: column;
   background: #ffffff;
   gap: 2rem;
-  border-radius: 2.4rem 2.4rem 0 2.4rem;
   height: 100%;
   .finance-header {
     padding-top: 3.9rem;
@@ -261,10 +258,9 @@ function getCurrentPage(page: number) {
       height: 6.4rem;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding-right: 8.1rem;
+      justify-content: center;
+      gap: 0.5rem;
       .page-total {
-        flex: 1;
         text-align: center;
       }
     }

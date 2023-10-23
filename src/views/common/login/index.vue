@@ -2,7 +2,9 @@
   <div class="login">
     <div class="login-from">
       <div class="loginImg">
-        <div class="icon"></div>
+        <div class="icon">
+          <img :src="logo" alt="" />
+        </div>
         <img class="img" :src="loginImg" alt="" />
       </div>
       <div class="login-tab">
@@ -13,6 +15,7 @@
 </template>
 <script setup lang="ts">
 import loginImg from "@/assets/login/login.png";
+import logo from "@/assets/logo.svg";
 import { Tab } from "./components";
 
 const componentType = ref("");
@@ -36,7 +39,8 @@ function getType(type: string) {
   background: inherit;
   background-color: rgba(255, 255, 255, 1);
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.34901960784313724);
-  border-radius: 0.5rem;
+  border-radius: 0.6rem;
+  overflow: hidden;
 }
 .login .login-from .loginImg {
   width: 37rem;
@@ -54,6 +58,10 @@ function getType(type: string) {
   padding: 0.2rem;
   box-sizing: border-box;
   margin-top: 4rem;
+}
+.login .login-from .loginImg .icon img {
+  width: 12rem;
+  height: 12rem;
 }
 .login .login-from .loginImg .img {
   width: 37rem;

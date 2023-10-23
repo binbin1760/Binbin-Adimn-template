@@ -38,11 +38,8 @@
       </div>
     </div>
     <div class="data-table-box">
-      <div class="data-table">
-        <DataTable :columns="column" :data="data"></DataTable>
-      </div>
+      <DataTable :columns="column" :data="data"></DataTable>
       <div class="pagination-box">
-        <div class="page-total">共 {{ total }} 项数据</div>
         <n-pagination
           v-model:page="pages"
           :page-count="pageCount"
@@ -155,7 +152,6 @@ const data = ref<Array<Partial<ReportComplaints>>>([
 ]);
 const pages = ref<number>(0);
 const pageCount = ref<number>();
-const total = ref<number>(10);
 function getCurrentPage(page: number) {
   pages.value = page;
 }
@@ -169,7 +165,6 @@ function toDetailPage() {
   flex-direction: column;
   height: 100%;
   background: #ffffff;
-  border-radius: 2.4rem 2.4rem 0 2.4rem;
   .header {
     padding: 0 1.6rem;
     margin-top: 3.7rem;
@@ -213,7 +208,7 @@ function toDetailPage() {
       height: 6.4rem;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       padding-right: 8.1rem;
       .page-total {
         flex: 1;

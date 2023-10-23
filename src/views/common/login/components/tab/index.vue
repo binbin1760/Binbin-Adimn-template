@@ -35,15 +35,41 @@
             <n-input
               v-model:value="phone"
               size="large"
+              clearable
               placeholder="请输入手机号码"
-            />
+              @focus="focusPhone"
+              @blur="blurPhone"
+            >
+              <template #prefix>
+                <n-icon size="24" :color="phoneSelect ? '#409EFF' : '#CCCCCC'">
+                  <PhonePortraitSharp></PhonePortraitSharp>
+                </n-icon>
+              </template>
+            </n-input>
             <n-input
               v-model:value="code"
               size="large"
               placeholder="请输入短信验证码"
+              @focus="focusCode"
+              @blur="blurCode"
             >
+              <template #prefix>
+                <n-icon size="24" :color="codeSelect ? '#409EFF' : '#CCCCCC'">
+                  <MailSharp></MailSharp>
+                </n-icon>
+              </template>
               <template #suffix>
-                <span class="suffix" @click="getCode()">获取验证码</span>
+                <span v-if="!active" class="suffix" @click="getCode()"
+                  >获取验证码</span
+                >
+                <div v-else class="suffix1">
+                  <n-countdown
+                    :render="renderCountdown"
+                    :active="active"
+                    :duration="60000"
+                    @finish="timeUp"
+                  />
+                </div>
               </template>
             </n-input>
           </div>
@@ -58,29 +84,44 @@
             登录
           </n-button>
         </div>
+        <div v-show="showTips" :style="messageStyle" class="tips1">
+          {{ message }}
+        </div>
       </n-tab-pane>
     </n-tabs>
-    <div class="prompt">
+    <!-- <div class="prompt">
       <div @click="toRegister()">
         <span class="register">还没账号</span>
         立即注册
       </div>
       <div @click="forgetPaw()">忘记登录密码？</div>
-    </div>
+    </div> -->
   </n-config-provider>
 </template>
 <script setup lang="ts">
-import { GlobalThemeOverrides } from "naive-ui";
+import { GlobalThemeOverrides, CountdownProps } from "naive-ui";
 import { useRouter } from "vue-router";
 import { smsService, login } from "@/api";
-import { setUserInfo } from "@/utils/getUserInfo";
+import { setUserInfo, getUserInfo, removeUserInfo } from "@/utils/getUserInfo";
 import { PassportByMobileRequest, ClientType } from "@/protoJs";
-const emit = defineEmits(["change"]);
+import { PhonePortraitSharp, MailSharp } from "@vicons/ionicons5";
+onMounted(() => {
+  if (getUserInfo()) {
+    Router.push("/dashboard/console");
+  }
+});
+// const emit = defineEmits(["change"]);
 const id = ref("");
 const paw = ref("");
 const phone = ref("");
 const code = ref("");
 const Router = useRouter();
+const phoneSelect = ref<boolean>(false);
+const codeSelect = ref<boolean>(false);
+const showTips = ref<boolean>(false);
+const message = ref("");
+const messageStyle = ref();
+const active = ref<boolean>(false);
 const customTheme: GlobalThemeOverrides = {
   Tabs: {
     barColor: "rgba(64, 158, 255, 1)",
@@ -108,13 +149,74 @@ const wrapperStyle = {
   margin: "0 -4px",
   color: "red",
 };
-
+const renderCountdown: CountdownProps["render"] = ({ seconds }) => {
+  return h(
+    "span",
+    { style: { color: "red" } },
+    { default: () => `请${String(seconds).padStart(2, "00")}秒后再获取验证码` }
+  );
+};
+function timeUp() {
+  active.value = false;
+}
+function focusPhone() {
+  phoneSelect.value = true;
+}
+function blurPhone() {
+  const regu = /^1[3-9][0-9]{9}$/;
+  if (phone.value === "") {
+    showTips.value = true;
+    message.value = "手机号不能为空";
+    messageStyle.value = {
+      color: "#F56C6C",
+      background: "#FFEEE6",
+      border: "1px solid #FFEBCC",
+    };
+  }
+  if (!regu.test(phone.value)) {
+    showTips.value = true;
+    message.value = "手机号码格式不正确";
+    messageStyle.value = {
+      color: "#F56C6C",
+      background: "#FFEEE6",
+      border: "1px solid #FFEBCC",
+    };
+  }
+  phoneSelect.value = false;
+}
+function focusCode() {
+  if (phone.value === "") {
+    showTips.value = true;
+    messageStyle.value = {
+      color: "#FF9900",
+      background: "#FFF5E6",
+      border: "1px solid #FFEBCC",
+    };
+    message.value = "请先输入手机号码";
+  }
+  codeSelect.value = true;
+}
+function blurCode() {
+  codeSelect.value = false;
+}
 function tologin() {
   Router.push("/dashboard/console");
 }
 async function getCode() {
   const result = await smsService(phone.value);
-  console.log(result.toObject());
+  if (getUserInfo()) {
+    removeUserInfo();
+  }
+  if (result.toObject()) {
+    showTips.value = true;
+    message.value = "已获取验证码，请注意查收";
+    messageStyle.value = {
+      color: "#19BE6B",
+      background: "#E6FAF0",
+      border: "1px solid #CCF5E0",
+    };
+    active.value = true;
+  }
 }
 async function userRegister() {
   const req = PassportByMobileRequest.fromObject({
@@ -126,15 +228,23 @@ async function userRegister() {
     if (res.toObject().token) {
       setUserInfo(`Bearer ${res.toObject().token}`);
       Router.push("/dashboard/console");
+    } else {
+      showTips.value = true;
+      message.value = "验证码不正确或者账号未注册！";
+      messageStyle.value = {
+        color: "#F56C6C",
+        background: "#FFEEE6",
+        border: "1px solid #FFEBCC",
+      };
     }
   });
 }
-function toRegister() {
-  emit("change", "register");
-}
-function forgetPaw() {
-  emit("change", "forgetpaw");
-}
+// function toRegister() {
+//   emit("change", "register");
+// }
+// function forgetPaw() {
+//   emit("change", "forgetpaw");
+// }
 </script>
 <style scoped>
 .card-tabs {
@@ -156,6 +266,10 @@ function forgetPaw() {
   font-family: "PingFangSC-Regular", "PingFang SC", sans-serif;
   cursor: pointer;
 }
+.suffix1 {
+  font-size: 12px;
+  font-family: "PingFangSC-Regular", "PingFang SC", sans-serif;
+}
 .prompt {
   display: flex;
   justify-content: space-between;
@@ -168,5 +282,16 @@ function forgetPaw() {
 }
 .prompt .register {
   color: #999999;
+}
+.tips1 {
+  margin-top: 5rem;
+  text-align: center;
+  width: 35rem;
+  height: 4rem;
+  border-radius: 4px;
+  line-height: 4rem;
+  font-family: PingFangSC-Regular;
+  font-size: 14px;
+  font-weight: 400;
 }
 </style>

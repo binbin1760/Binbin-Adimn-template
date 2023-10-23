@@ -48,11 +48,7 @@
             placeholder="请选择宠物所属类目"
           />
         </n-form-item>
-        <n-form-item
-          v-if="modelValue.isRecommend"
-          label="添加品种图片:"
-          path="inputValue"
-        >
+        <n-form-item label="添加品种图片:" path="inputValue">
           <n-upload
             ref="upload"
             :max="1"
@@ -70,7 +66,7 @@
           </n-upload>
         </n-form-item>
       </n-form>
-      <div class="confirm-cancel">
+      <div class="confirm-cancel" v-if="modelValue.isRecommend">
         <n-button @click="closeModal">取消</n-button>
         <n-button color="#169bd5" @click="addBreeddata">确认</n-button>
       </div>
@@ -92,7 +88,7 @@ import { useRoute, useRouter } from "vue-router";
 const Route = useRoute();
 const Router = useRouter();
 async function queryPetData() {
-  const petInfo = JSON.parse(Route.query.petInfo as string);
+  const petInfo = JSON.parse(Route.query.data as string);
   modelValue.value.breedName = petInfo.title;
   modelValue.value.pid = petInfo.pid;
   modelValue.value.isRecommend = petInfo.isRecommend;
