@@ -8,38 +8,21 @@
 
 3.关于 naive ui 样式， 引入 Less 进行样式注入修改组件样式
 
-4.关于 menu 组件无限递归的问题,该模板在当 children.length===1 时, 任然开启了折叠，如果没有 children，那么一定要给队友的页面组件套上 single-page-layout 组件避免没有侧栏菜单
+4.关于 menu 组件无限递归的问题,该模板在当 children.length===1 时, 会开启折叠.
 
-### 个人技术原因问题：
+5.关于 架子的刷新功能说明： 全部的路由传参 query 参数名称必须为 data，因为刷新功能向空白页面传递的参数为
+query 参数`data:Route.query.data`，路径参数`pathData:Route.path`
 
-    1.关于自定义样式GlobalThemeOverrides  配置问题
-        import { GlobalThemeOverrides } from "naive-ui";// GlobalThemeOverrides
-        const customThem：GlobalThemeOverrides={
-        common:{}//公共样式
-            '组件名':{.
-                itemTextColor:'red'//字体样式
-                }// 关于组件的样式
-             }
+6.token 过期返回值 与 注册无权限 返回值
 
-        关于如何动态样式控制：
+7.需要优化前后端菜单映射函数（无限递归+外加同步 meta 配置）
 
-        1.查看样式名可以在浏览器 F12 调试器
-        根据 style attribute 中各个样式来获得对应的样式名字例如:item-text-color 对应的就是 itemTextColor:'red'
+### 个人技术原因问题暂时无法实现：
 
-        2.可以安装 TS 类型提示插件
-        在customThem：GlobalThemeOverrides中将鼠标移动到需要自定义的组件名称上就会显示，该组件的样式属性名称
-
-    2.关于路由管理的三种形态（最近搞得有点魔怔！）
-        1.路由表放前端， 前后端通过角色的Role来进行菜单的动态渲染
-
-        2.路由放后端， 直接把全部路由相关的信息统一给前端，前端只需要进行组件匹配
-
-        3.路由表放后端,  ps：这里只有用户的路由表。
-             这种是纯纯不当人的一种方案，因为路由配置这些需要前端自己去算
-                1.进行组件匹配
-                2.根据后端给的用户信息进行相应的权限计算
-                3.自己配置meta  比如说：name ，userRole , iskeepalive ,isRoot ， isAffix 这些等等都需要前端自己加
-    以上三种情况， 如果是前后端分离最好还是路由放前端。便于前后端分开开发，减少扯皮打架。
-    如果真要放后端，TMD必须沟通好参数不然大家都别做了，等死吧。（前端一定要有点脾气）
-
-    3.数组循环api（map,foreach...） 与异步操作的关联
+    1.data-tabale：
+        （1）虚拟滚动
+        （2）设置： 动态未某列添加功能 例如： 开启斑马条 ，排序 ，过滤....
+        （3）内容超出提示
+        （4）可编辑
+        （5）右边菜单
+    2.自制简单表单生成器

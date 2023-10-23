@@ -9,7 +9,7 @@
       <n-button color="#409EFF" @click="confirmSerch">搜索</n-button>
       <n-button type="default">重置</n-button>
     </div>
-    <div class="data-able">
+    <div class="data-able" v-permission="'admin-usr:add:filter'">
       <DataTable :data="data" :columns="columns" />
       <div class="pageination">
         <div class="page-total">
@@ -46,6 +46,8 @@ import {
   TableCmsUsrFilterRequest,
 } from "@/protoJs";
 import { userServe } from "@/api";
+import { withDirectives } from "vue";
+import { permission } from "@/directives/permission";
 
 const message = useMessage();
 const columnsCreate = (): DataTableColumns<userTable> => [
@@ -81,14 +83,17 @@ const columnsCreate = (): DataTableColumns<userTable> => [
     key: "action",
     align: "center",
     render(row) {
-      return h(
-        NButton,
-        {
-          onClick: () => editUserRoles(row.key),
-          size: "small",
-          color: "#1990FF",
-        },
-        { default: () => "修改角色" }
+      return withDirectives(
+        h(
+          NButton,
+          {
+            onClick: () => editUserRoles(row.key),
+            size: "small",
+            color: "#1990FF",
+          },
+          { default: () => "修改角色" }
+        ),
+        [[permission, "admin-usr:edit:role"]]
       );
     },
   },

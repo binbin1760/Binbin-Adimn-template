@@ -20,15 +20,4 @@ function getValue(time) {
   console.log(time);
 }
 </script>
-<style scoped lang="less">
-.date-table-box {
-  display: flex;
-}
-.range-input {
-  width: 30rem;
-  --n-height: 4rem !important;
-  --n-border-hover: 1px solid #409eff !important;
-  --n-border-focus: 1px solid #409eff !important;
-  --n-box-shadow-focus: "none" !important;
-}
-</style>
+<style scoped lang="less"></style>

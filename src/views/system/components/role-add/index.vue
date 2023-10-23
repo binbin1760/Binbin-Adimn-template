@@ -109,8 +109,6 @@ function closeModal() {
 async function submit() {
   const req = new RoleViewModel(roleData.value);
   const result = (await role.addRole(req)).toObject();
-  console.log(result);
-
   if (result.value) {
     emit("addclose");
   }

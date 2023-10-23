@@ -1,14 +1,20 @@
 <template>
   <div class="roles">
     <div class="operate-list">
-      <n-button size="large" color="#409EFF" @click="showAddmodal"
+      <n-button
+        color="#409EFF"
+        v-permission="'admin-role:add'"
+        @click="showAddmodal"
         >新增</n-button
       >
-      <n-button size="large" color="#F56D6D" @click="deleteBatchRole"
+      <n-button
+        v-permission="'admin-role:del'"
+        color="#F56D6D"
+        @click="deleteBatchRole"
         >删除</n-button
       >
     </div>
-    <div class="table">
+    <div class="table" v-permission="'admin-role:add:all'">
       <DataTable :data="data" :columns="columns" @get-row-key="getRowKeys" />
     </div>
     <n-modal
@@ -58,6 +64,14 @@ import { RoleType } from "./types";
 import { Status, DeleteBatchRequest } from "@/protoJs";
 import { roleAdd, roleEdit, roleMenu, editBtn } from "../components";
 import { role } from "@/api";
+import { permission } from "@/directives/permission";
+import { withDirectives } from "vue";
+
+import { useMyDialog } from "@/hooks";
+const { showDialog } = useMyDialog({
+  title: "确认删除",
+  text: "确认需要进行删除操作",
+});
 
 const message = useMessage();
 const columnsCreate = (): DataTableColumns<RoleType> => [
@@ -85,6 +99,20 @@ const columnsCreate = (): DataTableColumns<RoleType> => [
     key: "",
     align: "center",
     render(row) {
+      const editVnode = withDirectives(
+        h(
+          "span",
+          {
+            onClick: () => showEditmodal(row),
+            style: {
+              color: "#165DFF",
+              cursor: "pointer",
+            },
+          },
+          { default: () => "编辑" }
+        ),
+        [[permission, "admin-role:edit"]]
+      );
       const list = [
         h(
           "span",
@@ -121,6 +149,7 @@ const columnsCreate = (): DataTableColumns<RoleType> => [
           },
           { default: () => "编辑" }
         ),
+        editVnode,
       ];
       return list;
     },
@@ -198,13 +227,15 @@ function getRowKeys(e: string[]) {
   delList.value = e;
 }
 async function deleteBatchRole() {
-  const req = new DeleteBatchRequest({ ids: delList.value });
-  const result = (await role.batchDelRole(req)).toObject();
-  if (result.value) {
-    getData();
-  } else {
-    message.error("操作失败");
-  }
+  showDialog("危险操作", "请确认是否需要删除选中的角色", async () => {
+    const req = new DeleteBatchRequest({ ids: delList.value });
+    const result = (await role.batchDelRole(req)).toObject();
+    if (result.value) {
+      getData();
+    } else {
+      message.error("操作失败");
+    }
+  });
 }
 getData();
 </script>
@@ -226,8 +257,8 @@ getData();
     flex: 1;
     flex-direction: column;
     justify-content: space-between;
-    background-color: #ffff;
     padding: 1rem 0.5rem;
+    background-color: white;
   }
 }
 </style>

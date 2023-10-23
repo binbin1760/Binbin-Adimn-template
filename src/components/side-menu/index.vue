@@ -2,13 +2,14 @@
   <n-space vertical>
     <n-config-provider :theme-overrides="themeOverrides">
       <n-menu
-        :collapsed-width="64"
+        :collapsed-width="48"
         :collapsed-icon-size="22"
-        :collapsed="false"
+        :collapsed="props.iscollapsed"
         :options="menuOptions"
         :on-update:value="toClickPage"
         :value="currentMenuitem"
         :accordion="true"
+        :render-icon="menuIcon"
       />
     </n-config-provider>
   </n-space>
@@ -21,8 +22,12 @@ import { NConfigProvider } from "naive-ui";
 import { asyncRoutes } from "@/router/index";
 import { useRouter, useRoute } from "vue-router";
 import { Menu, userServe } from "@/api";
+import { ChevronForwardCircleOutline } from "@vicons/ionicons5";
 const roleMenuData = ref();
 const menuOptions = ref<any>();
+const props = defineProps<{
+  iscollapsed: boolean;
+}>();
 // 计算侧栏菜单
 Menu.ownMenu().then(async (res) => {
   roleMenuData.value = res.toObject().routes;
@@ -30,7 +35,6 @@ Menu.ownMenu().then(async (res) => {
   if (author && author.includes("admin")) {
     menuOptions.value = adminMenu(asyncRoutes);
   } else {
-    console.log(author);
     const roleRouter = getMenuItems(asyncRoutes, roleMenuData.value);
     menuOptions.value = adminMenu(roleRouter);
   }
@@ -87,15 +91,27 @@ const themeOverrides: GlobalThemeOverrides = {
     itemTextColorActive: "#ffffff",
     itemTextColorActiveHover: "#ffffff",
     itemTextColorHover: "#ffffff",
-    itemColorHover: "#288CF0 ",
+    itemColorHover: "#288CF0",
     itemColorActive: "#288CF0 ",
     itemColorActiveHover: "#288CF0",
-    itemTextColorChildActive: "#BBBBBB",
+    itemTextColorChildActive: "#288CF0",
     itemTextColorChildActiveHover: "#BBBBBB",
     arrowColorChildActive: "#BBBBBB",
     arrowColorChildActiveHover: "#BBBBBB",
     arrowColor: "#BBBBBB",
+    itemIconColor: "#BBBBBB",
+    itemIconColorActive: "white",
+    itemIconColorHover: "white",
+    itemIconColorActiveHover: "white",
+    itemColorActiveCollapsed: "#288CF0",
+    itemIconColorCollapsed: "white",
+    itemIconColorChildActive: "#288CF0",
+    itemIconColorChildActiveHover: "white",
     fontSize: "14px",
+  },
+  Dropdown: {
+    optionColorActive: "#288CF0",
+    optionTextColorActive: "white",
   },
 };
 const Router = useRouter();
@@ -107,5 +123,8 @@ function toClickPage(key: string) {
 const currentMenuitem = computed(() => {
   return Route.path;
 });
+const menuIcon = () => {
+  return h(NIcon, null, { default: () => h(ChevronForwardCircleOutline) });
+};
 </script>
 <style scoped lang="less"></style>

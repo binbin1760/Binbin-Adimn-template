@@ -65,6 +65,7 @@
     "watchPostEffect": true,
     "watchSyncEffect": true,
     "NButton": true,
-    "NTag": true
+    "NTag": true,
+    "NIcon": true
   }
 }

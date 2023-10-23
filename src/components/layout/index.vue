@@ -4,21 +4,30 @@
       class="n-layout-sider-scroll-container"
       content-style="padding: 0.5rem 0;"
       width="20rem"
+      collapse-mode="width"
+      :collapsed="collapsed"
+      :collapsed-width="48"
     >
-      <div class="company-logo">宠+</div>
-      <sidemenu></sidemenu>
+      <div class="company-logo">
+        <img class="logo" :src="logo" alt="" />
+        <div class="name" v-show="!collapsed">宠+后台管理系统</div>
+      </div>
+      <sidemenu :iscollapsed="collapsed"></sidemenu>
     </n-layout-sider>
     <n-layout-content content-style="background:#F5F7F9;">
       <div class="right">
         <div class="tab_header">
           <div class="header">
-            <n-icon size="2.5rem">
-              <div class="icon">
-                <List />
+            <n-icon size="2.5rem" @click="collapsed = !collapsed">
+              <div class="icon" v-if="collapsed">
+                <MenuFoldOutlined />
+              </div>
+              <div class="icon" v-else>
+                <MenuUnfoldOutlined />
               </div>
             </n-icon>
             <n-icon size="2rem">
-              <div class="icon">
+              <div class="icon" @click="reLoadpage">
                 <Refresh />
               </div>
             </n-icon>
@@ -30,11 +39,18 @@
               >
             </n-breadcrumb>
             <div class="ohter">
-              <n-avatar round size="large" @click="logOut">
-                <n-icon size="3rem">
-                  <PersonSharp />
-                </n-icon>
-              </n-avatar>
+              <!-- 头像下拉菜单 -->
+              <n-dropdown
+                trigger="click"
+                :options="dropOPtions"
+                @select="getDropkey"
+              >
+                <n-avatar round size="large">
+                  <n-icon size="3rem">
+                    <PersonSharp />
+                  </n-icon>
+                </n-avatar>
+              </n-dropdown>
             </div>
           </div>
           <tabViews />
@@ -42,7 +58,7 @@
         <div class="views">
           <div class="mainViews">
             <AppProvider>
-              <router-view v-slot="{ Component }">
+              <router-view :key="key" v-slot="{ Component }">
                 <component :is="Component" />
               </router-view>
             </AppProvider>
@@ -56,11 +72,19 @@
 <script setup lang="ts">
 import { sidemenu } from "@/components";
 import { useRoute, useRouter } from "vue-router";
-import { List, Refresh, PersonSharp } from "@vicons/ionicons5";
+import { Refresh, PersonSharp } from "@vicons/ionicons5";
+import { MenuUnfoldOutlined, MenuFoldOutlined } from "@vicons/antd";
 import tabViews from "./tabViews.vue";
 import { removeUserInfo } from "@/utils/getUserInfo";
+import logo from "@/assets/logo.svg";
 const Route = useRoute();
 const Router = useRouter();
+
+const collapsed = ref<boolean>(false);
+const dropOPtions = ref([
+  { label: "个人设置", key: "1", disabled: true },
+  { label: "退出登录", key: "2", disabled: false },
+]);
 function getBreadCrumb() {
   const data = Route.matched.map((item) => {
     return { key: item.meta.name, value: item.path };
@@ -70,10 +94,29 @@ function getBreadCrumb() {
 const breadList = computed(() => {
   return getBreadCrumb();
 });
+function getDropkey(key: string) {
+  switch (key) {
+    case "2":
+      logOut();
+      break;
+  }
+}
 function logOut() {
   removeUserInfo();
   Router.push("/login");
 }
+function reLoadpage() {
+  Router.push({
+    path: "/redirect/all",
+    query: {
+      pathdata: Route.path,
+      data: Route.query.data,
+    },
+  });
+}
+const key = computed(() => {
+  return Route.path + Math.random();
+});
 </script>
 
 <style scoped lang="less">
@@ -88,9 +131,23 @@ function logOut() {
   }
 
   .company-logo {
-    font-size: 18px;
-    text-align: center;
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
     color: white;
+    overflow: hidden;
+    white-space: nowrap;
+    .name {
+      height: 31px;
+      line-height: 38px;
+    }
+    .logo {
+      width: 2.4rem;
+      height: 2.48rem;
+    }
   }
 
   .n-layout-sider-scroll-container {
@@ -119,7 +176,7 @@ function logOut() {
 
         .ohter {
           position: absolute;
-          right: 2rem;
+          right: 5rem;
           cursor: pointer;
           display: flex;
           align-items: center;

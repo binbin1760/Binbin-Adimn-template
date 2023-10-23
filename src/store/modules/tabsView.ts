@@ -40,6 +40,20 @@ export const useTabsViewlist = defineStore({
     delTabitem(index: number) {
       this.tabViewsList.splice(index, 1);
     },
+    delLeftitem(index: number) {
+      this.tabViewsList = this.tabViewsList.filter(
+        (_item, i) => i >= index || i === 0
+      );
+    },
+    delRightitem(index: number) {
+      this.tabViewsList = this.tabViewsList.filter((_item, i) => i <= index);
+    },
+    delOtheritem(index: number) {
+      this.tabViewsList = [this.tabViewsList[0], this.tabViewsList[index]];
+    },
+    delAllitem() {
+      this.tabViewsList = [this.tabViewsList[0]];
+    },
     saveTabViewsList() {
       localStorage.setItem("tagView", JSON.stringify(this.tabViewsList));
     },

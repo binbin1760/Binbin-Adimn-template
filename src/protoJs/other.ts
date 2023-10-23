@@ -3,322 +3,399 @@
  * compiler version: 3.20.3
  * source: other.proto
  * git: https://github.com/thesayyn/protoc-gen-ts */
+// @ts-nocheck
 import * as dependency_1 from "./payload";
 import * as dependency_2 from "./enums";
 import * as pb_1 from "google-protobuf";
 export class PostReportRequest extends pb_1.Message {
-    #one_of_decls: number[][] = [];
-    constructor(data?: any[] | {
-        reason?: string;
-        detail?: string;
-        scene?: dependency_2.ReportScene;
-        screenshots?: dependency_1.MediaMetaModel[];
-        targetId?: string;
-    }) {
-        super();
-        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [4], this.#one_of_decls);
-        if (!Array.isArray(data) && typeof data == "object") {
-            if ("reason" in data && data.reason != undefined) {
-                this.reason = data.reason;
-            }
-            if ("detail" in data && data.detail != undefined) {
-                this.detail = data.detail;
-            }
-            if ("scene" in data && data.scene != undefined) {
-                this.scene = data.scene;
-            }
-            if ("screenshots" in data && data.screenshots != undefined) {
-                this.screenshots = data.screenshots;
-            }
-            if ("targetId" in data && data.targetId != undefined) {
-                this.targetId = data.targetId;
-            }
+  #one_of_decls: number[][] = [];
+  constructor(
+    data?:
+      | any[]
+      | {
+          reason?: string;
+          detail?: string;
+          scene?: dependency_2.ReportScene;
+          screenshots?: dependency_1.MediaMetaModel[];
+          targetId?: string;
         }
+  ) {
+    super();
+    pb_1.Message.initialize(
+      this,
+      Array.isArray(data) ? data : [],
+      0,
+      -1,
+      [4],
+      this.#one_of_decls
+    );
+    if (!Array.isArray(data) && typeof data == "object") {
+      if ("reason" in data && data.reason != undefined) {
+        this.reason = data.reason;
+      }
+      if ("detail" in data && data.detail != undefined) {
+        this.detail = data.detail;
+      }
+      if ("scene" in data && data.scene != undefined) {
+        this.scene = data.scene;
+      }
+      if ("screenshots" in data && data.screenshots != undefined) {
+        this.screenshots = data.screenshots;
+      }
+      if ("targetId" in data && data.targetId != undefined) {
+        this.targetId = data.targetId;
+      }
     }
-    get reason() {
-        return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+  }
+  get reason() {
+    return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+  }
+  set reason(value: string) {
+    pb_1.Message.setField(this, 1, value);
+  }
+  get detail() {
+    return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+  }
+  set detail(value: string) {
+    pb_1.Message.setField(this, 2, value);
+  }
+  get scene() {
+    return pb_1.Message.getFieldWithDefault(
+      this,
+      3,
+      dependency_2.ReportScene._ReportScene_UNSPECIFIED
+    ) as dependency_2.ReportScene;
+  }
+  set scene(value: dependency_2.ReportScene) {
+    pb_1.Message.setField(this, 3, value);
+  }
+  get screenshots() {
+    return pb_1.Message.getRepeatedWrapperField(
+      this,
+      dependency_1.MediaMetaModel,
+      4
+    ) as dependency_1.MediaMetaModel[];
+  }
+  set screenshots(value: dependency_1.MediaMetaModel[]) {
+    pb_1.Message.setRepeatedWrapperField(this, 4, value);
+  }
+  get targetId() {
+    return pb_1.Message.getFieldWithDefault(this, 5, "") as string;
+  }
+  set targetId(value: string) {
+    pb_1.Message.setField(this, 5, value);
+  }
+  static fromObject(data: {
+    reason?: string;
+    detail?: string;
+    scene?: dependency_2.ReportScene;
+    screenshots?: ReturnType<
+      typeof dependency_1.MediaMetaModel.prototype.toObject
+    >[];
+    targetId?: string;
+  }): PostReportRequest {
+    const message = new PostReportRequest({});
+    if (data.reason != null) {
+      message.reason = data.reason;
     }
-    set reason(value: string) {
-        pb_1.Message.setField(this, 1, value);
+    if (data.detail != null) {
+      message.detail = data.detail;
     }
-    get detail() {
-        return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+    if (data.scene != null) {
+      message.scene = data.scene;
     }
-    set detail(value: string) {
-        pb_1.Message.setField(this, 2, value);
+    if (data.screenshots != null) {
+      message.screenshots = data.screenshots.map((item) =>
+        dependency_1.MediaMetaModel.fromObject(item)
+      );
     }
-    get scene() {
-        return pb_1.Message.getFieldWithDefault(this, 3, dependency_2.ReportScene._ReportScene_UNSPECIFIED) as dependency_2.ReportScene;
+    if (data.targetId != null) {
+      message.targetId = data.targetId;
     }
-    set scene(value: dependency_2.ReportScene) {
-        pb_1.Message.setField(this, 3, value);
+    return message;
+  }
+  toObject() {
+    const data: {
+      reason?: string;
+      detail?: string;
+      scene?: dependency_2.ReportScene;
+      screenshots?: ReturnType<
+        typeof dependency_1.MediaMetaModel.prototype.toObject
+      >[];
+      targetId?: string;
+    } = {};
+    if (this.reason != null) {
+      data.reason = this.reason;
     }
-    get screenshots() {
-        return pb_1.Message.getRepeatedWrapperField(this, dependency_1.MediaMetaModel, 4) as dependency_1.MediaMetaModel[];
+    if (this.detail != null) {
+      data.detail = this.detail;
     }
-    set screenshots(value: dependency_1.MediaMetaModel[]) {
-        pb_1.Message.setRepeatedWrapperField(this, 4, value);
+    if (this.scene != null) {
+      data.scene = this.scene;
     }
-    get targetId() {
-        return pb_1.Message.getFieldWithDefault(this, 5, "") as string;
+    if (this.screenshots != null) {
+      data.screenshots = this.screenshots.map(
+        (item: dependency_1.MediaMetaModel) => item.toObject()
+      );
     }
-    set targetId(value: string) {
-        pb_1.Message.setField(this, 5, value);
+    if (this.targetId != null) {
+      data.targetId = this.targetId;
     }
-    static fromObject(data: {
-        reason?: string;
-        detail?: string;
-        scene?: dependency_2.ReportScene;
-        screenshots?: ReturnType<typeof dependency_1.MediaMetaModel.prototype.toObject>[];
-        targetId?: string;
-    }): PostReportRequest {
-        const message = new PostReportRequest({});
-        if (data.reason != null) {
-            message.reason = data.reason;
-        }
-        if (data.detail != null) {
-            message.detail = data.detail;
-        }
-        if (data.scene != null) {
-            message.scene = data.scene;
-        }
-        if (data.screenshots != null) {
-            message.screenshots = data.screenshots.map(item => dependency_1.MediaMetaModel.fromObject(item));
-        }
-        if (data.targetId != null) {
-            message.targetId = data.targetId;
-        }
-        return message;
+    return data;
+  }
+  serialize(): Uint8Array;
+  serialize(w: pb_1.BinaryWriter): void;
+  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+    const writer = w || new pb_1.BinaryWriter();
+    if (this.reason.length) writer.writeString(1, this.reason);
+    if (this.detail.length) writer.writeString(2, this.detail);
+    if (this.scene != dependency_2.ReportScene._ReportScene_UNSPECIFIED)
+      writer.writeEnum(3, this.scene);
+    if (this.screenshots.length)
+      writer.writeRepeatedMessage(
+        4,
+        this.screenshots,
+        (item: dependency_1.MediaMetaModel) => item.serialize(writer)
+      );
+    if (this.targetId.length) writer.writeString(5, this.targetId);
+    if (!w) return writer.getResultBuffer();
+  }
+  static deserialize(bytes: Uint8Array | pb_1.BinaryReader): PostReportRequest {
+    const reader =
+        bytes instanceof pb_1.BinaryReader
+          ? bytes
+          : new pb_1.BinaryReader(bytes),
+      message = new PostReportRequest();
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) break;
+      switch (reader.getFieldNumber()) {
+        case 1:
+          message.reason = reader.readString();
+          break;
+        case 2:
+          message.detail = reader.readString();
+          break;
+        case 3:
+          message.scene = reader.readEnum();
+          break;
+        case 4:
+          reader.readMessage(message.screenshots, () =>
+            pb_1.Message.addToRepeatedWrapperField(
+              message,
+              4,
+              dependency_1.MediaMetaModel.deserialize(reader),
+              dependency_1.MediaMetaModel
+            )
+          );
+          break;
+        case 5:
+          message.targetId = reader.readString();
+          break;
+        default:
+          reader.skipField();
+      }
     }
-    toObject() {
-        const data: {
-            reason?: string;
-            detail?: string;
-            scene?: dependency_2.ReportScene;
-            screenshots?: ReturnType<typeof dependency_1.MediaMetaModel.prototype.toObject>[];
-            targetId?: string;
-        } = {};
-        if (this.reason != null) {
-            data.reason = this.reason;
-        }
-        if (this.detail != null) {
-            data.detail = this.detail;
-        }
-        if (this.scene != null) {
-            data.scene = this.scene;
-        }
-        if (this.screenshots != null) {
-            data.screenshots = this.screenshots.map((item: dependency_1.MediaMetaModel) => item.toObject());
-        }
-        if (this.targetId != null) {
-            data.targetId = this.targetId;
-        }
-        return data;
-    }
-    serialize(): Uint8Array;
-    serialize(w: pb_1.BinaryWriter): void;
-    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-        const writer = w || new pb_1.BinaryWriter();
-        if (this.reason.length)
-            writer.writeString(1, this.reason);
-        if (this.detail.length)
-            writer.writeString(2, this.detail);
-        if (this.scene != dependency_2.ReportScene._ReportScene_UNSPECIFIED)
-            writer.writeEnum(3, this.scene);
-        if (this.screenshots.length)
-            writer.writeRepeatedMessage(4, this.screenshots, (item: dependency_1.MediaMetaModel) => item.serialize(writer));
-        if (this.targetId.length)
-            writer.writeString(5, this.targetId);
-        if (!w)
-            return writer.getResultBuffer();
-    }
-    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): PostReportRequest {
-        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new PostReportRequest();
-        while (reader.nextField()) {
-            if (reader.isEndGroup())
-                break;
-            switch (reader.getFieldNumber()) {
-                case 1:
-                    message.reason = reader.readString();
-                    break;
-                case 2:
-                    message.detail = reader.readString();
-                    break;
-                case 3:
-                    message.scene = reader.readEnum();
-                    break;
-                case 4:
-                    reader.readMessage(message.screenshots, () => pb_1.Message.addToRepeatedWrapperField(message, 4, dependency_1.MediaMetaModel.deserialize(reader), dependency_1.MediaMetaModel));
-                    break;
-                case 5:
-                    message.targetId = reader.readString();
-                    break;
-                default: reader.skipField();
-            }
-        }
-        return message;
-    }
-    serializeBinary(): Uint8Array {
-        return this.serialize();
-    }
-    static deserializeBinary(bytes: Uint8Array): PostReportRequest {
-        return PostReportRequest.deserialize(bytes);
-    }
+    return message;
+  }
+  serializeBinary(): Uint8Array {
+    return this.serialize();
+  }
+  static deserializeBinary(bytes: Uint8Array): PostReportRequest {
+    return PostReportRequest.deserialize(bytes);
+  }
 }
 export class LiteOption extends pb_1.Message {
-    #one_of_decls: number[][] = [];
-    constructor(data?: any[] | {
-        value?: number;
-        label?: string;
-    }) {
-        super();
-        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
-        if (!Array.isArray(data) && typeof data == "object") {
-            if ("value" in data && data.value != undefined) {
-                this.value = data.value;
-            }
-            if ("label" in data && data.label != undefined) {
-                this.label = data.label;
-            }
+  #one_of_decls: number[][] = [];
+  constructor(
+    data?:
+      | any[]
+      | {
+          value?: number;
+          label?: string;
         }
+  ) {
+    super();
+    pb_1.Message.initialize(
+      this,
+      Array.isArray(data) ? data : [],
+      0,
+      -1,
+      [],
+      this.#one_of_decls
+    );
+    if (!Array.isArray(data) && typeof data == "object") {
+      if ("value" in data && data.value != undefined) {
+        this.value = data.value;
+      }
+      if ("label" in data && data.label != undefined) {
+        this.label = data.label;
+      }
     }
-    get value() {
-        return pb_1.Message.getFieldWithDefault(this, 1, 0) as number;
+  }
+  get value() {
+    return pb_1.Message.getFieldWithDefault(this, 1, 0) as number;
+  }
+  set value(value: number) {
+    pb_1.Message.setField(this, 1, value);
+  }
+  get label() {
+    return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+  }
+  set label(value: string) {
+    pb_1.Message.setField(this, 2, value);
+  }
+  static fromObject(data: { value?: number; label?: string }): LiteOption {
+    const message = new LiteOption({});
+    if (data.value != null) {
+      message.value = data.value;
     }
-    set value(value: number) {
-        pb_1.Message.setField(this, 1, value);
+    if (data.label != null) {
+      message.label = data.label;
     }
-    get label() {
-        return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+    return message;
+  }
+  toObject() {
+    const data: {
+      value?: number;
+      label?: string;
+    } = {};
+    if (this.value != null) {
+      data.value = this.value;
     }
-    set label(value: string) {
-        pb_1.Message.setField(this, 2, value);
+    if (this.label != null) {
+      data.label = this.label;
     }
-    static fromObject(data: {
-        value?: number;
-        label?: string;
-    }): LiteOption {
-        const message = new LiteOption({});
-        if (data.value != null) {
-            message.value = data.value;
-        }
-        if (data.label != null) {
-            message.label = data.label;
-        }
-        return message;
+    return data;
+  }
+  serialize(): Uint8Array;
+  serialize(w: pb_1.BinaryWriter): void;
+  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+    const writer = w || new pb_1.BinaryWriter();
+    if (this.value != 0) writer.writeInt32(1, this.value);
+    if (this.label.length) writer.writeString(2, this.label);
+    if (!w) return writer.getResultBuffer();
+  }
+  static deserialize(bytes: Uint8Array | pb_1.BinaryReader): LiteOption {
+    const reader =
+        bytes instanceof pb_1.BinaryReader
+          ? bytes
+          : new pb_1.BinaryReader(bytes),
+      message = new LiteOption();
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) break;
+      switch (reader.getFieldNumber()) {
+        case 1:
+          message.value = reader.readInt32();
+          break;
+        case 2:
+          message.label = reader.readString();
+          break;
+        default:
+          reader.skipField();
+      }
     }
-    toObject() {
-        const data: {
-            value?: number;
-            label?: string;
-        } = {};
-        if (this.value != null) {
-            data.value = this.value;
-        }
-        if (this.label != null) {
-            data.label = this.label;
-        }
-        return data;
-    }
-    serialize(): Uint8Array;
-    serialize(w: pb_1.BinaryWriter): void;
-    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-        const writer = w || new pb_1.BinaryWriter();
-        if (this.value != 0)
-            writer.writeInt32(1, this.value);
-        if (this.label.length)
-            writer.writeString(2, this.label);
-        if (!w)
-            return writer.getResultBuffer();
-    }
-    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): LiteOption {
-        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new LiteOption();
-        while (reader.nextField()) {
-            if (reader.isEndGroup())
-                break;
-            switch (reader.getFieldNumber()) {
-                case 1:
-                    message.value = reader.readInt32();
-                    break;
-                case 2:
-                    message.label = reader.readString();
-                    break;
-                default: reader.skipField();
-            }
-        }
-        return message;
-    }
-    serializeBinary(): Uint8Array {
-        return this.serialize();
-    }
-    static deserializeBinary(bytes: Uint8Array): LiteOption {
-        return LiteOption.deserialize(bytes);
-    }
+    return message;
+  }
+  serializeBinary(): Uint8Array {
+    return this.serialize();
+  }
+  static deserializeBinary(bytes: Uint8Array): LiteOption {
+    return LiteOption.deserialize(bytes);
+  }
 }
 export class ListOptionConfigResponse extends pb_1.Message {
-    #one_of_decls: number[][] = [];
-    constructor(data?: any[] | {
-        options?: LiteOption[];
-    }) {
-        super();
-        pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [1], this.#one_of_decls);
-        if (!Array.isArray(data) && typeof data == "object") {
-            if ("options" in data && data.options != undefined) {
-                this.options = data.options;
-            }
+  #one_of_decls: number[][] = [];
+  constructor(
+    data?:
+      | any[]
+      | {
+          options?: LiteOption[];
         }
+  ) {
+    super();
+    pb_1.Message.initialize(
+      this,
+      Array.isArray(data) ? data : [],
+      0,
+      -1,
+      [1],
+      this.#one_of_decls
+    );
+    if (!Array.isArray(data) && typeof data == "object") {
+      if ("options" in data && data.options != undefined) {
+        this.options = data.options;
+      }
     }
-    get options() {
-        return pb_1.Message.getRepeatedWrapperField(this, LiteOption, 1) as LiteOption[];
+  }
+  get options() {
+    return pb_1.Message.getRepeatedWrapperField(
+      this,
+      LiteOption,
+      1
+    ) as LiteOption[];
+  }
+  set options(value: LiteOption[]) {
+    pb_1.Message.setRepeatedWrapperField(this, 1, value);
+  }
+  static fromObject(data: {
+    options?: ReturnType<typeof LiteOption.prototype.toObject>[];
+  }): ListOptionConfigResponse {
+    const message = new ListOptionConfigResponse({});
+    if (data.options != null) {
+      message.options = data.options.map((item) => LiteOption.fromObject(item));
     }
-    set options(value: LiteOption[]) {
-        pb_1.Message.setRepeatedWrapperField(this, 1, value);
+    return message;
+  }
+  toObject() {
+    const data: {
+      options?: ReturnType<typeof LiteOption.prototype.toObject>[];
+    } = {};
+    if (this.options != null) {
+      data.options = this.options.map((item: LiteOption) => item.toObject());
     }
-    static fromObject(data: {
-        options?: ReturnType<typeof LiteOption.prototype.toObject>[];
-    }): ListOptionConfigResponse {
-        const message = new ListOptionConfigResponse({});
-        if (data.options != null) {
-            message.options = data.options.map(item => LiteOption.fromObject(item));
-        }
-        return message;
+    return data;
+  }
+  serialize(): Uint8Array;
+  serialize(w: pb_1.BinaryWriter): void;
+  serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+    const writer = w || new pb_1.BinaryWriter();
+    if (this.options.length)
+      writer.writeRepeatedMessage(1, this.options, (item: LiteOption) =>
+        item.serialize(writer)
+      );
+    if (!w) return writer.getResultBuffer();
+  }
+  static deserialize(
+    bytes: Uint8Array | pb_1.BinaryReader
+  ): ListOptionConfigResponse {
+    const reader =
+        bytes instanceof pb_1.BinaryReader
+          ? bytes
+          : new pb_1.BinaryReader(bytes),
+      message = new ListOptionConfigResponse();
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) break;
+      switch (reader.getFieldNumber()) {
+        case 1:
+          reader.readMessage(message.options, () =>
+            pb_1.Message.addToRepeatedWrapperField(
+              message,
+              1,
+              LiteOption.deserialize(reader),
+              LiteOption
+            )
+          );
+          break;
+        default:
+          reader.skipField();
+      }
     }
-    toObject() {
-        const data: {
-            options?: ReturnType<typeof LiteOption.prototype.toObject>[];
-        } = {};
-        if (this.options != null) {
-            data.options = this.options.map((item: LiteOption) => item.toObject());
-        }
-        return data;
-    }
-    serialize(): Uint8Array;
-    serialize(w: pb_1.BinaryWriter): void;
-    serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
-        const writer = w || new pb_1.BinaryWriter();
-        if (this.options.length)
-            writer.writeRepeatedMessage(1, this.options, (item: LiteOption) => item.serialize(writer));
-        if (!w)
-            return writer.getResultBuffer();
-    }
-    static deserialize(bytes: Uint8Array | pb_1.BinaryReader): ListOptionConfigResponse {
-        const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new ListOptionConfigResponse();
-        while (reader.nextField()) {
-            if (reader.isEndGroup())
-                break;
-            switch (reader.getFieldNumber()) {
-                case 1:
-                    reader.readMessage(message.options, () => pb_1.Message.addToRepeatedWrapperField(message, 1, LiteOption.deserialize(reader), LiteOption));
-                    break;
-                default: reader.skipField();
-            }
-        }
-        return message;
-    }
-    serializeBinary(): Uint8Array {
-        return this.serialize();
-    }
-    static deserializeBinary(bytes: Uint8Array): ListOptionConfigResponse {
-        return ListOptionConfigResponse.deserialize(bytes);
-    }
+    return message;
+  }
+  serializeBinary(): Uint8Array {
+    return this.serialize();
+  }
+  static deserializeBinary(bytes: Uint8Array): ListOptionConfigResponse {
+    return ListOptionConfigResponse.deserialize(bytes);
+  }
 }

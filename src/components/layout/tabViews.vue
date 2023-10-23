@@ -1,42 +1,49 @@
 <template>
   <div class="tab-views">
-    <!-- <div class="leftout" @click="leftScroll">
-      <NIcon size="large">
-        <LeftOutlined />
-      </NIcon>
-    </div> -->
     <div ref="tagScroll" class="tag-list" @wheel="scrollX">
-      <n-tag
-        size="large"
-        :color="item.fullPath === currentFullpath ? activeColor : tagColor"
-        :bordered="false"
+      <n-dropdown
+        :options="dropOptions"
         v-for="(item, index) in list"
         :key="index"
-        :closable="!item.meta.affix"
-        @close="closeTag(index)"
-        @click="toTargetPage(item)"
-        >{{ item.meta.name }}</n-tag
+        :show="showIndex === index"
+        @select="selectDropItem($event, index)"
+        @clickoutside="() => (showIndex = undefined)"
       >
+        <n-tag
+          size="large"
+          :color="item.fullPath === currentFullpath ? activeColor : tagColor"
+          :bordered="false"
+          :closable="!item.meta.affix"
+          @click.right.prevent="rightClick(index)"
+          @close="closeTag(index)"
+          @click="toTargetPage(item)"
+        >
+          {{ item.meta.name }}
+        </n-tag>
+      </n-dropdown>
     </div>
-    <!-- <div class="rightout">
-      <NIcon size="large">
-        <RightOutlined />
-      </NIcon>
-    </div> -->
+    <div class="dropMenu"></div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useRoute, useRouter } from "vue-router";
 import { tabView, useTabsViewlist } from "@/store/modules/tabsView";
-// import { RightOutlined, LeftOutlined } from "@vicons/antd";
+import { whiteList } from "@/router/index";
+import {
+  ColumnWidthOutlined,
+  MinusOutlined,
+  ArrowLeftOutlined,
+  ArrowRightOutlined,
+} from "@vicons/antd";
 
 const TabsViewlist = useTabsViewlist();
 const Route = useRoute();
 const router = useRouter();
 const tagScroll = ref<any>(null); //dom
 TabsViewlist.initTabs();
-const list: tabView[] = TabsViewlist.tabViewsList as tabView[];
+const showIndex = ref<number>();
+const list = ref<tabView[]>(TabsViewlist.tabViewsList as tabView[]);
 const tagColor = {
   color: "white",
   textColor: "black",
@@ -46,20 +53,48 @@ const activeColor = {
   textColor: "#409eff",
 };
 const currentFullpath = ref<string>();
+const dropOptions = computed(() => {
+  const isDisabled = list.value.length <= 2;
+  return [
+    {
+      label: "关闭左边",
+      key: "1",
+      disabled: isDisabled,
+      icon: () => h(NIcon, null, { default: () => h(ArrowLeftOutlined) }),
+    },
+    {
+      label: "关闭右边",
+      key: "2",
+      disabled: isDisabled,
+      icon: () => h(NIcon, null, { default: () => h(ArrowRightOutlined) }),
+    },
+    {
+      label: "关闭其他",
+      key: "3",
+      disabled: isDisabled,
+      icon: () => h(NIcon, null, { default: () => h(ColumnWidthOutlined) }),
+    },
+    {
+      label: "关闭全部",
+      key: "4",
+      disabled: list.value.length <= 1,
+      icon: () => h(NIcon, null, { default: () => h(MinusOutlined) }),
+    },
+  ];
+});
 function toTargetPage(item: tabView) {
   router.push(item.fullPath);
 }
 function closeTag(index: number) {
-  if (Route.fullPath === list[index]?.fullPath) {
-    const next = list[index - 1].fullPath;
+  if (Route.fullPath === list?.value[index]?.fullPath) {
+    const next = list.value[index - 1].fullPath;
     router.push(next);
   }
   TabsViewlist.delTabitem(index);
 }
-
-// function leftScroll() {
-//   console.log(tagScroll);
-// }
+function rightClick(index: number) {
+  showIndex.value = index;
+}
 function scrollX(event: any) {
   if (event.deltaY > 0) {
     tagScroll.value.scrollLeft += 50;
@@ -67,22 +102,47 @@ function scrollX(event: any) {
     tagScroll.value.scrollLeft -= 50;
   }
 }
+function selectDropItem(key: string, index: number) {
+  switch (key) {
+    case "1":
+      TabsViewlist.delLeftitem(index);
+      router.push(list.value[index].fullPath);
+      list.value = list.value.filter((_item, i) => i >= index || i === 0);
+      break;
+    case "2":
+      TabsViewlist.delRightitem(index);
+      router.push(list.value[index].fullPath);
+      list.value = list.value.filter((_item, i) => i <= index);
+      break;
+    case "3":
+      TabsViewlist.delOtheritem(index);
+      router.push(list.value[index].fullPath);
+      list.value = [list.value[0], list.value[index]];
+      break;
+    case "4":
+      TabsViewlist.delAllitem();
+      list.value = [list.value[0]];
+      router.push(list.value[0].fullPath);
+      break;
+  }
+  showIndex.value = undefined;
+}
 // 监听路由变化
 watch(
   Route,
   (newVal) => {
     const { fullPath, meta, name, query, path, params } = newVal;
     currentFullpath.value = fullPath;
-    if (meta.name !== "登录") {
+    if (!whiteList.includes(path)) {
       TabsViewlist.addTabitem({ fullPath, meta, name, query, path, params });
     }
+    list.value = TabsViewlist.tabViewsList as tabView[];
   },
   { immediate: true }
 );
 window.addEventListener("beforeunload", () => {
   TabsViewlist.saveTabViewsList();
 });
-// window.addEventListener("wheel", scrollX);
 </script>
 
 <style lang="less" scoped>
@@ -91,11 +151,6 @@ window.addEventListener("beforeunload", () => {
   display: flex;
   align-items: center;
   gap: 1rem;
-  .leftout {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-  }
   .tag-list {
     flex: 1;
     display: flex;
@@ -105,11 +160,6 @@ window.addEventListener("beforeunload", () => {
   }
   .tag-list::-webkit-scrollbar {
     display: none;
-  }
-  .rightout {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
   }
 }
 </style>

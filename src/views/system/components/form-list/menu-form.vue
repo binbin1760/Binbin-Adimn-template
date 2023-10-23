@@ -244,9 +244,6 @@ async function submit() {
     pid: menuForm.value.pid,
   });
   const result = (await Menu.addMenu(req)).toObject();
-  console.log(menuForm.value.pid);
-  console.log(result);
-
   if (result.value) {
     emit("closeModal");
   }

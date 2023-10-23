@@ -69,7 +69,6 @@ http.interceptors.response.use(
     return data;
   },
   (error) => {
-    console.log(error, "13");
     return Promise.reject(error);
   }
 );

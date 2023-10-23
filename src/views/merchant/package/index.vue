@@ -42,10 +42,8 @@
         >
       </div>
     </div>
-    <div class="data-table-box">
-      <div class="data-table">
-        <DataTable :columns="column" :data="data"></DataTable>
-      </div>
+    <div class="data-table-box" v-permission="'purchase_pkg:add:admin-filter'">
+      <DataTable :columns="column" :data="data"></DataTable>
       <div class="pagination-box">
         <div class="page-total">共 {{ total }} 项数据</div>
         <n-pagination
@@ -59,7 +57,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { h, ref } from "vue";
+import { h, ref, withDirectives } from "vue";
 import { DataTableColumns } from "naive-ui";
 import type { PackageType } from "./types";
 import { merchant } from "@/api";
@@ -70,6 +68,7 @@ import {
   PurchasePackageCategory,
 } from "@/protoJs";
 import { format } from "date-fns";
+import { permission } from "@/directives/permission";
 const Router = useRouter();
 // select
 const statusOptions = [
@@ -179,28 +178,34 @@ const columnsCreate = (): DataTableColumns<PackageType> => [
           { default: () => "已审核" }
         );
       } else {
-        htemp = h(
-          "span",
-          {
-            onClick: () => todetailPage(row.key),
-            style: {
-              color: "#266FE8",
-              marginRight: "1rem",
-              cursor: "pointer",
+        htemp = withDirectives(
+          h(
+            "span",
+            {
+              onClick: () => todetailPage(row.key),
+              style: {
+                color: "#266FE8",
+                marginRight: "1rem",
+                cursor: "pointer",
+              },
             },
-          },
-          { default: () => "审核" }
+            { default: () => "审核" }
+          ),
+          [[permission, "purchase_pkg:edit:admin-approval-{purchasePackageId"]]
         );
       }
       const list = [
         htemp,
-        h(
-          "span",
-          {
-            onClick: () => todetailPage(row.key),
-            style: { color: "#266FE8", cursor: "pointer" },
-          },
-          { default: () => "查看详情" }
+        withDirectives(
+          h(
+            "span",
+            {
+              onClick: () => todetailPage(row.key),
+              style: { color: "#266FE8", cursor: "pointer" },
+            },
+            { default: () => "查看详情" }
+          ),
+          [[permission, "purchase_pkg:detail:admin-{id}"]]
         ),
       ];
       return list;
@@ -210,11 +215,11 @@ const columnsCreate = (): DataTableColumns<PackageType> => [
 const column = columnsCreate();
 const data = ref<Array<Partial<PackageType>>>();
 // 分页
-const pages = ref<number>(0);
+const pages = ref<number>(1);
 const pageCount = ref<number>();
 const total = ref<number>();
 async function getPacklist() {
-  const page = new PagerRequest({ pageNumber: pages.value, pageSize: 20 });
+  const page = new PagerRequest({ pageNumber: pages.value - 1, pageSize: 20 });
   const req = new TableCmsPurchasePackageFilterRequest({ page });
   const result = await merchant.packageList(req);
   data.value = result.toObject().raws?.map((item) => {
@@ -224,8 +229,8 @@ async function getPacklist() {
   pageCount.value = Math.ceil((result.page?.total as unknown as number) / 20);
 }
 
-function todetailPage(id: string) {
-  Router.push({ path: "/merchant-service/package-detial", query: { id } });
+function todetailPage(data: string) {
+  Router.push({ path: "/merchant-service/package-detial", query: { data } });
 }
 
 function getCurrentPage(page: number) {
@@ -241,7 +246,6 @@ onBeforeMount(() => {
   flex-direction: column;
   background: #ffffff;
   gap: 2rem;
-  border-radius: 2.4rem 2.4rem 0 2.4rem;
   height: 100%;
   .package-header {
     padding-top: 3.9rem;
@@ -281,10 +285,9 @@ onBeforeMount(() => {
       height: 6.4rem;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding-right: 8.1rem;
+      justify-content: center;
+      gap: 0.5rem;
       .page-total {
-        flex: 1;
         text-align: center;
       }
     }
