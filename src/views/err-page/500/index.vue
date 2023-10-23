@@ -1,9 +1,9 @@
 <template>
-  <div class="console">主页</div>
+  <div class="err-500">500 serve</div>
 </template>
 <script setup lang="ts"></script>
 <style scoped lang="less">
-.console {
+.err-500 {
   height: 100%;
   border-radius: 0.8rem;
   background-color: white;
