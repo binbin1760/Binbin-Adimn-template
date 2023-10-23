@@ -1,9 +1,9 @@
 <template>
-  <div class="console">主页</div>
+  <div class="err-404">404 not found</div>
 </template>
 <script setup lang="ts"></script>
 <style scoped lang="less">
-.console {
+.err-404 {
   height: 100%;
   border-radius: 0.8rem;
   background-color: white;

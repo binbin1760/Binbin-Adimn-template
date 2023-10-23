@@ -21,70 +21,22 @@ import type { GlobalThemeOverrides } from "naive-ui";
 import { NConfigProvider } from "naive-ui";
 import { asyncRoutes } from "@/router/index";
 import { useRouter, useRoute } from "vue-router";
-import { Menu, userServe } from "@/api";
 import { ChevronForwardCircleOutline } from "@vicons/ionicons5";
-const roleMenuData = ref();
 const menuOptions = ref<any>();
 const props = defineProps<{
   iscollapsed: boolean;
 }>();
-// 计算侧栏菜单
-Menu.ownMenu().then(async (res) => {
-  roleMenuData.value = res.toObject().routes;
-  const author = (await userServe.ownAuthority()).toObject().authorities;
-  if (author && author.includes("admin")) {
-    menuOptions.value = adminMenu(asyncRoutes);
-  } else {
-    const roleRouter = getMenuItems(asyncRoutes, roleMenuData.value);
-    menuOptions.value = adminMenu(roleRouter);
-  }
-});
-function adminMenu(router: any) {
-  return router.map((MenuItem) => {
-    let item: any = {
-      label: MenuItem.meta.name,
-      key: MenuItem.path,
-      meta: MenuItem.meta,
-      show: MenuItem.meta?.hidden,
-    };
-
-    if (MenuItem.children) {
-      const hiddenChildren = MenuItem?.children?.filter((item) => {
-        if (item.meta?.hidden) {
-          return item;
-        }
-      });
-      if (hiddenChildren?.length === 1) {
-        return {
-          label: MenuItem.children[0].meta.name,
-          key: MenuItem.children[0].path,
-          meta: MenuItem.children[0].meta,
-          show: MenuItem.children[0].meta?.hidden,
-        };
-      } else {
-        item.children = adminMenu(MenuItem.children);
-      }
-    }
-    return item;
-  });
-}
 // 菜单计算
-function getMenuItems(router: Array<any>, list: any) {
-  const pathList = list.map((it) => {
-    return it.path;
+function getMenuItems(router: Array<any>) {
+  return router.map((item) => {
+    let child;
+    if (item.children) {
+      child = getMenuItems(item.children);
+    }
+    return { label: item.meta.name, key: item.path, children: child };
   });
-  const dir = router.filter((MenuItem) => {
-    return pathList.includes(MenuItem.path);
-  });
-  dir.forEach((it) => {
-    const temp = it.children.filter((i) => {
-      return pathList.includes(i.path);
-    });
-    it.children = temp;
-  });
-  return dir;
 }
-
+menuOptions.value = getMenuItems(asyncRoutes);
 const themeOverrides: GlobalThemeOverrides = {
   Menu: {
     itemTextColor: "#BBBBBB",

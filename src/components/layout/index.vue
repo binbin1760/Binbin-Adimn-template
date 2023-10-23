@@ -9,8 +9,7 @@
       :collapsed-width="48"
     >
       <div class="company-logo">
-        <img class="logo" :src="logo" alt="" />
-        <div class="name" v-show="!collapsed">宠+后台管理系统</div>
+        <div class="name" v-show="!collapsed">binbin Admin</div>
       </div>
       <sidemenu :iscollapsed="collapsed"></sidemenu>
     </n-layout-sider>
@@ -75,8 +74,6 @@ import { useRoute, useRouter } from "vue-router";
 import { Refresh, PersonSharp } from "@vicons/ionicons5";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@vicons/antd";
 import tabViews from "./tabViews.vue";
-import { removeUserInfo } from "@/utils/getUserInfo";
-import logo from "@/assets/logo.svg";
 const Route = useRoute();
 const Router = useRouter();
 
@@ -102,7 +99,6 @@ function getDropkey(key: string) {
   }
 }
 function logOut() {
-  removeUserInfo();
   Router.push("/login");
 }
 function reLoadpage() {

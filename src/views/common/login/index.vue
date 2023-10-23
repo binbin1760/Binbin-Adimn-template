@@ -2,9 +2,7 @@
   <div class="login">
     <div class="login-from">
       <div class="loginImg">
-        <div class="icon">
-          <img :src="logo" alt="" />
-        </div>
+        <div class="icon"></div>
         <img class="img" :src="loginImg" alt="" />
       </div>
       <div class="login-tab">
@@ -15,7 +13,6 @@
 </template>
 <script setup lang="ts">
 import loginImg from "@/assets/login/login.png";
-import logo from "@/assets/logo.svg";
 import { Tab } from "./components";
 
 const componentType = ref("");

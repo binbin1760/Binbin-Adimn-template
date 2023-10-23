@@ -69,7 +69,7 @@ export const constantRoute: Array<RouteRecordRaw> = [
   {
     path: "/err/409",
     name: "err490",
-    component: () => import("@/views/common/page-err/409.vue"),
+    component: () => import("@/views/err-page/404/index.vue"),
   },
   {
     path: "/",

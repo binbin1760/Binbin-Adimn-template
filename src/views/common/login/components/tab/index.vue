@@ -101,15 +101,8 @@
 <script setup lang="ts">
 import { GlobalThemeOverrides, CountdownProps } from "naive-ui";
 import { useRouter } from "vue-router";
-import { smsService, login } from "@/api";
-import { setUserInfo, getUserInfo, removeUserInfo } from "@/utils/getUserInfo";
-import { PassportByMobileRequest, ClientType } from "@/protoJs";
 import { PhonePortraitSharp, MailSharp } from "@vicons/ionicons5";
-onMounted(() => {
-  if (getUserInfo()) {
-    Router.push("/dashboard/console");
-  }
-});
+
 // const emit = defineEmits(["change"]);
 const id = ref("");
 const paw = ref("");
@@ -202,42 +195,9 @@ function blurCode() {
 function tologin() {
   Router.push("/dashboard/console");
 }
-async function getCode() {
-  const result = await smsService(phone.value);
-  if (getUserInfo()) {
-    removeUserInfo();
-  }
-  if (result.toObject()) {
-    showTips.value = true;
-    message.value = "已获取验证码，请注意查收";
-    messageStyle.value = {
-      color: "#19BE6B",
-      background: "#E6FAF0",
-      border: "1px solid #CCF5E0",
-    };
-    active.value = true;
-  }
-}
+async function getCode() {}
 async function userRegister() {
-  const req = PassportByMobileRequest.fromObject({
-    mobile: phone.value,
-    clientType: ClientType.H5,
-    captcha: code.value,
-  });
-  login.register(req).then(async (res) => {
-    if (res.toObject().token) {
-      setUserInfo(`Bearer ${res.toObject().token}`);
-      Router.push("/dashboard/console");
-    } else {
-      showTips.value = true;
-      message.value = "验证码不正确或者账号未注册！";
-      messageStyle.value = {
-        color: "#F56C6C",
-        background: "#FFEEE6",
-        border: "1px solid #FFEBCC",
-      };
-    }
-  });
+  Router.push("/dashboard/console");
 }
 // function toRegister() {
 //   emit("change", "register");
