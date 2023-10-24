@@ -28,7 +28,7 @@ const routes: Array<RouteRecordRaw> = [
           hidden: false,
           affix: false,
         },
-        component: () => import("@/views/base-component/base-table/index.vue"),
+        component: () => import("@/views/base-component/base-form/index.vue"),
       },
     ],
   },
