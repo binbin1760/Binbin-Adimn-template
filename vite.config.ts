@@ -4,6 +4,7 @@ import AutoImport from "unplugin-auto-import/vite";
 import Conpoments from "unplugin-vue-components/vite";
 import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
 import { loadEnv } from "vite";
+import { fileURLToPath } from "url";
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
@@ -30,12 +31,16 @@ export default defineConfig(({ mode }) => {
       preprocessorOptions: {
         less: {
           math: "always",
+          additionalData: '@import "./src/styles/global.less";',
+          // globalVars: { 全局less变量
+          //   buttonColor: "red",
+          // },
         },
       },
     },
     resolve: {
       alias: {
-        "@": "/src",
+        "@": fileURLToPath(new URL("./src", import.meta.url)),
       },
     },
     server: {

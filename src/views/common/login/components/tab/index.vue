@@ -195,7 +195,7 @@ function blurCode() {
 function tologin() {
   Router.push("/dashboard/console");
 }
-async function getCode() {}
+function getCode() {}
 async function userRegister() {
   Router.push("/dashboard/console");
 }
