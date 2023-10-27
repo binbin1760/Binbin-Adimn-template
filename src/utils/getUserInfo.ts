@@ -1,11 +1,11 @@
 export function setUserInfo(data: string) {
-  localStorage.setItem("token", data);
+  localStorage.setItem("userInfo", data);
 }
 
 export function getUserInfo() {
-  return localStorage.getItem("token");
+  return localStorage.getItem("userInfo");
 }
 
 export function removeUserInfo() {
-  localStorage.removeItem("token");
+  localStorage.removeItem("userInfo");
 }

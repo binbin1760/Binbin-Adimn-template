@@ -10,6 +10,7 @@ declare module 'vue' {
     AppProvider: typeof import('./../components/AppProvider/index.vue')['default']
     DataTable: typeof import('./../components/data-table/index.vue')['default']
     DatePickerRange: typeof import('./../components/date-picker-range/index.vue')['default']
+    Echarts: typeof import('./../components/Echarts/index.vue')['default']
     Layout: typeof import('./../components/layout/index.vue')['default']
     NAvatar: typeof import('naive-ui')['NAvatar']
     NBreadcrumb: typeof import('naive-ui')['NBreadcrumb']
