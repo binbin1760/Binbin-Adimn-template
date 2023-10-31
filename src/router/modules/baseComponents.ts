@@ -30,6 +30,16 @@ const routes: Array<RouteRecordRaw> = [
         },
         component: () => import("@/views/base-component/base-form/index.vue"),
       },
+      {
+        path: "/base/time-picker",
+        meta: {
+          name: "时间选择器",
+          isRoot: true,
+          hidden: false,
+          affix: false,
+        },
+        component: () => import("@/views/base-component/time-picker/index.vue"),
+      },
     ],
   },
 ];

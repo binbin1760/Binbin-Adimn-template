@@ -2,11 +2,11 @@
   <div class="date-picker-range">
     <n-config-provider :locale="zhCN" :date-locale="dateZhCN">
       <n-date-picker
+        ref="datePickerRef"
         :actions="['confirm']"
         type="daterange"
         :close-on-select="true"
-        :value="dateValue"
-        :on-update:value="getValue"
+        v-model:value="dateValue"
       />
     </n-config-provider>
   </div>
@@ -14,10 +14,7 @@
 <script setup lang="ts">
 import { dateZhCN, zhCN } from "naive-ui";
 import { ref } from "vue";
-
+const datePickerRef = ref<any>(null);
 const dateValue = ref<[number, number]>();
-function getValue(time) {
-  console.log(time);
-}
 </script>
 <style scoped lang="less"></style>

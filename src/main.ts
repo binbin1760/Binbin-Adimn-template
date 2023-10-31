@@ -4,7 +4,8 @@ import { setupRouter } from "./router/index";
 import { setupStore } from "@/store";
 import { setupDirectives } from "@/directives";
 import App from "./App.vue";
-
+// mock
+import "@/mock/index";
 async function initApp() {
   const app = createApp(App);
   setupStore(app);
