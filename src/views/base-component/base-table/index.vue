@@ -3,11 +3,18 @@
     <div class="table">
       <DataTable :columns="columns" :data="Data"></DataTable>
     </div>
+    <div class="pagiNation">
+      <NPagination
+        v-model:page="page"
+        :page-count="pageCount"
+        @update-page="pageUpdate"
+      ></NPagination>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
 import { DataTableColumns } from "naive-ui";
-
+import { getData } from "@/api";
 interface testData {
   key: number;
   name: string;
@@ -18,38 +25,60 @@ interface testData {
 }
 const columnsCreate = (): DataTableColumns<testData> => [
   { title: "昵称", key: "name", align: "center" },
-  { title: "邮箱", key: "email", align: "center" },
-  { title: "排序", key: "sort", align: "left" },
-  { title: "地址", key: "address", align: "center" },
-  { title: "费用", key: "money", align: "center" },
+  {
+    title: "邮箱",
+    key: "email",
+    align: "left",
+    maxWidth: 200,
+    ellipsis: {
+      tooltip: true,
+    },
+  },
+  {
+    title: "排序",
+    key: "sort",
+    align: "center",
+    sorter(row1, row2) {
+      return row1.sort - row2.sort;
+    },
+  },
+  {
+    title: "地址",
+    key: "address",
+    align: "left",
+    maxWidth: 300,
+    ellipsis: {
+      tooltip: true,
+    },
+  },
+  {
+    title: "费用",
+    key: "money",
+    align: "center",
+    sorter(row1, row2) {
+      return row1.sort - row2.sort;
+    },
+    render: (row) => {
+      return h("span", {}, { default: () => `${row.money} 刀` });
+    },
+  },
 ];
-const columns = columnsCreate();
-const Data = ref<Array<Partial<testData>>>([
-  {
-    key: 1,
-    name: "a名称",
-    email: "123456789@qq.com",
-    sort: 1,
-    address: "成都市武侯区金华镇陆坝村",
-    money: "199",
-  },
-  {
-    key: 2,
-    name: "b名称",
-    email: "123456789@qq.com",
-    sort: 1,
-    address: "成都市武侯区金华镇陆坝村",
-    money: "299",
-  },
-  {
-    key: 3,
-    name: "c名称",
-    email: "123456789@qq.com",
-    sort: 1,
-    address: "成都市武侯区金华镇陆坝村",
-    money: "499",
-  },
-]);
+const columns = ref(columnsCreate());
+const Data = ref<Array<Partial<testData>>>();
+const page = ref<number>(1);
+const pageCount = ref<number>();
+async function getTableData() {
+  const res = await getData();
+  const result = JSON.parse(res as unknown as string);
+  Data.value = result.data?.map((item, index) => {
+    return { key: index + 1, ...item };
+  });
+  pageCount.value = result.pageCount;
+}
+function pageUpdate() {
+  getTableData();
+}
+getTableData();
 </script>
 <style scoped lang="less">
 .base-table {
@@ -63,6 +92,11 @@ const Data = ref<Array<Partial<testData>>>([
   flex-direction: column;
   .table {
     flex: 1;
+  }
+  .pagiNation {
+    display: flex;
+    justify-content: center;
+    padding: 1rem 0;
   }
 }
 </style>
