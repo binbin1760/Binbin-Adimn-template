@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AppProvider: typeof import('./../components/AppProvider/index.vue')['default']
+    CustomDialog: typeof import('./../components/popupComponents/customDialog.vue')['default']
     DataTable: typeof import('./../components/data-table/index.vue')['default']
     DatePickerRange: typeof import('./../components/date-picker-range/index.vue')['default']
     Echarts: typeof import('./../components/Echarts/index.vue')['default']

@@ -40,6 +40,16 @@ const routes: Array<RouteRecordRaw> = [
         },
         component: () => import("@/views/base-component/time-picker/index.vue"),
       },
+      {
+        path: "/base/custom-popup-components",
+        meta: {
+          name: "自定义弹窗",
+          isRoot: true,
+          hidden: false,
+          affix: false,
+        },
+        component: () => import("@/views/base-component/base-pop/index.vue"),
+      },
     ],
   },
 ];

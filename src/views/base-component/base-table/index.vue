@@ -4,11 +4,7 @@
       <DataTable :columns="columns" :data="Data"></DataTable>
     </div>
     <div class="pagiNation">
-      <NPagination
-        v-model:page="page"
-        :page-count="pageCount"
-        @update-page="pageUpdate"
-      ></NPagination>
+      <NPagination v-model:page="page" :page-count="pageCount" @update-page="pageUpdate"></NPagination>
     </div>
   </div>
 </template>
@@ -62,6 +58,14 @@ const columnsCreate = (): DataTableColumns<testData> => [
       return h("span", {}, { default: () => `${row.money} 刀` });
     },
   },
+  {
+    title: '操作',
+    key: '',
+    align: 'left',
+    render: () => {
+      return h("span", { style: { cursor: 'pointer', color: 'blue' } }, { default: () => '编辑' })
+    }
+  }
 ];
 const columns = ref(columnsCreate());
 const Data = ref<Array<Partial<testData>>>();
@@ -90,9 +94,11 @@ getTableData();
   font-size: 1.6rem;
   display: flex;
   flex-direction: column;
+
   .table {
     flex: 1;
   }
+
   .pagiNation {
     display: flex;
     justify-content: center;

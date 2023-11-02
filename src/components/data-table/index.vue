@@ -15,11 +15,7 @@
         <div class="set-icon">
           <div class="color-picker" v-if="isStriped">
             <div>自定义斑马线颜色：</div>
-            <NColorPicker
-              v-model:value="stripedColor"
-              :show-alpha="false"
-              size="small"
-            ></NColorPicker>
+            <NColorPicker v-model:value="stripedColor" :show-alpha="false" size="small"></NColorPicker>
           </div>
           <n-dropdown :options="options" @select="getSelect">
             <n-icon size="24">
@@ -28,17 +24,9 @@
           </n-dropdown>
         </div>
       </div>
-      <n-data-table
-        ref="tabeRef"
-        class="n-data-table"
-        :columns="column"
-        :data="props.data"
-        :bordered="true"
-        flex-height
-        :striped="isStriped"
-        pagination-behavior-on-filter="current"
-        @update-checked-row-keys="handleCheck"
-      />
+      <n-data-table ref="tabeRef" class="n-data-table" :bordered="showBorder" :columns="column" :data="props.data"
+        :single-line="!showBorder" :single-column="!showBorder" flex-height :striped="isStriped"
+        pagination-behavior-on-filter="current" @update-checked-row-keys="handleCheck" />
     </div>
   </n-config-provider>
 </template>
@@ -55,16 +43,21 @@ const props = defineProps<props>();
 const emit = defineEmits(["getRowKey"]);
 const options = [
   { label: "开启斑马纹", key: "type1" },
+  { label: "关闭全部分割线", key: "type2" },
   { label: "显示序号", key: "type3" },
 ];
 const tabeRef = ref<any>();
 const isStriped = ref<boolean>(false);
 const showIndex = ref<boolean>(false);
+const showBorder = ref<boolean>(false)
 const stripedColor = ref<string>("#268AD2");
 // 设置-->下拉菜单
 const map = {
   type1: () => {
     isStriped.value = !isStriped.value;
+  },
+  type2: () => {
+    showBorder.value = !showBorder.value
   },
   type3: () => {
     showIndex.value = !showIndex.value;
@@ -104,7 +97,7 @@ const tabeOverrides = computed(() => {
     },
   };
 });
-// 设置-->开启右键编辑
+// 设置-->显示边框border
 </script>
 <style></style>
 <style scoped lang="less">
@@ -112,25 +105,30 @@ const tabeOverrides = computed(() => {
   height: 100%;
   display: flex;
   flex-direction: column;
+
   .table-set {
     display: flex;
     justify-content: space-between;
     cursor: pointer;
   }
+
   .set-icon {
     display: flex;
     gap: 1.6rem;
     align-items: center;
     font-size: 12px;
+
     .color-picker {
       width: 28rem;
       display: flex;
       align-items: center;
+
       div {
         text-wrap: nowrap;
       }
     }
   }
+
   .n-data-table {
     flex: 1;
     border-radius: 5px;
