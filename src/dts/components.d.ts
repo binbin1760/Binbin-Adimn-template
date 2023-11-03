@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    ApplyPass: typeof import('./../components/popupComponents/Poplist/applyPass.vue')['default']
     AppProvider: typeof import('./../components/AppProvider/index.vue')['default']
     CustomDialog: typeof import('./../components/popupComponents/customDialog.vue')['default']
     DataTable: typeof import('./../components/data-table/index.vue')['default']

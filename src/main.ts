@@ -4,6 +4,7 @@ import { setupRouter } from "./router/index";
 import { setupStore } from "@/store";
 import { setupDirectives } from "@/directives";
 import App from "./App.vue";
+import "animate.css";
 // mock
 import "@/mock/index";
 async function initApp() {
