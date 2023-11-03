@@ -1,43 +1,24 @@
-import { VNode } from "vue";
-import { useDialog } from "naive-ui";
+import { createApp } from "vue";
+import { customDialogVue } from "@/components";
 
-export function useMyDialog(options: {
-  title: string;
-  text?: string;
-  contentComponent?: VNode;
-  action?: VNode;
-}) {
-  const dialog = useDialog();
-  const { title, contentComponent, action } = options;
+export function useMyDialog() {
+  const app = () => createApp(customDialogVue);
+  let DialogDom: HTMLDivElement;
 
-  function showDialog(
-    title: string,
-    contentText: string,
-    positiveFn: Function
-  ) {
-    return dialog.warning({
-      title: title,
-      content: contentText,
-      positiveText: "确定",
-      negativeText: "取消",
-      maskClosable: false,
-      onPositiveClick: () => {
-        positiveFn();
-      },
-      onNegativeClick: () => {},
-    });
+  function initPop() {
+    DialogDom = document.createElement("div");
+    app().mount(DialogDom);
+    document.body.appendChild(DialogDom);
   }
 
-  function customDialog() {
-    dialog.warning({
-      title: title,
-      maskClosable: false,
-      content: () => contentComponent,
-      action: () => action,
-    });
+  function destoryPop() {
+    const body = document.getElementsByTagName("body");
+    if (body[0].lastChild) {
+      document.body.removeChild(body[0].lastChild);
+    }
   }
   return {
-    showDialog,
-    customDialog,
+    initPop,
+    destoryPop,
   };
 }

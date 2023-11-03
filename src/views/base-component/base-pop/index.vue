@@ -1,10 +1,11 @@
 <template>
     <div class="base-pop">
-        <customDialogVue></customDialogVue>
+        <NButton type="info" @click="initPop()">启动自定义弹出</NButton>
     </div>
 </template>
-<script setup  lang='ts'>
-import { customDialogVue } from "@/components";
+<script setup lang='ts'>
+import { useMyDialog } from '@/hooks'
+const { initPop } = useMyDialog()
 </script>
 <style scoped lang='less'>
 .base-pop {
