@@ -1,14 +1,11 @@
 <template>
   <n-layout has-sider class="layout">
-    <n-layout-sider
-      class="n-layout-sider-scroll-container"
-      content-style="padding: 0.5rem 0;"
-      width="20rem"
-      collapse-mode="width"
-      :collapsed="collapsed"
-      :collapsed-width="48"
-    >
+    <n-layout-sider class="n-layout-sider-scroll-container" content-style="padding: 0.5rem 0;" width="20rem"
+      collapse-mode="width" :collapsed="collapsed" :collapsed-width="48">
       <div class="company-logo">
+        <n-icon size="24">
+          <Logo />
+        </n-icon>
         <div class="name" v-show="!collapsed">binbin Admin</div>
       </div>
       <sidemenu :iscollapsed="collapsed"></sidemenu>
@@ -31,19 +28,11 @@
               </div>
             </n-icon>
             <n-breadcrumb>
-              <n-breadcrumb-item
-                v-for="(item, index) in breadList"
-                :key="index"
-                >{{ item.key }}</n-breadcrumb-item
-              >
+              <n-breadcrumb-item v-for="(item, index) in breadList" :key="index">{{ item.key }}</n-breadcrumb-item>
             </n-breadcrumb>
             <div class="ohter">
               <!-- 头像下拉菜单 -->
-              <n-dropdown
-                trigger="click"
-                :options="dropOPtions"
-                @select="getDropkey"
-              >
+              <n-dropdown trigger="click" :options="dropOPtions" @select="getDropkey">
                 <n-avatar round size="large">
                   <n-icon size="3rem">
                     <PersonSharp />
@@ -69,7 +58,7 @@
 </template>
 
 <script setup lang="ts">
-import { sidemenu } from "@/components";
+import { sidemenu, Logo } from "@/components";
 import { useRoute, useRouter } from "vue-router";
 import { Refresh, PersonSharp } from "@vicons/ionicons5";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@vicons/antd";
@@ -127,19 +116,20 @@ const key = computed(() => {
   }
 
   .company-logo {
-    height: 4rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px;
-    font-size: 14px;
+    font-size: 18px;
+    gap: 4px;
     color: white;
     overflow: hidden;
     white-space: nowrap;
+
     .name {
       height: 31px;
       line-height: 38px;
     }
+
     .logo {
       width: 2.4rem;
       height: 2.48rem;
@@ -155,6 +145,7 @@ const key = computed(() => {
     flex-direction: column;
     height: 100%;
     gap: 5px;
+
     .tab_header {
       .header {
         font-size: 18px;
@@ -187,10 +178,12 @@ const key = computed(() => {
       gap: 0.5rem;
       overflow-y: scroll;
       padding: 0 0.5rem;
+
       .mainViews {
         flex: 1;
       }
     }
+
     .views::-webkit-scrollbar {
       display: none;
     }

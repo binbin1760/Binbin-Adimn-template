@@ -6,7 +6,11 @@
     </div>
 </template>
 <script setup  lang='ts'>
+// import { VNode } from 'vue';
 import { applyPassVue } from './Poplist'
+// const props = defineProps<{
+//     VN: VNode
+// }>()
 function closePop() {
     const body = document.getElementsByTagName('body')
     if (body[0].lastChild) {
