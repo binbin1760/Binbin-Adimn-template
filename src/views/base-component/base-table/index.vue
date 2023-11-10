@@ -1,7 +1,17 @@
 <template>
   <div class="base-table">
+    <n-card title="组件需求说明">
+      <n-checkbox size="small" v-model:checked="checked" label="1.开启序号" />
+      <n-checkbox size="small" v-model:checked="checked" label="2.斑马纹开关，斑马纹颜色动态调整" />
+      <n-checkbox size="small" v-model:checked="checked" label="3.分割线开关" />
+      <n-checkbox size="small" v-model:checked="checked" label="4.排序" />
+      <n-checkbox size="small" v-model:checked="checked" label="5.双击复制" />
+      <n-checkbox size="small" label="6.框选复制内容" />
+      <n-checkbox size="small" label="7.拖动融合" />
+      <n-checkbox size="small" label="8.可编辑，编辑后自动提交" />
+    </n-card>
     <div class="table">
-      <DataTable :columns="columns" :data="Data"></DataTable>
+      <DataTable ref="tableRef" :columns="columns" :data="Data"></DataTable>
     </div>
     <div class="pagiNation">
       <NPagination v-model:page="page" :page-count="pageCount" @update-page="pageUpdate"></NPagination>
@@ -11,6 +21,12 @@
 <script setup lang="ts">
 import { DataTableColumns } from "naive-ui";
 import { getData } from "@/api";
+import { useMessage } from 'naive-ui'
+import useClipboard from 'vue-clipboard3'
+const message = useMessage()
+const { toClipboard } = useClipboard()
+const tableRef = ref<any>()
+
 interface testData {
   key: number;
   name: string;
@@ -29,6 +45,9 @@ const columnsCreate = (): DataTableColumns<testData> => [
     ellipsis: {
       tooltip: true,
     },
+    render(row) {
+      return h('div', { ondblclick: () => dbclickCopy(row.email) }, { default: () => row.email })
+    }
   },
   {
     title: "排序",
@@ -71,6 +90,11 @@ const columns = ref(columnsCreate());
 const Data = ref<Array<Partial<testData>>>();
 const page = ref<number>(1);
 const pageCount = ref<number>();
+const checked = ref<boolean>(true)
+// 双击复制
+function dbclickCopy(msg: string) {
+  copy(msg)
+}
 async function getTableData() {
   const res = await getData();
   const result = JSON.parse(res as unknown as string);
@@ -79,6 +103,15 @@ async function getTableData() {
   });
   pageCount.value = result.pageCount;
 }
+const copy = async (msg) => {
+  try {
+    await toClipboard(msg)
+    message.success('复制成')
+  } catch (e) {
+    message.error('复制失败')
+  }
+}
+// 表格数据处理
 function pageUpdate() {
   getTableData();
 }
@@ -94,6 +127,12 @@ getTableData();
   font-size: 1.6rem;
   display: flex;
   flex-direction: column;
+  gap: 1.6rem;
+
+  .checkBox {
+    display: flex;
+    flex-direction: column;
+  }
 
   .table {
     flex: 1;
