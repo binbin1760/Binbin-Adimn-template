@@ -1,13 +1,19 @@
 <template>
-  <n-config-provider>
-    <router-view v-slot="{ Component }">
-      <keep-alive>
-        <component :is="Component" />
-      </keep-alive>
-    </router-view>
+  <n-config-provider :theme-overrides="themeOverrides">
+    <router-view />
   </n-config-provider>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { GlobalThemeOverrides } from 'naive-ui';
+const themeOverrides: GlobalThemeOverrides = {
+  Checkbox: {
+    border: '1px solid #63E2B7',
+    colorChecked: '#63E2B7',
+    boxShadowFocus: '#63E2B7',
+    borderFocus: '1px solid #63E2B7',
+  }
+}
+</script>
 
 <style scoped></style>
