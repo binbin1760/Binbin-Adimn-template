@@ -6,9 +6,7 @@
       <n-checkbox size="small" v-model:checked="checked" label="3.分割线开关" />
       <n-checkbox size="small" v-model:checked="checked" label="4.排序" />
       <n-checkbox size="small" v-model:checked="checked" label="5.双击复制" />
-      <n-checkbox size="small" label="6.框选复制内容" />
-      <n-checkbox size="small" label="7.拖动融合" />
-      <n-checkbox size="small" label="8.可编辑，编辑后自动提交" />
+      <n-checkbox size="small" label="6.可编辑，编辑后自动提交" />
     </n-card>
     <div class="table">
       <DataTable ref="tableRef" :columns="columns" :data="Data"></DataTable>
@@ -23,6 +21,7 @@ import { DataTableColumns } from "naive-ui";
 import { getData } from "@/api";
 import { useMessage } from 'naive-ui'
 import useClipboard from 'vue-clipboard3'
+import { ShowOrEdit } from "@/components"
 const message = useMessage()
 const { toClipboard } = useClipboard()
 const tableRef = ref<any>()
@@ -36,7 +35,16 @@ interface testData {
   money: string;
 }
 const columnsCreate = (): DataTableColumns<testData> => [
-  { title: "昵称", key: "name", align: "center" },
+  {
+    title: "昵称", key: "name", align: "center", render(row, index) {
+      return h(ShowOrEdit, {
+        value: row.name, onUpdateValue: (v) => {
+          row.name = v
+          message.success(`目前正在编辑第${index}行！`)
+        }
+      })
+    }
+  },
   {
     title: "邮箱",
     key: "email",
