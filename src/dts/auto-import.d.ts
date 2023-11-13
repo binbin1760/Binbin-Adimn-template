@@ -8,6 +8,7 @@ declare global {
   const EffectScope: typeof import('vue')['EffectScope']
   const NButton: typeof import('naive-ui')['NButton']
   const NIcon: typeof import('naive-ui')['NIcon']
+  const NInput: typeof import('naive-ui')['NInput']
   const NTag: typeof import('naive-ui')['NTag']
   const computed: typeof import('vue')['computed']
   const createApp: typeof import('vue')['createApp']

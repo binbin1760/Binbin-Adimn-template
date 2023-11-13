@@ -66,6 +66,7 @@
     "watchSyncEffect": true,
     "NButton": true,
     "NTag": true,
-    "NIcon": true
+    "NIcon": true,
+    "NInput": true
   }
 }

@@ -27,9 +27,6 @@
       <n-data-table ref="tabeRef" class="n-data-table" :bordered="showBorder" :columns="column" :data="props.data"
         :single-line="!showBorder" :single-column="!showBorder" flex-height :striped="isStriped"
         pagination-behavior-on-filter="current" @update-checked-row-keys="handleCheck" row-class-name="lsb" />
-      <div>
-        <n-button type="success" @click="getTableRef()">获取表格实例</n-button>
-      </div>
     </div>
   </n-config-provider>
 </template>
@@ -100,12 +97,6 @@ const tabeOverrides = computed(() => {
     },
   };
 });
-// 开启拖拽
-function getTableRef() {
-  const box = document.getElementsByClassName('n-data-table-tr')
-  box[0].children[0].setAttribute('draggable', 'true')
-}
-
 </script>
 <style></style>
 <style scoped lang="less">
