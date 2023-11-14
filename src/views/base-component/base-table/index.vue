@@ -5,7 +5,7 @@
       <n-checkbox size="small" v-model:checked="checked" label="2.斑马纹开关，斑马纹颜色动态调整" />
       <n-checkbox size="small" v-model:checked="checked" label="3.分割线开关" />
       <n-checkbox size="small" v-model:checked="checked" label="4.排序" />
-      <n-checkbox size="small" v-model:checked="checked" label="5.双击复制" />
+      <n-checkbox size="small" v-model:checked="checked" label="5.点击Icon复制" />
       <n-checkbox size="small" label="6.可编辑，编辑后自动提交" />
     </n-card>
     <div class="table">
@@ -17,13 +17,12 @@
   </div>
 </template>
 <script setup lang="ts">
-import { DataTableColumns } from "naive-ui";
+import { DataTableColumns, useMessage } from "naive-ui";
 import { getData } from "@/api";
-import { useMessage } from 'naive-ui'
-import useClipboard from 'vue-clipboard3'
 import { ShowOrEdit } from "@/components"
+import { CopyOutline } from "@vicons/ionicons5"
+import { dbclickCopy } from "@/components"
 const message = useMessage()
-const { toClipboard } = useClipboard()
 const tableRef = ref<any>()
 
 interface testData {
@@ -54,7 +53,9 @@ const columnsCreate = (): DataTableColumns<testData> => [
       tooltip: true,
     },
     render(row) {
-      return h('div', { ondblclick: () => dbclickCopy(row.email) }, { default: () => row.email })
+      const prop = { style: { cursor: 'pointer', marginTop: '2px' }, onClick: () => dbclickCopy(row.email, () => { message.success("复制成功") }, () => { message.error("复制成功") }) }
+      const copy = h(NIcon, prop, { default: () => h(CopyOutline) })
+      return h('div', { style: { display: 'flex', alignItems: 'center', gap: '0.8rem' } }, [row.email, copy])
     }
   },
   {
@@ -69,10 +70,14 @@ const columnsCreate = (): DataTableColumns<testData> => [
     title: "地址",
     key: "address",
     align: "left",
-    maxWidth: 300,
-    ellipsis: {
-      tooltip: true,
-    },
+    render(row, index) {
+      return h(ShowOrEdit, {
+        value: row.address, onUpdateValue: (v) => {
+          row.address = v
+          message.success(`目前正在编辑第${index}行！`)
+        }
+      })
+    }
   },
   {
     title: "费用",
@@ -99,10 +104,6 @@ const Data = ref<Array<Partial<testData>>>();
 const page = ref<number>(1);
 const pageCount = ref<number>();
 const checked = ref<boolean>(true)
-// 双击复制
-function dbclickCopy(msg: string) {
-  copy(msg)
-}
 async function getTableData() {
   const res = await getData();
   const result = JSON.parse(res as unknown as string);
@@ -110,14 +111,6 @@ async function getTableData() {
     return { key: index + 1, ...item };
   });
   pageCount.value = result.pageCount;
-}
-const copy = async (msg) => {
-  try {
-    await toClipboard(msg)
-    message.success('复制成')
-  } catch (e) {
-    message.error('复制失败')
-  }
 }
 // 表格数据处理
 function pageUpdate() {
