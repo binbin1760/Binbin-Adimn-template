@@ -12,6 +12,9 @@ const themeOverrides: GlobalThemeOverrides = {
     colorChecked: '#63E2B7',
     boxShadowFocus: '#63E2B7',
     borderFocus: '1px solid #63E2B7',
+  },
+  Form: {
+    labelFontSizeLeftMedium: '16px'
   }
 }
 </script>

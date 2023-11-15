@@ -5,6 +5,7 @@ import DatePickerRange from "./date-picker-range/index.vue";
 import AppProvider from "./AppProvider/index.vue";
 import customDialogVue from "./popupComponents/customDialog.vue";
 import Logo from "./Logo/index.vue";
+import asyncForm from "./asyncForm/index.vue";
 
 export {
   Layout,
@@ -14,7 +15,9 @@ export {
   AppProvider,
   customDialogVue,
   Logo,
+  asyncForm,
 };
 export * from "../components";
 // 导出每个组件下边base中的方法
 export * from "./data-table/base"; //表格组件中的常用方法
+export * from "./asyncForm/base"; //表格组件相关常用方法
