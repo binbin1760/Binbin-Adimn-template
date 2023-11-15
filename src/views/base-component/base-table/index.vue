@@ -6,7 +6,8 @@
       <n-checkbox size="small" v-model:checked="checked" label="3.分割线开关" />
       <n-checkbox size="small" v-model:checked="checked" label="4.排序" />
       <n-checkbox size="small" v-model:checked="checked" label="5.点击Icon复制" />
-      <n-checkbox size="small" label="6.可编辑，编辑后自动提交" />
+      <n-checkbox size="small" v-model:checked="checked" label="6.可编辑，自动提交" />
+      <span>CPU耗尽,暂时不知道做什么</span>
     </n-card>
     <div class="table">
       <DataTable ref="tableRef" :columns="columns" :data="Data"></DataTable>
@@ -39,7 +40,7 @@ const columnsCreate = (): DataTableColumns<testData> => [
       return h(ShowOrEdit, {
         value: row.name, onUpdateValue: (v) => {
           row.name = v
-          message.success(`目前正在编辑第${index}行！`)
+          message.info(`提交的数据为${row.name}---索引为${index}`)
         }
       })
     }
@@ -74,7 +75,7 @@ const columnsCreate = (): DataTableColumns<testData> => [
       return h(ShowOrEdit, {
         value: row.address, onUpdateValue: (v) => {
           row.address = v
-          message.success(`目前正在编辑第${index}行！`)
+          message.info(`提交的数据为${row.address}---索引为${index}`)
         }
       })
     }
