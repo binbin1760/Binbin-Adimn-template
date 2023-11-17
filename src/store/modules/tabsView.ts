@@ -20,7 +20,7 @@ export const useTabsViewlist = defineStore({
   getters: {},
   actions: {
     initTabs() {
-      const result = localStorage.getItem("tagView");
+      const result = localStorage.getItem("BinbinAdmintagView");
       if (result) {
         this.tabViewsList = JSON.parse(result as string);
       } else {

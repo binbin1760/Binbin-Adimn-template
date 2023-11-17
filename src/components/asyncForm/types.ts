@@ -18,9 +18,10 @@ export type typeFormItem =
   | "checkBox"
   | "radio"
   | "fileUpload"
-  // | "imgUpload" //没搞定fileUpload 不忙搞
-  | "cascader"
-  | "datePicker";
+  | "cascader";
+// | "imgUpload" //没搞定fileUpload 不忙搞
+// | "datePicker";//不急 有点难度
+
 //  rule
 export type RuleType = {
   message: string;
@@ -31,8 +32,10 @@ export type RuleType = {
 // 表单配置
 export interface typeFormItemConfig {
   type: typeFormItem;
-  key: string; //需要收集的数据的名称
-  label: string;
+  key?: string; //需要收集的数据的名称
+  value?: string | null;
+  label?: string;
+  options?: Array<any>;
   rule?: RuleType; //校验规则
   labelPlacement?: "left" | "top";
 }
