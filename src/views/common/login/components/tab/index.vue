@@ -199,12 +199,6 @@ function getCode() {}
 async function userRegister() {
   Router.push("/dashboard/console");
 }
-// function toRegister() {
-//   emit("change", "register");
-// }
-// function forgetPaw() {
-//   emit("change", "forgetpaw");
-// }
 </script>
 <style scoped>
 .card-tabs {

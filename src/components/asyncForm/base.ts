@@ -1,38 +1,11 @@
-import {
-  verifyBankCard,
-  verifyEmail,
-  verifyIdCard,
-  verifyPhone,
-  verifyReg,
-} from "./regUtils";
-import { RuleType } from "./types";
-
-// 根据formitem 类型 初始化数据收集对象的值
-export function initFormItemValue(type: string) {
-  const initValue = {
-    input: "",
-    selet: null,
-    checkBox: null,
-    radio: null,
-    fileUpload: null,
-    imgUpload: null,
-    cascader: null,
-    datePicker: null,
-  };
-  return initValue[type];
-}
-export function initFormItemRule(rules: RuleType) {
-  const ruleFnList = {
-    email: verifyEmail,
-    phone: verifyPhone,
-    bankCard: verifyBankCard,
-    idCard: verifyIdCard,
-    reg: verifyReg,
-  };
-  return {
-    message: rules.message,
-    required: rules.required,
-    trigger: rules.trigger,
-    validator: ruleFnList[rules.validator],
-  };
+// 校验规则
+const regList = {
+  phone: /^1[3-9][0-9]{9}$/,
+  email: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+  idCard: /^\d{15}|\d{18}$/,
+  banckCard: /^([1-9]{1})(\d{15}|\d{18})$/,
+};
+// 其他验证规则
+export function verifyReg(allow: string, value: any) {
+  return regList[allow].test(value);
 }
