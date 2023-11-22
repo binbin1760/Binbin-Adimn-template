@@ -1,3 +1,3 @@
 export * from "./useDialog";
 export * from "./useEchart";
-export * from "./useDataTabe";
+export * from "./useMessage";

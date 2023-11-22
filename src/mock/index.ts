@@ -13,3 +13,10 @@ Mock.mock("/table/data", "get", {
     },
   ],
 });
+
+Mock.mock("/apply/data", "get", {
+  status: 200,
+  data: {
+    "a|1": true,
+  },
+});
