@@ -6,3 +6,10 @@ export function getData() {
     method: "get",
   });
 }
+
+export function testMessage() {
+  return request({
+    url: "/apply/data",
+    method: "get",
+  });
+}

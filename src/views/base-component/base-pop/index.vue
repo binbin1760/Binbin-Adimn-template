@@ -1,28 +1,43 @@
 <template>
-    <div class="base-pop">
-        <n-card title="组件需求说明">
-            <div> 1.是否需要遮盖侧栏菜单，如果不遮盖侧栏菜单那是否需要考虑缓存当前页面团床问题</div>
-            <div> 2.自动销毁，避免内存泄漏</div>
-            <div> 3.函数式调用</div>
-            <div> 4.可以通过传入VNode参数的形势来，动态指定渲染的组件。 从而达到超高度的样式定制化</div>
-            <div> 5.一个小小的细节，通过插入节点和销毁节点的时候要注意页面的复杂度，避免不必要的重构和重绘造成性能损失</div>
-        </n-card>
-        <NButton type="info" @click="initPop()">启动自定义弹出</NButton>
-    </div>
+  <div class="base-pop">
+    <div>二次封装dialog，hooks中集中管理样式</div>
+    <NButton type="info" @click="openDialog"> 启动自定义dialog </NButton>
+    <div>二次封装message ,hooks集中管理样式</div>
+    <NButton type="info" @click="getData">启动自定义Message</NButton>
+    <div>异步请求，loading success error</div>
+    <NButton type="info">网络请求响应</NButton>
+  </div>
 </template>
-<script setup lang='ts'>
-import { useMyDialog } from '@/hooks'
-const { initPop } = useMyDialog()
+<script setup lang="ts">
+import { useMyDialog, customMessage } from "@/hooks";
+import { testMessage } from "@/api";
+const { showDialog } = useMyDialog();
+const { loadingMessage } = customMessage();
+
+function openDialog() {
+  showDialog("提示", "Dialog已启动", () => {});
+}
+
+async function getData() {
+  const result = await testMessage();
+  const data = JSON.parse(result as unknown as any).data.a;
+  loadingMessage("正在请求，请稍等", "loading", 0);
+  if (data) {
+    loadingMessage("操作成功", "success", 1500);
+  } else {
+    loadingMessage("操作失败", "error", 1500);
+  }
+}
 </script>
-<style scoped lang='less'>
+<style scoped lang="less">
 .base-pop {
-    height: 100%;
-    flex: 1;
-    padding: 1.6rem;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4rem;
+  height: 100%;
+  flex: 1;
+  padding: 1.6rem;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4rem;
 }
 </style>

@@ -67,6 +67,7 @@
     "NButton": true,
     "NTag": true,
     "NIcon": true,
-    "NInput": true
+    "NInput": true,
+    "NFormItem": true
   }
 }
