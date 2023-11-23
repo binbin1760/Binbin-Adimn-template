@@ -5,6 +5,8 @@ type CachedData = {
   params: any;
   timer: Timer | undefined;
   time: number;
+  staleTime: number;
+  loading: boolean | undefined;
 };
 
 type Listener = (data: any) => void;
@@ -17,7 +19,9 @@ const setCache = (
   key: CachedKey,
   cacheTime: number,
   data: any,
-  params: any
+  params: any,
+  staleTime: number,
+  loading?: boolean
 ) => {
   const currentCache = cache.get(key);
 
@@ -42,6 +46,8 @@ const setCache = (
     params,
     timer,
     time: new Date().getTime(),
+    staleTime,
+    loading,
   });
 };
 
