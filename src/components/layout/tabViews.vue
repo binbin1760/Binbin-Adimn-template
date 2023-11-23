@@ -1,23 +1,11 @@
 <template>
   <div class="tab-views">
     <div ref="tagScroll" class="tag-list" @wheel="scrollX">
-      <n-dropdown
-        :options="dropOptions"
-        v-for="(item, index) in list"
-        :key="index"
-        :show="showIndex === index"
-        @select="selectDropItem($event, index)"
-        @clickoutside="() => (showIndex = undefined)"
-      >
-        <n-tag
-          size="large"
-          :color="item.fullPath === currentFullpath ? activeColor : tagColor"
-          :bordered="false"
-          :closable="!item.meta.affix"
-          @click.right.prevent="rightClick(index)"
-          @close="closeTag(index)"
-          @click="toTargetPage(item)"
-        >
+      <n-dropdown :options="dropOptions" v-for="(item, index) in list" :key="index" :show="showIndex === index"
+        @select="selectDropItem($event, index)" @clickoutside="() => (showIndex = undefined)">
+        <n-tag size="large" :color="item.fullPath === currentFullpath ? activeColor : tagColor" :bordered="false"
+          :closable="!item.meta.affix" @click.right.prevent="rightClick(index)" @close="closeTag(index)"
+          @click="toTargetPage(item)">
           {{ item.meta.name }}
         </n-tag>
       </n-dropdown>
@@ -151,6 +139,7 @@ window.addEventListener("beforeunload", () => {
   display: flex;
   align-items: center;
   gap: 1rem;
+
   .tag-list {
     flex: 1;
     display: flex;
@@ -158,6 +147,7 @@ window.addEventListener("beforeunload", () => {
     gap: 1rem;
     overflow-x: scroll;
   }
+
   .tag-list::-webkit-scrollbar {
     display: none;
   }
