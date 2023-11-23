@@ -55,10 +55,13 @@ export const useTabsViewlist = defineStore({
       this.tabViewsList = [this.tabViewsList[0]];
     },
     saveTabViewsList() {
-      localStorage.setItem("tagView", JSON.stringify(this.tabViewsList));
+      localStorage.setItem(
+        "BinbinAdmintagView",
+        JSON.stringify(this.tabViewsList)
+      );
     },
     getTabViewsList() {
-      const result = localStorage.getItem("tagView");
+      const result = localStorage.getItem("BinbinAdmintagView");
       return JSON.parse(result as string);
     },
   },
