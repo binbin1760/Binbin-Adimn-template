@@ -20,3 +20,22 @@ Mock.mock("/apply/data", "get", {
     "a|1": true,
   },
 });
+// 测试动态Draw组件
+// keyVal: string,
+// label: string,
+// vnodeName: 'divider' | 'imgBox' | 'labelKey' | 'title',
+// weight: '400' | '500',
+// textcolor?:string
+Mock.mock("/draw/data", "get", {
+  status: 200,
+  data: [
+    {
+      keyVal: "name",
+      label: "测试数据：",
+      vnodeName: "labelKey",
+      weight: "400",
+      textcolor: "red",
+      data: "测试lableKey",
+    },
+  ],
+});

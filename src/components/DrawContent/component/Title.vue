@@ -1,0 +1,21 @@
+<template>
+    <div class="title">
+        {{ props.config.label }}
+    </div>
+</template>
+<script setup  lang='ts'>
+import { DrawContentType } from '@/components'
+const props = defineProps<{
+    config: DrawContentType,
+    data?: string
+}>()
+</script>
+<style scoped lang='less'>
+.title {
+    font-family: 'PingFangSC-Medium';
+    font-size: 14px;
+    color: #030303;
+    font-weight: 500;
+    background: red
+}
+</style>
