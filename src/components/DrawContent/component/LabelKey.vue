@@ -1,0 +1,39 @@
+<template>
+    <div class="label-value">
+        <div class="label">{{ props.config.label }}</div>
+        <div class="value" :style="style">{{ props.data }}</div>
+    </div>
+</template>
+<script setup  lang='ts'>
+import { DrawContentType } from '@/components'
+const props = defineProps<{
+    config: DrawContentType
+    data: string
+}>()
+
+const { textcolor, weight } = props.config
+const style = {
+    color: textcolor ? textcolor : '#000000',
+    fontWeight: weight
+}
+
+</script>
+<style scoped lang='less'>
+.label-value {
+    display: flex;
+    font-family: 'PingFangSC-Regular';
+    font-size: 14px;
+    margin-top: 1.2rem;
+
+    .label {
+        color: #4D4D4D;
+        font-weight: 400;
+        white-space: nowrap;
+    }
+
+    .value {
+        color: #000000;
+        white-space: wrap;
+    }
+}
+</style>

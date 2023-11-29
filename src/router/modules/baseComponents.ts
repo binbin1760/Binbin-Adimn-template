@@ -40,6 +40,16 @@ const routes: Array<RouteRecordRaw> = [
         },
         component: () => import("@/views/base-component/base-pop/index.vue"),
       },
+      {
+        path: "/base/custom-component/draw",
+        meta: {
+          name: "数据驱动抽屉",
+          isRoot: true,
+          hidden: false,
+          affix: false,
+        },
+        component: () => import("@/views/base-component/base-draw/index.vue"),
+      },
     ],
   },
 ];
