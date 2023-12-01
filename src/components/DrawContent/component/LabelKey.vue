@@ -1,7 +1,10 @@
 <template>
-    <div class="label-value">
-        <div class="label">{{ props.config.label }}</div>
-        <div class="value" :style="style">{{ props.data }}</div>
+    <div class="label-value-box">
+        <div class="label-value">
+            <div class="label">{{ props.config.label }}</div>
+            <div class="value" :style="style">{{ props.data }}</div>
+        </div>
+        <slot name="down"></slot>
     </div>
 </template>
 <script setup  lang='ts'>

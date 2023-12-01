@@ -30,6 +30,13 @@ Mock.mock("/draw/data", "get", {
   status: 200,
   data: [
     {
+      keyVal: "title",
+      label: "测试title",
+      vnodeName: "title",
+      weight: "400",
+      data: "测试lableKey",
+    },
+    {
       keyVal: "name",
       label: "测试数据：",
       vnodeName: "labelKey",
