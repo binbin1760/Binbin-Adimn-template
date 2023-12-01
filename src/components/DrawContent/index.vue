@@ -7,9 +7,7 @@
                     <template #header>
                         <DrawHeader :title="props.title" @close="closeDraw()" />
                     </template>
-                    <div id="content">
-                        <comp />
-                    </div>
+                    <comp />
                     <template #footer>
                         <div class="btns">
                             <div class="pass">通过</div>
@@ -24,7 +22,6 @@
 <script setup  lang='ts'>
 import { DrawHeader } from "@/components"
 import Divider from "./component/Divider.vue";
-import ImgBox from "./component/ImgBox.vue";
 import LabelKey from "./component/LabelKey.vue";
 import Title from "./component/Title.vue";
 
@@ -38,13 +35,12 @@ const { query } = props
 
 const list = {
     divider: Divider,
-    imgBox: ImgBox,
     labelKey: LabelKey,
     title: Title
 }
 
 
-let comp: any
+let comp = ref(() => h('div', null))
 function createContentItem(config: any) {
     return h(list[config.vnodeName], { config: config, data: config.data })
 }
@@ -54,15 +50,16 @@ async function createContent() {
     const list = JSON.parse(result).data.map(item => {
         return createContentItem(item)
     })
-    comp = () => h('div', null, list)
+    comp.value = () => h('div', null, list)
 }
-createContent()
-function showDraw() {
 
+function showDraw() {
+    createContent()
     show.value = true
 }
 function closeDraw() {
     show.value = false
+    comp.value = () => h('div', null)
     emit('close')
 }
 defineExpose({

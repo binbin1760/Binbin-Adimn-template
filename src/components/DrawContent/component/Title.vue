@@ -16,6 +16,5 @@ const props = defineProps<{
     font-size: 14px;
     color: #030303;
     font-weight: 500;
-    background: red
 }
 </style>
