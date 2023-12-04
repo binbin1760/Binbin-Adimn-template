@@ -30,11 +30,8 @@ Mock.mock("/draw/data", "get", {
   status: 200,
   data: [
     {
-      keyVal: "title",
-      label: "测试title",
+      data: "测试title",
       vnodeName: "title",
-      weight: "400",
-      data: "测试lableKey",
     },
     {
       keyVal: "name",
@@ -43,6 +40,42 @@ Mock.mock("/draw/data", "get", {
       weight: "400",
       textcolor: "red",
       data: "测试lableKey",
+    },
+    {
+      data: "测试分割线",
+      vnodeName: "title",
+    },
+    {
+      keyVal: "name",
+      label: "测试数据：",
+      vnodeName: "labelKey",
+      weight: "400",
+      textcolor: "red",
+      data: "测试lableKey",
+    },
+    {
+      data: "测试分割线2",
+      vnodeName: "title",
+    },
+    {
+      keyVal: "name",
+      label: "测试数据：",
+      vnodeName: "labelKey",
+      weight: "400",
+      textcolor: "red",
+      data: "测试lableKey",
+    },
+    {
+      data: "测试分割线2",
+      vnodeName: "title",
+    },
+    {
+      keyVal: "name",
+      label: "测试数据：",
+      vnodeName: "labelKey",
+      weight: "400",
+      textcolor: "red",
+      data: "测试lableKey啊实打实大苏打实打实大苏打打实打实大苏打打实打实大苏打打实打实大苏打打实打实大苏打打实打实大苏打打实打实大苏打打实打实大苏打",
     },
   ],
 });

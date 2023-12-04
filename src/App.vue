@@ -15,6 +15,9 @@ const themeOverrides: GlobalThemeOverrides = {
   },
   Form: {
     labelFontSizeLeftMedium: '16px'
+  },
+  Drawer: {
+    bodyPadding: '16px 0 16px 24px'
   }
 }
 </script>
