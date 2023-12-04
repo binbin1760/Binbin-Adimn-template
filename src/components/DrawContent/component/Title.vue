@@ -1,13 +1,11 @@
 <template>
     <div class="title">
-        {{ props.config.label }}
+        {{ props?.data }}
     </div>
 </template>
 <script setup  lang='ts'>
-import { DrawContentType } from '@/components'
 const props = defineProps<{
-    config: DrawContentType,
-    data?: string
+    data: string
 }>()
 </script>
 <style scoped lang='less'>

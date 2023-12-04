@@ -2,7 +2,8 @@
     <div class="label-value-box">
         <div class="label-value">
             <div class="label">{{ props.config.label }}</div>
-            <div class="value" :style="style">{{ props.data }}</div>
+            <div v-if="props.config.data" class="value" :style="style">{{ props.config.data }}</div>
+            <slot name="right"></slot>
         </div>
         <slot name="down"></slot>
     </div>
@@ -11,7 +12,6 @@
 import { DrawContentType } from '@/components'
 const props = defineProps<{
     config: DrawContentType
-    data: string
 }>()
 
 const { textcolor, weight } = props.config
@@ -37,6 +37,7 @@ const style = {
     .value {
         color: #000000;
         white-space: wrap;
+        padding-right: 12px;
     }
 }
 </style>

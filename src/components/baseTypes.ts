@@ -1,3 +1,5 @@
+import { VNode } from "vue";
+
 export type btnType = {
   class: "add-btn" | "ban-btn";
   color: "#F5F5F5" | "#0083FF";
@@ -16,9 +18,12 @@ export type ConfigType = {
 };
 
 export type DrawContentType = {
-  keyVal: string;
-  label: string;
-  vnodeName: "divider" | "labelKey" | "title";
-  weight: "400" | "500";
+  data: string | string[];
+  vnodeName: "labelKey" | "title";
+  keyVal?: string;
+  label?: string;
+  weight?: "400" | "500";
   textcolor?: string;
+  downSolt?: VNode;
+  rightSolt?: VNode;
 };
