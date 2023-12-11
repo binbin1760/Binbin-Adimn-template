@@ -177,7 +177,9 @@ const key = computed(() => {
       flex-direction: column;
       gap: 0.5rem;
       overflow-y: scroll;
-      padding: 0 0.5rem;
+      padding: 0.8rem;
+      box-sizing: border-box;
+
 
       .mainViews {
         flex: 1;

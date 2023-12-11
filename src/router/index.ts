@@ -80,6 +80,7 @@ export const constantRoute: Array<RouteRecordRaw> = [
     redirect: "/login",
   },
 ];
+
 const routes = [...constantRoute, ...asyncRoutes];
 const routerHistory: RouterHistory = createWebHistory();
 const customRouterOptions: CustomRouterOptions = {
