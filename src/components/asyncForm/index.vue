@@ -1,73 +1,40 @@
 <template>
-  <!-- render的优先级高于 template -->
+  <n-space :size="36" vertical justify="center">
+      <n-form :model="modelObj">
+      <n-form-item
+        :label="item.label"
+        label-placement="left"
+        :path="item.keyVal"
+        v-for="(item, index) in formItemArr"
+        :key="index"
+      >
+        <FormItem :config="item" />
+      </n-form-item>
+    </n-form>
+    <n-space :size="12"  justify="center">
+      <n-button type="info" @click="confirm">查看</n-button>
+    </n-space>
+  </n-space>
 </template>
-<script lang="ts">
-import { NForm, useMessage } from "naive-ui";
-import { defineComponent, PropType, h, provide } from "vue";
-import { typeFormItemConfig } from "./types";
-import { selectFormitem } from "./formItemList";
+<script setup lang="ts">
+import { FormItemType } from "./types";
+import FormItem from "./FormItem.vue";
+import { provide } from 'vue'
+const props = defineProps<{
+  formItems: FormItemType[];
+}>();
 
-export default defineComponent({
-  name: "async-form",
+const formItemArr = ref(props.formItems)
+const modelObj = Object.fromEntries(formItemArr.value.map(item => {
+  return [item.keyVal, item.value]
+}))
+const formData = ref(modelObj)
 
-  inheritAttrs: false,
+provide('formData', formData.value)
 
-  props: {
-    formItemConfig: {
-      type: Object as PropType<typeFormItemConfig[]>,
-      required: true,
-    },
-    formConfig: {
-      type: Object as PropType<any>,
-      required: true,
-    },
-  },
+function confirm() { 
+  console.log(formData.value);
+}
 
-  setup(props, ctx) {
-    const { expose } = ctx;
-    const message = useMessage();
-    const model = ref(props.formItemConfig);
-    // n-form 组件的props对象
-    const nFormProps = ref(props.formConfig);
-    // form-item 组件表
-    const itemList = model.value.map((item) => {
-      const itemComponent = selectFormitem(item.type);
-      return h(
-        NFormItem,
-        {
-          label: item.label,
-          labelPlacement: item.labelPlacement,
-        },
-        {
-          default: () => h(itemComponent, { config: item }),
-        }
-      );
-    });
-    const temp = model.value.map((item) => {
-      return [item.key, item.value];
-    });
-
-    // 数据收集
-    const formVal = ref<any>(Object.fromEntries(temp));
-    // 使用 provid 与 reject 收集 每一个formitem 的数据
-    provide("formData", formVal.value);
-    function submit() {
-      message.success(JSON.stringify(formVal.value), { duration: 5000 });
-      console.log(formVal.value);
-    }
-    expose({
-      submit,
-    });
-    return () =>
-      h(
-        NForm,
-        {
-          model: formVal.value,
-          ...nFormProps.value,
-        },
-        { default: () => itemList }
-      );
-  },
-});
 </script>
 <style scoped lang="less"></style>
