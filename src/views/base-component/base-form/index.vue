@@ -1,82 +1,43 @@
 <template>
   <div class="base-form">
     <n-space vertical :size="20">
-      <div class="form">
-        <div>动态表单</div>
-        <asyncForm
-          ref="asyncFormRef"
-          :form-config="formProps"
-          :form-item-config="model"
-        ></asyncForm>
-        <n-button type="info" @click="submit">提交</n-button>
+      重写asyncForm
+      <div class="asyncForm">
+        <asyncForm :form-items="config"></asyncForm>
       </div>
     </n-space>
   </div>
 </template>
 <script setup lang="ts">
-import { asyncForm } from "@/components";
-import { typeFormItemConfig } from "@/components/asyncForm/types";
-const asyncFormRef = ref<any>(null);
-const formProps = ref({
-  labelPlacement: "left",
-  labelWidth: "120px",
-  style: {
-    border: "1px solid #cccccc",
-    padding: "1.6rem",
-    borderRadius: "12px",
-    width: "350px",
-  },
-});
-const model = ref<typeFormItemConfig[]>([
+import { asyncForm } from '@/components'
+import { FormItemType } from '@/components/asyncForm/types'
+
+const config = ref<FormItemType[]>([
   {
-    type: "input",
-    key: "name",
-    value: "",
-    label: "名字",
-    labelPlacement: "left",
+    componentName: 'input',
+    keyVal: "name",
+    value: "123",
+    placeholder: '请输入名称',
+    label:'名称'
   },
   {
-    type: "input",
-    key: "serch",
-    value: "",
-    label: "搜索内容",
-    labelPlacement: "left",
-  },
-  {
-    type: "fileUpload",
-    key: "file",
-    value: "",
-    label: "文件上传",
-    labelPlacement: "left",
-  },
-  {
-    type: "select",
-    key: "peet",
-    value: null,
-    label: "品种",
+    componentName: 'input',
+    keyVal: "age",
+    value: "12",
+    placeholder: '请输入年龄',
+    label:'年龄'
+  }, {
+    componentName: 'select',
+    keyVal: 'category',
+    value: 1,
+    placeholder: '请选择你的品种',
+    label: '品种',
     options: [
-      { label: "猫猫", value: "cat" },
-      { label: "狗子", value: "dog" },
-      { label: "热狗", value: "hotdog" },
-    ],
-    labelPlacement: "left",
-  },
-  {
-    type: "checkBox",
-    key: "peet2",
-    value: null,
-    label: "品种",
-    options: [
-      { label: "猫猫", value: "cat" },
-      { label: "狗子", value: "dog" },
-      { label: "热狗", value: "hotdog" },
-    ],
-    labelPlacement: "left",
-  },
-]);
-function submit() {
-  asyncFormRef.value.submit();
-}
+      { label: '品种1', value: 1 },
+      { label: '品种2', value: 2 }
+    ]
+  }
+])
 </script>
 <style scoped lang="less">
 .base-form {
@@ -86,12 +47,8 @@ function submit() {
   padding: 1rem;
   box-sizing: border-box;
   font-size: 1.6rem;
-
-  .form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.6rem;
+  .asyncForm{
+    width: 400px;
   }
 }
 </style>

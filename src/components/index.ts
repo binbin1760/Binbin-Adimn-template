@@ -26,3 +26,4 @@ export * from "../components";
 export * from "./data-table/base"; //表格组件中的常用方法
 export * from "./asyncForm/base"; //表格组件相关常用方法
 export * from "./baseTypes"; // compents 全部的类型
+export * from "./asyncForm/types"

@@ -20,6 +20,26 @@ const routes: Array<RouteRecordRaw> = [
         },
         component: () => import("@/views/company-business/index.vue"),
       },
+      {
+        path: "/company-business/Editor",
+        meta: {
+          name: "富文本编辑器",
+          isRoot: true,
+          hidden: true,
+          affix: false,
+        },
+        component: () => import("@/views/company-business/Editor/index.vue"),
+      },
+      {
+        path: "/company-business/canvas",
+        meta: {
+          name: "canvas预演",
+          isRoot: true,
+          hidden: true,
+          affix: false,
+        },
+        component: () => import("@/views/company-business/canvas/index.vue"),
+      },
     ],
   },
 ];
