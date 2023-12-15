@@ -27,3 +27,10 @@ export type DrawContentType = {
   downSolt?: VNode;
   rightSolt?: VNode;
 };
+
+export type AsyncDraw = {
+  name: "Divider" | "Title";
+  data: any;
+  textColor?: string,
+  textWeight?:string
+};
