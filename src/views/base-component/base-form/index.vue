@@ -26,7 +26,8 @@ const config = ref<FormItemType[]>([
     value: "12",
     placeholder: '请输入年龄',
     label:'年龄'
-  }, {
+  },
+  {
     componentName: 'select',
     keyVal: 'category',
     value: 1,
@@ -35,6 +36,32 @@ const config = ref<FormItemType[]>([
     options: [
       { label: '品种1', value: 1 },
       { label: '品种2', value: 2 }
+    ]
+  },
+  {
+    componentName: 'radioGroup',
+    keyVal: 'category1',
+    value: 1,
+    placeholder: '32123',
+    label: '测试radio',
+    options: [
+      { label: '测试1', value: 1 },
+      { label: '测试2', value: 2 }
+    ]
+  },
+  {
+    componentName: 'handleUpload',
+    keyVal: 'imgUrl',
+    value:undefined,
+    label:'测试图片手动上传'
+  },
+  {
+    componentName: 'checkboxGroup',
+    keyVal: 'checkVal',
+    label: '测试CheckBoxGroup',
+    options: [
+      { label: '测试1', value: 1 },
+      { label: '测试2', value: 2 }
     ]
   }
 ])
