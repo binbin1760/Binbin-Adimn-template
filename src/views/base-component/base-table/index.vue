@@ -23,6 +23,7 @@ import { getData } from "@/api";
 import { ShowOrEdit } from "@/components"
 import { CopyOutline } from "@vicons/ionicons5"
 import { dbclickCopy } from "@/components"
+import { usePagination } from '@/hooks'
 const message = useMessage()
 const tableRef = ref<any>()
 
@@ -112,12 +113,15 @@ async function getTableData() {
     return { key: index + 1, ...item };
   });
   pageCount.value = result.pageCount;
+  return res
 }
 // 表格数据处理
 function pageUpdate() {
   getTableData();
 }
 getTableData();
+const { data } = usePagination(getTableData)
+console.log(data.value,'123');
 </script>
 <style scoped lang="less">
 .base-table {
