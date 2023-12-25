@@ -7,7 +7,8 @@
                     <template #header>
                         <DrawHeader :title="props.title" @close="closeDraw()" />
                     </template>
-                    <comp />
+                    <comp v-if="props.config" />
+                    <slot v-else>主要内容</slot>
                     <template #footer>
                         <div class="btns">
                             <div class="pass">通过</div>
@@ -20,7 +21,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import { DrawHeader } from "@/components";
+import  DrawHeader  from "./DrawHeader/index.vue";
 import Divider from "./component/Divider.vue";
 import LabelKey from "./component/LabelKey.vue";
 import Title from "./component/Title.vue";

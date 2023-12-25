@@ -6,7 +6,6 @@ import AppProvider from "./AppProvider/index.vue";
 import customDialogVue from "./popupComponents/customDialog.vue";
 import Logo from "./Logo/index.vue";
 import asyncForm from "./asyncForm/index.vue";
-import DrawHeader from "./DrawHeader/index.vue";
 import DrawContent from "./DrawContent/index.vue";
 
 export {
@@ -18,7 +17,6 @@ export {
   customDialogVue,
   Logo,
   asyncForm,
-  DrawHeader,
   DrawContent,
 };
 export * from "../components";

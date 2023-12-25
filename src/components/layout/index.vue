@@ -6,7 +6,7 @@
         <n-icon size="24">
           <Logo />
         </n-icon>
-        <div class="name" v-show="!collapsed">binbin Admin</div>
+        <div class="name" v-show="!collapsed">BinBin Admin</div>
       </div>
       <sidemenu :iscollapsed="collapsed"></sidemenu>
     </n-layout-sider>
@@ -31,6 +31,10 @@
               <n-breadcrumb-item v-for="(item, index) in breadList" :key="index">{{ item.key }}</n-breadcrumb-item>
             </n-breadcrumb>
             <div class="ohter">
+              <!-- 系统设置 -->
+              <n-icon size="32">
+                <SettingsSharp/>
+              </n-icon>
               <!-- 头像下拉菜单 -->
               <n-dropdown trigger="click" :options="dropOPtions" @select="getDropkey">
                 <n-avatar round size="large">
@@ -60,7 +64,7 @@
 <script setup lang="ts">
 import { sidemenu, Logo } from "@/components";
 import { useRoute, useRouter } from "vue-router";
-import { Refresh, PersonSharp } from "@vicons/ionicons5";
+import { Refresh, PersonSharp , SettingsSharp } from "@vicons/ionicons5";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@vicons/antd";
 import tabViews from "./tabViews.vue";
 const Route = useRoute();
@@ -167,6 +171,9 @@ const key = computed(() => {
           cursor: pointer;
           display: flex;
           align-items: center;
+          display: flex;
+          align-items: center;
+          gap: 16px;
         }
       }
     }
