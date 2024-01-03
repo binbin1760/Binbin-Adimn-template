@@ -20,3 +20,10 @@ export function testAsyncDraw() {
     method: "get",
   });
 }
+
+export function testPromise() {
+  return request({
+    url: '/async/data',
+    method:'post'
+  })
+ }

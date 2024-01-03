@@ -1,18 +1,20 @@
 <template>
   <n-space :size="36" vertical justify="center">
       <n-form :model="modelObj">
-      <n-form-item
+        <n-form-item
         :label="item.label"
         label-placement="left"
         :path="item.keyVal"
         v-for="(item, index) in formItemArr"
         :key="index"
-      >
+        >
         <FormItem :config="item" />
       </n-form-item>
     </n-form>
     <n-space :size="12"  justify="center">
-      <n-button type="info" @click="confirm">查看</n-button>
+      <n-button type="info" @click="confirm">
+        <slot>提交</slot>
+      </n-button>
     </n-space>
   </n-space>
 </template>
