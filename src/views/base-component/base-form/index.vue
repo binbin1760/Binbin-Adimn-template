@@ -3,7 +3,7 @@
     <n-space vertical :size="20">
       重写asyncForm
       <div class="asyncForm">
-        <asyncForm :form-items="config"></asyncForm>
+        <asyncForm :form-items="config">确认</asyncForm>
       </div>
     </n-space>
   </div>

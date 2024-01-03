@@ -7,6 +7,7 @@ import customDialogVue from "./popupComponents/customDialog.vue";
 import Logo from "./Logo/index.vue";
 import asyncForm from "./asyncForm/index.vue";
 import DrawContent from "./DrawContent/index.vue";
+import CustomSelect from "./asyncForm/component/select.vue"
 
 export {
   Layout,
@@ -18,6 +19,7 @@ export {
   Logo,
   asyncForm,
   DrawContent,
+  CustomSelect,
 };
 export * from "../components";
 // 导出每个组件下边base中的方法

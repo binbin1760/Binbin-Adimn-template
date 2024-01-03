@@ -16,7 +16,7 @@ const routes: Array<RouteRecordRaw> = [
           name: "哈喽算法",
           isRoot: true,
           hidden: true,
-          affix: true,
+          affix: false,
         },
         component: () => import("@/views/hello-algo/index.vue"),
       },

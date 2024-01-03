@@ -40,6 +40,26 @@ const routes: Array<RouteRecordRaw> = [
         },
         component: () => import("@/views/company-business/canvas/index.vue"),
       },
+      {
+        path: "/company-business/async",
+        meta: {
+          name: "异步相关",
+          isRoot: true,
+          hidden: true,
+          affix: false,
+        },
+        component: () => import("@/views/company-business/async/index.vue"),
+      },
+      {
+        path: "/company-business/skualgo",
+        meta: {
+          name: "SKU库存",
+          isRoot: true,
+          hidden: true,
+          affix: false,
+        },
+        component: () => import("@/views/company-business/sku-algo/index.vue"),
+      },
     ],
   },
 ];
