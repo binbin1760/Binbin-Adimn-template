@@ -9,6 +9,9 @@ import { fileURLToPath } from "url";
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   return {
+    define: {
+      __VUE_PROD_HYDRATION_MISMATCH_DETAILS_:true
+    },
     plugins: [
       vue(),
       AutoImport({
