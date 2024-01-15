@@ -20,6 +20,16 @@ const routes: Array<RouteRecordRaw> = [
         },
         component: () => import("@/views/about-vue/css-modules/index.vue"),
       },
+      {
+        path: "/aboutvue/defineModel",
+        meta: {
+          name: "DefindeModel",
+          isRoot: true,
+          hidden: false,
+          affix: false,
+        },
+        component:()=>import("@/views/about-vue/defineModel/index.vue")
+      },
     ],
   },
 ];
